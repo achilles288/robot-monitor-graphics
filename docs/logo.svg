@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg enable-background="new 0 0 512 512" version="1.1" viewBox="0 0 512 512" xml:space="preserve" xmlns="http://www.w3.org/2000/svg" xmlns:cc="http://creativecommons.org/ns#" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:rdf="http://www.w3.org/1999/02/22-rdf-syntax-ns#"><metadata><rdf:RDF><cc:Work rdf:about=""><dc:format>image/svg+xml</dc:format><dc:type rdf:resource="http://purl.org/dc/dcmitype/StillImage"/></cc:Work></rdf:RDF></metadata>
+<path d="m302.54 69.818c0-25.707-20.84-46.545-46.545-46.545s-46.545 20.838-46.545 46.545c0 17.225 9.365 32.254 23.273 40.304v83.818h46.545v-83.818c13.908-8.049 23.272-23.079 23.272-40.304z" fill="#b693ef"/>
+<path d="m256 23.273v170.67h23.273v-83.818c13.908-8.049 23.273-23.077 23.273-40.304-1e-3 -25.707-20.841-46.545-46.546-46.545z" fill="#7a5ab0"/>
+<rect y="240.48" width="248.24" height="124.12" fill="#b693ef"/>
+<rect x="263.76" y="240.48" width="248.24" height="124.12" fill="#7a5ab0"/>
+<rect x="186.18" y="364.61" width="139.64" height="124.12" fill="#b693ef"/>
+<rect x="256" y="364.61" width="69.818" height="124.12" fill="#7a5ab0"/>
+<rect x="46.545" y="162.91" width="418.91" height="279.27" fill="#daccf9"/>
+<rect x="256" y="162.91" width="209.46" height="279.27" fill="#b693ef"/>
+<path d="m193.94 271.52c0 17.138-13.894 31.03-31.03 31.03s-31.03-13.892-31.03-31.03 13.894-31.03 31.03-31.03c17.137 0 31.03 13.892 31.03 31.03z" fill="#523c76"/>
+<path d="m380.12 271.52c0 17.138-13.894 31.03-31.03 31.03-17.137 0-31.03-13.892-31.03-31.03s13.894-31.03 31.03-31.03 31.03 13.892 31.03 31.03z" fill="#2a1e3b"/>
+<path d="m186.18 349.09c0 38.558 31.258 69.818 69.818 69.818 38.558 0 69.818-31.26 69.818-69.818h-139.64z" fill="#523c76"/>
+<path d="m256 349.09v69.818c38.558 0 69.818-31.26 69.818-69.818h-69.818z" fill="#2a1e3b"/>
+</svg>
