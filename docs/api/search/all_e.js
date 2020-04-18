@@ -1,0 +1,15 @@
+var searchData=
+[
+  ['text_2dalignment_2ehpp',['text-alignment.hpp',['../text-alignment_8hpp.html',1,'']]],
+  ['text2d',['Text2D',['../classrmg_1_1Text2D.html',1,'rmg::Text2D'],['../classrmg_1_1Object2D.html#a059ebb4fd676589859b7bf629446b947',1,'rmg::Object2D::Text2D()'],['../classrmg_1_1Text2D.html#ad14de79a689e9c15b852c88073bce61d',1,'rmg::Text2D::Text2D(Context *ctx)'],['../classrmg_1_1Text2D.html#a0a5f1a2910f7e14f9fd707710eb300ad',1,'rmg::Text2D::Text2D(Context *ctx, std::string f)'],['../classrmg_1_1Text2D.html#add528a6e1362d71f484a26b9f2c81b28',1,'rmg::Text2D::Text2D(Context *ctx, Font *ft)'],['../classrmg_1_1Text2D.html#a96ac338b2965a5063da41056a28d290d',1,'rmg::Text2D::Text2D(Context *ctx, std::string f, float s)'],['../classrmg_1_1Text2D.html#a73833a9deffb9020dc413f26f0c43e7a',1,'rmg::Text2D::Text2D(Context *ctx, Font *ft, float s)'],['../classrmg_1_1Text2D.html#a652220ba0873beeb82a1879faad63259',1,'rmg::Text2D::Text2D(const Text2D &amp;obj)'],['../classrmg_1_1Text2D.html#a1939bff40b14c8d7a0c3904dd708f207',1,'rmg::Text2D::Text2D(Text2D &amp;&amp;obj) noexcept']]],
+  ['text2d_2ehpp',['text2d.hpp',['../text2d_8hpp.html',1,'']]],
+  ['text_5fcenter',['TEXT_CENTER',['../namespacermg.html#a564cac77f7c250878f41f50fed22d297a9f0bead614304b13a9994b7d4fd76535',1,'rmg']]],
+  ['text_5fleft',['TEXT_LEFT',['../namespacermg.html#a564cac77f7c250878f41f50fed22d297af0e2fd9e542e34e4f034b1055ed142ae',1,'rmg']]],
+  ['text_5fright',['TEXT_RIGHT',['../namespacermg.html#a564cac77f7c250878f41f50fed22d297a94c798354fba716022253633e1dee7a8',1,'rmg']]],
+  ['textalignment',['TextAlignment',['../namespacermg.html#a564cac77f7c250878f41f50fed22d297',1,'rmg']]],
+  ['texture',['Texture',['../classrmg_1_1Texture.html',1,'rmg::Texture'],['../classrmg_1_1Texture.html#a790fc06a506ee365a5c405336439381a',1,'rmg::Texture::Texture(Context *ctx, std::string f)'],['../classrmg_1_1Texture.html#a29a5fb00a4b35bad88536d93b12c82c2',1,'rmg::Texture::Texture(const Texture &amp;tex)=delete'],['../classrmg_1_1Texture.html#aa9a249702440121427d6fcc773f86bd8',1,'rmg::Texture::Texture(Texture &amp;&amp;tex) noexcept']]],
+  ['texture_2ehpp',['texture.hpp',['../texture_8hpp.html',1,'']]],
+  ['texture_5fload_2ehpp',['texture_load.hpp',['../texture__load_8hpp.html',1,'']]],
+  ['textureloadpending',['TextureLoadPending',['../classrmg_1_1internal_1_1TextureLoadPending.html',1,'rmg::internal::TextureLoadPending'],['../classrmg_1_1internal_1_1TextureLoadPending.html#a4d1bd4982e6f7718b976796479b7e3f4',1,'rmg::internal::TextureLoadPending::TextureLoadPending(Texture *tex, std::vector&lt; uint8_t &gt; &amp;dat, uint16_t w, uint16_t h, uint8_t c)'],['../classrmg_1_1internal_1_1TextureLoadPending.html#a1739a6fb12ea944b1453d7d1a9f45106',1,'rmg::internal::TextureLoadPending::TextureLoadPending(const TextureLoadPending &amp;tex)'],['../classrmg_1_1internal_1_1TextureLoadPending.html#ad95e2f8bfe6c92b824fa80c5af9908e1',1,'rmg::internal::TextureLoadPending::TextureLoadPending(TextureLoadPending &amp;&amp;tex) noexcept']]],
+  ['type',['type',['../classrmg_1_1Object.html#a9da9b415506f1ecc342a9c36507ce5e5',1,'rmg::Object']]]
+];
