@@ -25,36 +25,11 @@
     extensions: ["tex2jax.js"],
     jax: ["input/TeX","output/HTML-CSS"],
 });
-</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+<script type="text/javascript" src="../pages/api/header.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript">
-window.addEventListener("load", function() {
-    if(window.innerWidth < 700) {
-        $("#projectname").innerHTML = "RMGraphics";
-        $("#projectbrief").style.display = "none";
-    }
-    if(window.innerWidth < 800) {
-        $("#doc-content").css({marginLeft:6+"px"});
-        $("#side-nav").css({width:0 + "px"});
-    }
-    var handle = document.getElementsByClassName("ui-resizable-handle");
-    for(let i=0; i<handle.length; i++) {
-        var new_element = handle[i].cloneNode(true);
-        handle[i].parentNode.replaceChild(new_element, handle[i]);
-    }
-});
-window.addEventListener("resize", function() {
-    if(window.innerWidth < 700) {
-        $("#projectname").innerHTML = "RMGraphics";
-        $("#projectbrief").style.display = "none";
-    }
-    else {
-        $("#projectname").innerHTML = "Robot Monitor Graphics";
-        $("#projectbrief").style.display = "block";
-    }
-});
-</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -118,7 +93,6 @@ $(document).ready(function(){initNavTree('dir_eb2ca9f0e8f5a33b2deef8a85a1ddbf1.h
 <div class="contents">
 <h3>rmg &rarr; math Relation</h3><table class="dirtab"><tr class="dirtab"><th class="dirtab">File in rmg</th><th class="dirtab">Includes file in rmg/math</th></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="context_8hpp.html">context.hpp</a></td><td class="dirtab"><a class="el" href="euler_8hpp.html">euler.hpp</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="context_8hpp.html">context.hpp</a></td><td class="dirtab"><a class="el" href="vec_8hpp.html">vec.hpp</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="math_8hpp.html">math.hpp</a></td><td class="dirtab"><a class="el" href="euler_8hpp.html">euler.hpp</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="math_8hpp.html">math.hpp</a></td><td class="dirtab"><a class="el" href="mat3_8hpp.html">mat3.hpp</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="math_8hpp.html">math.hpp</a></td><td class="dirtab"><a class="el" href="mat4_8hpp.html">mat4.hpp</a></td></tr><tr class="dirtab"><td class="dirtab"><a class="el" href="math_8hpp.html">math.hpp</a></td><td class="dirtab"><a class="el" href="vec_8hpp.html">vec.hpp</a></td></tr></table></div><!-- contents -->
 </div><!-- doc-content -->
-<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

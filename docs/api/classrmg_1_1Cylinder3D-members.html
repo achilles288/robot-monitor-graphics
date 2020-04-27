@@ -25,36 +25,11 @@
     extensions: ["tex2jax.js"],
     jax: ["input/TeX","output/HTML-CSS"],
 });
-</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
+</script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
+<script type="text/javascript" src="../pages/api/header.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
 <link href="style.css" rel="stylesheet" type="text/css"/>
-<script type="text/javascript">
-window.addEventListener("load", function() {
-    if(window.innerWidth < 700) {
-        $("#projectname").innerHTML = "RMGraphics";
-        $("#projectbrief").style.display = "none";
-    }
-    if(window.innerWidth < 800) {
-        $("#doc-content").css({marginLeft:6+"px"});
-        $("#side-nav").css({width:0 + "px"});
-    }
-    var handle = document.getElementsByClassName("ui-resizable-handle");
-    for(let i=0; i<handle.length; i++) {
-        var new_element = handle[i].cloneNode(true);
-        handle[i].parentNode.replaceChild(new_element, handle[i]);
-    }
-});
-window.addEventListener("resize", function() {
-    if(window.innerWidth < 700) {
-        $("#projectname").innerHTML = "RMGraphics";
-        $("#projectbrief").style.display = "none";
-    }
-    else {
-        $("#projectname").innerHTML = "Robot Monitor Graphics";
-        $("#projectbrief").style.display = "block";
-    }
-});
-</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -175,7 +150,6 @@ $(document).ready(function(){initNavTree('classrmg_1_1Cylinder3D.html','');});
   <tr><td class="entry"><a class="el" href="classrmg_1_1Object3D.html#ae27721bd16fb0ce51ee9812d0972c7cf">~Object3D</a>()</td><td class="entry"><a class="el" href="classrmg_1_1Object3D.html">rmg::Object3D</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
-<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

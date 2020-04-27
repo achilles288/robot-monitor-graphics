@@ -13,38 +13,19 @@
 <script type="text/javascript" src="$relpath^dynsections.js"></script>
 $treeview
 $search
-$mathjax
-<link href="$relpath^$stylesheet" rel="stylesheet" type="text/css" />
-$extrastylesheet
 
-<script type="text/javascript">
-window.addEventListener("load", function() {
-    if(window.innerWidth < 700) {
-        $("#projectname").innerHTML = "RMGraphics";
-        $("#projectbrief").style.display = "none";
-    }
-    if(window.innerWidth < 800) {
-        $("#doc-content").css({marginLeft:6+"px"});
-        $("#side-nav").css({width:0 + "px"});
-    }
-    var handle = document.getElementsByClassName("ui-resizable-handle");
-    for(let i=0; i<handle.length; i++) {
-        var new_element = handle[i].cloneNode(true);
-        handle[i].parentNode.replaceChild(new_element, handle[i]);
-    }
-});
-window.addEventListener("resize", function() {
-    if(window.innerWidth < 700) {
-        $("#projectname").innerHTML = "RMGraphics";
-        $("#projectbrief").style.display = "none";
-    }
-    else {
-        $("#projectname").innerHTML = "Robot Monitor Graphics";
-        $("#projectbrief").style.display = "block";
-    }
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
 });
 </script>
+<script type="text/javascript" async src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js"></script>
 
+<script type="text/javascript" src="../pages/api/header.js"></script>
+
+<link href="$relpath^$stylesheet" rel="stylesheet" type="text/css" />
+$extrastylesheet
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
