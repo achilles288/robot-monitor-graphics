@@ -15,6 +15,9 @@
 #ifndef __RMG_CONTEXT_H__
 #define __RMG_CONTEXT_H__
 
+#include <rmg/math/vec.hpp>
+#include <rmg/math/euler.hpp>
+
 #include <list>
 #include <map>
 #include <queue>
@@ -24,6 +27,9 @@
 
 namespace rmg {
 
+struct Color;
+struct Plane;
+
 class Object;
 class Object2D;
 class Object3D;
@@ -32,14 +38,18 @@ class Line3D;
 class Texture;
 class Font;
 
-class internal::VBOLoadPending;
-class internal::TexturePending;
-class internal::FontPending;
-class internal::GeneralShader;
-class internal::ShadowMapShader;
-class internal::SpriteShader;
-class internal::ParticleShader;
-class internal::Line3DShader;
+namespace internal {
+
+class VBOLoadPending;
+class TexturePending;
+class FontPending;
+class GeneralShader;
+class ShadowMapShader;
+class SpriteShader;
+class ParticleShader;
+class Line3DShader;
+
+}
 
 
 /**
@@ -158,6 +168,13 @@ class Context {
     void setBackgroundColor(float r, float g, float b);
     
     /**
+     * @brief Sets context background color
+     * 
+     * @param col RGB color
+     */
+    void setBackgroundColor(const Color &col);
+    
+    /**
      * @brief Gets context background color
      * 
      * @return RGB color
@@ -182,7 +199,7 @@ class Context {
      * 
      * @param pos Camera position
      */
-    void setCameraTranslation(Vec3 pos);
+    void setCameraTranslation(const Vec3 &pos);
     
     /**
      * @brief Sets rotation of the camera
@@ -202,11 +219,33 @@ class Context {
      * @brief Sets rotation of the camera
      * 
      * Sets the view matrix. Rotation of the camera is in Euler angles.
+     * Rotation order is ZYX (Yaw-Pitch-Roll). Initial camera direction
+     * or X-axis is along the Y-axis of the world (rotation values of
+     * (0,0,0)).
+     * 
+     * @param x Roll
+     * @param y Pitch
+     * @param z Yaw
+     * @param unit The previous params are degree or radian
+     */
+    inline void setCameraRotation(float x, float y, float z, AngleUnit unit) {
+        if(unit == UNIT_RADIAN)
+            setCameraRotation(x, y, z);
+        else
+            setCameraRotation(radian(x), radian(y), radian(z));
+    }
+    
+    /**
+     * @brief Sets rotation of the camera
+     * 
+     * Sets the view matrix. Rotation of the camera is in Euler angles.
      * Rotation order is ZYX (Yaw-Pitch-Roll).
      * 
      * @param rot Euler angles
      */
-    void setCameraRotation(Vec3 rot);
+    inline void setCameraRotation(const Euler &rot) {
+        setCameraRotation(rot.x, rot.y, rot.z);
+    }
     
     /**
      * @brief Gets xyz position of the camera
@@ -225,7 +264,7 @@ class Context {
      *
      * @return Rotation in Euler angles
      */
-    Vec3 getCameraRotation();
+    Euler getCameraRotation();
     
     /**
      * @brief Sets the parameters for perspective projection
@@ -294,6 +333,16 @@ class Context {
     void setDirectionalLightColor(float r, float g, float b, float lum);
     
     /**
+     * @brief Sets the directional lighting color
+     * 
+     * Directional light takes the main role in fragment shaders and
+     * shadow mappings for 3D object viewing.
+     * 
+     * @param col RGBA color. Alpha component is used as light intensity.
+     */
+    void setDirectionalLightColor(const Color &col);
+    
+    /**
      * @brief Gets the directional lighting color
      * 
      * RGB color. Light intensity is in place of alpha component.
@@ -325,9 +374,33 @@ class Context {
      * with angle values of zeros is pointed towards the Y-axis which
      * is the same as initial camera direction.
      * 
+     * @param pitch Angle above xy-plane
+     * @param yaw Angle about z-axis
+     * @param unit Radian or degree
+     */
+    inline void setDirectionalLightAngles(float pitch, float yaw,
+                                          AngleUnit unit)
+    {
+        if(unit == UNIT_RADIAN)
+            setDirectionalLightAngles(pitch, yaw);
+        else
+            setDirectionalLightAngles(radian(pitch), radian(yaw));
+    }
+    
+    /**
+     * @brief Sets the directional lighting angles
+     * 
+     * Directional light takes the main role in fragment shaders and
+     * shadow mappings for 3D object viewing. Rotation order is
+     * ZY (Yaw-Pitch). Rolling has no effect. Directional light vector
+     * with angle values of zeros is pointed towards the Y-axis which
+     * is the same as initial camera direction.
+     * 
      * @param rot Euler angles
      */
-    void setDirectionalLightAngles(Vec3 rot);
+    inline void setDirectionalLightAngles(const Vec3 &rot) {
+        setDirectionalLightAngles(rot.y, rot.z);
+    }
     
     /**
      * @brief Gets the directional lighting angles
@@ -351,6 +424,15 @@ class Context {
     Vec2 worldToScreen(float x, float y, float z);
     
     /**
+     * @brief Converts world coordinate to screen coordinate
+     * 
+     * Useful when displaying 2D sprites and texts around 3D objects.
+     * 
+     * @param p 3D point in world space
+     */
+    Vec2 worldToScreen(const Vec3 &p);
+    
+    /**
      * @brief Converts screen coordinate to world coordinate
      * 
      * Useful when interacting 3D objects with a mouse.
@@ -358,7 +440,7 @@ class Context {
      * @param p Point on screen
      * @param plane Plane in 3D world the mouse interacts
      */
-    Vec3 screenToWorld(Vec2 p, rmgPlane plane);
+    Vec3 screenToWorld(const Vec2 &p, const Plane &plane);
     
     /**
      * @brief Appends a 2D/3D object to the display list

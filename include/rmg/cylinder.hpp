@@ -22,7 +22,9 @@
 #include <utility>
 
 
-class rmg::internal::VBOLoad;
+namespace rmg::internal {
+class VBOLoad;
+}
 
 
 namespace rmg {
@@ -139,6 +141,19 @@ class Cylinder3D: public Object3D {
      * @param z Scaling factor in z-component
      */
     void setScale(float x, float y, float z) override;
+    
+    /**
+     * @brief Sets the scale of the cube
+     * 
+     * Sets the scale and the model matrix.
+     * The function is virtual as the derived classes' handling of model
+     * matrix involves additional scaling components.
+     * Model matrix calculation includes additional factors length, width and
+     * height.
+     * 
+     * @param f Scaling factor
+     */
+    void setScale(float f) override;
 };
 
 }

@@ -1,5 +1,5 @@
 /**
- * @file text-alignment.hpp
+ * @file text_alignment.hpp
  * @brief Enumeration to determine the alignment of text
  * 
  * Supports the rendering operations for Text2D.

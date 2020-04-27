@@ -43,7 +43,7 @@ class Font {
      * @param ctx Conatiner context
      * @param f Path to font file (.ttf)
      */
-    Font(Context* ctx, std::string f);
+    Font(Context* ctx, const std::string &f);
     
     /**
      * @brief Destructor

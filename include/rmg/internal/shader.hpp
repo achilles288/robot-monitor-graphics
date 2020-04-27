@@ -35,7 +35,7 @@ class Shader {
     uint32_t id;
     Context* context;
     
-    void compileShader(uint32_t shaderID, std::string path);
+    void compileShader(uint32_t shaderID, const std::string &path);
     
   public:
     /**
@@ -46,7 +46,7 @@ class Shader {
     Shader(Context* ctx);
     
     /**
-     * @brief Copy constructor
+     * @brief Destructor
      */
     virtual ~Shader();
     
@@ -56,7 +56,8 @@ class Shader {
      * @param vert Path to vertex shader
      * @param frag Path to fragment shader
      */
-    void compileShaderProgram(std::string vert, std::string frag);
+    void compileShaderProgram(const std::string &vert,
+                              const std::string &frag);
 };
 
 }}

@@ -122,7 +122,7 @@ class Particle3D: public Object {
      * 
      * @param pos Position vector
      */
-    void setPosition(Vec3 pos);
+    void setPosition(const Vec3 &pos);
     
     /**
      * @brief Gets the location of the particle
@@ -158,7 +158,7 @@ class Particle3D: public Object {
      * 
      * @param size Size
      */
-    void setSize(Vec2 size);
+    void setSize(const Vec2 &size);
     
     /**
      * @brief Gets the size of the particle

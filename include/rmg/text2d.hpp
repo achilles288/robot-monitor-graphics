@@ -17,7 +17,7 @@
 
 #include <rmg/object2d.hpp>
 #include <rmg/font.hpp>
-#include <rmg/text-alignment.hpp>
+#include <rmg/text_alignment.hpp>
 
 
 namespace rmg {
@@ -52,7 +52,7 @@ class Text2D: public Object2D {
      * @param ctx Container context
      * @param f Path to font file
      */
-    Text2D(Context* ctx, std::string f);
+    Text2D(Context* ctx, const std::string &f);
     
     /**
      * @brief Constructor with loaded font
@@ -69,7 +69,7 @@ class Text2D: public Object2D {
      * @param f Path to font file
      * @param s Font size
      */
-    Text2D(Context* ctx, std::string f, float s);
+    Text2D(Context* ctx, const std::string &f, float s);
     
     /**
      * @brief Constructor with loaded font and font size
@@ -118,7 +118,7 @@ class Text2D: public Object2D {
      * 
      * @param txt String to display
      */
-    void setText(std::string txt);
+    void setText(const std::string &txt);
     
     /**
      * @brief Gets the text to display
@@ -132,7 +132,7 @@ class Text2D: public Object2D {
      * 
      * @param f Path to font file
      */
-    void setFont(std::string f);
+    void setFont(const std::string &f);
     
     /**
      * @brief Sets the font of the text object

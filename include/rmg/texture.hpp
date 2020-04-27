@@ -43,7 +43,7 @@ class Texture {
      * @param ctx Conatiner context
      * @param f Path to image file (.png)
      */
-    Texture(Context* ctx, std::string f);
+    Texture(Context* ctx, const std::string &f);
     
     /**
      * @brief Destructor

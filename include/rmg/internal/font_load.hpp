@@ -50,7 +50,7 @@ class FontLoadPending {
      *           responses after loading.
      * @param dat Data array
      */
-    FontLoadPending(Font* ft, std::vector<uint8_t>& dat);
+    FontLoadPending(Font* ft, const std::vector<uint8_t> &dat);
     
     /**
      * @brief Destructor

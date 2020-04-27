@@ -36,7 +36,7 @@ class Sprite2D: public Object2D {
      * @param ctx Container context
      * @param img Image file (supports the same format Texture class does)
      */
-    Sprite2D(Context* ctx, std::string img);
+    Sprite2D(Context* ctx, const std::string &img);
     
     /**
      * @brief Constructs a sprite object with a preloaded texture
@@ -53,7 +53,7 @@ class Sprite2D: public Object2D {
      * @param img Image file (supports the same format Texture class does)
      * @param size Sprite size
      */
-    Sprite2D(Context* ctx, std::string img, Vec2 size);
+    Sprite2D(Context* ctx, const std::string &img, const Vec2 &size);
     
     /**
      * @brief Constructs a sprite object with a preloaded texture
@@ -62,7 +62,7 @@ class Sprite2D: public Object2D {
      * @param tex Loaded texture
      * @param size Sprite size
      */
-    Sprite2D(Context* ctx, Texture* tex, Vec2 size);
+    Sprite2D(Context* ctx, Texture* tex, const Vec2 &size);
     
     /**
      * @brief Destructor

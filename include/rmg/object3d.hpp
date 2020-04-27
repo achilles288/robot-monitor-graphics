@@ -24,12 +24,21 @@
 #include <memory>
 
 
-class rmg::internal::VBOLoad;
-class rmg::internal::GeneralShader;
-class rmg::internal::ShadowMapShader;
-
-
 namespace rmg {
+
+class Context;
+class Cube3D;
+class Cylinder3D;
+class Sphere3D;
+
+namespace internal {
+
+class VBOLoad;
+class GeneralShader;
+class ShadowMapShader;
+
+}
+
 
 /**
  * @brief 3D object whose model and appearance can be controlled quickly
@@ -121,7 +130,7 @@ class Object3D: public Object {
      * 
      * @param pos Position vector
      */
-    void setPosition(Vec3 pos);
+    void setPosition(const Vec3 &pos);
     
     /**
      * @brief Gets the 3D coordinate which the object appears
@@ -151,10 +160,32 @@ class Object3D: public Object {
      * 
      * Sets the rotation matrix and the model matrix. Rotation of the object
      * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
+     * The function is virtual as the derived classes' handling of model
+     * matrix involves additional scaling components.
+     * 
+     * @param x Roll
+     * @param y Pitch
+     * @param z Yaw
+     * @param unit If the previous params are degree or radian
+     */
+    inline void setRotation(float x, float y, float z, AngleUnit unit) {
+        if(unit == UNIT_RADIAN)
+            setRotation(x, y, z);
+        else
+            setRotation(radian(x), radian(y), radian(z));
+    }
+    
+    /**
+     * @brief Sets the orientaion of the 3D object
+     * 
+     * Sets the rotation matrix and the model matrix. Rotation of the object
+     * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
      * 
      * @param rot Euler angles
      */
-    void setRotation(Vec3 rot);
+    inline void setRotation(const Euler &rot) {
+        setRotation(rot.x, rot.y, rot.z);
+    }
     
     /**
      * @brief Gets the orientaion of the 3D object
@@ -181,9 +212,22 @@ class Object3D: public Object {
     /**
      * @brief Sets the scale of the 3D object
      * 
+     * Sets the scale and the model matrix.
+     * The function is virtual as the derived classes' handling of model
+     * matrix involves additional scaling components.
+     * 
      * @param f Scaling factor
      */
-    void setScale(float f);
+    virtual void setScale(float f);
+    
+    /**
+     * @brief Sets the scale of the 3D object
+     * 
+     * @param scale Scale vector
+     */
+    inline void setScale(const Vec3 &scale) {
+        setScale(scale.x, scale.y, scale.z);
+    }
     
     /**
      * @brief Gets the scale of the 3D object

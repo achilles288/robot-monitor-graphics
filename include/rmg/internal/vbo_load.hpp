@@ -57,10 +57,10 @@ class VBOLoadPending {
      * @param in Indecies
      */
     VBOLoadPending(VBOLoad* vbo,
-                   std::vector<Vec3>& vert,
-                   std::vector<Vec3>& norm,
-                   std::vector<Vec2>& tex,
-                   std::vector<uint16_t>& in);
+                   const std::vector<Vec3> &vert,
+                   const std::vector<Vec3> &norm,
+                   const std::vector<Vec2> &tex,
+                   const std::vector<uint16_t> &in);
     
     /**
      * @brief Destructor

@@ -21,10 +21,11 @@
 #include <cstdint>
 
 
-class rmg::Context;
-
-
 namespace rmg {
+
+struct Color;
+class Context;
+
 
 /**
  * @brief Type of object (Object3D, Sprite2D, .etc)
@@ -57,7 +58,6 @@ class Object {
     bool hidden;
     
     static uint64_t lastID;
-    static uint64_t generateID();
     
   protected:
     /**
@@ -121,7 +121,7 @@ class Object {
      * 
      * @return Container context
      */
-    rmgContext* getContext();
+    Context* getContext();
     
     /**
      * @brief Gets object type
@@ -137,7 +137,7 @@ class Object {
      * 
      * @param img Image file path
      */
-    void setTexture(std::string img);
+    void setTexture(const std::string &img);
     
     /**
      * @brief Sets object texture
@@ -162,6 +162,13 @@ class Object {
      * @param a Alpha
      */
     void setColor(float r, float g, float b, float a);
+    
+    /**
+     * @brief Sets object color
+     * 
+     * @param col RGBA color
+     */
+    void setColor(const Color &col);
     
     /**
      * @brief Gets object color

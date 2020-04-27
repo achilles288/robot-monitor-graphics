@@ -20,10 +20,14 @@
 #include <rmg/object.hpp>
 
 
-class rmg::internal::SpriteShader;
-
-
 namespace rmg {
+
+class Text2D;
+
+namespace internal {
+class SpriteShader;
+}
+
 
 /**
  * @brief 2D graphics displayed on top of the 3D graphics context
@@ -107,7 +111,7 @@ class Object2D: public Object {
      * 
      * @param pos Position vector
      */
-    void setPosition(Vec2 pos);
+    void setPosition(const Vec2 &pos);
     
     /**
      * @brief Gets the location of the 2D object
@@ -119,9 +123,19 @@ class Object2D: public Object {
     /**
      * @brief Sets the rotation of the 2D object
      * 
-     * @param t Rotation in degrees
+     * @param t Rotation in radian
      */
     virtual void setRotation(float t);
+    
+    /**
+     * @brief Sets the rotation of the 2D object
+     * 
+     * @param t Rotation
+     * @param unit If the rotation value is degree or radian
+     */
+    inline void setRotation(float t, AngleUnit unit) {
+        setRotation((unit == UNIT_RADIAN) ? t : radian(t));
+    }
     
     /**
      * @brief Gets the rotation of the 2D object
@@ -143,7 +157,9 @@ class Object2D: public Object {
      * 
      * @param size Size
      */
-    void setSize(Vec2 size);
+    inline void setSize(const Vec2 &size) {
+        setSize(size.x, size.y);
+    }
     
     /**
      * @brief Gets the size of the 2D object
@@ -159,7 +175,7 @@ class Object2D: public Object {
      * 
      * @param z Z-order
      */
-    void setZOrder(int z);
+    void setZOrder(int8_t z);
     
     /**
      * @brief Gets the z-order of the 2D object

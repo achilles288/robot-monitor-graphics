@@ -56,7 +56,7 @@ class TextureLoadPending {
      * @param h Image height
      * @param c Color channel
      */
-    TextureLoadPending(Texture* tex, std::vector<uint8_t>& dat,
+    TextureLoadPending(Texture* tex, const std::vector<uint8_t> &dat,
                        uint16_t w, uint16_t h, uint8_t c);
     
     /**

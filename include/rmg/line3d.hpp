@@ -50,7 +50,7 @@ class Line3D: public Object {
      * @param t Line thickness
      * @param col RGBA color
      */
-    Line3D(Context* ctx, float t, Color col);
+    Line3D(Context* ctx, float t, const Color &col);
     
     /**
      * @brief Constructor with thickness, color and 2 initial end-points
@@ -61,7 +61,8 @@ class Line3D: public Object {
      * @param p1 Position vector of point-1
      * @param p2 Position vector of point-2
      */
-    Line3D(Context* ctx, float t, Color col, Vec3 p1, Vec3 p2);
+    Line3D(Context* ctx, float t, const Color &col,
+           const Vec3 &p1, const Vec3 &p2);
     
     /**
      * @brief Destructor
@@ -119,14 +120,14 @@ class Line3D: public Object {
      * 
      * @param p Position vector
      */
-    void setPoint1(Vec3 p);
+    void setPoint1(const Vec3 &p);
     
     /**
      * @brief Sets the location of point-2
      * 
      * @param p Position vector
      */
-    void setPoint2(Vec3 p);
+    void setPoint2(const Vec3 &p);
     
     /**
      * @brief Gets the location of point-1
