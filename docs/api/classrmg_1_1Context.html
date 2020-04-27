@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -99,11 +134,13 @@ $(document).ready(function(){initNavTree('classrmg_1_1Context.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a25c20a3c610e6fb9bd74b7900bb12183"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a25c20a3c610e6fb9bd74b7900bb12183">Context</a> ()</td></tr>
-<tr class="memdesc:a25c20a3c610e6fb9bd74b7900bb12183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor.  <a href="#a25c20a3c610e6fb9bd74b7900bb12183">More...</a><br /></td></tr>
+<tr class="memitem:a25c20a3c610e6fb9bd74b7900bb12183"><td class="memItemLeft" align="right" valign="top"><a id="a25c20a3c610e6fb9bd74b7900bb12183"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a25c20a3c610e6fb9bd74b7900bb12183">Context</a> ()</td></tr>
+<tr class="memdesc:a25c20a3c610e6fb9bd74b7900bb12183"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
 <tr class="separator:a25c20a3c610e6fb9bd74b7900bb12183"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af6b18cd90d3ff82f4bebdc3f89d6a5a3"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#af6b18cd90d3ff82f4bebdc3f89d6a5a3">~Context</a> ()</td></tr>
-<tr class="memdesc:af6b18cd90d3ff82f4bebdc3f89d6a5a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor cleans up context resources.  <a href="#af6b18cd90d3ff82f4bebdc3f89d6a5a3">More...</a><br /></td></tr>
+<tr class="memitem:af6b18cd90d3ff82f4bebdc3f89d6a5a3"><td class="memItemLeft" align="right" valign="top"><a id="af6b18cd90d3ff82f4bebdc3f89d6a5a3"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#af6b18cd90d3ff82f4bebdc3f89d6a5a3">~Context</a> ()</td></tr>
+<tr class="memdesc:af6b18cd90d3ff82f4bebdc3f89d6a5a3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor cleans up context resources. <br /></td></tr>
 <tr class="separator:af6b18cd90d3ff82f4bebdc3f89d6a5a3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1495fcfec386d1877ecc1adfea5d3d83"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a1495fcfec386d1877ecc1adfea5d3d83">update</a> ()</td></tr>
 <tr class="memdesc:a1495fcfec386d1877ecc1adfea5d3d83"><td class="mdescLeft">&#160;</td><td class="mdescRight">Idle display loop function.  <a href="#a1495fcfec386d1877ecc1adfea5d3d83">More...</a><br /></td></tr>
@@ -117,27 +154,33 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a81c2e227f954d16ac964a71a5b19e3f7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a81c2e227f954d16ac964a71a5b19e3f7">setBackgroundColor</a> (float r, float g, float b)</td></tr>
 <tr class="memdesc:a81c2e227f954d16ac964a71a5b19e3f7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets context background color.  <a href="#a81c2e227f954d16ac964a71a5b19e3f7">More...</a><br /></td></tr>
 <tr class="separator:a81c2e227f954d16ac964a71a5b19e3f7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3ed7140bb775a6304b0e653fb86578d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a3ed7140bb775a6304b0e653fb86578d1">getBackgroundColor</a> ()</td></tr>
+<tr class="memitem:a516ff5e497bcca3886b808024798b905"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a516ff5e497bcca3886b808024798b905">setBackgroundColor</a> (const <a class="el" href="structColor.html">Color</a> &amp;col)</td></tr>
+<tr class="memdesc:a516ff5e497bcca3886b808024798b905"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets context background color.  <a href="#a516ff5e497bcca3886b808024798b905">More...</a><br /></td></tr>
+<tr class="separator:a516ff5e497bcca3886b808024798b905"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a3ed7140bb775a6304b0e653fb86578d1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structColor.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a3ed7140bb775a6304b0e653fb86578d1">getBackgroundColor</a> ()</td></tr>
 <tr class="memdesc:a3ed7140bb775a6304b0e653fb86578d1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets context background color.  <a href="#a3ed7140bb775a6304b0e653fb86578d1">More...</a><br /></td></tr>
 <tr class="separator:a3ed7140bb775a6304b0e653fb86578d1"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ab315c382a2363aa1fdfb145ec73d1390"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#ab315c382a2363aa1fdfb145ec73d1390">setCameraTranslation</a> (float x, float y, float z)</td></tr>
 <tr class="memdesc:ab315c382a2363aa1fdfb145ec73d1390"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets xyz position of the camera.  <a href="#ab315c382a2363aa1fdfb145ec73d1390">More...</a><br /></td></tr>
 <tr class="separator:ab315c382a2363aa1fdfb145ec73d1390"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4393a717ed26aac1e2400267f7fbe017"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a4393a717ed26aac1e2400267f7fbe017">setCameraTranslation</a> (<a class="el" href="structrmg_1_1Vec3.html">Vec3</a> pos)</td></tr>
-<tr class="memdesc:a4393a717ed26aac1e2400267f7fbe017"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets xyz position of the camera.  <a href="#a4393a717ed26aac1e2400267f7fbe017">More...</a><br /></td></tr>
-<tr class="separator:a4393a717ed26aac1e2400267f7fbe017"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae588acf9b0731e9f832c882d4ee1ae8d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#ae588acf9b0731e9f832c882d4ee1ae8d">setCameraTranslation</a> (const <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &amp;pos)</td></tr>
+<tr class="memdesc:ae588acf9b0731e9f832c882d4ee1ae8d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets xyz position of the camera.  <a href="#ae588acf9b0731e9f832c882d4ee1ae8d">More...</a><br /></td></tr>
+<tr class="separator:ae588acf9b0731e9f832c882d4ee1ae8d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ae3e0c1d8cfd262b585ed28013c00dd7f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#ae3e0c1d8cfd262b585ed28013c00dd7f">setCameraRotation</a> (float x, float y, float z)</td></tr>
 <tr class="memdesc:ae3e0c1d8cfd262b585ed28013c00dd7f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets rotation of the camera.  <a href="#ae3e0c1d8cfd262b585ed28013c00dd7f">More...</a><br /></td></tr>
 <tr class="separator:ae3e0c1d8cfd262b585ed28013c00dd7f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab3c6b9ac9147f89c650b4edf3e3edde4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#ab3c6b9ac9147f89c650b4edf3e3edde4">setCameraRotation</a> (<a class="el" href="structrmg_1_1Vec3.html">Vec3</a> rot)</td></tr>
-<tr class="memdesc:ab3c6b9ac9147f89c650b4edf3e3edde4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets rotation of the camera.  <a href="#ab3c6b9ac9147f89c650b4edf3e3edde4">More...</a><br /></td></tr>
-<tr class="separator:ab3c6b9ac9147f89c650b4edf3e3edde4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acb04569e438a053611df8b24fa16fcf0"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#acb04569e438a053611df8b24fa16fcf0">setCameraRotation</a> (float x, float y, float z, <a class="el" href="angle__unit_8hpp.html#ae14d16230f3d8ff22ac7c5445e526ac0">AngleUnit</a> unit)</td></tr>
+<tr class="memdesc:acb04569e438a053611df8b24fa16fcf0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets rotation of the camera.  <a href="#acb04569e438a053611df8b24fa16fcf0">More...</a><br /></td></tr>
+<tr class="separator:acb04569e438a053611df8b24fa16fcf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7168acf1a5b479aede0f10db48c59cd3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a7168acf1a5b479aede0f10db48c59cd3">setCameraRotation</a> (const <a class="el" href="structrmg_1_1Euler.html">Euler</a> &amp;rot)</td></tr>
+<tr class="memdesc:a7168acf1a5b479aede0f10db48c59cd3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets rotation of the camera.  <a href="#a7168acf1a5b479aede0f10db48c59cd3">More...</a><br /></td></tr>
+<tr class="separator:a7168acf1a5b479aede0f10db48c59cd3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8d8dee7919c65af43868b6d98b24b267"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a8d8dee7919c65af43868b6d98b24b267">getCameraTranslation</a> ()</td></tr>
 <tr class="memdesc:a8d8dee7919c65af43868b6d98b24b267"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets xyz position of the camera.  <a href="#a8d8dee7919c65af43868b6d98b24b267">More...</a><br /></td></tr>
 <tr class="separator:a8d8dee7919c65af43868b6d98b24b267"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a3d3fc00529ccde28d5704037770e4a32"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a3d3fc00529ccde28d5704037770e4a32">getCameraRotation</a> ()</td></tr>
-<tr class="memdesc:a3d3fc00529ccde28d5704037770e4a32"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets rotation of the camera.  <a href="#a3d3fc00529ccde28d5704037770e4a32">More...</a><br /></td></tr>
-<tr class="separator:a3d3fc00529ccde28d5704037770e4a32"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a84e92ab4f12b4da3e74ced59ee9cdfd9"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Euler.html">Euler</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a84e92ab4f12b4da3e74ced59ee9cdfd9">getCameraRotation</a> ()</td></tr>
+<tr class="memdesc:a84e92ab4f12b4da3e74ced59ee9cdfd9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets rotation of the camera.  <a href="#a84e92ab4f12b4da3e74ced59ee9cdfd9">More...</a><br /></td></tr>
+<tr class="separator:a84e92ab4f12b4da3e74ced59ee9cdfd9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9d43ea1fbd7b588465e1c594d95d008f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a9d43ea1fbd7b588465e1c594d95d008f">setPerspectiveProjection</a> (float fov, float near, float far)</td></tr>
 <tr class="memdesc:a9d43ea1fbd7b588465e1c594d95d008f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the parameters for perspective projection.  <a href="#a9d43ea1fbd7b588465e1c594d95d008f">More...</a><br /></td></tr>
 <tr class="separator:a9d43ea1fbd7b588465e1c594d95d008f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -162,24 +205,33 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a9023e883754daa73b266ea8d894aaed3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a9023e883754daa73b266ea8d894aaed3">setDirectionalLightColor</a> (float r, float g, float b, float lum)</td></tr>
 <tr class="memdesc:a9023e883754daa73b266ea8d894aaed3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the directional lighting color.  <a href="#a9023e883754daa73b266ea8d894aaed3">More...</a><br /></td></tr>
 <tr class="separator:a9023e883754daa73b266ea8d894aaed3"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a924340671e90c0f42ded8dcda30bb1b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a924340671e90c0f42ded8dcda30bb1b5">getDirectionalLightColor</a> ()</td></tr>
+<tr class="memitem:a22b4bbb2a919119c45f2f7de4b045721"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a22b4bbb2a919119c45f2f7de4b045721">setDirectionalLightColor</a> (const <a class="el" href="structColor.html">Color</a> &amp;col)</td></tr>
+<tr class="memdesc:a22b4bbb2a919119c45f2f7de4b045721"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the directional lighting color.  <a href="#a22b4bbb2a919119c45f2f7de4b045721">More...</a><br /></td></tr>
+<tr class="separator:a22b4bbb2a919119c45f2f7de4b045721"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a924340671e90c0f42ded8dcda30bb1b5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structColor.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a924340671e90c0f42ded8dcda30bb1b5">getDirectionalLightColor</a> ()</td></tr>
 <tr class="memdesc:a924340671e90c0f42ded8dcda30bb1b5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the directional lighting color.  <a href="#a924340671e90c0f42ded8dcda30bb1b5">More...</a><br /></td></tr>
 <tr class="separator:a924340671e90c0f42ded8dcda30bb1b5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a289294ad398dc6d43f09327e4baeed84"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a289294ad398dc6d43f09327e4baeed84">setDirectionalLightAngles</a> (float pitch, float yaw)</td></tr>
 <tr class="memdesc:a289294ad398dc6d43f09327e4baeed84"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the directional lighting angles.  <a href="#a289294ad398dc6d43f09327e4baeed84">More...</a><br /></td></tr>
 <tr class="separator:a289294ad398dc6d43f09327e4baeed84"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae0ac2f68d33b8cd933716c0a649461b4"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#ae0ac2f68d33b8cd933716c0a649461b4">setDirectionalLightAngles</a> (<a class="el" href="structrmg_1_1Vec3.html">Vec3</a> rot)</td></tr>
-<tr class="memdesc:ae0ac2f68d33b8cd933716c0a649461b4"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the directional lighting angles.  <a href="#ae0ac2f68d33b8cd933716c0a649461b4">More...</a><br /></td></tr>
-<tr class="separator:ae0ac2f68d33b8cd933716c0a649461b4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa37ca316c6eb1f456364724eb307c9d6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#aa37ca316c6eb1f456364724eb307c9d6">setDirectionalLightAngles</a> (float pitch, float yaw, <a class="el" href="angle__unit_8hpp.html#ae14d16230f3d8ff22ac7c5445e526ac0">AngleUnit</a> unit)</td></tr>
+<tr class="memdesc:aa37ca316c6eb1f456364724eb307c9d6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the directional lighting angles.  <a href="#aa37ca316c6eb1f456364724eb307c9d6">More...</a><br /></td></tr>
+<tr class="separator:aa37ca316c6eb1f456364724eb307c9d6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aa93cf0c21668e40944818ab68dcf7c93"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#aa93cf0c21668e40944818ab68dcf7c93">setDirectionalLightAngles</a> (const <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &amp;rot)</td></tr>
+<tr class="memdesc:aa93cf0c21668e40944818ab68dcf7c93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the directional lighting angles.  <a href="#aa93cf0c21668e40944818ab68dcf7c93">More...</a><br /></td></tr>
+<tr class="separator:aa93cf0c21668e40944818ab68dcf7c93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a3cbcd1919543b7971aff1ff5c0788d93"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a3cbcd1919543b7971aff1ff5c0788d93">getDirectionalLightAngles</a> (float pitch, float yaw)</td></tr>
 <tr class="memdesc:a3cbcd1919543b7971aff1ff5c0788d93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the directional lighting angles.  <a href="#a3cbcd1919543b7971aff1ff5c0788d93">More...</a><br /></td></tr>
 <tr class="separator:a3cbcd1919543b7971aff1ff5c0788d93"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9420948d45c3525ef6853e01923d990c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a9420948d45c3525ef6853e01923d990c">worldToScreen</a> (float x, float y, float z)</td></tr>
 <tr class="memdesc:a9420948d45c3525ef6853e01923d990c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts world coordinate to screen coordinate.  <a href="#a9420948d45c3525ef6853e01923d990c">More...</a><br /></td></tr>
 <tr class="separator:a9420948d45c3525ef6853e01923d990c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a80a658b93f379ca26bd0fae25469ca20"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a80a658b93f379ca26bd0fae25469ca20">screenToWorld</a> (<a class="el" href="structrmg_1_1Vec2.html">Vec2</a> p, rmgPlane plane)</td></tr>
-<tr class="memdesc:a80a658b93f379ca26bd0fae25469ca20"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts screen coordinate to world coordinate.  <a href="#a80a658b93f379ca26bd0fae25469ca20">More...</a><br /></td></tr>
-<tr class="separator:a80a658b93f379ca26bd0fae25469ca20"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2fa98f031baa5cbaa94c847506a2d24a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a2fa98f031baa5cbaa94c847506a2d24a">worldToScreen</a> (const <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &amp;p)</td></tr>
+<tr class="memdesc:a2fa98f031baa5cbaa94c847506a2d24a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts world coordinate to screen coordinate.  <a href="#a2fa98f031baa5cbaa94c847506a2d24a">More...</a><br /></td></tr>
+<tr class="separator:a2fa98f031baa5cbaa94c847506a2d24a"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2a157d7b020976aa0cc44698f2683252"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a2a157d7b020976aa0cc44698f2683252">screenToWorld</a> (const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;p, const Plane &amp;plane)</td></tr>
+<tr class="memdesc:a2a157d7b020976aa0cc44698f2683252"><td class="mdescLeft">&#160;</td><td class="mdescRight">Converts screen coordinate to world coordinate.  <a href="#a2a157d7b020976aa0cc44698f2683252">More...</a><br /></td></tr>
+<tr class="separator:a2a157d7b020976aa0cc44698f2683252"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aba641bd6c0a124af43caab2dd8378f71"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#aba641bd6c0a124af43caab2dd8378f71">addObject</a> (<a class="el" href="classrmg_1_1Object.html">Object</a> *obj)</td></tr>
 <tr class="memdesc:aba641bd6c0a124af43caab2dd8378f71"><td class="mdescLeft">&#160;</td><td class="mdescRight">Appends a 2D/3D object to the display list.  <a href="#aba641bd6c0a124af43caab2dd8378f71">More...</a><br /></td></tr>
 <tr class="separator:aba641bd6c0a124af43caab2dd8378f71"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -240,64 +292,19 @@ Protected Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a36bddeb9007037ca9ae4127447002eb6"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a36bddeb9007037ca9ae4127447002eb6">initDone</a></td></tr>
-<tr class="memdesc:a36bddeb9007037ca9ae4127447002eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">States whether the context is ready for GPU resources.  <a href="#a36bddeb9007037ca9ae4127447002eb6">More...</a><br /></td></tr>
+<tr class="memitem:a36bddeb9007037ca9ae4127447002eb6"><td class="memItemLeft" align="right" valign="top"><a id="a36bddeb9007037ca9ae4127447002eb6"></a>
+bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a36bddeb9007037ca9ae4127447002eb6">initDone</a></td></tr>
+<tr class="memdesc:a36bddeb9007037ca9ae4127447002eb6"><td class="mdescLeft">&#160;</td><td class="mdescRight">States whether the context is ready for GPU resources. <br /></td></tr>
 <tr class="separator:a36bddeb9007037ca9ae4127447002eb6"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a2d90c23ae4141bfa3957558645d5fe0b"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a2d90c23ae4141bfa3957558645d5fe0b">startTime</a></td></tr>
-<tr class="memdesc:a2d90c23ae4141bfa3957558645d5fe0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time counted at the time the context starts up.  <a href="#a2d90c23ae4141bfa3957558645d5fe0b">More...</a><br /></td></tr>
+<tr class="memitem:a2d90c23ae4141bfa3957558645d5fe0b"><td class="memItemLeft" align="right" valign="top"><a id="a2d90c23ae4141bfa3957558645d5fe0b"></a>
+uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html#a2d90c23ae4141bfa3957558645d5fe0b">startTime</a></td></tr>
+<tr class="memdesc:a2d90c23ae4141bfa3957558645d5fe0b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Time counted at the time the context starts up. <br /></td></tr>
 <tr class="separator:a2d90c23ae4141bfa3957558645d5fe0b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>2D/3D OpenGL graphics context </p>
 <p>Manages 2D/3D objects with GPU context resources and shader programs. Abstract layer of OpenGL context. </p>
-</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a25c20a3c610e6fb9bd74b7900bb12183"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a25c20a3c610e6fb9bd74b7900bb12183">&#9670;&nbsp;</a></span>Context()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">rmg::Context::Context </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p>Default constructor. </p>
-
-</div>
-</div>
-<a id="af6b18cd90d3ff82f4bebdc3f89d6a5a3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af6b18cd90d3ff82f4bebdc3f89d6a5a3">&#9670;&nbsp;</a></span>~Context()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual rmg::Context::~Context </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destructor cleans up context resources. </p>
-
-</div>
-</div>
-<h2 class="groupheader">Member Function Documentation</h2>
+</div><h2 class="groupheader">Member Function Documentation</h2>
 <a id="ab35bbffc0707124bedeb817b754a7dd0"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ab35bbffc0707124bedeb817b754a7dd0">&#9670;&nbsp;</a></span>addFont()</h2>
 
@@ -484,7 +491,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structrmg_1_1Color.html">Color</a> rmg::Context::getBackgroundColor </td>
+          <td class="memname"><a class="el" href="structColor.html">Color</a> rmg::Context::getBackgroundColor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -497,14 +504,14 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a3d3fc00529ccde28d5704037770e4a32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a3d3fc00529ccde28d5704037770e4a32">&#9670;&nbsp;</a></span>getCameraRotation()</h2>
+<a id="a84e92ab4f12b4da3e74ced59ee9cdfd9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a84e92ab4f12b4da3e74ced59ee9cdfd9">&#9670;&nbsp;</a></span>getCameraRotation()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a> rmg::Context::getCameraRotation </td>
+          <td class="memname"><a class="el" href="structrmg_1_1Euler.html">Euler</a> rmg::Context::getCameraRotation </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -514,7 +521,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Gets rotation of the camera. </p>
 <p>Calculates values from the rotation part of the view matrix. Rotation order is ZYX (Yaw-Pitch-Roll).</p>
-<dl class="section return"><dt>Returns</dt><dd>Rotation in Euler angles </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Rotation in <a class="el" href="structrmg_1_1Euler.html" title="To represent orientation in 3D space. ">Euler</a> angles </dd></dl>
 
 </div>
 </div>
@@ -596,7 +603,7 @@ Protected Attributes</h2></td></tr>
 
 <p>Gets the directional lighting angles. </p>
 <p>Rotation order is ZY (Yaw-Pitch). Rolling has no effect and the x in returned instance is always zero.</p>
-<dl class="section return"><dt>Returns</dt><dd>Rotation in Euler angles </dd></dl>
+<dl class="section return"><dt>Returns</dt><dd>Rotation in <a class="el" href="structrmg_1_1Euler.html" title="To represent orientation in 3D space. ">Euler</a> angles </dd></dl>
 
 </div>
 </div>
@@ -607,7 +614,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structrmg_1_1Color.html">Color</a> rmg::Context::getDirectionalLightColor </td>
+          <td class="memname"><a class="el" href="structColor.html">Color</a> rmg::Context::getDirectionalLightColor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -913,8 +920,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a80a658b93f379ca26bd0fae25469ca20"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a80a658b93f379ca26bd0fae25469ca20">&#9670;&nbsp;</a></span>screenToWorld()</h2>
+<a id="a2a157d7b020976aa0cc44698f2683252"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2a157d7b020976aa0cc44698f2683252">&#9670;&nbsp;</a></span>screenToWorld()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -922,13 +929,13 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a> rmg::Context::screenToWorld </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;&#160;</td>
           <td class="paramname"><em>p</em>, </td>
         </tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">rmgPlane&#160;</td>
+          <td class="paramtype">const Plane &amp;&#160;</td>
           <td class="paramname"><em>plane</em>&#160;</td>
         </tr>
         <tr>
@@ -952,7 +959,7 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a id="a81c2e227f954d16ac964a71a5b19e3f7"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a81c2e227f954d16ac964a71a5b19e3f7">&#9670;&nbsp;</a></span>setBackgroundColor()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a81c2e227f954d16ac964a71a5b19e3f7">&#9670;&nbsp;</a></span>setBackgroundColor() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -995,8 +1002,34 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="a516ff5e497bcca3886b808024798b905"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a516ff5e497bcca3886b808024798b905">&#9670;&nbsp;</a></span>setBackgroundColor() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rmg::Context::setBackgroundColor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structColor.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>col</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets context background color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">col</td><td>RGB color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="ae3e0c1d8cfd262b585ed28013c00dd7f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae3e0c1d8cfd262b585ed28013c00dd7f">&#9670;&nbsp;</a></span>setCameraRotation() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#ae3e0c1d8cfd262b585ed28013c00dd7f">&#9670;&nbsp;</a></span>setCameraRotation() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1028,7 +1061,7 @@ Protected Attributes</h2></td></tr>
 </div><div class="memdoc">
 
 <p>Sets rotation of the camera. </p>
-<p>Sets the view matrix. Rotation of the camera is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll). Initial camera direction or X-axis is along the Y-axis of the world (rotation values of (0,0,0)).</p>
+<p>Sets the view matrix. Rotation of the camera is in <a class="el" href="structrmg_1_1Euler.html" title="To represent orientation in 3D space. ">Euler</a> angles. Rotation order is ZYX (Yaw-Pitch-Roll). Initial camera direction or X-axis is along the Y-axis of the world (rotation values of (0,0,0)).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">x</td><td>Roll </td></tr>
@@ -1040,27 +1073,95 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab3c6b9ac9147f89c650b4edf3e3edde4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab3c6b9ac9147f89c650b4edf3e3edde4">&#9670;&nbsp;</a></span>setCameraRotation() <span class="overload">[2/2]</span></h2>
+<a id="acb04569e438a053611df8b24fa16fcf0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acb04569e438a053611df8b24fa16fcf0">&#9670;&nbsp;</a></span>setCameraRotation() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void rmg::Context::setCameraRotation </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a>&#160;</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>z</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="angle__unit_8hpp.html#ae14d16230f3d8ff22ac7c5445e526ac0">AngleUnit</a>&#160;</td>
+          <td class="paramname"><em>unit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets rotation of the camera. </p>
+<p>Sets the view matrix. Rotation of the camera is in <a class="el" href="structrmg_1_1Euler.html" title="To represent orientation in 3D space. ">Euler</a> angles. Rotation order is ZYX (Yaw-Pitch-Roll). Initial camera direction or X-axis is along the Y-axis of the world (rotation values of (0,0,0)).</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>Roll </td></tr>
+    <tr><td class="paramname">y</td><td>Pitch </td></tr>
+    <tr><td class="paramname">z</td><td>Yaw </td></tr>
+    <tr><td class="paramname">unit</td><td>The previous params are degree or radian </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a7168acf1a5b479aede0f10db48c59cd3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7168acf1a5b479aede0f10db48c59cd3">&#9670;&nbsp;</a></span>setCameraRotation() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rmg::Context::setCameraRotation </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Euler.html">Euler</a> &amp;&#160;</td>
           <td class="paramname"><em>rot</em></td><td>)</td>
           <td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets rotation of the camera. </p>
-<p>Sets the view matrix. Rotation of the camera is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).</p>
+<p>Sets the view matrix. Rotation of the camera is in <a class="el" href="structrmg_1_1Euler.html" title="To represent orientation in 3D space. ">Euler</a> angles. Rotation order is ZYX (Yaw-Pitch-Roll).</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rot</td><td>Euler angles </td></tr>
+    <tr><td class="paramname">rot</td><td><a class="el" href="structrmg_1_1Euler.html" title="To represent orientation in 3D space. ">Euler</a> angles </td></tr>
   </table>
   </dd>
 </dl>
@@ -1112,8 +1213,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a4393a717ed26aac1e2400267f7fbe017"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4393a717ed26aac1e2400267f7fbe017">&#9670;&nbsp;</a></span>setCameraTranslation() <span class="overload">[2/2]</span></h2>
+<a id="ae588acf9b0731e9f832c882d4ee1ae8d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae588acf9b0731e9f832c882d4ee1ae8d">&#9670;&nbsp;</a></span>setCameraTranslation() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1121,7 +1222,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void rmg::Context::setCameraTranslation </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a>&#160;</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &amp;&#160;</td>
           <td class="paramname"><em>pos</em></td><td>)</td>
           <td></td>
         </tr>
@@ -1213,7 +1314,7 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a id="a289294ad398dc6d43f09327e4baeed84"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a289294ad398dc6d43f09327e4baeed84">&#9670;&nbsp;</a></span>setDirectionalLightAngles() <span class="overload">[1/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a289294ad398dc6d43f09327e4baeed84">&#9670;&nbsp;</a></span>setDirectionalLightAngles() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1250,27 +1351,88 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ae0ac2f68d33b8cd933716c0a649461b4"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae0ac2f68d33b8cd933716c0a649461b4">&#9670;&nbsp;</a></span>setDirectionalLightAngles() <span class="overload">[2/2]</span></h2>
+<a id="aa37ca316c6eb1f456364724eb307c9d6"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa37ca316c6eb1f456364724eb307c9d6">&#9670;&nbsp;</a></span>setDirectionalLightAngles() <span class="overload">[2/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">void rmg::Context::setDirectionalLightAngles </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="structrmg_1_1Vec3.html">Vec3</a>&#160;</td>
-          <td class="paramname"><em>rot</em></td><td>)</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>pitch</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>yaw</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="angle__unit_8hpp.html#ae14d16230f3d8ff22ac7c5445e526ac0">AngleUnit</a>&#160;</td>
+          <td class="paramname"><em>unit</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Sets the directional lighting angles. </p>
 <p>Directional light takes the main role in fragment shaders and shadow mappings for 3D object viewing. Rotation order is ZY (Yaw-Pitch). Rolling has no effect. Directional light vector with angle values of zeros is pointed towards the Y-axis which is the same as initial camera direction.</p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
-    <tr><td class="paramname">rot</td><td>Euler angles </td></tr>
+    <tr><td class="paramname">pitch</td><td>Angle above xy-plane </td></tr>
+    <tr><td class="paramname">yaw</td><td>Angle about z-axis </td></tr>
+    <tr><td class="paramname">unit</td><td>Radian or degree </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="aa93cf0c21668e40944818ab68dcf7c93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa93cf0c21668e40944818ab68dcf7c93">&#9670;&nbsp;</a></span>setDirectionalLightAngles() <span class="overload">[3/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rmg::Context::setDirectionalLightAngles </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>rot</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Sets the directional lighting angles. </p>
+<p>Directional light takes the main role in fragment shaders and shadow mappings for 3D object viewing. Rotation order is ZY (Yaw-Pitch). Rolling has no effect. Directional light vector with angle values of zeros is pointed towards the Y-axis which is the same as initial camera direction.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">rot</td><td><a class="el" href="structrmg_1_1Euler.html" title="To represent orientation in 3D space. ">Euler</a> angles </td></tr>
   </table>
   </dd>
 </dl>
@@ -1278,7 +1440,7 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a id="a9023e883754daa73b266ea8d894aaed3"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9023e883754daa73b266ea8d894aaed3">&#9670;&nbsp;</a></span>setDirectionalLightColor()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9023e883754daa73b266ea8d894aaed3">&#9670;&nbsp;</a></span>setDirectionalLightColor() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1323,6 +1485,33 @@ Protected Attributes</h2></td></tr>
     <tr><td class="paramname">g</td><td>Green </td></tr>
     <tr><td class="paramname">b</td><td>Blue </td></tr>
     <tr><td class="paramname">lum</td><td>Light intensity </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a22b4bbb2a919119c45f2f7de4b045721"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a22b4bbb2a919119c45f2f7de4b045721">&#9670;&nbsp;</a></span>setDirectionalLightColor() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rmg::Context::setDirectionalLightColor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structColor.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>col</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets the directional lighting color. </p>
+<p>Directional light takes the main role in fragment shaders and shadow mappings for 3D object viewing.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">col</td><td>RGBA color. Alpha component is used as light intensity. </td></tr>
   </table>
   </dd>
 </dl>
@@ -1481,7 +1670,7 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a id="a9420948d45c3525ef6853e01923d990c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9420948d45c3525ef6853e01923d990c">&#9670;&nbsp;</a></span>worldToScreen()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a9420948d45c3525ef6853e01923d990c">&#9670;&nbsp;</a></span>worldToScreen() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1525,52 +1714,30 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Member Data Documentation</h2>
-<a id="a36bddeb9007037ca9ae4127447002eb6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a36bddeb9007037ca9ae4127447002eb6">&#9670;&nbsp;</a></span>initDone</h2>
+<a id="a2fa98f031baa5cbaa94c847506a2d24a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2fa98f031baa5cbaa94c847506a2d24a">&#9670;&nbsp;</a></span>worldToScreen() <span class="overload">[2/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool rmg::Context::initDone</td>
+          <td class="memname"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a> rmg::Context::worldToScreen </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &amp;&#160;</td>
+          <td class="paramname"><em>p</em></td><td>)</td>
+          <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>States whether the context is ready for GPU resources. </p>
-
-</div>
-</div>
-<a id="a2d90c23ae4141bfa3957558645d5fe0b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a2d90c23ae4141bfa3957558645d5fe0b">&#9670;&nbsp;</a></span>startTime</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">uint64_t rmg::Context::startTime</td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">protected</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Time counted at the time the context starts up. </p>
+<p>Converts world coordinate to screen coordinate. </p>
+<p>Useful when displaying 2D sprites and texts around 3D objects.</p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">p</td><td>3D point in world space </td></tr>
+  </table>
+  </dd>
+</dl>
 
 </div>
 </div>
@@ -1579,10 +1746,11 @@ Protected Attributes</h2></td></tr>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacermg.html">rmg</a></li><li class="navelem"><a class="el" href="classrmg_1_1Context.html">Context</a></li>
+    <li class="navelem"><b>rmg</b></li><li class="navelem"><a class="el" href="classrmg_1_1Context.html">Context</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>

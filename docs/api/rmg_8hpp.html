@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -98,37 +133,17 @@ $(document).ready(function(){initNavTree('rmg_8hpp.html','');});
 <code>#include &lt;<a class="el" href="texture_8hpp_source.html">rmg/texture.hpp</a>&gt;</code><br />
 </div>
 <p><a href="rmg_8hpp_source.html">Go to the source code of this file.</a></p>
-<table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:ae2cb075407a3d9fb177f25cdf734dabf"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="rmg_8hpp.html#ae2cb075407a3d9fb177f25cdf734dabf">__RM_GRAPHICS_H__</a></td></tr>
-<tr class="separator:ae2cb075407a3d9fb177f25cdf734dabf"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>Simple and quick 2D/3D graphics engine for simulation. </p>
 <p>Simple and quick 2D/3D graphics rendering engine with the aim for making robotic simulations. Loads 2D/3D model files and texture files and easily control the pose and appearance of those 2D/3D objects. Lighting and shadow mapping are done in back-end processes. Performance is smooth since rendering engine uses shader programs and GPU power. The project uses OpenGL API and other external open source packages like GLFW and wxWidgets and is made a cross-platform API.</p>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020 Khant Kyaw Khaung</dd></dl>
 <dl class="section copyright">
-<dt>License</dt>
-<dd>This project is released under the MIT License. </dd>
+<dt>License </dt>
+<dd>This project is released under the MIT License.  </dd>
 </dl>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="ae2cb075407a3d9fb177f25cdf734dabf"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae2cb075407a3d9fb177f25cdf734dabf">&#9670;&nbsp;</a></span>__RM_GRAPHICS_H__</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __RM_GRAPHICS_H__</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

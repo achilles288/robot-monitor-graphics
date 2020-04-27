@@ -1,6 +1,5 @@
 var searchData=
 [
-  ['text2d',['Text2D',['../classrmg_1_1Text2D.html',1,'rmg']]],
-  ['texture',['Texture',['../classrmg_1_1Texture.html',1,'rmg']]],
-  ['textureloadpending',['TextureLoadPending',['../classrmg_1_1internal_1_1TextureLoadPending.html',1,'rmg::internal']]]
+  ['particle3d',['Particle3D',['../classrmg_1_1Particle3D.html',1,'rmg']]],
+  ['particleshader',['ParticleShader',['../classrmg_1_1internal_1_1ParticleShader.html',1,'rmg::internal']]]
 ];

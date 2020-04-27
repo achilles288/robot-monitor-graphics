@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['objecttype',['ObjectType',['../namespacermg.html#ac738e03ff0843f4762bffbbfd93a1680',1,'rmg']]]
+  ['angleunit',['AngleUnit',['../angle__unit_8hpp.html#ae14d16230f3d8ff22ac7c5445e526ac0',1,'rmg']]]
 ];

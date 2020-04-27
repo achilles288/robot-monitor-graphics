@@ -11,5 +11,6 @@ var classrmg_1_1Cylinder3D =
     [ "setDiameter", "classrmg_1_1Cylinder3D.html#a33b0a9d9444e5d40aa4807c7d21c0a88", null ],
     [ "setLength", "classrmg_1_1Cylinder3D.html#a76c731ec6bf687f27ae990059a892272", null ],
     [ "setRotation", "classrmg_1_1Cylinder3D.html#aade37a7d60a1f01b2aa2a66e4fb5d7ba", null ],
-    [ "setScale", "classrmg_1_1Cylinder3D.html#a340b57b54ec87f6f6174b5378a545bea", null ]
+    [ "setScale", "classrmg_1_1Cylinder3D.html#a340b57b54ec87f6f6174b5378a545bea", null ],
+    [ "setScale", "classrmg_1_1Cylinder3D.html#a1a53ebe7964f0f629fd43a88a39bfd51", null ]
 ];

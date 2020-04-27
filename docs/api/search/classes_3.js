@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['model3d',['Model3D',['../classrmg_1_1Model3D.html',1,'rmg']]]
+  ['generalshader',['GeneralShader',['../classrmg_1_1internal_1_1GeneralShader.html',1,'rmg::internal']]]
 ];

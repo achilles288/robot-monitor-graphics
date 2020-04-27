@@ -11,11 +11,12 @@ var classrmg_1_1Object2D =
     [ "operator=", "classrmg_1_1Object2D.html#a81029172fe397b0fb98ebd319b55e22e", null ],
     [ "operator=", "classrmg_1_1Object2D.html#a0992bff9d12927f542c37099dd7643e7", null ],
     [ "setPosition", "classrmg_1_1Object2D.html#a97b6db45abe9bf84540bc5220b1e7ef7", null ],
-    [ "setPosition", "classrmg_1_1Object2D.html#a189699b2abf137d5430580ba7905ce64", null ],
+    [ "setPosition", "classrmg_1_1Object2D.html#a97b73420c59f56cef96e81f15419825b", null ],
     [ "setRotation", "classrmg_1_1Object2D.html#a553784ce3c8df3995b32b4b92744c009", null ],
+    [ "setRotation", "classrmg_1_1Object2D.html#a40c09d8717f26b0f48f6baabd514f48c", null ],
     [ "setSize", "classrmg_1_1Object2D.html#a0e50e0a5517790d7ee3649afb9afd597", null ],
-    [ "setSize", "classrmg_1_1Object2D.html#a621540acc5ab9f94a42bb14945b0718b", null ],
-    [ "setZOrder", "classrmg_1_1Object2D.html#a62aacfbbafe9f2714f275b77460a7b04", null ],
+    [ "setSize", "classrmg_1_1Object2D.html#a58400acd46da3a0f2584fc528f8160b4", null ],
+    [ "setZOrder", "classrmg_1_1Object2D.html#a51a3c371739b871795097504f94ce4ab", null ],
     [ "internal::SpriteShader", "classrmg_1_1Object2D.html#a5251527a67da4df0dc2b6e60a65b1442", null ],
     [ "Text2D", "classrmg_1_1Object2D.html#a059ebb4fd676589859b7bf629446b947", null ]
 ];

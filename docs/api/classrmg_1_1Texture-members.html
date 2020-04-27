@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -90,15 +125,16 @@ $(document).ready(function(){initNavTree('classrmg_1_1Texture.html','');});
 <table class="directory">
   <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1Texture.html#a0bb29fd0db8ebb8dd1083d882c67bf1b">getContext</a>()</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classrmg_1_1Texture.html#acc7cf38270390b5391a7ada7251b2ecd">getID</a>()</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"></td></tr>
-  <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1Texture.html#af479157a41074a90631bfd13929bde87">internal::TextureLoadPending</a> class</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
+  <tr bgcolor="#f0f0f0" class="even"><td class="entry"><b>internal::TextureLoadPending</b> (defined in <a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a>)</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"><span class="mlabel">friend</span></td></tr>
   <tr><td class="entry"><a class="el" href="classrmg_1_1Texture.html#ac02de992ae25be7c4622d09c5dcef5ba">operator=</a>(const Texture &amp;tex)=delete</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1Texture.html#a69b27e1601754180d8d68567c71016f2">operator=</a>(Texture &amp;&amp;tex) noexcept</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classrmg_1_1Texture.html#a790fc06a506ee365a5c405336439381a">Texture</a>(Context *ctx, std::string f)</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classrmg_1_1Texture.html#aff8164871c5134ed84ebfdf4ce3185a5">Texture</a>(Context *ctx, const std::string &amp;f)</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1Texture.html#a29a5fb00a4b35bad88536d93b12c82c2">Texture</a>(const Texture &amp;tex)=delete</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classrmg_1_1Texture.html#aa9a249702440121427d6fcc773f86bd8">Texture</a>(Texture &amp;&amp;tex) noexcept</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1Texture.html#a2815707be6a24e75b04d363d039b285e">~Texture</a>()</td><td class="entry"><a class="el" href="classrmg_1_1Texture.html">rmg::Texture</a></td><td class="entry"><span class="mlabel">virtual</span></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

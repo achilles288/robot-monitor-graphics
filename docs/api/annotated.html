@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -87,34 +122,46 @@ $(document).ready(function(){initNavTree('annotated.html','');});
 <div class="contents">
 <div class="textblock">Here are the classes, structs, unions and interfaces with brief descriptions:</div><div class="directory">
 <div class="levels">[detail level <span onclick="javascript:toggleLevel(1);">1</span><span onclick="javascript:toggleLevel(2);">2</span><span onclick="javascript:toggleLevel(3);">3</span>]</div><table class="directory">
-<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="toggleFolder('0_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespacermg.html" target="_self">rmg</a></td><td class="desc"></td></tr>
-<tr id="row_0_0_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_0_" class="arrow" onclick="toggleFolder('0_0_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><a class="el" href="namespacermg_1_1internal.html" target="_self">internal</a></td><td class="desc"></td></tr>
+<tr id="row_0_" class="even"><td class="entry"><span style="width:0px;display:inline-block;">&#160;</span><span id="arr_0_" class="arrow" onclick="toggleFolder('0_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><b>rmg</b></td><td class="desc"></td></tr>
+<tr id="row_0_0_"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span id="arr_0_0_" class="arrow" onclick="toggleFolder('0_0_')">&#9660;</span><span class="icona"><span class="icon">N</span></span><b>internal</b></td><td class="desc"></td></tr>
 <tr id="row_0_0_0_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1FontLoadPending.html" target="_self">FontLoadPending</a></td><td class="desc">Maintains the image data before context startup </td></tr>
-<tr id="row_0_0_1_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1Shader.html" target="_self">Shader</a></td><td class="desc">The shader program taking main backend role in drawing </td></tr>
-<tr id="row_0_0_2_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html" target="_self">TextureLoadPending</a></td><td class="desc">Maintains the image data before context startup </td></tr>
-<tr id="row_0_0_3_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html" target="_self">VBOLoad</a></td><td class="desc">Handles the GPU resource for drawing </td></tr>
-<tr id="row_0_0_4_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1VBOLoadPending.html" target="_self">VBOLoadPending</a></td><td class="desc">Maintains the array of VBOs before context startup </td></tr>
-<tr id="row_0_1_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Color.html" target="_self">Color</a></td><td class="desc">RGBA color model </td></tr>
-<tr id="row_0_2_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Context.html" target="_self">Context</a></td><td class="desc">2D/3D OpenGL graphics context </td></tr>
-<tr id="row_0_3_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Cube3D.html" target="_self">Cube3D</a></td><td class="desc">Visual 3D cube model </td></tr>
-<tr id="row_0_4_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Cylinder3D.html" target="_self">Cylinder3D</a></td><td class="desc">Visual cylinder model </td></tr>
-<tr id="row_0_5_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Font.html" target="_self">Font</a></td><td class="desc">For rendering texts on the context </td></tr>
-<tr id="row_0_6_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Line3D.html" target="_self">Line3D</a></td><td class="desc">Draws a line in 3D space </td></tr>
-<tr id="row_0_7_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Model3D.html" target="_self">Model3D</a></td><td class="desc">3D object loaded from file other than basic geometries </td></tr>
-<tr id="row_0_8_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Object.html" target="_self">Object</a></td><td class="desc">A foundation of all RMG graphical object data structures </td></tr>
-<tr id="row_0_9_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Object2D.html" target="_self">Object2D</a></td><td class="desc">2D graphics displayed on top of the 3D graphics context </td></tr>
-<tr id="row_0_10_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Object3D.html" target="_self">Object3D</a></td><td class="desc">3D object whose model and appearance can be controlled quickly </td></tr>
-<tr id="row_0_11_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Particle3D.html" target="_self">Particle3D</a></td><td class="desc">2D graphics displayed in terms of 3D space </td></tr>
-<tr id="row_0_12_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Sphere3D.html" target="_self">Sphere3D</a></td><td class="desc">Visual sphere model </td></tr>
-<tr id="row_0_13_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Sprite2D.html" target="_self">Sprite2D</a></td><td class="desc">2D sprite images for 2D games </td></tr>
-<tr id="row_0_14_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Text2D.html" target="_self">Text2D</a></td><td class="desc">Renders text as an 2D object </td></tr>
-<tr id="row_0_15_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Texture.html" target="_self">Texture</a></td><td class="desc">To enhance the appearance of 2D/3D objects with image data </td></tr>
-<tr id="row_0_16_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Vec2.html" target="_self">Vec2</a></td><td class="desc">2D vector </td></tr>
-<tr id="row_0_17_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Vec3.html" target="_self">Vec3</a></td><td class="desc">3D vector </td></tr>
+<tr id="row_0_0_1_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1GeneralShader.html" target="_self">GeneralShader</a></td><td class="desc">Peforms general tasks like positioning and lighting </td></tr>
+<tr id="row_0_0_2_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1Line3DShader.html" target="_self">Line3DShader</a></td><td class="desc">Displays non-polygon objects like lines in 3D space </td></tr>
+<tr id="row_0_0_3_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1ParticleShader.html" target="_self">ParticleShader</a></td><td class="desc">Calculates the location of particle and displays as a 2D sprite </td></tr>
+<tr id="row_0_0_4_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1Shader.html" target="_self">Shader</a></td><td class="desc">The shader program taking main backend role in drawing </td></tr>
+<tr id="row_0_0_5_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1ShadowMapShader.html" target="_self">ShadowMapShader</a></td><td class="desc">Generates an image representing the distance from sun at every pixel </td></tr>
+<tr id="row_0_0_6_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1SpriteShader.html" target="_self">SpriteShader</a></td><td class="desc">Displays 2D objects like sprites and texts </td></tr>
+<tr id="row_0_0_7_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html" target="_self">TextureLoadPending</a></td><td class="desc">Maintains the image data before context startup </td></tr>
+<tr id="row_0_0_8_" class="even"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html" target="_self">VBOLoad</a></td><td class="desc">Handles the GPU resource for drawing </td></tr>
+<tr id="row_0_0_9_"><td class="entry"><span style="width:48px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1internal_1_1VBOLoadPending.html" target="_self">VBOLoadPending</a></td><td class="desc">Maintains the array of VBOs before context startup </td></tr>
+<tr id="row_0_1_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Context.html" target="_self">Context</a></td><td class="desc">2D/3D OpenGL graphics context </td></tr>
+<tr id="row_0_2_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Cube3D.html" target="_self">Cube3D</a></td><td class="desc">Visual 3D cube model </td></tr>
+<tr id="row_0_3_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Cylinder3D.html" target="_self">Cylinder3D</a></td><td class="desc">Visual cylinder model </td></tr>
+<tr id="row_0_4_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Euler.html" target="_self">Euler</a></td><td class="desc">To represent orientation in 3D space </td></tr>
+<tr id="row_0_5_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Font.html" target="_self">Font</a></td><td class="desc">For rendering texts on the context </td></tr>
+<tr id="row_0_6_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Line3D.html" target="_self">Line3D</a></td><td class="desc">Draws a line in 3D space </td></tr>
+<tr id="row_0_7_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Mat3.html" target="_self">Mat3</a></td><td class="desc">3x3 matrix </td></tr>
+<tr id="row_0_8_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Mat3Row.html" target="_self">Mat3Row</a></td><td class="desc">Row of a 3x3 matrix </td></tr>
+<tr id="row_0_9_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Mat4.html" target="_self">Mat4</a></td><td class="desc">4x4 matrix </td></tr>
+<tr id="row_0_10_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Mat4Row.html" target="_self">Mat4Row</a></td><td class="desc">Row of a 4x4 matrix </td></tr>
+<tr id="row_0_11_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Model3D.html" target="_self">Model3D</a></td><td class="desc">3D object loaded from file other than basic geometries </td></tr>
+<tr id="row_0_12_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Object.html" target="_self">Object</a></td><td class="desc">A foundation of all RMG graphical object data structures </td></tr>
+<tr id="row_0_13_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Object2D.html" target="_self">Object2D</a></td><td class="desc">2D graphics displayed on top of the 3D graphics context </td></tr>
+<tr id="row_0_14_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Object3D.html" target="_self">Object3D</a></td><td class="desc">3D object whose model and appearance can be controlled quickly </td></tr>
+<tr id="row_0_15_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Particle3D.html" target="_self">Particle3D</a></td><td class="desc">2D graphics displayed in terms of 3D space </td></tr>
+<tr id="row_0_16_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Sphere3D.html" target="_self">Sphere3D</a></td><td class="desc">Visual sphere model </td></tr>
+<tr id="row_0_17_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Sprite2D.html" target="_self">Sprite2D</a></td><td class="desc">2D sprite images for 2D games </td></tr>
+<tr id="row_0_18_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Text2D.html" target="_self">Text2D</a></td><td class="desc">Renders text as an 2D object </td></tr>
+<tr id="row_0_19_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="classrmg_1_1Texture.html" target="_self">Texture</a></td><td class="desc">To enhance the appearance of 2D/3D objects with image data </td></tr>
+<tr id="row_0_20_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Vec2.html" target="_self">Vec2</a></td><td class="desc">2D vector to represent a 2D-point or a rectangular dimension </td></tr>
+<tr id="row_0_21_" class="even"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Vec3.html" target="_self">Vec3</a></td><td class="desc">3D vector to represent a 3D-point or a cubic dimension </td></tr>
+<tr id="row_0_22_"><td class="entry"><span style="width:32px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structrmg_1_1Vec4.html" target="_self">Vec4</a></td><td class="desc">4D vector </td></tr>
+<tr id="row_1_" class="even"><td class="entry"><span style="width:16px;display:inline-block;">&#160;</span><span class="icona"><span class="icon">C</span></span><a class="el" href="structColor.html" target="_self">Color</a></td><td class="desc">RGBA color model and functions </td></tr>
 </table>
 </div><!-- directory -->
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

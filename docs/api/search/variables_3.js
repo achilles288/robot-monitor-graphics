@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['initdone',['initDone',['../classrmg_1_1Context.html#a36bddeb9007037ca9ae4127447002eb6',1,'rmg::Context']]]
+  ['green',['green',['../structColor.html#a7644dc2e2c23e40894929ce5127452a1',1,'Color']]]
 ];

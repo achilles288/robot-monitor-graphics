@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -81,30 +116,38 @@ $(document).ready(function(){initNavTree('functions_c.html','');});
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
+<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
 
 <h3><a id="index_c"></a>- c -</h3><ul>
 <li>cleanup()
 : <a class="el" href="classrmg_1_1Context.html#a538315b1246bb5b9c38a1a6b94143053">rmg::Context</a>
 </li>
+<li>Color()
+: <a class="el" href="structColor.html#a9a742cbe9f9f4037f5d9f4e81a9b2428">Color</a>
+</li>
 <li>compileShaderProgram()
-: <a class="el" href="classrmg_1_1internal_1_1Shader.html#ab2a4ba9849c2805b04883f7ca37db0ec">rmg::internal::Shader</a>
+: <a class="el" href="classrmg_1_1internal_1_1Shader.html#a34a0dcf9740c3b69f4c1a0bf5755a05f">rmg::internal::Shader</a>
 </li>
 <li>Context()
 : <a class="el" href="classrmg_1_1Context.html#a25c20a3c610e6fb9bd74b7900bb12183">rmg::Context</a>
-, <a class="el" href="classrmg_1_1Object3D.html#ac26c806e60ca4a0547680edb68f6e39b">rmg::Object3D</a>
+</li>
+<li>contrast()
+: <a class="el" href="structColor.html#ad0557865640081a89e3c080ba34ed36c">Color</a>
+</li>
+<li>cross()
+: <a class="el" href="structrmg_1_1Vec2.html#aba60ffa1e262ecf8e789d0fb5e0670fa">rmg::Vec2</a>
+, <a class="el" href="structrmg_1_1Vec3.html#a05168a943df4b9952347b0d31b14bd8c">rmg::Vec3</a>
 </li>
 <li>Cube3D()
 : <a class="el" href="classrmg_1_1Cube3D.html#ab1802d5304d834ebf77a49e46f384f28">rmg::Cube3D</a>
-, <a class="el" href="classrmg_1_1Object3D.html#af27f88b18f45da2b3e2bd241f8802519">rmg::Object3D</a>
 </li>
 <li>Cylinder3D()
-: <a class="el" href="classrmg_1_1Cylinder3D.html#ac0d0852a5ce639a86978866d24ee486d">rmg::Cylinder3D</a>
-, <a class="el" href="classrmg_1_1Object3D.html#a4c8ba3d3ffa244a1634b70ff417d4c90">rmg::Object3D</a>
+: <a class="el" href="classrmg_1_1Cylinder3D.html#adab84eb5d962ba8434f31f54c156be25">rmg::Cylinder3D</a>
 </li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

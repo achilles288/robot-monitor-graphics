@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -81,42 +116,124 @@ $(document).ready(function(){initNavTree('functions_vars.html','');});
 </div>
 
 <div class="contents">
-&#160;<ul>
-<li>a
-: <a class="el" href="structrmg_1_1Color.html#ab69e055797c7651ae6e4f03f2981d2db">rmg::Color</a>
+&#160;
+
+<h3><a id="index_a"></a>- a -</h3><ul>
+<li>alpha
+: <a class="el" href="structColor.html#a57f88e0415184b98091d1ee8b86a61a7">Color</a>
 </li>
-<li>b
-: <a class="el" href="structrmg_1_1Color.html#acdc893ff65bbcd434c0b8a471573cad7">rmg::Color</a>
+</ul>
+
+
+<h3><a id="index_b"></a>- b -</h3><ul>
+<li>blue
+: <a class="el" href="structColor.html#a175386a89265cede8f6ae694c32677c3">Color</a>
 </li>
-<li>g
-: <a class="el" href="structrmg_1_1Color.html#a70e776e47dac1cc4d0d2afd589d5dc00">rmg::Color</a>
+</ul>
+
+
+<h3><a id="index_d"></a>- d -</h3><ul>
+<li>data
+: <a class="el" href="structrmg_1_1Mat3.html#a49b2c1344f200da6f34b895e37d7cbda">rmg::Mat3</a>
+, <a class="el" href="structrmg_1_1Mat3Row.html#add6382150ab693255e4fb71c5c0a19b3">rmg::Mat3Row</a>
+, <a class="el" href="structrmg_1_1Mat4.html#a5a9a0a29dc18cbabbdebf73fdd095513">rmg::Mat4</a>
+, <a class="el" href="structrmg_1_1Mat4Row.html#a4cb8d348bf8d9f3f9cc7948f41942943">rmg::Mat4Row</a>
+, <a class="el" href="structrmg_1_1Vec2.html#a90cf7d4b383c8739cad7800f7c3dba3a">rmg::Vec2</a>
+, <a class="el" href="structrmg_1_1Vec3.html#ac2d87010469077f3372d7c36387bf384">rmg::Vec3</a>
+, <a class="el" href="structrmg_1_1Vec4.html#a2f36c281ae8f9375610926859f41bcc9">rmg::Vec4</a>
 </li>
+</ul>
+
+
+<h3><a id="index_g"></a>- g -</h3><ul>
+<li>green
+: <a class="el" href="structColor.html#a7644dc2e2c23e40894929ce5127452a1">Color</a>
+</li>
+</ul>
+
+
+<h3><a id="index_i"></a>- i -</h3><ul>
 <li>initDone
 : <a class="el" href="classrmg_1_1Context.html#a36bddeb9007037ca9ae4127447002eb6">rmg::Context</a>
 </li>
-<li>r
-: <a class="el" href="structrmg_1_1Color.html#a1a263dca9a5b0462faf4ee96cde2a29e">rmg::Color</a>
+</ul>
+
+
+<h3><a id="index_p"></a>- p -</h3><ul>
+<li>pitch
+: <a class="el" href="structrmg_1_1Euler.html#a6a2328c412a7d30227b1850aa7837a12">rmg::Euler</a>
 </li>
+</ul>
+
+
+<h3><a id="index_r"></a>- r -</h3><ul>
+<li>red
+: <a class="el" href="structColor.html#aa897fe858468c4bff0f286d0dfd43178">Color</a>
+</li>
+<li>roll
+: <a class="el" href="structrmg_1_1Euler.html#aa8c57dd204af684ae1fe090a6834e9b0">rmg::Euler</a>
+</li>
+<li>rows
+: <a class="el" href="structrmg_1_1Mat3.html#a67509a85127f3c5816d96475953afede">rmg::Mat3</a>
+, <a class="el" href="structrmg_1_1Mat4.html#ae10c1564a2bb50eea113496d73a09629">rmg::Mat4</a>
+</li>
+</ul>
+
+
+<h3><a id="index_s"></a>- s -</h3><ul>
 <li>startTime
 : <a class="el" href="classrmg_1_1Context.html#a2d90c23ae4141bfa3957558645d5fe0b">rmg::Context</a>
 </li>
+</ul>
+
+
+<h3><a id="index_t"></a>- t -</h3><ul>
 <li>type
 : <a class="el" href="classrmg_1_1Object.html#a9da9b415506f1ecc342a9c36507ce5e5">rmg::Object</a>
 </li>
+</ul>
+
+
+<h3><a id="index_w"></a>- w -</h3><ul>
+<li>w
+: <a class="el" href="structrmg_1_1Vec4.html#ac0da5fcaf45be5c25cc756571000b2cb">rmg::Vec4</a>
+</li>
+</ul>
+
+
+<h3><a id="index_x"></a>- x -</h3><ul>
 <li>x
-: <a class="el" href="structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752">rmg::Vec2</a>
+: <a class="el" href="structrmg_1_1Euler.html#a06dadb927cb9b656a4c021508947115e">rmg::Euler</a>
+, <a class="el" href="structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752">rmg::Vec2</a>
 , <a class="el" href="structrmg_1_1Vec3.html#a49d1bd1403ca49898b17956222e6b04e">rmg::Vec3</a>
+, <a class="el" href="structrmg_1_1Vec4.html#a54fb8325bd333aba7c32fdb46b9bdcd1">rmg::Vec4</a>
 </li>
+</ul>
+
+
+<h3><a id="index_y"></a>- y -</h3><ul>
 <li>y
-: <a class="el" href="structrmg_1_1Vec2.html#aa1328d7e95abc59d6e35e1b47ed24ab5">rmg::Vec2</a>
+: <a class="el" href="structrmg_1_1Euler.html#a20cab829f2810858cfef60591db70f4e">rmg::Euler</a>
+, <a class="el" href="structrmg_1_1Vec2.html#aa1328d7e95abc59d6e35e1b47ed24ab5">rmg::Vec2</a>
 , <a class="el" href="structrmg_1_1Vec3.html#a161847679a6ad6151918c40fe1b62f11">rmg::Vec3</a>
+, <a class="el" href="structrmg_1_1Vec4.html#a0395cfc56b524343b2eb1a6e680cd0f6">rmg::Vec4</a>
 </li>
+<li>yaw
+: <a class="el" href="structrmg_1_1Euler.html#acfb24094f19901379ecde7f2b2e66e16">rmg::Euler</a>
+</li>
+</ul>
+
+
+<h3><a id="index_z"></a>- z -</h3><ul>
 <li>z
-: <a class="el" href="structrmg_1_1Vec3.html#a3e6204adaa65dca916b1b548879b7969">rmg::Vec3</a>
+: <a class="el" href="structrmg_1_1Euler.html#a45c1473bbffa080ce3a17061a1254d19">rmg::Euler</a>
+, <a class="el" href="structrmg_1_1Vec3.html#a3e6204adaa65dca916b1b548879b7969">rmg::Vec3</a>
+, <a class="el" href="structrmg_1_1Vec4.html#a4454711384071785017712de5c6de40b">rmg::Vec4</a>
 </li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

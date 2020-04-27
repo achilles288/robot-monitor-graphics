@@ -1,0 +1,70 @@
+/*! \page getting_started Getting Started
+ * 
+ * <h1>Contents</h1>
+ * - \ref tutorial0
+ * - \subpage tutorial1
+ * - \subpage tutorial2
+ * - \subpage tutorial3
+ * 
+ * <h1>Installation</h1>
+ * 
+ * \par
+ * This shows how you get the RMGraphics library and its dependencies.
+ * 
+ * <h2>Prequisties</h2>
+ * 
+ * \par
+ * You will need the following setup and dependencies for installation.
+ * 
+ * - Any GPU that supports OpenGL 3.2
+ * - OpenGL Extension Wrangler (GLEW)
+ * - GLFW library
+ * - wxWidgets 3.1 for GUI (optional)
+ * 
+ * \par
+ * If you are contributing the source code and documentation, you need the
+ * following additional components
+ * 
+ * - CMake
+ * - Doxygen, Dot and Dia for documentation
+ * 
+ * <h2>Installation</h2>
+ * 
+ * \par
+ * Here are guidelines for your specific OS.
+ * 
+ * - \ref install_windows
+ * - \ref install_ubuntu
+ * 
+ * <h1>Step By Step</h1>
+ * 
+ * \par
+ * This guide takes you through writing a simple 2D/3D graphics application
+ * using RMGraphics. The demo application creates a window and OpenGL context,
+ * renders 2D sprites, rotating shapes and responds to mouse and keyboard
+ * actions.
+ * 
+ * \section tutorial0 Components
+ * 
+ * \par
+ * Before getting started, what components are involved in the process, how
+ * they relate should be known to the users.
+ * 
+ * \image html component.svg
+ * 
+ * \par
+ * The RMGraphics API involves these componets. The user applications have a
+ * custom update frame loop function for time events and animations as
+ * well as other event events (keyboard, mouse, buttons, .etc) supported by
+ * the GUI. In this system, those functions construct and manipulate
+ * 2D/3D objects, textures and configure the world model which is camera
+ * positions, projection model and context size.
+ * 
+ * \par
+ * In the next page, you will learn how to open a window and render and
+ * manipulate 2D graphics.
+ * 
+ * <a class="next-article-link" href="tutorial1.html">
+ * Next: Rendering And Manipulating 2D Sprites
+ * </a>
+ */

@@ -1,0 +1,12 @@
+<map id="rmg::Object" name="rmg::Object">
+<area shape="rect" id="node2" href="$classrmg_1_1Line3D.html" title="Draws a line in 3D space. " alt="" coords="39,80,133,107"/>
+<area shape="rect" id="node3" href="$classrmg_1_1Object2D.html" title="2D graphics displayed on top of the 3D graphics context " alt="" coords="157,80,263,107"/>
+<area shape="rect" id="node6" href="$classrmg_1_1Object3D.html" title="3D object whose model and appearance can be controlled quickly " alt="" coords="349,80,455,107"/>
+<area shape="rect" id="node11" href="$classrmg_1_1Particle3D.html" title="2D graphics displayed in terms of 3D space " alt="" coords="480,80,593,107"/>
+<area shape="rect" id="node4" href="$classrmg_1_1Sprite2D.html" title="2D sprite images for 2D games " alt="" coords="5,155,108,181"/>
+<area shape="rect" id="node5" href="$classrmg_1_1Text2D.html" title="Renders text as an 2D object. " alt="" coords="132,155,227,181"/>
+<area shape="rect" id="node7" href="$classrmg_1_1Cube3D.html" title="Visual 3D cube model. " alt="" coords="251,155,351,181"/>
+<area shape="rect" id="node8" href="$classrmg_1_1Cylinder3D.html" title="Visual cylinder model. " alt="" coords="374,155,491,181"/>
+<area shape="rect" id="node9" href="$classrmg_1_1Model3D.html" title="3D object loaded from file other than basic geometries " alt="" coords="515,155,619,181"/>
+<area shape="rect" id="node10" href="$classrmg_1_1Sphere3D.html" title="Visual sphere model. " alt="" coords="644,155,755,181"/>
+</map>

@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -97,29 +132,17 @@ $(document).ready(function(){initNavTree('classrmg_1_1Object.html','');});
 <div class="dynheader">
 Inheritance diagram for rmg::Object:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classrmg_1_1Object.png" usemap="#rmg::Object_map" alt=""/>
-  <map id="rmg::Object_map" name="rmg::Object_map">
-<area href="classrmg_1_1Line3D.html" title="Draws a line in 3D space. " alt="rmg::Line3D" shape="rect" coords="0,56,103,80"/>
-<area href="classrmg_1_1Object2D.html" title="2D graphics displayed on top of the 3D graphics context " alt="rmg::Object2D" shape="rect" coords="113,56,216,80"/>
-<area href="classrmg_1_1Object3D.html" title="3D object whose model and appearance can be controlled quickly " alt="rmg::Object3D" shape="rect" coords="452,56,555,80"/>
-<area href="classrmg_1_1Particle3D.html" title="2D graphics displayed in terms of 3D space " alt="rmg::Particle3D" shape="rect" coords="565,56,668,80"/>
-<area href="classrmg_1_1Sprite2D.html" title="2D sprite images for 2D games " alt="rmg::Sprite2D" shape="rect" coords="56,112,159,136"/>
-<area href="classrmg_1_1Text2D.html" title="Renders text as an 2D object. " alt="rmg::Text2D" shape="rect" coords="169,112,272,136"/>
-<area href="classrmg_1_1Cube3D.html" title="Visual 3D cube model. " alt="rmg::Cube3D" shape="rect" coords="282,112,385,136"/>
-<area href="classrmg_1_1Cylinder3D.html" title="Visual cylinder model. " alt="rmg::Cylinder3D" shape="rect" coords="395,112,498,136"/>
-<area href="classrmg_1_1Model3D.html" title="3D object loaded from file other than basic geometries " alt="rmg::Model3D" shape="rect" coords="508,112,611,136"/>
-<area href="classrmg_1_1Sphere3D.html" title="Visual sphere model. " alt="rmg::Sphere3D" shape="rect" coords="621,112,724,136"/>
-</map>
- </div></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classrmg_1_1Object__inherit__graph.svg" width="760" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad3f3c539c0ad8d3efdff50aaa26d9ce7"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#ad3f3c539c0ad8d3efdff50aaa26d9ce7">Object</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx)</td></tr>
 <tr class="memdesc:ad3f3c539c0ad8d3efdff50aaa26d9ce7"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with its container.  <a href="#ad3f3c539c0ad8d3efdff50aaa26d9ce7">More...</a><br /></td></tr>
 <tr class="separator:ad3f3c539c0ad8d3efdff50aaa26d9ce7"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97aaeb39c0de0010d20b7efe3c767eac"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a97aaeb39c0de0010d20b7efe3c767eac">~Object</a> ()</td></tr>
-<tr class="memdesc:a97aaeb39c0de0010d20b7efe3c767eac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#a97aaeb39c0de0010d20b7efe3c767eac">More...</a><br /></td></tr>
+<tr class="memitem:a97aaeb39c0de0010d20b7efe3c767eac"><td class="memItemLeft" align="right" valign="top"><a id="a97aaeb39c0de0010d20b7efe3c767eac"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a97aaeb39c0de0010d20b7efe3c767eac">~Object</a> ()</td></tr>
+<tr class="memdesc:a97aaeb39c0de0010d20b7efe3c767eac"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a97aaeb39c0de0010d20b7efe3c767eac"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa34fc77da8adb2719dbfc4e698545084"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#aa34fc77da8adb2719dbfc4e698545084">Object</a> (const <a class="el" href="classrmg_1_1Object.html">Object</a> &amp;obj)</td></tr>
 <tr class="memdesc:aa34fc77da8adb2719dbfc4e698545084"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#aa34fc77da8adb2719dbfc4e698545084">More...</a><br /></td></tr>
@@ -136,15 +159,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2b4a126152a779c495b1aa8a9cb1c3a8"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a2b4a126152a779c495b1aa8a9cb1c3a8">getID</a> ()</td></tr>
 <tr class="memdesc:a2b4a126152a779c495b1aa8a9cb1c3a8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object ID.  <a href="#a2b4a126152a779c495b1aa8a9cb1c3a8">More...</a><br /></td></tr>
 <tr class="separator:a2b4a126152a779c495b1aa8a9cb1c3a8"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a20f9f8f7039f7f48887374e340e7bb"><td class="memItemLeft" align="right" valign="top">rmgContext *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a8a20f9f8f7039f7f48887374e340e7bb">getContext</a> ()</td></tr>
-<tr class="memdesc:a8a20f9f8f7039f7f48887374e340e7bb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets container context.  <a href="#a8a20f9f8f7039f7f48887374e340e7bb">More...</a><br /></td></tr>
-<tr class="separator:a8a20f9f8f7039f7f48887374e340e7bb"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad7a2e5813a254655a7bb8e71357ef76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacermg.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#aad7a2e5813a254655a7bb8e71357ef76">getObjectType</a> ()</td></tr>
+<tr class="memitem:a926aab0adfc47d603cba2095f406b65f"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrmg_1_1Context.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a926aab0adfc47d603cba2095f406b65f">getContext</a> ()</td></tr>
+<tr class="memdesc:a926aab0adfc47d603cba2095f406b65f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets container context.  <a href="#a926aab0adfc47d603cba2095f406b65f">More...</a><br /></td></tr>
+<tr class="separator:a926aab0adfc47d603cba2095f406b65f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad7a2e5813a254655a7bb8e71357ef76"><td class="memItemLeft" align="right" valign="top"><a class="el" href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#aad7a2e5813a254655a7bb8e71357ef76">getObjectType</a> ()</td></tr>
 <tr class="memdesc:aad7a2e5813a254655a7bb8e71357ef76"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object type.  <a href="#aad7a2e5813a254655a7bb8e71357ef76">More...</a><br /></td></tr>
 <tr class="separator:aad7a2e5813a254655a7bb8e71357ef76"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ec00a18e80fd80f5d44d6f4f9c47326"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a6ec00a18e80fd80f5d44d6f4f9c47326">setTexture</a> (std::string img)</td></tr>
-<tr class="memdesc:a6ec00a18e80fd80f5d44d6f4f9c47326"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object texture.  <a href="#a6ec00a18e80fd80f5d44d6f4f9c47326">More...</a><br /></td></tr>
-<tr class="separator:a6ec00a18e80fd80f5d44d6f4f9c47326"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac836258a0bbca1ad75b87521062f379a"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#ac836258a0bbca1ad75b87521062f379a">setTexture</a> (const std::string &amp;img)</td></tr>
+<tr class="memdesc:ac836258a0bbca1ad75b87521062f379a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object texture.  <a href="#ac836258a0bbca1ad75b87521062f379a">More...</a><br /></td></tr>
+<tr class="separator:ac836258a0bbca1ad75b87521062f379a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a514d55be7dffc29379e3ce62b66cc385"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a514d55be7dffc29379e3ce62b66cc385">setTexture</a> (<a class="el" href="classrmg_1_1Texture.html">Texture</a> *tex)</td></tr>
 <tr class="memdesc:a514d55be7dffc29379e3ce62b66cc385"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object texture.  <a href="#a514d55be7dffc29379e3ce62b66cc385">More...</a><br /></td></tr>
 <tr class="separator:a514d55be7dffc29379e3ce62b66cc385"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -154,7 +177,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5fe78a183c5fc13194e1fe50b9bdda1e"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a5fe78a183c5fc13194e1fe50b9bdda1e">setColor</a> (float r, float g, float b, float a)</td></tr>
 <tr class="memdesc:a5fe78a183c5fc13194e1fe50b9bdda1e"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object color.  <a href="#a5fe78a183c5fc13194e1fe50b9bdda1e">More...</a><br /></td></tr>
 <tr class="separator:a5fe78a183c5fc13194e1fe50b9bdda1e"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58a2df3d942727dd398fa948e89c923a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a58a2df3d942727dd398fa948e89c923a">getColor</a> ()</td></tr>
+<tr class="memitem:aef37577d517f0f516b1f35f7f01ff8c9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#aef37577d517f0f516b1f35f7f01ff8c9">setColor</a> (const <a class="el" href="structColor.html">Color</a> &amp;col)</td></tr>
+<tr class="memdesc:aef37577d517f0f516b1f35f7f01ff8c9"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object color.  <a href="#aef37577d517f0f516b1f35f7f01ff8c9">More...</a><br /></td></tr>
+<tr class="separator:aef37577d517f0f516b1f35f7f01ff8c9"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58a2df3d942727dd398fa948e89c923a"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structColor.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a58a2df3d942727dd398fa948e89c923a">getColor</a> ()</td></tr>
 <tr class="memdesc:a58a2df3d942727dd398fa948e89c923a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object color.  <a href="#a58a2df3d942727dd398fa948e89c923a">More...</a><br /></td></tr>
 <tr class="separator:a58a2df3d942727dd398fa948e89c923a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a937a49ed840c9ac1c964f92d4642578d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a937a49ed840c9ac1c964f92d4642578d">setHidden</a> (bool hide)</td></tr>
@@ -166,7 +192,7 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pro-attribs"></a>
 Protected Attributes</h2></td></tr>
-<tr class="memitem:a9da9b415506f1ecc342a9c36507ce5e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacermg.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a9da9b415506f1ecc342a9c36507ce5e5">type</a></td></tr>
+<tr class="memitem:a9da9b415506f1ecc342a9c36507ce5e5"><td class="memItemLeft" align="right" valign="top"><a class="el" href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a9da9b415506f1ecc342a9c36507ce5e5">type</a></td></tr>
 <tr class="memdesc:a9da9b415506f1ecc342a9c36507ce5e5"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of object (<a class="el" href="classrmg_1_1Object3D.html" title="3D object whose model and appearance can be controlled quickly ">Object3D</a>, <a class="el" href="classrmg_1_1Sprite2D.html" title="2D sprite images for 2D games ">Sprite2D</a>, .etc)  <a href="#a9da9b415506f1ecc342a9c36507ce5e5">More...</a><br /></td></tr>
 <tr class="separator:a9da9b415506f1ecc342a9c36507ce5e5"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -197,33 +223,6 @@ Protected Attributes</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="a97aaeb39c0de0010d20b7efe3c767eac"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a97aaeb39c0de0010d20b7efe3c767eac">&#9670;&nbsp;</a></span>~Object()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual rmg::Object::~Object </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destructor. </p>
 
 </div>
 </div>
@@ -295,7 +294,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="structrmg_1_1Color.html">Color</a> rmg::Object::getColor </td>
+          <td class="memname"><a class="el" href="structColor.html">Color</a> rmg::Object::getColor </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -308,14 +307,14 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a8a20f9f8f7039f7f48887374e340e7bb"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8a20f9f8f7039f7f48887374e340e7bb">&#9670;&nbsp;</a></span>getContext()</h2>
+<a id="a926aab0adfc47d603cba2095f406b65f"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a926aab0adfc47d603cba2095f406b65f">&#9670;&nbsp;</a></span>getContext()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">rmgContext* rmg::Object::getContext </td>
+          <td class="memname"><a class="el" href="classrmg_1_1Context.html">Context</a>* rmg::Object::getContext </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -355,7 +354,7 @@ Protected Attributes</h2></td></tr>
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacermg.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a> rmg::Object::getObjectType </td>
+          <td class="memname"><a class="el" href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a> rmg::Object::getObjectType </td>
           <td>(</td>
           <td class="paramname"></td><td>)</td>
           <td></td>
@@ -469,7 +468,7 @@ Protected Attributes</h2></td></tr>
 </div>
 </div>
 <a id="a5fe78a183c5fc13194e1fe50b9bdda1e"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5fe78a183c5fc13194e1fe50b9bdda1e">&#9670;&nbsp;</a></span>setColor()</h2>
+<h2 class="memtitle"><span class="permalink"><a href="#a5fe78a183c5fc13194e1fe50b9bdda1e">&#9670;&nbsp;</a></span>setColor() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -519,6 +518,32 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
+<a id="aef37577d517f0f516b1f35f7f01ff8c9"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aef37577d517f0f516b1f35f7f01ff8c9">&#9670;&nbsp;</a></span>setColor() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rmg::Object::setColor </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structColor.html">Color</a> &amp;&#160;</td>
+          <td class="paramname"><em>col</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Sets object color. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">col</td><td>RGBA color </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
 <a id="a937a49ed840c9ac1c964f92d4642578d"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a937a49ed840c9ac1c964f92d4642578d">&#9670;&nbsp;</a></span>setHidden()</h2>
 
@@ -546,8 +571,8 @@ Protected Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a6ec00a18e80fd80f5d44d6f4f9c47326"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6ec00a18e80fd80f5d44d6f4f9c47326">&#9670;&nbsp;</a></span>setTexture() <span class="overload">[1/2]</span></h2>
+<a id="ac836258a0bbca1ad75b87521062f379a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac836258a0bbca1ad75b87521062f379a">&#9670;&nbsp;</a></span>setTexture() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -555,7 +580,7 @@ Protected Attributes</h2></td></tr>
         <tr>
           <td class="memname">void rmg::Object::setTexture </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>img</em></td><td>)</td>
           <td></td>
         </tr>
@@ -610,7 +635,7 @@ Protected Attributes</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="namespacermg.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a> rmg::Object::type</td>
+          <td class="memname"><a class="el" href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a> rmg::Object::type</td>
         </tr>
       </table>
   </td>
@@ -630,10 +655,11 @@ Protected Attributes</h2></td></tr>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacermg.html">rmg</a></li><li class="navelem"><a class="el" href="classrmg_1_1Object.html">Object</a></li>
+    <li class="navelem"><b>rmg</b></li><li class="navelem"><a class="el" href="classrmg_1_1Object.html">Object</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>

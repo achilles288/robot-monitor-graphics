@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -96,33 +131,29 @@ $(document).ready(function(){initNavTree('classrmg_1_1Text2D.html','');});
 <div class="dynheader">
 Inheritance diagram for rmg::Text2D:</div>
 <div class="dyncontent">
- <div class="center">
-  <img src="classrmg_1_1Text2D.png" usemap="#rmg::Text2D_map" alt=""/>
-  <map id="rmg::Text2D_map" name="rmg::Text2D_map">
-<area href="classrmg_1_1Object2D.html" title="2D graphics displayed on top of the 3D graphics context " alt="rmg::Object2D" shape="rect" coords="0,56,92,80"/>
-<area href="classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures. " alt="rmg::Object" shape="rect" coords="0,0,92,24"/>
-</map>
- </div></div>
+<div class="center"><iframe scrolling="no" frameborder="0" src="classrmg_1_1Text2D__inherit__graph.svg" width="118" height="187"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
 <tr class="memitem:ad14de79a689e9c15b852c88073bce61d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#ad14de79a689e9c15b852c88073bce61d">Text2D</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx)</td></tr>
 <tr class="memdesc:ad14de79a689e9c15b852c88073bce61d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with its container.  <a href="#ad14de79a689e9c15b852c88073bce61d">More...</a><br /></td></tr>
 <tr class="separator:ad14de79a689e9c15b852c88073bce61d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0a5f1a2910f7e14f9fd707710eb300ad"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#a0a5f1a2910f7e14f9fd707710eb300ad">Text2D</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx, std::string f)</td></tr>
-<tr class="memdesc:a0a5f1a2910f7e14f9fd707710eb300ad"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with path to font file.  <a href="#a0a5f1a2910f7e14f9fd707710eb300ad">More...</a><br /></td></tr>
-<tr class="separator:a0a5f1a2910f7e14f9fd707710eb300ad"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aefe411a46e53232e4fc003be37b6ae25"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#aefe411a46e53232e4fc003be37b6ae25">Text2D</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx, const std::string &amp;f)</td></tr>
+<tr class="memdesc:aefe411a46e53232e4fc003be37b6ae25"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with path to font file.  <a href="#aefe411a46e53232e4fc003be37b6ae25">More...</a><br /></td></tr>
+<tr class="separator:aefe411a46e53232e4fc003be37b6ae25"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:add528a6e1362d71f484a26b9f2c81b28"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#add528a6e1362d71f484a26b9f2c81b28">Text2D</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx, <a class="el" href="classrmg_1_1Font.html">Font</a> *ft)</td></tr>
 <tr class="memdesc:add528a6e1362d71f484a26b9f2c81b28"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with loaded font.  <a href="#add528a6e1362d71f484a26b9f2c81b28">More...</a><br /></td></tr>
 <tr class="separator:add528a6e1362d71f484a26b9f2c81b28"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a96ac338b2965a5063da41056a28d290d"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#a96ac338b2965a5063da41056a28d290d">Text2D</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx, std::string f, float s)</td></tr>
-<tr class="memdesc:a96ac338b2965a5063da41056a28d290d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with path to font file and font size.  <a href="#a96ac338b2965a5063da41056a28d290d">More...</a><br /></td></tr>
-<tr class="separator:a96ac338b2965a5063da41056a28d290d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a79db6f6409308796fc357c93357f1d43"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#a79db6f6409308796fc357c93357f1d43">Text2D</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx, const std::string &amp;f, float s)</td></tr>
+<tr class="memdesc:a79db6f6409308796fc357c93357f1d43"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with path to font file and font size.  <a href="#a79db6f6409308796fc357c93357f1d43">More...</a><br /></td></tr>
+<tr class="separator:a79db6f6409308796fc357c93357f1d43"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a73833a9deffb9020dc413f26f0c43e7a"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#a73833a9deffb9020dc413f26f0c43e7a">Text2D</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx, <a class="el" href="classrmg_1_1Font.html">Font</a> *ft, float s)</td></tr>
 <tr class="memdesc:a73833a9deffb9020dc413f26f0c43e7a"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with loaded font and font size.  <a href="#a73833a9deffb9020dc413f26f0c43e7a">More...</a><br /></td></tr>
 <tr class="separator:a73833a9deffb9020dc413f26f0c43e7a"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:af46efdbdf11679983b55d539e99cdc2c"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#af46efdbdf11679983b55d539e99cdc2c">~Text2D</a> ()</td></tr>
-<tr class="memdesc:af46efdbdf11679983b55d539e99cdc2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#af46efdbdf11679983b55d539e99cdc2c">More...</a><br /></td></tr>
+<tr class="memitem:af46efdbdf11679983b55d539e99cdc2c"><td class="memItemLeft" align="right" valign="top"><a id="af46efdbdf11679983b55d539e99cdc2c"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#af46efdbdf11679983b55d539e99cdc2c">~Text2D</a> ()</td></tr>
+<tr class="memdesc:af46efdbdf11679983b55d539e99cdc2c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:af46efdbdf11679983b55d539e99cdc2c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a652220ba0873beeb82a1879faad63259"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#a652220ba0873beeb82a1879faad63259">Text2D</a> (const <a class="el" href="classrmg_1_1Text2D.html">Text2D</a> &amp;obj)</td></tr>
 <tr class="memdesc:a652220ba0873beeb82a1879faad63259"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a652220ba0873beeb82a1879faad63259">More...</a><br /></td></tr>
@@ -136,15 +167,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a17a57ab2af5a2b388e24831ddf7ca44d"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrmg_1_1Text2D.html">Text2D</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#a17a57ab2af5a2b388e24831ddf7ca44d">operator=</a> (<a class="el" href="classrmg_1_1Text2D.html">Text2D</a> &amp;&amp;obj) noexcept</td></tr>
 <tr class="memdesc:a17a57ab2af5a2b388e24831ddf7ca44d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment.  <a href="#a17a57ab2af5a2b388e24831ddf7ca44d">More...</a><br /></td></tr>
 <tr class="separator:a17a57ab2af5a2b388e24831ddf7ca44d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab6cc308ce4162fa950b3363957044aa6"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#ab6cc308ce4162fa950b3363957044aa6">setText</a> (std::string txt)</td></tr>
-<tr class="memdesc:ab6cc308ce4162fa950b3363957044aa6"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text to display.  <a href="#ab6cc308ce4162fa950b3363957044aa6">More...</a><br /></td></tr>
-<tr class="separator:ab6cc308ce4162fa950b3363957044aa6"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab9393fc1064b9d79607ddca791e35135"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#ab9393fc1064b9d79607ddca791e35135">setText</a> (const std::string &amp;txt)</td></tr>
+<tr class="memdesc:ab9393fc1064b9d79607ddca791e35135"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the text to display.  <a href="#ab9393fc1064b9d79607ddca791e35135">More...</a><br /></td></tr>
+<tr class="separator:ab9393fc1064b9d79607ddca791e35135"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1bcaa711dee936cc7c6dfb2b7db26286"><td class="memItemLeft" align="right" valign="top">std::string&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#a1bcaa711dee936cc7c6dfb2b7db26286">getText</a> ()</td></tr>
 <tr class="memdesc:a1bcaa711dee936cc7c6dfb2b7db26286"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the text to display.  <a href="#a1bcaa711dee936cc7c6dfb2b7db26286">More...</a><br /></td></tr>
 <tr class="separator:a1bcaa711dee936cc7c6dfb2b7db26286"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aea37c4bad2f8a5e516c593d52db8114b"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#aea37c4bad2f8a5e516c593d52db8114b">setFont</a> (std::string f)</td></tr>
-<tr class="memdesc:aea37c4bad2f8a5e516c593d52db8114b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the font of the text object.  <a href="#aea37c4bad2f8a5e516c593d52db8114b">More...</a><br /></td></tr>
-<tr class="separator:aea37c4bad2f8a5e516c593d52db8114b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a833da2bcdfd6513e536ff293211c26fc"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#a833da2bcdfd6513e536ff293211c26fc">setFont</a> (const std::string &amp;f)</td></tr>
+<tr class="memdesc:a833da2bcdfd6513e536ff293211c26fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the font of the text object.  <a href="#a833da2bcdfd6513e536ff293211c26fc">More...</a><br /></td></tr>
+<tr class="separator:a833da2bcdfd6513e536ff293211c26fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac5cff9901fe210656ea7a2282809157f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Text2D.html#ac5cff9901fe210656ea7a2282809157f">setFont</a> (<a class="el" href="classrmg_1_1Font.html">Font</a> *f)</td></tr>
 <tr class="memdesc:ac5cff9901fe210656ea7a2282809157f"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the font of the text object.  <a href="#ac5cff9901fe210656ea7a2282809157f">More...</a><br /></td></tr>
 <tr class="separator:ac5cff9901fe210656ea7a2282809157f"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -164,8 +195,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a44f63c6b21dfa686e1e7b7a197f0edd9 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a44f63c6b21dfa686e1e7b7a197f0edd9">Object2D</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx)</td></tr>
 <tr class="memdesc:a44f63c6b21dfa686e1e7b7a197f0edd9 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with its container.  <a href="classrmg_1_1Object2D.html#a44f63c6b21dfa686e1e7b7a197f0edd9">More...</a><br /></td></tr>
 <tr class="separator:a44f63c6b21dfa686e1e7b7a197f0edd9 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4adf00d82bcd425293aa7775a7fc5fd8 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a4adf00d82bcd425293aa7775a7fc5fd8">~Object2D</a> ()</td></tr>
-<tr class="memdesc:a4adf00d82bcd425293aa7775a7fc5fd8 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="classrmg_1_1Object2D.html#a4adf00d82bcd425293aa7775a7fc5fd8">More...</a><br /></td></tr>
+<tr class="memitem:a4adf00d82bcd425293aa7775a7fc5fd8 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top"><a id="a4adf00d82bcd425293aa7775a7fc5fd8"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a4adf00d82bcd425293aa7775a7fc5fd8">~Object2D</a> ()</td></tr>
+<tr class="memdesc:a4adf00d82bcd425293aa7775a7fc5fd8 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a4adf00d82bcd425293aa7775a7fc5fd8 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1187eb0a857ebca594700ce623075bdf inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a1187eb0a857ebca594700ce623075bdf">Object2D</a> (const <a class="el" href="classrmg_1_1Object2D.html">Object2D</a> &amp;obj)</td></tr>
 <tr class="memdesc:a1187eb0a857ebca594700ce623075bdf inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="classrmg_1_1Object2D.html#a1187eb0a857ebca594700ce623075bdf">More...</a><br /></td></tr>
@@ -182,27 +214,30 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a97b6db45abe9bf84540bc5220b1e7ef7 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a97b6db45abe9bf84540bc5220b1e7ef7">setPosition</a> (float x, float y)</td></tr>
 <tr class="memdesc:a97b6db45abe9bf84540bc5220b1e7ef7 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the location which the object appears.  <a href="classrmg_1_1Object2D.html#a97b6db45abe9bf84540bc5220b1e7ef7">More...</a><br /></td></tr>
 <tr class="separator:a97b6db45abe9bf84540bc5220b1e7ef7 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a189699b2abf137d5430580ba7905ce64 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a189699b2abf137d5430580ba7905ce64">setPosition</a> (<a class="el" href="structrmg_1_1Vec2.html">Vec2</a> pos)</td></tr>
-<tr class="memdesc:a189699b2abf137d5430580ba7905ce64 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the location which the object appears.  <a href="classrmg_1_1Object2D.html#a189699b2abf137d5430580ba7905ce64">More...</a><br /></td></tr>
-<tr class="separator:a189699b2abf137d5430580ba7905ce64 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a97b73420c59f56cef96e81f15419825b inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a97b73420c59f56cef96e81f15419825b">setPosition</a> (const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;pos)</td></tr>
+<tr class="memdesc:a97b73420c59f56cef96e81f15419825b inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the location which the object appears.  <a href="classrmg_1_1Object2D.html#a97b73420c59f56cef96e81f15419825b">More...</a><br /></td></tr>
+<tr class="separator:a97b73420c59f56cef96e81f15419825b inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a13d55ba1f3cdbb43ba7973bdcec4e8a2 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a13d55ba1f3cdbb43ba7973bdcec4e8a2">getPosition</a> ()</td></tr>
 <tr class="memdesc:a13d55ba1f3cdbb43ba7973bdcec4e8a2 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the location of the 2D object.  <a href="classrmg_1_1Object2D.html#a13d55ba1f3cdbb43ba7973bdcec4e8a2">More...</a><br /></td></tr>
 <tr class="separator:a13d55ba1f3cdbb43ba7973bdcec4e8a2 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a40c09d8717f26b0f48f6baabd514f48c inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a40c09d8717f26b0f48f6baabd514f48c">setRotation</a> (float t, <a class="el" href="angle__unit_8hpp.html#ae14d16230f3d8ff22ac7c5445e526ac0">AngleUnit</a> unit)</td></tr>
+<tr class="memdesc:a40c09d8717f26b0f48f6baabd514f48c inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the rotation of the 2D object.  <a href="classrmg_1_1Object2D.html#a40c09d8717f26b0f48f6baabd514f48c">More...</a><br /></td></tr>
+<tr class="separator:a40c09d8717f26b0f48f6baabd514f48c inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a42102ced196e49d92892c4e62128323d inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a42102ced196e49d92892c4e62128323d">getRotation</a> ()</td></tr>
 <tr class="memdesc:a42102ced196e49d92892c4e62128323d inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the rotation of the 2D object.  <a href="classrmg_1_1Object2D.html#a42102ced196e49d92892c4e62128323d">More...</a><br /></td></tr>
 <tr class="separator:a42102ced196e49d92892c4e62128323d inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a0e50e0a5517790d7ee3649afb9afd597 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">virtual void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a0e50e0a5517790d7ee3649afb9afd597">setSize</a> (float w, float h)</td></tr>
 <tr class="memdesc:a0e50e0a5517790d7ee3649afb9afd597 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the size of the 2D object.  <a href="classrmg_1_1Object2D.html#a0e50e0a5517790d7ee3649afb9afd597">More...</a><br /></td></tr>
 <tr class="separator:a0e50e0a5517790d7ee3649afb9afd597 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a621540acc5ab9f94a42bb14945b0718b inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a621540acc5ab9f94a42bb14945b0718b">setSize</a> (<a class="el" href="structrmg_1_1Vec2.html">Vec2</a> size)</td></tr>
-<tr class="memdesc:a621540acc5ab9f94a42bb14945b0718b inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the size of the 2D object.  <a href="classrmg_1_1Object2D.html#a621540acc5ab9f94a42bb14945b0718b">More...</a><br /></td></tr>
-<tr class="separator:a621540acc5ab9f94a42bb14945b0718b inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58400acd46da3a0f2584fc528f8160b4 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a58400acd46da3a0f2584fc528f8160b4">setSize</a> (const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;size)</td></tr>
+<tr class="memdesc:a58400acd46da3a0f2584fc528f8160b4 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets the size of the 2D object.  <a href="classrmg_1_1Object2D.html#a58400acd46da3a0f2584fc528f8160b4">More...</a><br /></td></tr>
+<tr class="separator:a58400acd46da3a0f2584fc528f8160b4 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7586864d03351a2204092a437261a890 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a7586864d03351a2204092a437261a890">getSize</a> ()</td></tr>
 <tr class="memdesc:a7586864d03351a2204092a437261a890 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the size of the 2D object.  <a href="classrmg_1_1Object2D.html#a7586864d03351a2204092a437261a890">More...</a><br /></td></tr>
 <tr class="separator:a7586864d03351a2204092a437261a890 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a62aacfbbafe9f2714f275b77460a7b04 inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a62aacfbbafe9f2714f275b77460a7b04">setZOrder</a> (int z)</td></tr>
-<tr class="memdesc:a62aacfbbafe9f2714f275b77460a7b04 inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines which 2D object is on top.  <a href="classrmg_1_1Object2D.html#a62aacfbbafe9f2714f275b77460a7b04">More...</a><br /></td></tr>
-<tr class="separator:a62aacfbbafe9f2714f275b77460a7b04 inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a51a3c371739b871795097504f94ce4ab inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a51a3c371739b871795097504f94ce4ab">setZOrder</a> (int8_t z)</td></tr>
+<tr class="memdesc:a51a3c371739b871795097504f94ce4ab inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Determines which 2D object is on top.  <a href="classrmg_1_1Object2D.html#a51a3c371739b871795097504f94ce4ab">More...</a><br /></td></tr>
+<tr class="separator:a51a3c371739b871795097504f94ce4ab inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a637f438923421db670a2a3be9b7c84ee inherit pub_methods_classrmg_1_1Object2D"><td class="memItemLeft" align="right" valign="top">int8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object2D.html#a637f438923421db670a2a3be9b7c84ee">getZOrder</a> ()</td></tr>
 <tr class="memdesc:a637f438923421db670a2a3be9b7c84ee inherit pub_methods_classrmg_1_1Object2D"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the z-order of the 2D object.  <a href="classrmg_1_1Object2D.html#a637f438923421db670a2a3be9b7c84ee">More...</a><br /></td></tr>
 <tr class="separator:a637f438923421db670a2a3be9b7c84ee inherit pub_methods_classrmg_1_1Object2D"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -210,8 +245,9 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:ad3f3c539c0ad8d3efdff50aaa26d9ce7 inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#ad3f3c539c0ad8d3efdff50aaa26d9ce7">Object</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx)</td></tr>
 <tr class="memdesc:ad3f3c539c0ad8d3efdff50aaa26d9ce7 inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with its container.  <a href="classrmg_1_1Object.html#ad3f3c539c0ad8d3efdff50aaa26d9ce7">More...</a><br /></td></tr>
 <tr class="separator:ad3f3c539c0ad8d3efdff50aaa26d9ce7 inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a97aaeb39c0de0010d20b7efe3c767eac inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a97aaeb39c0de0010d20b7efe3c767eac">~Object</a> ()</td></tr>
-<tr class="memdesc:a97aaeb39c0de0010d20b7efe3c767eac inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="classrmg_1_1Object.html#a97aaeb39c0de0010d20b7efe3c767eac">More...</a><br /></td></tr>
+<tr class="memitem:a97aaeb39c0de0010d20b7efe3c767eac inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top"><a id="a97aaeb39c0de0010d20b7efe3c767eac"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a97aaeb39c0de0010d20b7efe3c767eac">~Object</a> ()</td></tr>
+<tr class="memdesc:a97aaeb39c0de0010d20b7efe3c767eac inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:a97aaeb39c0de0010d20b7efe3c767eac inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa34fc77da8adb2719dbfc4e698545084 inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#aa34fc77da8adb2719dbfc4e698545084">Object</a> (const <a class="el" href="classrmg_1_1Object.html">Object</a> &amp;obj)</td></tr>
 <tr class="memdesc:aa34fc77da8adb2719dbfc4e698545084 inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="classrmg_1_1Object.html#aa34fc77da8adb2719dbfc4e698545084">More...</a><br /></td></tr>
@@ -228,15 +264,15 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a2b4a126152a779c495b1aa8a9cb1c3a8 inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a2b4a126152a779c495b1aa8a9cb1c3a8">getID</a> ()</td></tr>
 <tr class="memdesc:a2b4a126152a779c495b1aa8a9cb1c3a8 inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object ID.  <a href="classrmg_1_1Object.html#a2b4a126152a779c495b1aa8a9cb1c3a8">More...</a><br /></td></tr>
 <tr class="separator:a2b4a126152a779c495b1aa8a9cb1c3a8 inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a8a20f9f8f7039f7f48887374e340e7bb inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">rmgContext *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a8a20f9f8f7039f7f48887374e340e7bb">getContext</a> ()</td></tr>
-<tr class="memdesc:a8a20f9f8f7039f7f48887374e340e7bb inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets container context.  <a href="classrmg_1_1Object.html#a8a20f9f8f7039f7f48887374e340e7bb">More...</a><br /></td></tr>
-<tr class="separator:a8a20f9f8f7039f7f48887374e340e7bb inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad7a2e5813a254655a7bb8e71357ef76 inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacermg.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#aad7a2e5813a254655a7bb8e71357ef76">getObjectType</a> ()</td></tr>
+<tr class="memitem:a926aab0adfc47d603cba2095f406b65f inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrmg_1_1Context.html">Context</a> *&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a926aab0adfc47d603cba2095f406b65f">getContext</a> ()</td></tr>
+<tr class="memdesc:a926aab0adfc47d603cba2095f406b65f inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets container context.  <a href="classrmg_1_1Object.html#a926aab0adfc47d603cba2095f406b65f">More...</a><br /></td></tr>
+<tr class="separator:a926aab0adfc47d603cba2095f406b65f inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aad7a2e5813a254655a7bb8e71357ef76 inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top"><a class="el" href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#aad7a2e5813a254655a7bb8e71357ef76">getObjectType</a> ()</td></tr>
 <tr class="memdesc:aad7a2e5813a254655a7bb8e71357ef76 inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object type.  <a href="classrmg_1_1Object.html#aad7a2e5813a254655a7bb8e71357ef76">More...</a><br /></td></tr>
 <tr class="separator:aad7a2e5813a254655a7bb8e71357ef76 inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6ec00a18e80fd80f5d44d6f4f9c47326 inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a6ec00a18e80fd80f5d44d6f4f9c47326">setTexture</a> (std::string img)</td></tr>
-<tr class="memdesc:a6ec00a18e80fd80f5d44d6f4f9c47326 inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object texture.  <a href="classrmg_1_1Object.html#a6ec00a18e80fd80f5d44d6f4f9c47326">More...</a><br /></td></tr>
-<tr class="separator:a6ec00a18e80fd80f5d44d6f4f9c47326 inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac836258a0bbca1ad75b87521062f379a inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#ac836258a0bbca1ad75b87521062f379a">setTexture</a> (const std::string &amp;img)</td></tr>
+<tr class="memdesc:ac836258a0bbca1ad75b87521062f379a inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object texture.  <a href="classrmg_1_1Object.html#ac836258a0bbca1ad75b87521062f379a">More...</a><br /></td></tr>
+<tr class="separator:ac836258a0bbca1ad75b87521062f379a inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a514d55be7dffc29379e3ce62b66cc385 inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a514d55be7dffc29379e3ce62b66cc385">setTexture</a> (<a class="el" href="classrmg_1_1Texture.html">Texture</a> *tex)</td></tr>
 <tr class="memdesc:a514d55be7dffc29379e3ce62b66cc385 inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object texture.  <a href="classrmg_1_1Object.html#a514d55be7dffc29379e3ce62b66cc385">More...</a><br /></td></tr>
 <tr class="separator:a514d55be7dffc29379e3ce62b66cc385 inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -246,7 +282,10 @@ Public Member Functions</h2></td></tr>
 <tr class="memitem:a5fe78a183c5fc13194e1fe50b9bdda1e inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a5fe78a183c5fc13194e1fe50b9bdda1e">setColor</a> (float r, float g, float b, float a)</td></tr>
 <tr class="memdesc:a5fe78a183c5fc13194e1fe50b9bdda1e inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object color.  <a href="classrmg_1_1Object.html#a5fe78a183c5fc13194e1fe50b9bdda1e">More...</a><br /></td></tr>
 <tr class="separator:a5fe78a183c5fc13194e1fe50b9bdda1e inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a58a2df3d942727dd398fa948e89c923a inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Color.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a58a2df3d942727dd398fa948e89c923a">getColor</a> ()</td></tr>
+<tr class="memitem:aef37577d517f0f516b1f35f7f01ff8c9 inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#aef37577d517f0f516b1f35f7f01ff8c9">setColor</a> (const <a class="el" href="structColor.html">Color</a> &amp;col)</td></tr>
+<tr class="memdesc:aef37577d517f0f516b1f35f7f01ff8c9 inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Sets object color.  <a href="classrmg_1_1Object.html#aef37577d517f0f516b1f35f7f01ff8c9">More...</a><br /></td></tr>
+<tr class="separator:aef37577d517f0f516b1f35f7f01ff8c9 inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a58a2df3d942727dd398fa948e89c923a inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structColor.html">Color</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a58a2df3d942727dd398fa948e89c923a">getColor</a> ()</td></tr>
 <tr class="memdesc:a58a2df3d942727dd398fa948e89c923a inherit pub_methods_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets object color.  <a href="classrmg_1_1Object.html#a58a2df3d942727dd398fa948e89c923a">More...</a><br /></td></tr>
 <tr class="separator:a58a2df3d942727dd398fa948e89c923a inherit pub_methods_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a937a49ed840c9ac1c964f92d4642578d inherit pub_methods_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a937a49ed840c9ac1c964f92d4642578d">setHidden</a> (bool hide)</td></tr>
@@ -259,7 +298,7 @@ Public Member Functions</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="inherited"></a>
 Additional Inherited Members</h2></td></tr>
 <tr class="inherit_header pro_attribs_classrmg_1_1Object"><td colspan="2" onclick="javascript:toggleInherit('pro_attribs_classrmg_1_1Object')"><img src="closed.png" alt="-"/>&#160;Protected Attributes inherited from <a class="el" href="classrmg_1_1Object.html">rmg::Object</a></td></tr>
-<tr class="memitem:a9da9b415506f1ecc342a9c36507ce5e5 inherit pro_attribs_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top"><a class="el" href="namespacermg.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a9da9b415506f1ecc342a9c36507ce5e5">type</a></td></tr>
+<tr class="memitem:a9da9b415506f1ecc342a9c36507ce5e5 inherit pro_attribs_classrmg_1_1Object"><td class="memItemLeft" align="right" valign="top"><a class="el" href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">ObjectType</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Object.html#a9da9b415506f1ecc342a9c36507ce5e5">type</a></td></tr>
 <tr class="memdesc:a9da9b415506f1ecc342a9c36507ce5e5 inherit pro_attribs_classrmg_1_1Object"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of object (<a class="el" href="classrmg_1_1Object3D.html" title="3D object whose model and appearance can be controlled quickly ">Object3D</a>, <a class="el" href="classrmg_1_1Sprite2D.html" title="2D sprite images for 2D games ">Sprite2D</a>, .etc)  <a href="classrmg_1_1Object.html#a9da9b415506f1ecc342a9c36507ce5e5">More...</a><br /></td></tr>
 <tr class="separator:a9da9b415506f1ecc342a9c36507ce5e5 inherit pro_attribs_classrmg_1_1Object"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
@@ -294,8 +333,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a0a5f1a2910f7e14f9fd707710eb300ad"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0a5f1a2910f7e14f9fd707710eb300ad">&#9670;&nbsp;</a></span>Text2D() <span class="overload">[2/7]</span></h2>
+<a id="aefe411a46e53232e4fc003be37b6ae25"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aefe411a46e53232e4fc003be37b6ae25">&#9670;&nbsp;</a></span>Text2D() <span class="overload">[2/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -309,7 +348,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>f</em>&#160;</td>
         </tr>
         <tr>
@@ -368,8 +407,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="a96ac338b2965a5063da41056a28d290d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a96ac338b2965a5063da41056a28d290d">&#9670;&nbsp;</a></span>Text2D() <span class="overload">[4/7]</span></h2>
+<a id="a79db6f6409308796fc357c93357f1d43"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a79db6f6409308796fc357c93357f1d43">&#9670;&nbsp;</a></span>Text2D() <span class="overload">[4/7]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -383,7 +422,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>f</em>, </td>
         </tr>
         <tr>
@@ -453,33 +492,6 @@ Additional Inherited Members</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="af46efdbdf11679983b55d539e99cdc2c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#af46efdbdf11679983b55d539e99cdc2c">&#9670;&nbsp;</a></span>~Text2D()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual rmg::Text2D::~Text2D </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destructor. </p>
 
 </div>
 </div>
@@ -664,8 +676,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="aea37c4bad2f8a5e516c593d52db8114b"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aea37c4bad2f8a5e516c593d52db8114b">&#9670;&nbsp;</a></span>setFont() <span class="overload">[1/2]</span></h2>
+<a id="a833da2bcdfd6513e536ff293211c26fc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a833da2bcdfd6513e536ff293211c26fc">&#9670;&nbsp;</a></span>setFont() <span class="overload">[1/2]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -673,7 +685,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void rmg::Text2D::setFont </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>f</em></td><td>)</td>
           <td></td>
         </tr>
@@ -779,8 +791,8 @@ Additional Inherited Members</h2></td></tr>
 
 </div>
 </div>
-<a id="ab6cc308ce4162fa950b3363957044aa6"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab6cc308ce4162fa950b3363957044aa6">&#9670;&nbsp;</a></span>setText()</h2>
+<a id="ab9393fc1064b9d79607ddca791e35135"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab9393fc1064b9d79607ddca791e35135">&#9670;&nbsp;</a></span>setText()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -788,7 +800,7 @@ Additional Inherited Members</h2></td></tr>
         <tr>
           <td class="memname">void rmg::Text2D::setText </td>
           <td>(</td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>txt</em></td><td>)</td>
           <td></td>
         </tr>
@@ -810,10 +822,11 @@ Additional Inherited Members</h2></td></tr>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacermg.html">rmg</a></li><li class="navelem"><a class="el" href="classrmg_1_1Text2D.html">Text2D</a></li>
+    <li class="navelem"><b>rmg</b></li><li class="navelem"><a class="el" href="classrmg_1_1Text2D.html">Text2D</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>

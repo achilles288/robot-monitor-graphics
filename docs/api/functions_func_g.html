@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -84,11 +119,14 @@ $(document).ready(function(){initNavTree('functions_func_g.html','');});
 &#160;
 
 <h3><a id="index_g"></a>- g -</h3><ul>
+<li>GeneralShader()
+: <a class="el" href="classrmg_1_1internal_1_1GeneralShader.html#a3a0b4301ee718671c8c20d53c7a81e79">rmg::internal::GeneralShader</a>
+</li>
 <li>getBackgroundColor()
 : <a class="el" href="classrmg_1_1Context.html#a3ed7140bb775a6304b0e653fb86578d1">rmg::Context</a>
 </li>
 <li>getCameraRotation()
-: <a class="el" href="classrmg_1_1Context.html#a3d3fc00529ccde28d5704037770e4a32">rmg::Context</a>
+: <a class="el" href="classrmg_1_1Context.html#a84e92ab4f12b4da3e74ced59ee9cdfd9">rmg::Context</a>
 </li>
 <li>getCameraTranslation()
 : <a class="el" href="classrmg_1_1Context.html#a8d8dee7919c65af43868b6d98b24b267">rmg::Context</a>
@@ -98,7 +136,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html','');});
 </li>
 <li>getContext()
 : <a class="el" href="classrmg_1_1Font.html#a64d560c6c2a01d95b04e16143d1a23b0">rmg::Font</a>
-, <a class="el" href="classrmg_1_1Object.html#a8a20f9f8f7039f7f48887374e340e7bb">rmg::Object</a>
+, <a class="el" href="classrmg_1_1Object.html#a926aab0adfc47d603cba2095f406b65f">rmg::Object</a>
 , <a class="el" href="classrmg_1_1Texture.html#a0bb29fd0db8ebb8dd1083d882c67bf1b">rmg::Texture</a>
 </li>
 <li>getContextByID()
@@ -191,6 +229,7 @@ $(document).ready(function(){initNavTree('functions_func_g.html','');});
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

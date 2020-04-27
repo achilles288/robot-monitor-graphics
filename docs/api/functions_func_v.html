@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -88,11 +123,21 @@ $(document).ready(function(){initNavTree('functions_func_v.html','');});
 : <a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a201ad0a20becb7d0e1bb705f8a586cf3">rmg::internal::VBOLoad</a>
 </li>
 <li>VBOLoadPending()
-: <a class="el" href="classrmg_1_1internal_1_1VBOLoadPending.html#a8768eccc4a7502b31b56c13427b23643">rmg::internal::VBOLoadPending</a>
+: <a class="el" href="classrmg_1_1internal_1_1VBOLoadPending.html#a1d64c31585699570454d33d61012aa90">rmg::internal::VBOLoadPending</a>
+</li>
+<li>Vec2()
+: <a class="el" href="structrmg_1_1Vec2.html#a703b3acf7ad908b8b7204467785b0f93">rmg::Vec2</a>
+</li>
+<li>Vec3()
+: <a class="el" href="structrmg_1_1Vec3.html#ae5651321a94d5e413ccf77b0f723b84c">rmg::Vec3</a>
+</li>
+<li>Vec4()
+: <a class="el" href="structrmg_1_1Vec4.html#aecb7be2d309c210873e60166aa3ba2aa">rmg::Vec4</a>
 </li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

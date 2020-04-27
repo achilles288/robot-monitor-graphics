@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -97,11 +132,12 @@ $(document).ready(function(){initNavTree('classrmg_1_1Font.html','');});
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:acb7ddb10eb37e27618ec93df622b4c08"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Font.html#acb7ddb10eb37e27618ec93df622b4c08">Font</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx, std::string f)</td></tr>
-<tr class="memdesc:acb7ddb10eb37e27618ec93df622b4c08"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor loads a font from file.  <a href="#acb7ddb10eb37e27618ec93df622b4c08">More...</a><br /></td></tr>
-<tr class="separator:acb7ddb10eb37e27618ec93df622b4c08"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ae4c94673d55457795e045e04a250039d"><td class="memItemLeft" align="right" valign="top">virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Font.html#ae4c94673d55457795e045e04a250039d">~Font</a> ()</td></tr>
-<tr class="memdesc:ae4c94673d55457795e045e04a250039d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor.  <a href="#ae4c94673d55457795e045e04a250039d">More...</a><br /></td></tr>
+<tr class="memitem:aa2ba0aa10d7875e234b0f3ecbe6d275b"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Font.html#aa2ba0aa10d7875e234b0f3ecbe6d275b">Font</a> (<a class="el" href="classrmg_1_1Context.html">Context</a> *ctx, const std::string &amp;f)</td></tr>
+<tr class="memdesc:aa2ba0aa10d7875e234b0f3ecbe6d275b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor loads a font from file.  <a href="#aa2ba0aa10d7875e234b0f3ecbe6d275b">More...</a><br /></td></tr>
+<tr class="separator:aa2ba0aa10d7875e234b0f3ecbe6d275b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae4c94673d55457795e045e04a250039d"><td class="memItemLeft" align="right" valign="top"><a id="ae4c94673d55457795e045e04a250039d"></a>
+virtual&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Font.html#ae4c94673d55457795e045e04a250039d">~Font</a> ()</td></tr>
+<tr class="memdesc:ae4c94673d55457795e045e04a250039d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:ae4c94673d55457795e045e04a250039d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7b156a8fd8d586dec114865f70c584f8"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Font.html#a7b156a8fd8d586dec114865f70c584f8">Font</a> (const <a class="el" href="classrmg_1_1Font.html">Font</a> &amp;ft)=delete</td></tr>
 <tr class="memdesc:a7b156a8fd8d586dec114865f70c584f8"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor (deleted)  <a href="#a7b156a8fd8d586dec114865f70c584f8">More...</a><br /></td></tr>
@@ -124,14 +160,15 @@ Public Member Functions</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="friends"></a>
 Friends</h2></td></tr>
-<tr class="memitem:afc539686e8b6dfa98c6448566aaaec41"><td class="memItemLeft" align="right" valign="top">class&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Font.html#afc539686e8b6dfa98c6448566aaaec41">internal::FontLoadPending</a></td></tr>
+<tr class="memitem:afc539686e8b6dfa98c6448566aaaec41"><td class="memItemLeft" align="right" valign="top"><a id="afc539686e8b6dfa98c6448566aaaec41"></a>
+class&#160;</td><td class="memItemRight" valign="bottom"><b>internal::FontLoadPending</b></td></tr>
 <tr class="separator:afc539686e8b6dfa98c6448566aaaec41"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>For rendering texts on the context. </p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="acb7ddb10eb37e27618ec93df622b4c08"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb7ddb10eb37e27618ec93df622b4c08">&#9670;&nbsp;</a></span>Font() <span class="overload">[1/3]</span></h2>
+<a id="aa2ba0aa10d7875e234b0f3ecbe6d275b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2ba0aa10d7875e234b0f3ecbe6d275b">&#9670;&nbsp;</a></span>Font() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -145,7 +182,7 @@ Friends</h2></td></tr>
         <tr>
           <td class="paramkey"></td>
           <td></td>
-          <td class="paramtype">std::string&#160;</td>
+          <td class="paramtype">const std::string &amp;&#160;</td>
           <td class="paramname"><em>f</em>&#160;</td>
         </tr>
         <tr>
@@ -164,33 +201,6 @@ Friends</h2></td></tr>
   </table>
   </dd>
 </dl>
-
-</div>
-</div>
-<a id="ae4c94673d55457795e045e04a250039d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ae4c94673d55457795e045e04a250039d">&#9670;&nbsp;</a></span>~Font()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">virtual rmg::Font::~Font </td>
-          <td>(</td>
-          <td class="paramname"></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">virtual</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p>Destructor. </p>
 
 </div>
 </div>
@@ -373,38 +383,16 @@ Friends</h2></td></tr>
 
 </div>
 </div>
-<h2 class="groupheader">Friends And Related Function Documentation</h2>
-<a id="afc539686e8b6dfa98c6448566aaaec41"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#afc539686e8b6dfa98c6448566aaaec41">&#9670;&nbsp;</a></span>internal::FontLoadPending</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">friend class <a class="el" href="classrmg_1_1internal_1_1FontLoadPending.html">internal::FontLoadPending</a></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">friend</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-</div>
-</div>
 <hr/>The documentation for this class was generated from the following file:<ul>
 <li>rmg/<a class="el" href="font_8hpp_source.html">font.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacermg.html">rmg</a></li><li class="navelem"><a class="el" href="classrmg_1_1Font.html">Font</a></li>
+    <li class="navelem"><b>rmg</b></li><li class="navelem"><a class="el" href="classrmg_1_1Font.html">Font</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>

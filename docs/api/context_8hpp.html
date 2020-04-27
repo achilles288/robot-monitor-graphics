@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -83,7 +118,6 @@ $(document).ready(function(){initNavTree('context_8hpp.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#namespaces">Namespaces</a> &#124;
 <a href="#define-members">Macros</a>  </div>
   <div class="headertitle">
 <div class="title">context.hpp File Reference</div>  </div>
@@ -92,7 +126,9 @@ $(document).ready(function(){initNavTree('context_8hpp.html','');});
 
 <p>2D/3D graphics context container  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;list&gt;</code><br />
+<div class="textblock"><code>#include &lt;<a class="el" href="vec_8hpp_source.html">rmg/math/vec.hpp</a>&gt;</code><br />
+<code>#include &lt;<a class="el" href="euler_8hpp_source.html">rmg/math/euler.hpp</a>&gt;</code><br />
+<code>#include &lt;list&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
 <code>#include &lt;queue&gt;</code><br />
 <code>#include &lt;cstdint&gt;</code><br />
@@ -104,42 +140,18 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html">rmg::Context</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D/3D OpenGL graphics context  <a href="classrmg_1_1Context.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="namespaces"></a>
-Namespaces</h2></td></tr>
-<tr class="memitem:namespacermg"><td class="memItemLeft" align="right" valign="top"> &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="namespacermg.html">rmg</a></td></tr>
-<tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
-</table><table class="memberdecls">
-<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
-Macros</h2></td></tr>
-<tr class="memitem:aaeedc07271065d28f24d5010db204d99"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="context_8hpp.html#aaeedc07271065d28f24d5010db204d99">__RMG_CONTEXT_H__</a></td></tr>
-<tr class="separator:aaeedc07271065d28f24d5010db204d99"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>2D/3D graphics context container </p>
 <p>Manages 2D/3D objects with GPU context resources and shader programs. Abstract layer of OpenGL context.</p>
 <dl class="section copyright"><dt>Copyright</dt><dd>Copyright (c) 2020 Khant Kyaw Khaung</dd></dl>
 <dl class="section copyright">
-<dt>License</dt>
-<dd>This project is released under the MIT License. </dd>
+<dt>License </dt>
+<dd>This project is released under the MIT License.  </dd>
 </dl>
-</div><h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="aaeedc07271065d28f24d5010db204d99"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaeedc07271065d28f24d5010db204d99">&#9670;&nbsp;</a></span>__RMG_CONTEXT_H__</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define __RMG_CONTEXT_H__</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-</div>
-</div>
-</div><!-- contents -->
+</div></div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

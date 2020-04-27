@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -82,6 +117,8 @@ $(document).ready(function(){initNavTree('structrmg_1_1Vec2.html','');});
 
 <div class="header">
   <div class="summary">
+<a href="#pub-methods">Public Member Functions</a> &#124;
+<a href="#pub-static-methods">Static Public Member Functions</a> &#124;
 <a href="#pub-attribs">Public Attributes</a> &#124;
 <a href="structrmg_1_1Vec2-members.html">List of all members</a>  </div>
   <div class="headertitle">
@@ -89,22 +126,461 @@ $(document).ready(function(){initNavTree('structrmg_1_1Vec2.html','');});
 </div><!--header-->
 <div class="contents">
 
-<p>2D vector  
+<p>2D vector to represent a 2D-point or a rectangular dimension  
  <a href="structrmg_1_1Vec2.html#details">More...</a></p>
 
-<p><code>#include &lt;<a class="el" href="math_8hpp_source.html">math.hpp</a>&gt;</code></p>
+<p><code>#include &lt;<a class="el" href="vec2_8hpp_source.html">vec2.hpp</a>&gt;</code></p>
 <table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
+Public Member Functions</h2></td></tr>
+<tr class="memitem:a8f35c0aa943697f9b11e234090c4a11d"><td class="memItemLeft" align="right" valign="top"><a id="a8f35c0aa943697f9b11e234090c4a11d"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a8f35c0aa943697f9b11e234090c4a11d">Vec2</a> ()</td></tr>
+<tr class="memdesc:a8f35c0aa943697f9b11e234090c4a11d"><td class="mdescLeft">&#160;</td><td class="mdescRight">Default constructor. <br /></td></tr>
+<tr class="separator:a8f35c0aa943697f9b11e234090c4a11d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a703b3acf7ad908b8b7204467785b0f93"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a703b3acf7ad908b8b7204467785b0f93">Vec2</a> (float <a class="el" href="structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752">x</a>, float <a class="el" href="structrmg_1_1Vec2.html#aa1328d7e95abc59d6e35e1b47ed24ab5">y</a>)</td></tr>
+<tr class="memdesc:a703b3acf7ad908b8b7204467785b0f93"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor with xy values.  <a href="#a703b3acf7ad908b8b7204467785b0f93">More...</a><br /></td></tr>
+<tr class="separator:a703b3acf7ad908b8b7204467785b0f93"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4b7e36db7a4eff187d8c35a47abac7e1"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a4b7e36db7a4eff187d8c35a47abac7e1">normalize</a> () const</td></tr>
+<tr class="memdesc:a4b7e36db7a4eff187d8c35a47abac7e1"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets a vector of one unit length in the same direction.  <a href="#a4b7e36db7a4eff187d8c35a47abac7e1">More...</a><br /></td></tr>
+<tr class="separator:a4b7e36db7a4eff187d8c35a47abac7e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac1a0acb22c1858ce1b6dacf3e0e2648b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#ac1a0acb22c1858ce1b6dacf3e0e2648b">magnitude</a> () const</td></tr>
+<tr class="memdesc:ac1a0acb22c1858ce1b6dacf3e0e2648b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets the magnitude or length of the vector.  <a href="#ac1a0acb22c1858ce1b6dacf3e0e2648b">More...</a><br /></td></tr>
+<tr class="separator:ac1a0acb22c1858ce1b6dacf3e0e2648b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a579d87c2cbd4f6352d534be231fbede0"><td class="memItemLeft" align="right" valign="top"><a id="a579d87c2cbd4f6352d534be231fbede0"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a579d87c2cbd4f6352d534be231fbede0">operator Vec3</a> () const</td></tr>
+<tr class="memdesc:a579d87c2cbd4f6352d534be231fbede0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from <a class="el" href="structrmg_1_1Vec2.html" title="2D vector to represent a 2D-point or a rectangular dimension ">Vec2</a> to <a class="el" href="structrmg_1_1Vec3.html" title="3D vector to represent a 3D-point or a cubic dimension ">Vec3</a>. <br /></td></tr>
+<tr class="separator:a579d87c2cbd4f6352d534be231fbede0"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7ed559f210f44a6282bd1ecdd34458aa"><td class="memItemLeft" align="right" valign="top"><a id="a7ed559f210f44a6282bd1ecdd34458aa"></a>
+&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a7ed559f210f44a6282bd1ecdd34458aa">operator Vec4</a> () const</td></tr>
+<tr class="memdesc:a7ed559f210f44a6282bd1ecdd34458aa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Conversion from <a class="el" href="structrmg_1_1Vec2.html" title="2D vector to represent a 2D-point or a rectangular dimension ">Vec2</a> to <a class="el" href="structrmg_1_1Vec4.html" title="4D vector ">Vec4</a>. <br /></td></tr>
+<tr class="separator:a7ed559f210f44a6282bd1ecdd34458aa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ab021e853e6e6d142745504fa415d7341"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#ab021e853e6e6d142745504fa415d7341">operator+</a> (const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;b) const</td></tr>
+<tr class="memdesc:ab021e853e6e6d142745504fa415d7341"><td class="mdescLeft">&#160;</td><td class="mdescRight">Adds 2 vectors.  <a href="#ab021e853e6e6d142745504fa415d7341">More...</a><br /></td></tr>
+<tr class="separator:ab021e853e6e6d142745504fa415d7341"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a653e54dc1b1917bf8cf5219bdad53c36"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a653e54dc1b1917bf8cf5219bdad53c36">operator-</a> (const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;b) const</td></tr>
+<tr class="memdesc:a653e54dc1b1917bf8cf5219bdad53c36"><td class="mdescLeft">&#160;</td><td class="mdescRight">Subtract the vector by vector B.  <a href="#a653e54dc1b1917bf8cf5219bdad53c36">More...</a><br /></td></tr>
+<tr class="separator:a653e54dc1b1917bf8cf5219bdad53c36"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ade4cb58e37d0fbb269fbd699895cbe82"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#ade4cb58e37d0fbb269fbd699895cbe82">operator*</a> (float f) const</td></tr>
+<tr class="memdesc:ade4cb58e37d0fbb269fbd699895cbe82"><td class="mdescLeft">&#160;</td><td class="mdescRight">Multiply the vector by a number.  <a href="#ade4cb58e37d0fbb269fbd699895cbe82">More...</a><br /></td></tr>
+<tr class="separator:ade4cb58e37d0fbb269fbd699895cbe82"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac8a5ba756de88b7e8f5ec30558f95a38"><td class="memItemLeft" align="right" valign="top"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#ac8a5ba756de88b7e8f5ec30558f95a38">operator/</a> (float f) const</td></tr>
+<tr class="memdesc:ac8a5ba756de88b7e8f5ec30558f95a38"><td class="mdescLeft">&#160;</td><td class="mdescRight">Divide the vector by a number.  <a href="#ac8a5ba756de88b7e8f5ec30558f95a38">More...</a><br /></td></tr>
+<tr class="separator:ac8a5ba756de88b7e8f5ec30558f95a38"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a326d4946cfb083509bf95da4a51c939b"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a326d4946cfb083509bf95da4a51c939b">operator*</a> (const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;b) const</td></tr>
+<tr class="memdesc:a326d4946cfb083509bf95da4a51c939b"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector cross product operation.  <a href="#a326d4946cfb083509bf95da4a51c939b">More...</a><br /></td></tr>
+<tr class="separator:a326d4946cfb083509bf95da4a51c939b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a557beb38c128c5b5e2a4ee1130636ecf"><td class="memItemLeft" align="right" valign="top">float &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a557beb38c128c5b5e2a4ee1130636ecf">operator[]</a> (uint8_t i)</td></tr>
+<tr class="memdesc:a557beb38c128c5b5e2a4ee1130636ecf"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets reference to vector data as array subscript.  <a href="#a557beb38c128c5b5e2a4ee1130636ecf">More...</a><br /></td></tr>
+<tr class="separator:a557beb38c128c5b5e2a4ee1130636ecf"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a03bfba2120d778d2c22805f57531bfbb"><td class="memItemLeft" align="right" valign="top">float const  &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a03bfba2120d778d2c22805f57531bfbb">operator[]</a> (uint8_t i) const</td></tr>
+<tr class="memdesc:a03bfba2120d778d2c22805f57531bfbb"><td class="mdescLeft">&#160;</td><td class="mdescRight">Gets reference to vector data as array subscript.  <a href="#a03bfba2120d778d2c22805f57531bfbb">More...</a><br /></td></tr>
+<tr class="separator:a03bfba2120d778d2c22805f57531bfbb"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-static-methods"></a>
+Static Public Member Functions</h2></td></tr>
+<tr class="memitem:a74d36d56f1fe8e79b799797e5c858a90"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#a74d36d56f1fe8e79b799797e5c858a90">dot</a> (const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;a, const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;b)</td></tr>
+<tr class="memdesc:a74d36d56f1fe8e79b799797e5c858a90"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector dot product operation.  <a href="#a74d36d56f1fe8e79b799797e5c858a90">More...</a><br /></td></tr>
+<tr class="separator:a74d36d56f1fe8e79b799797e5c858a90"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aba60ffa1e262ecf8e789d0fb5e0670fa"><td class="memItemLeft" align="right" valign="top">static float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#aba60ffa1e262ecf8e789d0fb5e0670fa">cross</a> (const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;a, const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;b)</td></tr>
+<tr class="memdesc:aba60ffa1e262ecf8e789d0fb5e0670fa"><td class="mdescLeft">&#160;</td><td class="mdescRight">Vector cross product operation.  <a href="#aba60ffa1e262ecf8e789d0fb5e0670fa">More...</a><br /></td></tr>
+<tr class="separator:aba60ffa1e262ecf8e789d0fb5e0670fa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
-<tr class="memitem:aec5ab95f56780fb461b390a53c4c6752"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752">x</a></td></tr>
-<tr class="separator:aec5ab95f56780fb461b390a53c4c6752"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa1328d7e95abc59d6e35e1b47ed24ab5"><td class="memItemLeft" align="right" valign="top">float&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="structrmg_1_1Vec2.html#aa1328d7e95abc59d6e35e1b47ed24ab5">y</a></td></tr>
-<tr class="separator:aa1328d7e95abc59d6e35e1b47ed24ab5"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2b8ade1fe2fbfd1f122cfe53ad0fb7e"><td class="memItemLeft" ><a id="ad2b8ade1fe2fbfd1f122cfe53ad0fb7e"></a>
+union {</td></tr>
+<tr class="memitem:a585198c3365456916af8eb8ea7c81322"><td class="memItemLeft" ><a id="a585198c3365456916af8eb8ea7c81322"></a>
+&#160;&#160;&#160;struct {</td></tr>
+<tr class="memitem:a8bb75405d98eb9309a403197f2051904"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;float&#160;&#160;&#160;<a class="el" href="structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752">x</a></td></tr>
+<tr class="separator:a8bb75405d98eb9309a403197f2051904"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:add38a3622e31f9229a78954b62cd6736"><td class="memItemLeft" >&#160;&#160;&#160;&#160;&#160;&#160;float&#160;&#160;&#160;<a class="el" href="structrmg_1_1Vec2.html#aa1328d7e95abc59d6e35e1b47ed24ab5">y</a></td></tr>
+<tr class="separator:add38a3622e31f9229a78954b62cd6736"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a585198c3365456916af8eb8ea7c81322"><td class="memItemLeft" valign="top">&#160;&#160;&#160;}&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="separator:a585198c3365456916af8eb8ea7c81322"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ac70fa1875466e1237a25cee020cd751b"><td class="memItemLeft" >&#160;&#160;&#160;float&#160;&#160;&#160;<a class="el" href="structrmg_1_1Vec2.html#a90cf7d4b383c8739cad7800f7c3dba3a">data</a> [2]</td></tr>
+<tr class="separator:ac70fa1875466e1237a25cee020cd751b"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad2b8ade1fe2fbfd1f122cfe53ad0fb7e"><td class="memItemLeft" valign="top">};&#160;</td><td class="memItemRight" valign="bottom"></td></tr>
+<tr class="memdesc:ad2b8ade1fe2fbfd1f122cfe53ad0fb7e"><td class="mdescLeft">&#160;</td><td class="mdescRight">To access data as xy or array. <br /></td></tr>
+<tr class="separator:ad2b8ade1fe2fbfd1f122cfe53ad0fb7e"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>2D vector </p>
-<p>Represents a 2D-point or a rectangular dimension. </p>
-</div><h2 class="groupheader">Member Data Documentation</h2>
+<div class="textblock"><p>2D vector to represent a 2D-point or a rectangular dimension </p>
+</div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
+<a id="a703b3acf7ad908b8b7204467785b0f93"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a703b3acf7ad908b8b7204467785b0f93">&#9670;&nbsp;</a></span>Vec2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">rmg::Vec2::Vec2 </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>x</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>y</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructor with xy values. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">x</td><td>X-coordinate </td></tr>
+    <tr><td class="paramname">y</td><td>Y-coordinate </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Function Documentation</h2>
+<a id="aba60ffa1e262ecf8e789d0fb5e0670fa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aba60ffa1e262ecf8e789d0fb5e0670fa">&#9670;&nbsp;</a></span>cross()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float rmg::Vec2::cross </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vector cross product operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Vector A </td></tr>
+    <tr><td class="paramname">b</td><td>Vector B</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Cross product </dd></dl>
+
+</div>
+</div>
+<a id="a74d36d56f1fe8e79b799797e5c858a90"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a74d36d56f1fe8e79b799797e5c858a90">&#9670;&nbsp;</a></span>dot()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">static float rmg::Vec2::dot </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>a</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">static</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Vector dot product operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">a</td><td>Vector A </td></tr>
+    <tr><td class="paramname">b</td><td>Vector B</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Dot product </dd></dl>
+
+</div>
+</div>
+<a id="ac1a0acb22c1858ce1b6dacf3e0e2648b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac1a0acb22c1858ce1b6dacf3e0e2648b">&#9670;&nbsp;</a></span>magnitude()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float rmg::Vec2::magnitude </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets the magnitude or length of the vector. </p>
+<dl class="section return"><dt>Returns</dt><dd>Vector magnitude </dd></dl>
+
+</div>
+</div>
+<a id="a4b7e36db7a4eff187d8c35a47abac7e1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4b7e36db7a4eff187d8c35a47abac7e1">&#9670;&nbsp;</a></span>normalize()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a> rmg::Vec2::normalize </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets a vector of one unit length in the same direction. </p>
+<dl class="section return"><dt>Returns</dt><dd>Unit vector </dd></dl>
+
+</div>
+</div>
+<a id="ade4cb58e37d0fbb269fbd699895cbe82"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ade4cb58e37d0fbb269fbd699895cbe82">&#9670;&nbsp;</a></span>operator*() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a> rmg::Vec2::operator* </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Multiply the vector by a number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Multiplicant</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Multiplied vector </dd></dl>
+
+</div>
+</div>
+<a id="a326d4946cfb083509bf95da4a51c939b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a326d4946cfb083509bf95da4a51c939b">&#9670;&nbsp;</a></span>operator*() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float rmg::Vec2::operator* </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Vector cross product operation. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>Vector B</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Cross product </dd></dl>
+
+</div>
+</div>
+<a id="ab021e853e6e6d142745504fa415d7341"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ab021e853e6e6d142745504fa415d7341">&#9670;&nbsp;</a></span>operator+()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a> rmg::Vec2::operator+ </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Adds 2 vectors. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>Vector B</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Sum of 2 vectors </dd></dl>
+
+</div>
+</div>
+<a id="a653e54dc1b1917bf8cf5219bdad53c36"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a653e54dc1b1917bf8cf5219bdad53c36">&#9670;&nbsp;</a></span>operator-()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a> rmg::Vec2::operator- </td>
+          <td>(</td>
+          <td class="paramtype">const <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &amp;&#160;</td>
+          <td class="paramname"><em>b</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Subtract the vector by vector B. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">b</td><td>Vector B</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Answer vector C </dd></dl>
+
+</div>
+</div>
+<a id="ac8a5ba756de88b7e8f5ec30558f95a38"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ac8a5ba756de88b7e8f5ec30558f95a38">&#9670;&nbsp;</a></span>operator/()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a> rmg::Vec2::operator/ </td>
+          <td>(</td>
+          <td class="paramtype">float&#160;</td>
+          <td class="paramname"><em>f</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Divide the vector by a number. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">f</td><td>Divisor</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Divided vector </dd></dl>
+
+</div>
+</div>
+<a id="a557beb38c128c5b5e2a4ee1130636ecf"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a557beb38c128c5b5e2a4ee1130636ecf">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float&amp; rmg::Vec2::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets reference to vector data as array subscript. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Index</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to vector member </dd></dl>
+
+</div>
+</div>
+<a id="a03bfba2120d778d2c22805f57531bfbb"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a03bfba2120d778d2c22805f57531bfbb">&#9670;&nbsp;</a></span>operator[]() <span class="overload">[2/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float const&amp; rmg::Vec2::operator[] </td>
+          <td>(</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>i</em></td><td>)</td>
+          <td> const</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Gets reference to vector data as array subscript. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">i</td><td>Index</td></tr>
+  </table>
+  </dd>
+</dl>
+<dl class="section return"><dt>Returns</dt><dd>Reference to vector member </dd></dl>
+
+</div>
+</div>
+<h2 class="groupheader">Member Data Documentation</h2>
+<a id="a90cf7d4b383c8739cad7800f7c3dba3a"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a90cf7d4b383c8739cad7800f7c3dba3a">&#9670;&nbsp;</a></span>data</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">float rmg::Vec2::data[2]</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<p>Vector data as array </p>
+
+</div>
+</div>
 <a id="aec5ab95f56780fb461b390a53c4c6752"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#aec5ab95f56780fb461b390a53c4c6752">&#9670;&nbsp;</a></span>x</h2>
 
@@ -136,14 +612,15 @@ Public Attributes</h2></td></tr>
 </div>
 </div>
 <hr/>The documentation for this struct was generated from the following file:<ul>
-<li>rmg/<a class="el" href="math_8hpp_source.html">math.hpp</a></li>
+<li>rmg/math/<a class="el" href="vec2_8hpp_source.html">vec2.hpp</a></li>
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>
-    <li class="navelem"><a class="el" href="namespacermg.html">rmg</a></li><li class="navelem"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a></li>
+    <li class="navelem"><b>rmg</b></li><li class="navelem"><a class="el" href="structrmg_1_1Vec2.html">Vec2</a></li>
     <li class="footer">Generated by
     <a href="http://www.doxygen.org/index.html">
     <img class="footer" src="doxygen.png" alt="doxygen"/></a> 1.8.13 </li>

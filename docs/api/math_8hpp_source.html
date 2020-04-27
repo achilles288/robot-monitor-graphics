@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -85,21 +120,13 @@ $(document).ready(function(){initNavTree('math_8hpp_source.html','');});
 <div class="title">math.hpp</div>  </div>
 </div><!--header-->
 <div class="contents">
-<a href="math_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#ifndef __RMG_MATH_H__</span></div><div class="line"><a name="l00016"></a><span class="lineno"><a class="line" href="math_8hpp.html#a418d246ca28792438da3ee167cebbf4a">   16</a></span>&#160;<span class="preprocessor">#define __RMG_MATH_H__</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;</div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;glm/glm.hpp&gt;</span></div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;</div><div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="keyword">namespace </span><a class="code" href="namespacermg.html">rmg</a> {</div><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;</div><div class="line"><a name="l00028"></a><span class="lineno"><a class="line" href="structrmg_1_1Vec2.html">   28</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrmg_1_1Vec2.html">Vec2</a> {</div><div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752">   29</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752">x</a>; </div><div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="structrmg_1_1Vec2.html#aa1328d7e95abc59d6e35e1b47ed24ab5">   30</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Vec2.html#aa1328d7e95abc59d6e35e1b47ed24ab5">y</a>; </div><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;};</div><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;</div><div class="line"><a name="l00038"></a><span class="lineno"><a class="line" href="structrmg_1_1Vec3.html">   38</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrmg_1_1Vec3.html">Vec3</a> {</div><div class="line"><a name="l00039"></a><span class="lineno"><a class="line" href="structrmg_1_1Vec3.html#a49d1bd1403ca49898b17956222e6b04e">   39</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Vec3.html#a49d1bd1403ca49898b17956222e6b04e">x</a>; </div><div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="structrmg_1_1Vec3.html#a161847679a6ad6151918c40fe1b62f11">   40</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Vec3.html#a161847679a6ad6151918c40fe1b62f11">y</a>; </div><div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="structrmg_1_1Vec3.html#a3e6204adaa65dca916b1b548879b7969">   41</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Vec3.html#a3e6204adaa65dca916b1b548879b7969">z</a>; </div><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;};</div><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;</div><div class="line"><a name="l00047"></a><span class="lineno"><a class="line" href="structrmg_1_1Color.html">   47</a></span>&#160;<span class="keyword">struct </span><a class="code" href="structrmg_1_1Color.html">Color</a> {</div><div class="line"><a name="l00048"></a><span class="lineno"><a class="line" href="structrmg_1_1Color.html#a1a263dca9a5b0462faf4ee96cde2a29e">   48</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Color.html#a1a263dca9a5b0462faf4ee96cde2a29e">r</a>; </div><div class="line"><a name="l00049"></a><span class="lineno"><a class="line" href="structrmg_1_1Color.html#a70e776e47dac1cc4d0d2afd589d5dc00">   49</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Color.html#a70e776e47dac1cc4d0d2afd589d5dc00">g</a>; </div><div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="structrmg_1_1Color.html#acdc893ff65bbcd434c0b8a471573cad7">   50</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Color.html#acdc893ff65bbcd434c0b8a471573cad7">b</a>; </div><div class="line"><a name="l00051"></a><span class="lineno"><a class="line" href="structrmg_1_1Color.html#ab69e055797c7651ae6e4f03f2981d2db">   51</a></span>&#160;    <span class="keywordtype">float</span> <a class="code" href="structrmg_1_1Color.html#ab69e055797c7651ae6e4f03f2981d2db">a</a>; </div><div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;};</div><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;</div><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div><div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;</div><div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="structrmg_1_1Vec2_html_aec5ab95f56780fb461b390a53c4c6752"><div class="ttname"><a href="structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752">rmg::Vec2::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> math.hpp:29</div></div>
-<div class="ttc" id="structrmg_1_1Vec3_html_a3e6204adaa65dca916b1b548879b7969"><div class="ttname"><a href="structrmg_1_1Vec3.html#a3e6204adaa65dca916b1b548879b7969">rmg::Vec3::z</a></div><div class="ttdeci">float z</div><div class="ttdef"><b>Definition:</b> math.hpp:41</div></div>
-<div class="ttc" id="structrmg_1_1Vec2_html_aa1328d7e95abc59d6e35e1b47ed24ab5"><div class="ttname"><a href="structrmg_1_1Vec2.html#aa1328d7e95abc59d6e35e1b47ed24ab5">rmg::Vec2::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> math.hpp:30</div></div>
-<div class="ttc" id="namespacermg_html"><div class="ttname"><a href="namespacermg.html">rmg</a></div><div class="ttdef"><b>Definition:</b> context.hpp:25</div></div>
-<div class="ttc" id="structrmg_1_1Color_html_ab69e055797c7651ae6e4f03f2981d2db"><div class="ttname"><a href="structrmg_1_1Color.html#ab69e055797c7651ae6e4f03f2981d2db">rmg::Color::a</a></div><div class="ttdeci">float a</div><div class="ttdef"><b>Definition:</b> math.hpp:51</div></div>
-<div class="ttc" id="structrmg_1_1Color_html"><div class="ttname"><a href="structrmg_1_1Color.html">rmg::Color</a></div><div class="ttdoc">RGBA color model. </div><div class="ttdef"><b>Definition:</b> math.hpp:47</div></div>
-<div class="ttc" id="structrmg_1_1Color_html_a70e776e47dac1cc4d0d2afd589d5dc00"><div class="ttname"><a href="structrmg_1_1Color.html#a70e776e47dac1cc4d0d2afd589d5dc00">rmg::Color::g</a></div><div class="ttdeci">float g</div><div class="ttdef"><b>Definition:</b> math.hpp:49</div></div>
-<div class="ttc" id="structrmg_1_1Vec3_html_a161847679a6ad6151918c40fe1b62f11"><div class="ttname"><a href="structrmg_1_1Vec3.html#a161847679a6ad6151918c40fe1b62f11">rmg::Vec3::y</a></div><div class="ttdeci">float y</div><div class="ttdef"><b>Definition:</b> math.hpp:40</div></div>
-<div class="ttc" id="structrmg_1_1Color_html_a1a263dca9a5b0462faf4ee96cde2a29e"><div class="ttname"><a href="structrmg_1_1Color.html#a1a263dca9a5b0462faf4ee96cde2a29e">rmg::Color::r</a></div><div class="ttdeci">float r</div><div class="ttdef"><b>Definition:</b> math.hpp:48</div></div>
-<div class="ttc" id="structrmg_1_1Vec2_html"><div class="ttname"><a href="structrmg_1_1Vec2.html">rmg::Vec2</a></div><div class="ttdoc">2D vector </div><div class="ttdef"><b>Definition:</b> math.hpp:28</div></div>
-<div class="ttc" id="structrmg_1_1Vec3_html_a49d1bd1403ca49898b17956222e6b04e"><div class="ttname"><a href="structrmg_1_1Vec3.html#a49d1bd1403ca49898b17956222e6b04e">rmg::Vec3::x</a></div><div class="ttdeci">float x</div><div class="ttdef"><b>Definition:</b> math.hpp:39</div></div>
-<div class="ttc" id="structrmg_1_1Vec3_html"><div class="ttname"><a href="structrmg_1_1Vec3.html">rmg::Vec3</a></div><div class="ttdoc">3D vector </div><div class="ttdef"><b>Definition:</b> math.hpp:38</div></div>
-<div class="ttc" id="structrmg_1_1Color_html_acdc893ff65bbcd434c0b8a471573cad7"><div class="ttname"><a href="structrmg_1_1Color.html#acdc893ff65bbcd434c0b8a471573cad7">rmg::Color::b</a></div><div class="ttdeci">float b</div><div class="ttdef"><b>Definition:</b> math.hpp:50</div></div>
+<a href="math_8hpp.html">Go to the documentation of this file.</a><div class="fragment"><div class="line"><a name="l00001"></a><span class="lineno">    1</span>&#160;</div><div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="preprocessor">#pragma once</span></div><div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#ifndef __RMG_MATH_H__</span></div><div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define __RMG_MATH_H__</span></div><div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;</div><div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="vec_8hpp.html">rmg/math/vec.hpp</a>&gt;</span></div><div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="euler_8hpp.html">rmg/math/euler.hpp</a>&gt;</span></div><div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="mat3_8hpp.html">rmg/math/mat3.hpp</a>&gt;</span></div><div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#include &lt;<a class="code" href="mat4_8hpp.html">rmg/math/mat4.hpp</a>&gt;</span></div><div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;</div><div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div><div class="ttc" id="mat4_8hpp_html"><div class="ttname"><a href="mat4_8hpp.html">mat4.hpp</a></div><div class="ttdoc">4x4 matrix </div></div>
+<div class="ttc" id="euler_8hpp_html"><div class="ttname"><a href="euler_8hpp.html">euler.hpp</a></div><div class="ttdoc">To represent orientation in 3D space. </div></div>
+<div class="ttc" id="mat3_8hpp_html"><div class="ttname"><a href="mat3_8hpp.html">mat3.hpp</a></div><div class="ttdoc">3x3 matrix </div></div>
+<div class="ttc" id="vec_8hpp_html"><div class="ttname"><a href="vec_8hpp.html">vec.hpp</a></div><div class="ttdoc">2D, 3D and 4D vectors </div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

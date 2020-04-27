@@ -1,12 +1,9 @@
 var searchData=
 [
-  ['internal',['internal',['../namespacermg_1_1internal.html',1,'rmg']]],
-  ['r',['r',['../structrmg_1_1Color.html#a1a263dca9a5b0462faf4ee96cde2a29e',1,'rmg::Color']]],
-  ['readme_2emd',['README.md',['../README_8md.html',1,'']]],
-  ['removefont',['removeFont',['../classrmg_1_1Context.html#a06d9178d4bea68f1afda93ab388c74b5',1,'rmg::Context::removeFont(uint64_t id)'],['../classrmg_1_1Context.html#a3c5b6bf0d18db90e634a0c2c7943f6f6',1,'rmg::Context::removeFont(Font *font)']]],
-  ['removeobject',['removeObject',['../classrmg_1_1Context.html#ad2cbcdbdf2be68579d4651de5ce1d465',1,'rmg::Context::removeObject(uint64_t id)'],['../classrmg_1_1Context.html#a6089f6e73e4c37d8a017add5da696dc0',1,'rmg::Context::removeObject(Object *obj)']]],
-  ['removetexture',['removeTexture',['../classrmg_1_1Context.html#a234fc8f94b528d6fddcb2d573b0079d2',1,'rmg::Context::removeTexture(uint64_t id)'],['../classrmg_1_1Context.html#a1879771251928ac873f6154449d61fe6',1,'rmg::Context::removeTexture(Texture *tex)']]],
-  ['render',['render',['../classrmg_1_1Context.html#ac723b4da4bdde7443703c884382b1963',1,'rmg::Context']]],
-  ['rmg',['rmg',['../namespacermg.html',1,'']]],
-  ['rmg_2ehpp',['rmg.hpp',['../rmg_8hpp.html',1,'']]]
+  ['particle_2ehpp',['particle.hpp',['../particle_8hpp.html',1,'']]],
+  ['particle3d',['Particle3D',['../classrmg_1_1Particle3D.html',1,'rmg::Particle3D'],['../classrmg_1_1Particle3D.html#a135b66b3a2fde984cfca259d5394efc4',1,'rmg::Particle3D::Particle3D(Context *ctx, std::string img)'],['../classrmg_1_1Particle3D.html#a0962d6b8616cb1e2179c4ed79b472c35',1,'rmg::Particle3D::Particle3D(Context *ctx, Texture *tex)'],['../classrmg_1_1Particle3D.html#acc5aa31cc369649bed4cd6ce07948a8f',1,'rmg::Particle3D::Particle3D(Context *ctx, std::string img, Vec2 size)'],['../classrmg_1_1Particle3D.html#a7edc1cd49f44be55738a40cbe51fcdb6',1,'rmg::Particle3D::Particle3D(Context *ctx, Texture *tex, Vec2 size)'],['../classrmg_1_1Particle3D.html#a7995a6129d133c1dcf4c66160609db68',1,'rmg::Particle3D::Particle3D(const Particle3D &amp;obj)'],['../classrmg_1_1Particle3D.html#ad6582e4e0e7db89b896469cdcde55230',1,'rmg::Particle3D::Particle3D(Particle3D &amp;&amp;obj) noexcept']]],
+  ['particle_5fshader_2ehpp',['particle_shader.hpp',['../particle__shader_8hpp.html',1,'']]],
+  ['particleshader',['ParticleShader',['../classrmg_1_1internal_1_1ParticleShader.html',1,'rmg::internal::ParticleShader'],['../classrmg_1_1internal_1_1ParticleShader.html#a414ffca7556d882682c75aae95d63b79',1,'rmg::internal::ParticleShader::ParticleShader()']]],
+  ['pitch',['pitch',['../structrmg_1_1Euler.html#a6a2328c412a7d30227b1850aa7837a12',1,'rmg::Euler']]],
+  ['process',['process',['../classrmg_1_1internal_1_1GeneralShader.html#a7c2d18724fc2d67e703d4d1d6e6110c8',1,'rmg::internal::GeneralShader::process()'],['../classrmg_1_1internal_1_1Line3DShader.html#ae3d39ca6e7739bb746b8f5765574f021',1,'rmg::internal::Line3DShader::process()'],['../classrmg_1_1internal_1_1ParticleShader.html#a3f588a9d45a283369b5ac49587641a64',1,'rmg::internal::ParticleShader::process()'],['../classrmg_1_1internal_1_1ShadowMapShader.html#acaeb6fe5be1a76487a8f244d43dd0452',1,'rmg::internal::ShadowMapShader::process()'],['../classrmg_1_1internal_1_1SpriteShader.html#a7ebd4995d6a302bb91ecf58e7a3ca6ea',1,'rmg::internal::SpriteShader::process()']]]
 ];

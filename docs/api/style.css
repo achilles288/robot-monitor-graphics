@@ -1,0 +1,45 @@
+body, table, div, p, dl {
+    font-size: 15px;
+    line-height: 24px;
+}
+
+.MathJax_Display {
+    font-size: 17px;
+    line-height: 27px;
+}
+
+.contents a {
+    font-weight: bold;
+}
+
+.next-article-link {
+    display: block;
+    margin-top: 30px;
+    font-size: 1.5em;
+}
+
+.full-row-2 {
+    display: flex;
+    width: 100%;
+    margin-left: 0;
+    margin-right: 0;
+    padding: 0;
+}
+
+.full-row-2 * {
+    float: left;
+    width: calc(50% - 10px);
+    margin: 0 5px;
+}
+
+@media only screen and (max-width: 800px) {
+    .full-row-2 {
+        display: block;
+    }
+    
+    .full-row-2 * {
+        width: calc(60% + 80px);
+        margin: 5px calc(20% - 40px);
+    }
+}
+

@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x',['x',['../structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752',1,'rmg::Vec2::x()'],['../structrmg_1_1Vec3.html#a49d1bd1403ca49898b17956222e6b04e',1,'rmg::Vec3::x()']]]
+  ['w',['w',['../structrmg_1_1Vec4.html#ac0da5fcaf45be5c25cc756571000b2cb',1,'rmg::Vec4']]],
+  ['worldtoscreen',['worldToScreen',['../classrmg_1_1Context.html#a9420948d45c3525ef6853e01923d990c',1,'rmg::Context::worldToScreen(float x, float y, float z)'],['../classrmg_1_1Context.html#a2fa98f031baa5cbaa94c847506a2d24a',1,'rmg::Context::worldToScreen(const Vec3 &amp;p)']]]
 ];

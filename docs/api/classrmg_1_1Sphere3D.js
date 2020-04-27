@@ -9,5 +9,6 @@ var classrmg_1_1Sphere3D =
     [ "operator=", "classrmg_1_1Sphere3D.html#ae1bfc4545a21ddb0e450ed7fb0ec3e02", null ],
     [ "setDiameter", "classrmg_1_1Sphere3D.html#a279b7d45800767b4f77a608ab7676ba5", null ],
     [ "setRotation", "classrmg_1_1Sphere3D.html#a1f944ed4b5a2cad481d3f562f71a0b8a", null ],
-    [ "setScale", "classrmg_1_1Sphere3D.html#a71ffb777581aae93508d0165b4e09d1f", null ]
+    [ "setScale", "classrmg_1_1Sphere3D.html#a71ffb777581aae93508d0165b4e09d1f", null ],
+    [ "setScale", "classrmg_1_1Sphere3D.html#a4608d4dc3a079b9c9781b81e1d8e37cb", null ]
 ];

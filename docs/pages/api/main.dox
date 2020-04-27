@@ -1,0 +1,66 @@
+/*! \mainpage Robot Monitor Graphics Documentation
+ * 
+ * \htmlonly
+ * <div id="logo-home-container" style="display: flex">
+ * <img id="logo-home" alt="RMGraphics Logo" src="../images/logo_home.png"
+ *  style="float: left"/>
+ * </div>
+ * <style>
+ * #logo-home {
+ *   width: 100%;
+ * }
+ * #logo-home-container {
+ *   width: 480px;
+ * }
+ * @media only screen and (max-width: 800px) {
+ *   #logo-home-container {
+ *     margin-left: 3%;
+ *     width: 90%;
+ *   }
+ * }
+ * </style>
+ * \endhtmlonly
+ * 
+ * \par
+ * The founder was a mechatronic engineer and wanted to build a monitoring
+ * system for real time operating robots. When running a robot software, 
+ * he wanted to visualize how a robot see though sensors. He then built such
+ * robot system testing framework with some GUI, supporting both sensor data
+ * display and robot control panel. For complex sensor systems, he wanted to
+ * embed some  sort of 2D/3D graphics in the framework and this is the
+ * Robot Monitor Graphics.
+ * 
+ * \par
+ * This simple and quick 2D/3D graphics rendering engine with the aim for
+ * making robotic simulations. Loads 2D/3D model files and texture files and
+ * easily control the poses and appearance of those 2D/3D objects.
+ * In addition to robotic simulations, this library can also be used to build
+ * some 2D/3D games with some additional features added.
+ * 
+ * <h1>Why Use RMGraphics?</h1>
+ * 
+ * - Light-weight API for 2D/3D graphics. No need to depend on a large
+ *   framework for a small game.
+ * - Makes graphics with a few lines of code.
+ * - Uses only open-source dependencies.
+ * - Cross platform supporting Windows and Linux.
+ * 
+ * <h1>Screenshots</h1>
+ * 
+ * \par
+ * The following screenshots are the example applications made with RMGraphics
+ * API.
+ *
+ * \htmlonly
+ * <div class="full-row-2">
+ * <img alt="Drawing shapes" src="../images/screenshot1.png"/>
+ * <img alt="Robot arm simulation" src="../images/screenshot2.png"/>
+ * </div>
+ * \endhtmlonly
+ * 
+ * \par
+ * The following links describe contents of the documentation.
+ * 
+ * - \ref getting_started
+ * - \ref math_analysis
+ */

@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -91,12 +126,13 @@ $(document).ready(function(){initNavTree('classrmg_1_1internal_1_1TextureLoadPen
   <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html#adc16c853ded1be47676f57bdba403858">load</a>()</td><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html">rmg::internal::TextureLoadPending</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html#a520848ff3a443181ac4ad82d31c22a0c">operator=</a>(const TextureLoadPending &amp;tex)</td><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html">rmg::internal::TextureLoadPending</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html#a49763d2d93a5482ba75e771c384c9352">operator=</a>(TextureLoadPending &amp;&amp;tex) noexcept</td><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html">rmg::internal::TextureLoadPending</a></td><td class="entry"></td></tr>
-  <tr><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html#a4d1bd4982e6f7718b976796479b7e3f4">TextureLoadPending</a>(Texture *tex, std::vector&lt; uint8_t &gt; &amp;dat, uint16_t w, uint16_t h, uint8_t c)</td><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html">rmg::internal::TextureLoadPending</a></td><td class="entry"></td></tr>
+  <tr><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html#a4c932da5b3b315b22f8465b4f8a44143">TextureLoadPending</a>(Texture *tex, const std::vector&lt; uint8_t &gt; &amp;dat, uint16_t w, uint16_t h, uint8_t c)</td><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html">rmg::internal::TextureLoadPending</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html#a1739a6fb12ea944b1453d7d1a9f45106">TextureLoadPending</a>(const TextureLoadPending &amp;tex)</td><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html">rmg::internal::TextureLoadPending</a></td><td class="entry"></td></tr>
   <tr><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html#ad95e2f8bfe6c92b824fa80c5af9908e1">TextureLoadPending</a>(TextureLoadPending &amp;&amp;tex) noexcept</td><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html">rmg::internal::TextureLoadPending</a></td><td class="entry"></td></tr>
   <tr class="even"><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html#a7e96cb18b61b9314ee6f05802085ec99">~TextureLoadPending</a>()</td><td class="entry"><a class="el" href="classrmg_1_1internal_1_1TextureLoadPending.html">rmg::internal::TextureLoadPending</a></td><td class="entry"></td></tr>
 </table></div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

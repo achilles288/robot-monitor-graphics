@@ -1,4 +1,8 @@
 var searchData=
 [
-  ['update',['update',['../classrmg_1_1Context.html#a1495fcfec386d1877ecc1adfea5d3d83',1,'rmg::Context']]]
+  ['radian',['radian',['../angle__unit_8hpp.html#a5c78c8a2f333a348acc7a3dc55895e7c',1,'rmg']]],
+  ['removefont',['removeFont',['../classrmg_1_1Context.html#a06d9178d4bea68f1afda93ab388c74b5',1,'rmg::Context::removeFont(uint64_t id)'],['../classrmg_1_1Context.html#a3c5b6bf0d18db90e634a0c2c7943f6f6',1,'rmg::Context::removeFont(Font *font)']]],
+  ['removeobject',['removeObject',['../classrmg_1_1Context.html#ad2cbcdbdf2be68579d4651de5ce1d465',1,'rmg::Context::removeObject(uint64_t id)'],['../classrmg_1_1Context.html#a6089f6e73e4c37d8a017add5da696dc0',1,'rmg::Context::removeObject(Object *obj)']]],
+  ['removetexture',['removeTexture',['../classrmg_1_1Context.html#a234fc8f94b528d6fddcb2d573b0079d2',1,'rmg::Context::removeTexture(uint64_t id)'],['../classrmg_1_1Context.html#a1879771251928ac873f6154449d61fe6',1,'rmg::Context::removeTexture(Texture *tex)']]],
+  ['render',['render',['../classrmg_1_1Context.html#ac723b4da4bdde7443703c884382b1963',1,'rmg::Context']]]
 ];

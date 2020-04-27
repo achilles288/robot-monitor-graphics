@@ -1,0 +1,30 @@
+/*! \page install Installation
+ * 
+ * \par
+ * This shows how you get the RMGraphics library and its dependencies.
+ * 
+ * <h2>Prequisties</h2>
+ * 
+ * \par
+ * You will need the following setup and dependencies for installation.
+ * 
+ * - Any GPU that supports OpenGL 3.2
+ * - OpenGL Extension Wrangler (GLEW)
+ * - GLFW library
+ * - wxWidgets 3.1 for GUI (optional)
+ * 
+ * \par
+ * If you are contributing the source code and documentation, you need the
+ * following additional components
+ * 
+ * - CMake
+ * - Doxygen, Dot and Dia for documentation
+ * 
+ * <h2>Installation</h2>
+ * 
+ * \par
+ * Here are guidelines for your specific OS.
+ * 
+ * - \subpage install_windows
+ * - \subpage install_ubuntu
+ */

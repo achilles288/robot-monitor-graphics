@@ -9,5 +9,6 @@ var classrmg_1_1Cube3D =
     [ "operator=", "classrmg_1_1Cube3D.html#a8575fa37d0633e14c4768dba3b1f3583", null ],
     [ "setDimension", "classrmg_1_1Cube3D.html#abe26acc4ec2edcf75af1e73440be0be1", null ],
     [ "setRotation", "classrmg_1_1Cube3D.html#a9aa65e5e584ff93cd3dd17249f823719", null ],
-    [ "setScale", "classrmg_1_1Cube3D.html#ae6e5af7826568365aa63c71a00021120", null ]
+    [ "setScale", "classrmg_1_1Cube3D.html#ae6e5af7826568365aa63c71a00021120", null ],
+    [ "setScale", "classrmg_1_1Cube3D.html#a89a24f743184afa62d4ad5b34c24e4f1", null ]
 ];

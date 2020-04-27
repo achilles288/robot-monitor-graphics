@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['model3d',['Model3D',['../classrmg_1_1Model3D.html#a394ce351f84161478b9855943cb62276',1,'rmg::Model3D::Model3D(Context *ctx, std::string file)'],['../classrmg_1_1Model3D.html#a9a58342339efe33402f06e2a141198cc',1,'rmg::Model3D::Model3D(const Model3D &amp;obj)'],['../classrmg_1_1Model3D.html#a59582cde1063ae03c59526ec62bf89bf',1,'rmg::Model3D::Model3D(Model3D &amp;&amp;obj) noexcept']]]
+  ['ishidden',['isHidden',['../classrmg_1_1Object.html#a771b8fadbdcf9f52947c5cd28dd23a35',1,'rmg::Object']]]
 ];

@@ -1,3 +1,4 @@
+<!-- HTML header for doxygen 1.8.13-->
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
@@ -19,7 +20,41 @@
 <link href="search/search.css" rel="stylesheet" type="text/css"/>
 <script type="text/javascript" src="search/searchdata.js"></script>
 <script type="text/javascript" src="search/search.js"></script>
+<script type="text/x-mathjax-config">
+  MathJax.Hub.Config({
+    extensions: ["tex2jax.js"],
+    jax: ["input/TeX","output/HTML-CSS"],
+});
+</script><script type="text/javascript" src="http://cdn.mathjax.org/mathjax/latest/MathJax.js"></script>
 <link href="doxygen.css" rel="stylesheet" type="text/css" />
+<link href="style.css" rel="stylesheet" type="text/css"/>
+<script type="text/javascript">
+window.addEventListener("load", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    if(window.innerWidth < 800) {
+        $("#doc-content").css({marginLeft:6+"px"});
+        $("#side-nav").css({width:0 + "px"});
+    }
+    var handle = document.getElementsByClassName("ui-resizable-handle");
+    for(let i=0; i<handle.length; i++) {
+        var new_element = handle[i].cloneNode(true);
+        handle[i].parentNode.replaceChild(new_element, handle[i]);
+    }
+});
+window.addEventListener("resize", function() {
+    if(window.innerWidth < 700) {
+        $("#projectname").innerHTML = "RMGraphics";
+        $("#projectbrief").style.display = "none";
+    }
+    else {
+        $("#projectname").innerHTML = "Robot Monitor Graphics";
+        $("#projectbrief").style.display = "block";
+    }
+});
+</script>
 </head>
 <body>
 <div id="top"><!-- do not remove this div, it is closed by doxygen! -->
@@ -27,7 +62,7 @@
 <table cellspacing="0" cellpadding="0">
  <tbody>
  <tr style="height: 56px;">
-  <td id="projectlogo"><img alt="Logo" src="logo.png"/></td>
+  <td id="projectlogo"><img alt="Logo" src="logo_header.svg"/></td>
   <td id="projectalign" style="padding-left: 0.5em;">
    <div id="projectname">Robot Monitor Graphics
    </div>
@@ -81,7 +116,7 @@ $(document).ready(function(){initNavTree('functions_0x7e.html','');});
 </div>
 
 <div class="contents">
-<div class="textblock">Here is a list of all class members with links to the classes they belong to:</div>
+<div class="textblock">Here is a list of all documented class members with links to the class documentation for each member:</div>
 
 <h3><a id="index_0x7e"></a>- ~ -</h3><ul>
 <li>~Context()
@@ -99,8 +134,14 @@ $(document).ready(function(){initNavTree('functions_0x7e.html','');});
 <li>~FontLoadPending()
 : <a class="el" href="classrmg_1_1internal_1_1FontLoadPending.html#a6e716f91522aa8fe468cf57d4ae5c3c6">rmg::internal::FontLoadPending</a>
 </li>
+<li>~GeneralShader()
+: <a class="el" href="classrmg_1_1internal_1_1GeneralShader.html#a2302021f69d9cd51048e226c35c4163b">rmg::internal::GeneralShader</a>
+</li>
 <li>~Line3D()
 : <a class="el" href="classrmg_1_1Line3D.html#acb79aa67b13d362e7a2e1f7e524c875c">rmg::Line3D</a>
+</li>
+<li>~Line3DShader()
+: <a class="el" href="classrmg_1_1internal_1_1Line3DShader.html#adf7dd7b402603f1552329bc77db1d8c1">rmg::internal::Line3DShader</a>
 </li>
 <li>~Model3D()
 : <a class="el" href="classrmg_1_1Model3D.html#a26b9b8c0f5fc2732c2b0fd5cb0c0596a">rmg::Model3D</a>
@@ -117,14 +158,23 @@ $(document).ready(function(){initNavTree('functions_0x7e.html','');});
 <li>~Particle3D()
 : <a class="el" href="classrmg_1_1Particle3D.html#ad108dc3ed691b107471e3aa5ffb23dd2">rmg::Particle3D</a>
 </li>
+<li>~ParticleShader()
+: <a class="el" href="classrmg_1_1internal_1_1ParticleShader.html#accf83da76f298915a45f35fbe38f4e64">rmg::internal::ParticleShader</a>
+</li>
 <li>~Shader()
 : <a class="el" href="classrmg_1_1internal_1_1Shader.html#a0753fb613da91aa870f9c8ca4a28ec64">rmg::internal::Shader</a>
+</li>
+<li>~ShadowMapShader()
+: <a class="el" href="classrmg_1_1internal_1_1ShadowMapShader.html#a801686e7aa149036572f956dbd4e1ea7">rmg::internal::ShadowMapShader</a>
 </li>
 <li>~Sphere3D()
 : <a class="el" href="classrmg_1_1Sphere3D.html#a374ea548da0008ae19f9eacf5078ad25">rmg::Sphere3D</a>
 </li>
 <li>~Sprite2D()
 : <a class="el" href="classrmg_1_1Sprite2D.html#a6480b27127813cde9b21383a86eda05d">rmg::Sprite2D</a>
+</li>
+<li>~SpriteShader()
+: <a class="el" href="classrmg_1_1internal_1_1SpriteShader.html#ae2c88ec23a9183d9bd0c00543cb01104">rmg::internal::SpriteShader</a>
 </li>
 <li>~Text2D()
 : <a class="el" href="classrmg_1_1Text2D.html#af46efdbdf11679983b55d539e99cdc2c">rmg::Text2D</a>
@@ -144,6 +194,7 @@ $(document).ready(function(){initNavTree('functions_0x7e.html','');});
 </ul>
 </div><!-- contents -->
 </div><!-- doc-content -->
+<!-- HTML footer for doxygen 1.8.13-->
 <!-- start footer part -->
 <div id="nav-path" class="navpath"><!-- id is needed for treeview function! -->
   <ul>

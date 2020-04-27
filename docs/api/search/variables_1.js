@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['b',['b',['../structrmg_1_1Color.html#acdc893ff65bbcd434c0b8a471573cad7',1,'rmg::Color']]]
+  ['blue',['blue',['../structColor.html#a175386a89265cede8f6ae694c32677c3',1,'Color']]]
 ];

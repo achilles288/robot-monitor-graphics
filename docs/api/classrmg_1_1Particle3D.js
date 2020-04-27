@@ -13,9 +13,9 @@ var classrmg_1_1Particle3D =
     [ "operator=", "classrmg_1_1Particle3D.html#a430aef7c6434ab0c5375f5b053f8e9bb", null ],
     [ "operator=", "classrmg_1_1Particle3D.html#a2cd41b93e32258440838c71ecdeeb271", null ],
     [ "setPosition", "classrmg_1_1Particle3D.html#a2ad7d8cbaeb1a0600f56146549f0133e", null ],
-    [ "setPosition", "classrmg_1_1Particle3D.html#a28e5d1990b4007775e1ebb8385b53516", null ],
+    [ "setPosition", "classrmg_1_1Particle3D.html#a46afd8b968f02b57366ac203b9e261bd", null ],
     [ "setRotation", "classrmg_1_1Particle3D.html#aa525d3860fc587e2ecfdfe33eb8af4fc", null ],
     [ "setSize", "classrmg_1_1Particle3D.html#ae56106061fa689b5e67e37ec512e0a70", null ],
-    [ "setSize", "classrmg_1_1Particle3D.html#ab296f7dbe6d3d56a1ba15f0c43581740", null ],
+    [ "setSize", "classrmg_1_1Particle3D.html#a48f120a263141b7b11bb7676aed017b5", null ],
     [ "internal::ParticleShader", "classrmg_1_1Particle3D.html#a322615b5cfda39590eb55f477993841e", null ]
 ];

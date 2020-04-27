@@ -1,11 +1,12 @@
 var searchData=
 [
-  ['g',['g',['../structrmg_1_1Color.html#a70e776e47dac1cc4d0d2afd589d5dc00',1,'rmg::Color']]],
+  ['general_5fshader_2ehpp',['general_shader.hpp',['../general__shader_8hpp.html',1,'']]],
+  ['generalshader',['GeneralShader',['../classrmg_1_1internal_1_1GeneralShader.html',1,'rmg::internal::GeneralShader'],['../classrmg_1_1internal_1_1GeneralShader.html#a3a0b4301ee718671c8c20d53c7a81e79',1,'rmg::internal::GeneralShader::GeneralShader()']]],
   ['getbackgroundcolor',['getBackgroundColor',['../classrmg_1_1Context.html#a3ed7140bb775a6304b0e653fb86578d1',1,'rmg::Context']]],
-  ['getcamerarotation',['getCameraRotation',['../classrmg_1_1Context.html#a3d3fc00529ccde28d5704037770e4a32',1,'rmg::Context']]],
+  ['getcamerarotation',['getCameraRotation',['../classrmg_1_1Context.html#a84e92ab4f12b4da3e74ced59ee9cdfd9',1,'rmg::Context']]],
   ['getcameratranslation',['getCameraTranslation',['../classrmg_1_1Context.html#a8d8dee7919c65af43868b6d98b24b267',1,'rmg::Context']]],
   ['getcolor',['getColor',['../classrmg_1_1Object.html#a58a2df3d942727dd398fa948e89c923a',1,'rmg::Object']]],
-  ['getcontext',['getContext',['../classrmg_1_1Font.html#a64d560c6c2a01d95b04e16143d1a23b0',1,'rmg::Font::getContext()'],['../classrmg_1_1Object.html#a8a20f9f8f7039f7f48887374e340e7bb',1,'rmg::Object::getContext()'],['../classrmg_1_1Texture.html#a0bb29fd0db8ebb8dd1083d882c67bf1b',1,'rmg::Texture::getContext()']]],
+  ['getcontext',['getContext',['../classrmg_1_1Font.html#a64d560c6c2a01d95b04e16143d1a23b0',1,'rmg::Font::getContext()'],['../classrmg_1_1Object.html#a926aab0adfc47d603cba2095f406b65f',1,'rmg::Object::getContext()'],['../classrmg_1_1Texture.html#a0bb29fd0db8ebb8dd1083d882c67bf1b',1,'rmg::Texture::getContext()']]],
   ['getcontextbyid',['getContextByID',['../classrmg_1_1Context.html#a02b5670a292fce76dc4a3eff965754b1',1,'rmg::Context']]],
   ['getdiameter',['getDiameter',['../classrmg_1_1Cylinder3D.html#a7254af9de4bdc5531d093fd916ab160e',1,'rmg::Cylinder3D::getDiameter()'],['../classrmg_1_1Sphere3D.html#a37fd0703e9ebd7cf51cdd7e3a5eac232',1,'rmg::Sphere3D::getDiameter()']]],
   ['getdiffusion',['getDiffusion',['../classrmg_1_1Object3D.html#a5da795a552d2bc0552b6d5b6493066ed',1,'rmg::Object3D']]],
@@ -31,5 +32,7 @@ var searchData=
   ['gettexture',['getTexture',['../classrmg_1_1Object.html#a46aea23efe3662baf56081619b0d9b47',1,'rmg::Object']]],
   ['getthickness',['getThickness',['../classrmg_1_1Line3D.html#a68fc292991d750a6c41701b3b7cb9dc5',1,'rmg::Line3D']]],
   ['gettime',['getTime',['../classrmg_1_1Context.html#a57246f8f4e265b9c9daabfdfe7e6fdc5',1,'rmg::Context']]],
-  ['getzorder',['getZOrder',['../classrmg_1_1Object2D.html#a637f438923421db670a2a3be9b7c84ee',1,'rmg::Object2D']]]
+  ['getting_20started',['Getting Started',['../getting_started.html',1,'']]],
+  ['getzorder',['getZOrder',['../classrmg_1_1Object2D.html#a637f438923421db670a2a3be9b7c84ee',1,'rmg::Object2D']]],
+  ['green',['green',['../structColor.html#a7644dc2e2c23e40894929ce5127452a1',1,'Color']]]
 ];

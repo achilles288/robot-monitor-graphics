@@ -1,0 +1,7 @@
+<map id="rmg::Object3D" name="rmg::Object3D">
+<area shape="rect" id="node3" href="$classrmg_1_1Cube3D.html" title="Visual 3D cube model. " alt="" coords="5,155,105,181"/>
+<area shape="rect" id="node4" href="$classrmg_1_1Cylinder3D.html" title="Visual cylinder model. " alt="" coords="129,155,246,181"/>
+<area shape="rect" id="node5" href="$classrmg_1_1Model3D.html" title="3D object loaded from file other than basic geometries " alt="" coords="270,155,374,181"/>
+<area shape="rect" id="node6" href="$classrmg_1_1Sphere3D.html" title="Visual sphere model. " alt="" coords="399,155,509,181"/>
+<area shape="rect" id="node2" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures. " alt="" coords="209,5,299,32"/>
+</map>

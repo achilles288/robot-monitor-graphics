@@ -1,0 +1,145 @@
+/*! \page math_euler_mat Euler And Matrix
+ * 
+ * \par
+ * There are many forms to represent orientation in 3D space. Matrices,
+ * Euler angles and quaternions. In this API, most computations are done with
+ * matrices. Euler Angles is simply a set of roll, pitch and yaw. It represents
+ * 3 successive rotations in 3 axes and the order may be different. Compared
+ * with other representations, this is much easier to visualize and less
+ * difficult to learn for most people. Many 3D modeling softwares implement
+ * this representation.
+ *
+ * \image html airplane.png
+ * 
+ * \par
+ * Matrices are mainly used in the back-end and Euler angles in the front-end.
+ * So, it is necessary that the conversions between these two forms is to be
+ * researched.
+ * 
+ * \par
+ * For the sequence of rotations, the order is taken as yaw, pitch and roll.
+ *
+ * \f[
+ * R = R_z(\phi)R_y(\theta)R_x(\psi)
+ * \f]
+ * 
+ * \f[
+ * R = 
+ * \begin{pmatrix}
+ *   \cos\theta \cos\phi &
+ *   \sin\psi\sin\theta\cos\phi-\cos\psi\sin\phi &
+ *   \cos\psi\sin\theta\sin\phi+\sin\psi\sin\phi \\
+ *   \cos\theta\sin\phi &
+ *   \sin\psi\sin\theta\sin\phi-\cos\psi\sin\phi &
+ *   \cos\psi\sin\theta\sin\phi-\sin\psi\cos\phi \\
+ *   -\sin\theta &
+ *   \sin\psi\cos\theta &
+ *   \cos\psi\cos\theta
+ * \end{pmatrix}
+ * \f]
+ * \htmlonly
+ * <style>
+ * #MathJax-Span-23 {
+ *   font-size: 14px;
+ *   line-height: 22px;
+ * }
+ * </style>
+ * \endhtmlonly
+ * 
+ * <h1>Finding \f$\boldsymbol{\theta}\f$</h1>
+ * 
+ * \par
+ * Starting with \f$\boldsymbol{R_{20}}\f$, it is found that
+ * 
+ * \f[
+ * R_{20} = -\sin\theta
+ * \f]
+ * \f[
+ * \theta = \sin^{-1}(-R_{20})
+ * \f]
+ * 
+ * <h1>Finding \f$\boldsymbol{\psi}\f$</h1>
+ * 
+ * \par
+ * For \f$\boldsymbol{\cos\theta \ne 0}\f$,
+ * 
+ * \f[
+ * {R_{11}\over R_{22}}={\sin\psi\cos\theta \over \cos\psi\cos\theta}
+ * \f]
+ * \f[
+ * \psi = \tan^{-1}({R_{21} \over R_{22}})
+ * \f]
+ * 
+ * \par
+ * To compute the above equation using \f$\mathbf{atan2}\f$ function, it is
+ * observed that the sign of each parameter is important for determining the
+ * quadrant. So, to obtain the correct quadrant of \f$\boldsymbol{\psi}\f$,
+ * the sign affected by \f$\boldsymbol{\cos\theta}\f$ is removed as follow.
+ * 
+ * \f[
+ * \psi = \mathrm{atan2}({R_{21} \over \cos\theta},{R_{22} \over \cos\theta})
+ * \f]
+ * 
+ * <h1>Finding \f$\boldsymbol{\phi}\f$</h1>
+ * 
+ * \par
+ * With similar approach in previous step, at \f$\boldsymbol{R_{00}}\f$ and
+ * \f$\boldsymbol{R_{10}}\f$,
+ * 
+ * \f[
+ * \phi = \mathrm{atan2}({R_{10} \over \cos\theta},{R_{00} \over \cos\theta})
+ * \f]
+ * 
+ * <h1>What If Gimbal Lock?</h1>
+ * 
+ * \par
+ * Gimbal Lock is the state where the Euler rotations lose one degree of
+ * freedom. When the second order rotation takes a 90 degree rotation, the
+ * third rotation axis becomes identical to the previous first rotation axis.
+ * 
+ * \par
+ * Since \f$\boldsymbol{\cos\theta = 0}\f$, the above equations don't work
+ * and another approach is to be observed.
+ * 
+ * <h2>If \f$\boldsymbol{\theta = {\pi \over 2}}\f$</h2>
+ * 
+ * \par
+ * Substituting \f$\boldsymbol{\sin\theta = 1}\f$ in
+ * \f$\boldsymbol{R_{01}}\f$, \f$\boldsymbol{R_{02}}\f$ and applying angle sum
+ * and difference trigonometric identity,
+ * 
+ * \f[
+ * R_{01} = \sin\psi\cos\phi-\cos\psi\sin\phi = -\sin(\phi-\psi)
+ * \f]
+ * \f[
+ * R_{02} = \cos\psi\cos\phi+\sin\psi\sin\phi = \cos(\phi-\psi)
+ * \f]
+ * 
+ * \par
+ * In Gimbal Lock, both yaw and roll are rotating at the same axis and one of
+ * them can be any value. Here, \f$\boldsymbol{\psi}\f$ is taken zero.
+ * 
+ * \f[
+ * \phi = \mathrm{atan2}(-R_{01}, R_{02})
+ * \f]
+ * 
+ * <h2>If \f$\boldsymbol{\theta = -{\pi \over 2}}\f$</h2>
+ * 
+ * \par
+ * Similar approach to previous case with \f$\boldsymbol{\sin\theta = -1}\f$,
+ * 
+ * \f[
+ * R_{01} = -\sin\psi\cos\phi-\cos\psi\sin\phi = -\sin(\phi+\psi)
+ * \f]
+ * \f[
+ * R_{02} = -\cos\psi\cos\phi+\sin\psi\sin\phi = -\cos(\phi+\psi)
+ * \f]
+ * 
+ * \f[
+ * \phi = \mathrm{atan2}(-R_{01}, -R_{02})
+ * \f]
+ * 
+ * <a class="next-article-link" href="math_lighting.html">
+ * Next: Lighting Model
+ * </a>
+ */
