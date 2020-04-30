@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(Vec4ConstructorTest, works) {
+TEST(Vec4, constructor) {
     rmg::Vec4 v1 = rmg::Vec4();
     ASSERT_EQ(0, v1.x);
     ASSERT_EQ(0, v1.y);
@@ -32,13 +32,13 @@ TEST(Vec4ConstructorTest, works) {
 
 
 
-TEST(Vec4MagnitudeTest, works) {
+TEST(Vec4, magnitude) {
     rmg::Vec4 v = {7.295f, 20.553f, 14.466f, -5.689f};
     EXPECT_NEAR(26.7819f, v.magnitude(), 0.0001f);
 }
 
 
-TEST(Vec4NormalizeTest, works) {
+TEST(Vec4, normalize) {
     rmg::Vec4 v = {-33.664f, 120.601f, 27.474f, -30.221f};
     rmg::Vec4 n = v.normalize();
     EXPECT_NEAR(-0.2556f, n.x, 0.0001f);
@@ -48,7 +48,7 @@ TEST(Vec4NormalizeTest, works) {
 }
 
 
-TEST(Vec4SummationTest, works) {
+TEST(Vec4, add) {
     rmg::Vec4 a = { 3.245f,  22.5031f, -9.3249f, 11.5644f};
     rmg::Vec4 b = {14.3375f, -7.523f,  10.9544f,  7.4801f};
     rmg::Vec4 c = a + b;
@@ -59,7 +59,7 @@ TEST(Vec4SummationTest, works) {
 }
 
 
-TEST(Vec4SubtractionTest, works) {
+TEST(Vec4, subtract) {
     rmg::Vec4 a = {16.3569f, -8.7431f, 12.435f,  19.3557f};
     rmg::Vec4 b = { 7.0503f, -6.446f,  -3.2565f, 15.2205f};
     rmg::Vec4 c = a - b;
@@ -70,7 +70,7 @@ TEST(Vec4SubtractionTest, works) {
 }
 
 
-TEST(Vec4MultiplicationTest, works) {
+TEST(Vec4, multiply) {
     rmg::Vec4 a = {16.1159f, 8.8122f, -4.5105f, 0.8467f};
     rmg::Vec4 b;
     b = a * 6.3211f;
@@ -86,7 +86,7 @@ TEST(Vec4MultiplicationTest, works) {
 }
 
 
-TEST(Vec4DivisionTest, works) {
+TEST(Vec4, divide) {
     rmg::Vec4 a = {-30.5651f, 117.3502f, 43.0063f, 10.33f};
     rmg::Vec4 b;
     b = a / 12.103f;
@@ -99,14 +99,14 @@ TEST(Vec4DivisionTest, works) {
 
 
 
-TEST(Vec4ConvertionTest, toVec2) {
+TEST(Vec4, toVec2) {
     rmg::Vec4 a = {22.056f, 9.8552f, -9.7701f, 12.5633f};
     rmg::Vec2 b = (rmg::Vec2) a;
     EXPECT_NEAR(22.0560f, b.x, 0.0001f);
     EXPECT_NEAR( 9.8552f, b.y, 0.0001f);
 }
 
-TEST(Vec4ConvertionTest, toVec3) {
+TEST(Vec4, toVec3) {
     rmg::Vec4 a = {22.056f, 9.8552f, -9.7701f, 12.5633f};
     rmg::Vec3 b = (rmg::Vec3) a;
     EXPECT_NEAR(22.0560f, b.x, 0.0001f);

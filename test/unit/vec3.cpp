@@ -2,7 +2,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(Vec3ConstructorTest, works) {
+TEST(Vec3, constructor) {
     rmg::Vec3 v1 = rmg::Vec3();
     ASSERT_EQ(0, v1.x);
     ASSERT_EQ(0, v1.y);
@@ -23,13 +23,13 @@ TEST(Vec3ConstructorTest, works) {
 
 
 
-TEST(Vec3MagnitudeTest, works) {
+TEST(Vec3, magnitude) {
     rmg::Vec3 v = {19.095f, -10.553f, 4.451f};
     EXPECT_NEAR(22.2665f, v.magnitude(), 0.0001f);
 }
 
 
-TEST(Vec3NormalizeTest, works) {
+TEST(Vec3, normalize) {
     rmg::Vec3 v = {-43.764f, 30.401f, 17.664f};
     rmg::Vec3 n = v.normalize();
     EXPECT_NEAR(-0.7796f, n.x, 0.0001f);
@@ -38,7 +38,7 @@ TEST(Vec3NormalizeTest, works) {
 }
 
 
-TEST(Vec3SummationTest, works) {
+TEST(Vec3, add) {
     rmg::Vec3 a = { 3.245f,  22.5031f, -9.3249f};
     rmg::Vec3 b = {14.3375f, -7.523f,  10.9544f};
     rmg::Vec3 c = a + b;
@@ -48,7 +48,7 @@ TEST(Vec3SummationTest, works) {
 }
 
 
-TEST(Vec3SubtractionTest, works) {
+TEST(Vec3, subtract) {
     rmg::Vec3 a = {16.3569f, -8.7431f, 12.435f};
     rmg::Vec3 b = { 7.0503f, -6.446f,  -3.2565f};
     rmg::Vec3 c = a - b;
@@ -58,7 +58,7 @@ TEST(Vec3SubtractionTest, works) {
 }
 
 
-TEST(Vec3MultiplicationTest, works) {
+TEST(Vec3, multiply) {
     rmg::Vec3 a = {16.1159f, 8.8122f, -4.5105f};
     rmg::Vec3 b;
     b = a * 6.3211f;
@@ -72,7 +72,7 @@ TEST(Vec3MultiplicationTest, works) {
 }
 
 
-TEST(Vec3DivisionTest, works) {
+TEST(Vec3, divide) {
     rmg::Vec3 a = {-30.5651f, 117.3502f, 43.0063f};
     rmg::Vec3 b;
     b = a / 12.103f;
@@ -82,14 +82,14 @@ TEST(Vec3DivisionTest, works) {
 }
 
 
-TEST(Vec3DotTest, works) {
+TEST(Vec3, dotProduct) {
     rmg::Vec3 a = {  4.567f, 7.536f, -10.230f};
     rmg::Vec3 b = {-12.090f, 8.446f,  -8.112f};
     EXPECT_NEAR(91.4198f, rmg::Vec3::dot(a, b), 0.0001f);
 }
 
 
-TEST(Vec3CrossTest, works) {
+TEST(Vec3, crossProduct) {
     rmg::Vec3 a = {  4.567f, 7.536f, -10.230f};
     rmg::Vec3 b = {-12.090f, 8.446f,  -8.112f};
     rmg::Vec3 c;
@@ -106,14 +106,14 @@ TEST(Vec3CrossTest, works) {
 
 
 
-TEST(Vec3ConvertionTest, toVec2) {
+TEST(Vec3, toVec2) {
     rmg::Vec3 a = {14.345f, 6.4344f, -9.7701f};
     rmg::Vec2 b = (rmg::Vec2) a;
     EXPECT_NEAR(14.3450f, b.x, 0.0001f);
     EXPECT_NEAR( 6.4344f, b.y, 0.0001f);
 }
 
-TEST(Vec3ConvertionTest, toVec4) {
+TEST(Vec3, toVec4) {
     rmg::Vec3 a = {14.345f, 6.4344f, -9.7701f};
     rmg::Vec4 b = a;
     EXPECT_NEAR(14.3450f, b.x, 0.0001f);

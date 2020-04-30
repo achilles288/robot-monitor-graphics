@@ -4,7 +4,7 @@
 #include <cmath>
 
 
-TEST(EulerConstructorTest, works) {
+TEST(Euler, constructor) {
     rmg::Euler rot1 = rmg::Euler();
     ASSERT_EQ(0, rot1.roll);
     ASSERT_EQ(0, rot1.pitch);
@@ -29,7 +29,7 @@ TEST(EulerConstructorTest, works) {
 
 
 
-TEST(EulerFromMat3Test, normal) {
+TEST(Euler, fromMat3) {
     rmg::Mat3 R = {
       {0.5922f, -0.8050f, -0.0356f},
       {0.6823f,  0.5244f, -0.5093f},
@@ -41,7 +41,7 @@ TEST(EulerFromMat3Test, normal) {
     EXPECT_NEAR( 0.856f, rot.yaw,   0.001f);
 }
 
-TEST(EulerFromMat3Test, pitchPos90) {
+TEST(Euler, fromMat3_pitchPos90) {
     rmg::Mat3 R = {
       { 0.0000f, -0.9785f,  0.2063f},
       { 0.0000f,  0.2063f,  0.9785f},
@@ -53,7 +53,7 @@ TEST(EulerFromMat3Test, pitchPos90) {
     EXPECT_NEAR(1.363f, rot.yaw,   0.001f);
 }
 
-TEST(EulerFromMat3Test, pitchNeg90) {
+TEST(Euler, fromMat3_pitchNeg90) {
     rmg::Mat3 R = {
       {0.0000f, -0.9014f, -0.4330f},
       {0.0000f,  0.4330f, -0.9014f},
@@ -68,7 +68,7 @@ TEST(EulerFromMat3Test, pitchNeg90) {
 
 
 
-TEST(EulerToMat3, normal) { 
+TEST(Euler, toMat3) { 
     rmg::Euler rot = {0.312f, -0.443f, 0.856f};
     rmg::Mat3 R = rot.toRotationMatrix();
     ASSERT_NEAR( 0.5922f, R[0][0], 0.0001f);
@@ -82,7 +82,7 @@ TEST(EulerToMat3, normal) {
     ASSERT_NEAR( 0.8599f, R[2][2], 0.0001f);
 }
 
-TEST(EulerToMat3, pitchPos90) { 
+TEST(Euler, toMat3_pitchPos90) { 
     rmg::Euler rot = {-1.028f, M_PI/2, 0.335f};
     rmg::Mat3 R = rot.toRotationMatrix();
     ASSERT_NEAR( 0.0000f, R[0][0], 0.0001f);

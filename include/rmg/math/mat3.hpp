@@ -90,7 +90,7 @@ struct Mat3 {
     /**
      * @brief Converts Mat3 to Mat4
      */
-    operator Mat4() const;
+    explicit operator Mat4() const;
     
     /**
      * @brief Matrix multiplication

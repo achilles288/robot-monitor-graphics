@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(Mat4ConstructorTest, works) {
+TEST(Mat4, constructor) {
     rmg::Mat4 I = rmg::Mat4();
     ASSERT_EQ(1, I[0][0]);
     ASSERT_EQ(0, I[0][1]);
@@ -33,7 +33,7 @@ TEST(Mat4ConstructorTest, works) {
 
 
 
-TEST(Mat4MultiplyTest, works) {
+TEST(Mat4, multiply) {
     rmg::Mat4 A = {
       { 4.20f,   8.54f,  -5.13f,  0.56f},
       {15.94f,  -3.37f,   7.83f, 13.01f},
@@ -67,7 +67,7 @@ TEST(Mat4MultiplyTest, works) {
 }
 
 
-TEST(Mat4MultiplyWithVec4Test, works) {
+TEST(Mat4, multiplyVec4) {
     rmg::Mat4 M = {
       {  7.31f,  5.31f, -5.84f,  1.19f},
       {  6.12f,  1.33f,  1.94f, 21.35f},
@@ -84,7 +84,7 @@ TEST(Mat4MultiplyWithVec4Test, works) {
 }
 
 
-TEST(Mat4ToMat3Test, works) {
+TEST(Mat4, toMat3) {
     rmg::Mat4 A = {
       {-4.24f,   8.54f,  -5.13f,  5.56f},
       { 5.70f, -13.60f,   7.83f, 15.31f},
@@ -93,8 +93,13 @@ TEST(Mat4ToMat3Test, works) {
     };
     rmg::Mat3 B = (rmg::Mat3) A;
     
-    for(int i=0; i<3; i++) {
-        for(int j=0; j<3; j++)
-            ASSERT_EQ(A[i][j], B[i][j]);
-    }
+    ASSERT_EQ( -4.24f, B[0][0]);
+    ASSERT_EQ(  8.54f, B[0][1]);
+    ASSERT_EQ( -5.13f, B[0][2]);
+    ASSERT_EQ(  5.70f, B[1][0]);
+    ASSERT_EQ(-13.60f, B[1][1]);
+    ASSERT_EQ(  7.83f, B[1][2]);
+    ASSERT_EQ(  2.45f, B[2][0]);
+    ASSERT_EQ(-11.43f, B[2][1]);
+    ASSERT_EQ(-15.77f, B[2][2]);
 }

@@ -4,7 +4,7 @@
 #include <gtest/gtest.h>
 
 
-TEST(Mat3ConstructorTest, works) {
+TEST(Mat3, constructor) {
     rmg::Mat3 I = rmg::Mat3();
     ASSERT_EQ(1, I[0][0]);
     ASSERT_EQ(0, I[0][1]);
@@ -31,7 +31,7 @@ TEST(Mat3ConstructorTest, works) {
 
 
 
-TEST(Mat3MultiplyTest, works) {
+TEST(Mat3, multiply) {
     rmg::Mat3 A = {
       { 11.35f,   7.54f,  -1.05f},
       { -4.80f,  21.97f, -31.75f},
@@ -56,7 +56,7 @@ TEST(Mat3MultiplyTest, works) {
 }
 
 
-TEST(Mat3MultiplyWithVec3Test, works) {
+TEST(Mat3, multiplyVec3) {
     rmg::Mat3 M = {
       { 11.54f,   7.15f,  -1.55f},
       { -4.12f,  21.13f,  -1.42f},
@@ -71,13 +71,13 @@ TEST(Mat3MultiplyWithVec3Test, works) {
 }
 
 
-TEST(Mat3ToMat4Test, works) {
+TEST(Mat3, toMat4) {
     rmg::Mat3 A = {
       {  1.94f,   7.29f,  19.45f},
       { -5.17f,  -9.12f,  -4.02f},
       {  8.86f, -12.63f,  11.00f}
     };
-    rmg::Mat4 B = A;
+    rmg::Mat4 B = (rmg::Mat4) A;
     
     ASSERT_EQ(  1.94f, B[0][0]);
     ASSERT_EQ(  7.29f, B[0][1]);
