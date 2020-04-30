@@ -1,7 +1,6 @@
 find_package(
     Doxygen
     REQUIRED dot
-    OPTIONAL_COMPONENTS mscgen dia
 )
 
 set(DOXYGEN_PROJECT_NAME "Robot Monitor Graphics")

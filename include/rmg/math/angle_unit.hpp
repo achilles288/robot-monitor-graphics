@@ -16,6 +16,7 @@
 #define __RMG_ANGLE_UNIT_H__
 
 
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 
@@ -24,7 +25,7 @@ namespace rmg {
 /**
  * @brief Represents if the unit is degree or radian
  */
-enum AngleUnit {
+enum class AngleUnit {
     UNIT_DEGREE,
     UNIT_RADIAN
 };
@@ -36,7 +37,7 @@ enum AngleUnit {
  * 
  * @return Angle value in radian
  */
-inline float radian(float deg) { return deg * M_PI/180; }
+inline float radian(float deg) { return deg * (float)(M_PI/180); }
 
 /**
  * @brief Converts radian to degree
@@ -45,13 +46,9 @@ inline float radian(float deg) { return deg * M_PI/180; }
  * 
  * @return Angle value in degree
  */
-inline float degree(float rad) { return rad * 180/M_PI; }
+inline float degree(float rad) { return rad * (float)(180/M_PI); }
 
 }
-
-
-using rmg::AngleUnit::UNIT_RADIAN;
-using rmg::AngleUnit::UNIT_DEGREE;
 
 
 #endif

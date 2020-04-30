@@ -20,5 +20,6 @@ set(RMGRAPHICS_LIBRARIES
     ${RMGWX_LIBRARY}
 )
 
+set(gtest_force_shared_crt ON CACHE BOOL "compile gtest with MD" FORCE)
 add_subdirectory(external/googletest/googletest)
 add_subdirectory(test)

@@ -9,7 +9,9 @@
 
 
 #include <rmg/math/vec.hpp>
+
 #include <cassert>
+#define _USE_MATH_DEFINES
 #include <cmath>
 
 
