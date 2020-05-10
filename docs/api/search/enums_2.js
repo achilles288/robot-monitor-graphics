@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['textalignment',['TextAlignment',['../text__alignment_8hpp.html#a564cac77f7c250878f41f50fed22d297',1,'rmg']]]
+  ['objecttype',['ObjectType',['../object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680',1,'rmg']]]
 ];

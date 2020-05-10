@@ -3,11 +3,11 @@ var object_8hpp =
     [ "Object", "classrmg_1_1Object.html", "classrmg_1_1Object" ],
     [ "__RMG_OBJECT_H__", "object_8hpp.html#ac56149c8e55ea4871713c3fb8fdde281", null ],
     [ "ObjectType", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680", [
-      [ "OBJECT_DEFAULT", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680ae2457bbbe42412dcc272e7ddf2eae070", null ],
-      [ "OBJECT_OBJECT3D", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680a19d1eff6f1b30bac15058002c1b57680", null ],
-      [ "OBJECT_SPRITE", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680a0a7e08152243a622de0a9afd80de9ae0", null ],
-      [ "OBJECT_TEXT2D", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680a2ef652624cc1f20239720395dc5510fc", null ],
-      [ "OBJECT_PARTICLE", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680a150dbe8ff7bb6b81a8626dd7a6c95548", null ],
-      [ "OBJECT_LINE3D", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680af3749b364e1596f2a567d2d7e877bd88", null ]
+      [ "Default", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680a7a1920d61156abc05a60135aefe8bc67", null ],
+      [ "Object3D", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680ae119038d01a75d75e6c81ec3ddaf577d", null ],
+      [ "Sprite2D", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680a411b82db44407403782a5ccfe79bac26", null ],
+      [ "Text2D", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680a19252c06e7ddd0358f08fdade591aa37", null ],
+      [ "Particle3D", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680ab1ed7b62c120ee0074303785850b5c0f", null ],
+      [ "Line3D", "object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680a223c953b6130f20084fb1beb66c9ad4a", null ]
     ] ]
 ];

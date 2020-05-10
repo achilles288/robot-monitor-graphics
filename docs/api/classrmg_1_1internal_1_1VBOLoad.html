@@ -99,50 +99,111 @@ $(document).ready(function(){initNavTree('classrmg_1_1internal_1_1VBOLoad.html',
 </div><!--header-->
 <div class="contents">
 
-<p>Handles the GPU resource for drawing.  
+<p>Maintains the array of VBOs before context startup.  
  <a href="classrmg_1_1internal_1_1VBOLoad.html#details">More...</a></p>
 
 <p><code>#include &lt;<a class="el" href="vbo__load_8hpp_source.html">vbo_load.hpp</a>&gt;</code></p>
+<div class="dynheader">
+Inheritance diagram for rmg::internal::VBOLoad:</div>
+<div class="dyncontent">
+<div class="center"><iframe scrolling="no" frameborder="0" src="classrmg_1_1internal_1_1VBOLoad__inherit__graph.svg" width="187" height="112"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<center><span class="legend">[<a target="top" href="graph_legend.html">legend</a>]</span></center></div>
 <table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
-<tr class="memitem:a201ad0a20becb7d0e1bb705f8a586cf3"><td class="memItemLeft" align="right" valign="top"><a id="a201ad0a20becb7d0e1bb705f8a586cf3"></a>
-&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a201ad0a20becb7d0e1bb705f8a586cf3">VBOLoad</a> ()</td></tr>
-<tr class="memdesc:a201ad0a20becb7d0e1bb705f8a586cf3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructor. <br /></td></tr>
-<tr class="separator:a201ad0a20becb7d0e1bb705f8a586cf3"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a87f5202dc8d2181e6fe126ac479a3118"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a87f5202dc8d2181e6fe126ac479a3118">VBOLoad</a> (<a class="el" href="classrmg_1_1internal_1_1VBO.html">VBO</a> *vbo, const std::vector&lt; <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &gt; &amp;vert, const std::vector&lt; <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &gt; &amp;norm, const std::vector&lt; <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &gt; &amp;tex, const std::vector&lt; uint16_t &gt; &amp;in)</td></tr>
+<tr class="memdesc:a87f5202dc8d2181e6fe126ac479a3118"><td class="mdescLeft">&#160;</td><td class="mdescRight">Constructs a pending object.  <a href="#a87f5202dc8d2181e6fe126ac479a3118">More...</a><br /></td></tr>
+<tr class="separator:a87f5202dc8d2181e6fe126ac479a3118"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac7dc794eb9e7c03c2370118bbc2a89fc"><td class="memItemLeft" align="right" valign="top"><a id="ac7dc794eb9e7c03c2370118bbc2a89fc"></a>
 &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#ac7dc794eb9e7c03c2370118bbc2a89fc">~VBOLoad</a> ()</td></tr>
 <tr class="memdesc:ac7dc794eb9e7c03c2370118bbc2a89fc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Destructor. <br /></td></tr>
 <tr class="separator:ac7dc794eb9e7c03c2370118bbc2a89fc"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a4a2818f2fb70392180dcad8337872d22"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a4a2818f2fb70392180dcad8337872d22">VBOLoad</a> (const <a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;vbo)=delete</td></tr>
-<tr class="memdesc:a4a2818f2fb70392180dcad8337872d22"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor (deleted)  <a href="#a4a2818f2fb70392180dcad8337872d22">More...</a><br /></td></tr>
-<tr class="separator:a4a2818f2fb70392180dcad8337872d22"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a37623ec4943203a13fd263a864172afc"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a37623ec4943203a13fd263a864172afc">VBOLoad</a> (const <a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;vbo)</td></tr>
+<tr class="memdesc:a37623ec4943203a13fd263a864172afc"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy constructor.  <a href="#a37623ec4943203a13fd263a864172afc">More...</a><br /></td></tr>
+<tr class="separator:a37623ec4943203a13fd263a864172afc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa2822b24b38484149aeb56734362fe74"><td class="memItemLeft" align="right" valign="top">&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#aa2822b24b38484149aeb56734362fe74">VBOLoad</a> (<a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;&amp;vbo) noexcept</td></tr>
 <tr class="memdesc:aa2822b24b38484149aeb56734362fe74"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move constructor.  <a href="#aa2822b24b38484149aeb56734362fe74">More...</a><br /></td></tr>
 <tr class="separator:aa2822b24b38484149aeb56734362fe74"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a9f90e26fd744d31559cb4b864ad6d89c"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a9f90e26fd744d31559cb4b864ad6d89c">operator=</a> (const <a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;vbo)=delete</td></tr>
-<tr class="memdesc:a9f90e26fd744d31559cb4b864ad6d89c"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment (deleted)  <a href="#a9f90e26fd744d31559cb4b864ad6d89c">More...</a><br /></td></tr>
-<tr class="separator:a9f90e26fd744d31559cb4b864ad6d89c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a20f851073007147458969d3124b055c0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a20f851073007147458969d3124b055c0">operator=</a> (const <a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;vbo)</td></tr>
+<tr class="memdesc:a20f851073007147458969d3124b055c0"><td class="mdescLeft">&#160;</td><td class="mdescRight">Copy assignment.  <a href="#a20f851073007147458969d3124b055c0">More...</a><br /></td></tr>
+<tr class="separator:a20f851073007147458969d3124b055c0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4feb9e02e6410fe9bf2f0835d82531da"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a4feb9e02e6410fe9bf2f0835d82531da">operator=</a> (<a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a> &amp;&amp;vbo) noexcept</td></tr>
 <tr class="memdesc:a4feb9e02e6410fe9bf2f0835d82531da"><td class="mdescLeft">&#160;</td><td class="mdescRight">Move assignment.  <a href="#a4feb9e02e6410fe9bf2f0835d82531da">More...</a><br /></td></tr>
 <tr class="separator:a4feb9e02e6410fe9bf2f0835d82531da"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a849f863070eddc3df8d3752095e494ec"><td class="memItemLeft" align="right" valign="top"><a id="a849f863070eddc3df8d3752095e494ec"></a>
-void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a849f863070eddc3df8d3752095e494ec">draw</a> ()</td></tr>
-<tr class="memdesc:a849f863070eddc3df8d3752095e494ec"><td class="mdescLeft">&#160;</td><td class="mdescRight">Draws the VBO using a shader program. <br /></td></tr>
-<tr class="separator:a849f863070eddc3df8d3752095e494ec"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a57332a9e5cc002775fe0ea633b8b49c3"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a57332a9e5cc002775fe0ea633b8b49c3">load</a> () override</td></tr>
+<tr class="memdesc:a57332a9e5cc002775fe0ea633b8b49c3"><td class="mdescLeft">&#160;</td><td class="mdescRight">Loads the array of VBOs to the GPU.  <a href="#a57332a9e5cc002775fe0ea633b8b49c3">More...</a><br /></td></tr>
+<tr class="separator:a57332a9e5cc002775fe0ea633b8b49c3"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
-<div class="textblock"><p>Handles the GPU resource for drawing. </p>
-<p>Select a <a class="el" href="classrmg_1_1internal_1_1Shader.html" title="The shader program taking main backend role in drawing. ">Shader</a>, trigger the <a class="el" href="classrmg_1_1internal_1_1VBOLoad.html#a849f863070eddc3df8d3752095e494ec" title="Draws the VBO using a shader program. ">draw()</a> function of this class and make actual drawing by the GPU processing power. Multiple <a class="el" href="classrmg_1_1Object3D.html" title="3D object whose model and appearance can be controlled quickly ">Object3D</a> may use the common instance for efficient GPU memory space. </p>
+<div class="textblock"><p>Maintains the array of VBOs before context startup. </p>
+<p>During construction of 3D objects, they generate VBOs for polygons that compose nice looking graphics. The generated arrays includes vertices, normals, texture coordinates, indecies and they are desired to be loaded into GPU for shader processing. However this can't be done before the OpenGL context shows up. So, this temporary storage class is made to maintain the data for a while before the context startup.</p>
+<dl class="section see"><dt>See also</dt><dd>TextureLoadPending </dd>
+<dd>
+FontLoadPending </dd></dl>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
-<a id="a4a2818f2fb70392180dcad8337872d22"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a4a2818f2fb70392180dcad8337872d22">&#9670;&nbsp;</a></span>VBOLoad() <span class="overload">[1/2]</span></h2>
+<a id="a87f5202dc8d2181e6fe126ac479a3118"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a87f5202dc8d2181e6fe126ac479a3118">&#9670;&nbsp;</a></span>VBOLoad() <span class="overload">[1/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">rmg::internal::VBOLoad::VBOLoad </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classrmg_1_1internal_1_1VBO.html">VBO</a> *&#160;</td>
+          <td class="paramname"><em>vbo</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>vert</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structrmg_1_1Vec3.html">Vec3</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>norm</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; <a class="el" href="structrmg_1_1Vec2.html">Vec2</a> &gt; &amp;&#160;</td>
+          <td class="paramname"><em>tex</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">const std::vector&lt; uint16_t &gt; &amp;&#160;</td>
+          <td class="paramname"><em>in</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p>Constructs a pending object. </p>
+<dl class="params"><dt>Parameters</dt><dd>
+  <table class="params">
+    <tr><td class="paramname">vbo</td><td>Address to a <a class="el" href="classrmg_1_1internal_1_1VBO.html" title="Handles the GPU resource for drawing. ">VBO</a> instance. This is to redirect responses after loading. </td></tr>
+    <tr><td class="paramname">vert</td><td>Vertices </td></tr>
+    <tr><td class="paramname">norm</td><td>Normals </td></tr>
+    <tr><td class="paramname">tex</td><td><a class="el" href="classrmg_1_1internal_1_1Texture.html" title="To enhance the appearance of 2D/3D objects with image data. ">Texture</a> coordinates </td></tr>
+    <tr><td class="paramname">in</td><td>Indecies </td></tr>
+  </table>
+  </dd>
+</dl>
+
+</div>
+</div>
+<a id="a37623ec4943203a13fd263a864172afc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a37623ec4943203a13fd263a864172afc">&#9670;&nbsp;</a></span>VBOLoad() <span class="overload">[2/3]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname">rmg::internal::VBOLoad::VBOLoad </td>
@@ -152,15 +213,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Copy constructor (deleted) </p>
-<p>Deleted since this class uses unique pointers to GPU resources and to prevent improper usage.</p>
+<p>Copy constructor. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vbo</td><td>Source </td></tr>
@@ -171,7 +226,7 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <a id="aa2822b24b38484149aeb56734362fe74"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa2822b24b38484149aeb56734362fe74">&#9670;&nbsp;</a></span>VBOLoad() <span class="overload">[2/2]</span></h2>
+<h2 class="memtitle"><span class="permalink"><a href="#aa2822b24b38484149aeb56734362fe74">&#9670;&nbsp;</a></span>VBOLoad() <span class="overload">[3/3]</span></h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -205,14 +260,41 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
 </div>
 </div>
 <h2 class="groupheader">Member Function Documentation</h2>
-<a id="a9f90e26fd744d31559cb4b864ad6d89c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a9f90e26fd744d31559cb4b864ad6d89c">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+<a id="a57332a9e5cc002775fe0ea633b8b49c3"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a57332a9e5cc002775fe0ea633b8b49c3">&#9670;&nbsp;</a></span>load()</h2>
 
 <div class="memitem">
 <div class="memproto">
 <table class="mlabels">
   <tr>
   <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void rmg::internal::VBOLoad::load </td>
+          <td>(</td>
+          <td class="paramname"></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">override</span><span class="mlabel">virtual</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p>Loads the array of VBOs to the GPU. </p>
+<p>Loads the arrays of vertices, normals, texture coordinate and indecies which are created by model constructors (<a class="el" href="classrmg_1_1Cube3D.html" title="Visual 3D cube model. ">Cube3D</a>, <a class="el" href="classrmg_1_1Model3D.html" title="3D object loaded from file other than basic geometries ">Model3D</a>, .etc) into GPU. Also this pending object's load function assigns the resource addresses to the related <a class="el" href="classrmg_1_1internal_1_1VBO.html" title="Handles the GPU resource for drawing. ">VBO</a> object. </p>
+
+<p>Reimplemented from <a class="el" href="classrmg_1_1internal_1_1ContextLoad.html#af2554033c946c1512283f0fc8bfb4186">rmg::internal::ContextLoad</a>.</p>
+
+</div>
+</div>
+<a id="a20f851073007147458969d3124b055c0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a20f851073007147458969d3124b055c0">&#9670;&nbsp;</a></span>operator=() <span class="overload">[1/2]</span></h2>
+
+<div class="memitem">
+<div class="memproto">
       <table class="memname">
         <tr>
           <td class="memname"><a class="el" href="classrmg_1_1internal_1_1VBOLoad.html">VBOLoad</a>&amp; rmg::internal::VBOLoad::operator= </td>
@@ -222,15 +304,9 @@ void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="clas
           <td></td>
         </tr>
       </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">delete</span></span>  </td>
-  </tr>
-</table>
 </div><div class="memdoc">
 
-<p>Copy assignment (deleted) </p>
-<p>Deleted since this class uses unique pointers to GPU resources and to prevent improper usage.</p>
+<p>Copy assignment. </p>
 <dl class="params"><dt>Parameters</dt><dd>
   <table class="params">
     <tr><td class="paramname">vbo</td><td>Source </td></tr>

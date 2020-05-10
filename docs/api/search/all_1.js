@@ -1,6 +1,12 @@
 var searchData=
 [
-  ['blue',['blue',['../structColor.html#a175386a89265cede8f6ae694c32677c3',1,'Color']]],
-  ['brightness',['brightness',['../structColor.html#afbb3f3c8dea22eca3a9b52f7c7dcc6b5',1,'Color']]],
-  ['brightnesscontrast',['brightnessContrast',['../structColor.html#a2e1ca3404a27c163779512021f53a4ab',1,'Color']]]
+  ['addfont',['addFont',['../classrmg_1_1Context.html#ab35bbffc0707124bedeb817b754a7dd0',1,'rmg::Context']]],
+  ['addmaterial',['addMaterial',['../classrmg_1_1Context.html#afd75eb94979ae7c3f6c0729b271ec5a9',1,'rmg::Context']]],
+  ['addobject',['addObject',['../classrmg_1_1Context.html#aba641bd6c0a124af43caab2dd8378f71',1,'rmg::Context']]],
+  ['alpha',['alpha',['../structrmg_1_1ColorRGBA.html#a3ba2996bc086899d4b67055c1fe509c0',1,'rmg::ColorRGBA::alpha()'],['../structrmg_1_1ColorHSLA.html#a67fcd5f30e47e9d32c58ab9f8c7dd802',1,'rmg::ColorHSLA::alpha()']]],
+  ['angle_5funit_2ehpp',['angle_unit.hpp',['../angle__unit_8hpp.html',1,'']]],
+  ['angleunit',['AngleUnit',['../angle__unit_8hpp.html#ae14d16230f3d8ff22ac7c5445e526ac0',1,'rmg']]],
+  ['applybrightness',['applyBrightness',['../structrmg_1_1ColorRGBA.html#a443fd6bd13cb8451255f35bd71976b68',1,'rmg::ColorRGBA']]],
+  ['assert_2ehpp',['assert.hpp',['../assert_8hpp.html',1,'']]],
+  ['adding_20user_2dinteractions_20to_20the_20application',['Adding User-interactions To The Application',['../tutorial3.html',1,'getting_started']]]
 ];

@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['pitch',['pitch',['../structrmg_1_1Euler.html#a6a2328c412a7d30227b1850aa7837a12',1,'rmg::Euler']]]
+  ['luminance',['luminance',['../structrmg_1_1ColorHSLA.html#a174d6bf6d5233232d99477a3ad7def8c',1,'rmg::ColorHSLA']]]
 ];

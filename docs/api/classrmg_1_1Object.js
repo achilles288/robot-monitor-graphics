@@ -8,14 +8,12 @@ var classrmg_1_1Object =
     [ "getContext", "classrmg_1_1Object.html#a926aab0adfc47d603cba2095f406b65f", null ],
     [ "getID", "classrmg_1_1Object.html#a2b4a126152a779c495b1aa8a9cb1c3a8", null ],
     [ "getObjectType", "classrmg_1_1Object.html#aad7a2e5813a254655a7bb8e71357ef76", null ],
-    [ "getTexture", "classrmg_1_1Object.html#a46aea23efe3662baf56081619b0d9b47", null ],
     [ "isHidden", "classrmg_1_1Object.html#a771b8fadbdcf9f52947c5cd28dd23a35", null ],
     [ "operator=", "classrmg_1_1Object.html#a60b0eb31b3081e77934c4989705d3b49", null ],
     [ "operator=", "classrmg_1_1Object.html#af10552811bea1174f9b8fd61a90a8f13", null ],
+    [ "setColor", "classrmg_1_1Object.html#a52dd3e6831a2d33117bf80ef36b18262", null ],
     [ "setColor", "classrmg_1_1Object.html#a5fe78a183c5fc13194e1fe50b9bdda1e", null ],
     [ "setColor", "classrmg_1_1Object.html#aef37577d517f0f516b1f35f7f01ff8c9", null ],
     [ "setHidden", "classrmg_1_1Object.html#a937a49ed840c9ac1c964f92d4642578d", null ],
-    [ "setTexture", "classrmg_1_1Object.html#ac836258a0bbca1ad75b87521062f379a", null ],
-    [ "setTexture", "classrmg_1_1Object.html#a514d55be7dffc29379e3ce62b66cc385", null ],
     [ "type", "classrmg_1_1Object.html#a9da9b415506f1ecc342a9c36507ce5e5", null ]
 ];

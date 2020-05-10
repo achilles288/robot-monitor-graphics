@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['alpha',['alpha',['../structColor.html#a57f88e0415184b98091d1ee8b86a61a7',1,'Color']]]
+  ['alpha',['alpha',['../structrmg_1_1ColorRGBA.html#a3ba2996bc086899d4b67055c1fe509c0',1,'rmg::ColorRGBA::alpha()'],['../structrmg_1_1ColorHSLA.html#a67fcd5f30e47e9d32c58ab9f8c7dd802',1,'rmg::ColorHSLA::alpha()']]]
 ];

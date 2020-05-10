@@ -1,10 +1,6 @@
 var searchData=
 [
-  ['findfont',['findFont',['../classrmg_1_1Context.html#a7d077f79aeaf8144e58448c35972487a',1,'rmg::Context']]],
-  ['findobject',['findObject',['../classrmg_1_1Context.html#a0eae6259d1d20929230548507b81a629',1,'rmg::Context']]],
-  ['findtexture',['findTexture',['../classrmg_1_1Context.html#a81fc2adfcbcb76f3e37d1984bcba1e7d',1,'rmg::Context']]],
-  ['font',['Font',['../classrmg_1_1Font.html',1,'rmg::Font'],['../classrmg_1_1Font.html#aa2ba0aa10d7875e234b0f3ecbe6d275b',1,'rmg::Font::Font(Context *ctx, const std::string &amp;f)'],['../classrmg_1_1Font.html#a7b156a8fd8d586dec114865f70c584f8',1,'rmg::Font::Font(const Font &amp;ft)=delete'],['../classrmg_1_1Font.html#a74cf5c1e507c3de462e4dad24cd0c1b9',1,'rmg::Font::Font(Font &amp;&amp;ft) noexcept']]],
-  ['font_2ehpp',['font.hpp',['../font_8hpp.html',1,'']]],
-  ['font_5fload_2ehpp',['font_load.hpp',['../font__load_8hpp.html',1,'']]],
-  ['fontloadpending',['FontLoadPending',['../classrmg_1_1internal_1_1FontLoadPending.html',1,'rmg::internal::FontLoadPending'],['../classrmg_1_1internal_1_1FontLoadPending.html#aa517f3e7fe87fa5ebc7d4cb441987586',1,'rmg::internal::FontLoadPending::FontLoadPending(Font *ft, const std::vector&lt; uint8_t &gt; &amp;dat)'],['../classrmg_1_1internal_1_1FontLoadPending.html#adc28bc09182b05fb84bc7453e175796e',1,'rmg::internal::FontLoadPending::FontLoadPending(const FontLoadPending &amp;ft)'],['../classrmg_1_1internal_1_1FontLoadPending.html#a9ae8aaffd2295e19f2b9b64c3cf1b6f4',1,'rmg::internal::FontLoadPending::FontLoadPending(FontLoadPending &amp;&amp;ft) noexcept']]]
+  ['euler',['Euler',['../structrmg_1_1Euler.html',1,'rmg::Euler'],['../structrmg_1_1Euler.html#a2c3b59cbe540a093f5be69fbe89bf971',1,'rmg::Euler::Euler()'],['../structrmg_1_1Euler.html#a0ed62787b60fde6aafdff78770927782',1,'rmg::Euler::Euler(float x, float y, float z)'],['../structrmg_1_1Euler.html#ac122a70d80ccba3963c0df1134b10b25',1,'rmg::Euler::Euler(float x, float y, float z, AngleUnit unit)'],['../structrmg_1_1Euler.html#a03315a4245dd37f30fd312dc86222941',1,'rmg::Euler::Euler(const Mat3 &amp;R)']]],
+  ['euler_2ehpp',['euler.hpp',['../euler_8hpp.html',1,'']]],
+  ['euler_20and_20matrix',['Euler And Matrix',['../math_euler_mat.html',1,'math_analysis']]]
 ];

@@ -93,7 +93,8 @@ $(document).ready(function(){initNavTree('context_8hpp.html','');});
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#var-members">Variables</a>  </div>
   <div class="headertitle">
 <div class="title">context.hpp File Reference</div>  </div>
 </div><!--header-->
@@ -101,12 +102,24 @@ $(document).ready(function(){initNavTree('context_8hpp.html','');});
 
 <p>2D/3D graphics context container  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="vec_8hpp_source.html">rmg/math/vec.hpp</a>&gt;</code><br />
-<code>#include &lt;<a class="el" href="euler_8hpp_source.html">rmg/math/euler.hpp</a>&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
 <code>#include &lt;list&gt;</code><br />
 <code>#include &lt;map&gt;</code><br />
+<code>#include &lt;memory&gt;</code><br />
 <code>#include &lt;queue&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
+<code>#include &quot;<a class="el" href="color_8hpp_source.html">color.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="keyboard_8hpp_source.html">keyboard.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="mouse_8hpp_source.html">mouse.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="euler_8hpp_source.html">math/euler.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="mat3_8hpp_source.html">math/mat3.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="mat4_8hpp_source.html">math/mat4.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="vec_8hpp_source.html">math/vec.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="general__shader_8hpp_source.html">internal/general_shader.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="line3d__shader_8hpp_source.html">internal/line3d_shader.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="particle__shader_8hpp_source.html">internal/particle_shader.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="shadow__map__shader_8hpp_source.html">internal/shadow_map_shader.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="sprite__shader_8hpp_source.html">internal/sprite_shader.hpp</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="context__load_8hpp_source.html">internal/context_load.hpp</a>&quot;</code><br />
 </div>
 <p><a href="context_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -115,6 +128,13 @@ Classes</h2></td></tr>
 <tr class="memitem:"><td class="memItemLeft" align="right" valign="top">class &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classrmg_1_1Context.html">rmg::Context</a></td></tr>
 <tr class="memdesc:"><td class="mdescLeft">&#160;</td><td class="mdescRight">2D/3D OpenGL graphics context  <a href="classrmg_1_1Context.html#details">More...</a><br /></td></tr>
 <tr class="separator:"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="var-members"></a>
+Variables</h2></td></tr>
+<tr class="memitem:a22f4cb56f73b0a46b3925a9fe6c07c94"><td class="memItemLeft" align="right" valign="top"><a id="a22f4cb56f73b0a46b3925a9fe6c07c94"></a>
+MouseEvent&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="context_8hpp.html#a22f4cb56f73b0a46b3925a9fe6c07c94">rmg::mouseEvent</a></td></tr>
+<tr class="memdesc:a22f4cb56f73b0a46b3925a9fe6c07c94"><td class="mdescLeft">&#160;</td><td class="mdescRight">Static mouse or keyboard event instance where the parameters are stored. <br /></td></tr>
+<tr class="separator:a22f4cb56f73b0a46b3925a9fe6c07c94"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock"><p>2D/3D graphics context container </p>

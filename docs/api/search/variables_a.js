@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['x',['x',['../structrmg_1_1Euler.html#a06dadb927cb9b656a4c021508947115e',1,'rmg::Euler::x()'],['../structrmg_1_1Vec2.html#aec5ab95f56780fb461b390a53c4c6752',1,'rmg::Vec2::x()'],['../structrmg_1_1Vec3.html#a49d1bd1403ca49898b17956222e6b04e',1,'rmg::Vec3::x()'],['../structrmg_1_1Vec4.html#a54fb8325bd333aba7c32fdb46b9bdcd1',1,'rmg::Vec4::x()']]]
+  ['saturation',['saturation',['../structrmg_1_1ColorHSLA.html#a5af03d0b41a1607a21d9661ef407c8f4',1,'rmg::ColorHSLA']]],
+  ['starttime',['startTime',['../classrmg_1_1Context.html#af125eb850aacb3bd5b0db4ae65e76230',1,'rmg::Context']]]
 ];

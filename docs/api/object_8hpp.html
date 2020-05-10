@@ -102,8 +102,8 @@ $(document).ready(function(){initNavTree('object_8hpp.html','');});
 
 <p>A foundation of all RMG graphical object data structures.  
 <a href="#details">More...</a></p>
-<div class="textblock"><code>#include &lt;<a class="el" href="texture_8hpp_source.html">rmg/texture.hpp</a>&gt;</code><br />
-<code>#include &lt;cstdint&gt;</code><br />
+<div class="textblock"><code>#include &lt;cstdint&gt;</code><br />
+<code>#include &quot;<a class="el" href="color_8hpp_source.html">color.hpp</a>&quot;</code><br />
 </div>
 <p><a href="object_8hpp_source.html">Go to the source code of this file.</a></p>
 <table class="memberdecls">
@@ -116,13 +116,13 @@ Classes</h2></td></tr>
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="enum-members"></a>
 Enumerations</h2></td></tr>
 <tr class="memitem:ac738e03ff0843f4762bffbbfd93a1680"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">rmg::ObjectType</a> { <br />
-&#160;&#160;<b>OBJECT_DEFAULT</b>, 
-<b>OBJECT_OBJECT3D</b>, 
-<b>OBJECT_SPRITE</b>, 
-<b>OBJECT_TEXT2D</b>, 
+&#160;&#160;<b>Default</b>, 
+<b>Object3D</b>, 
+<b>Sprite2D</b>, 
+<b>Text2D</b>, 
 <br />
-&#160;&#160;<b>OBJECT_PARTICLE</b>, 
-<b>OBJECT_LINE3D</b>
+&#160;&#160;<b>Particle3D</b>, 
+<b>Line3D</b>
 <br />
  }<tr class="memdesc:ac738e03ff0843f4762bffbbfd93a1680"><td class="mdescLeft">&#160;</td><td class="mdescRight">Type of object (Object3D, Sprite2D, .etc)  <a href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">More...</a><br /></td></tr>
 </td></tr>
@@ -142,11 +142,19 @@ Enumerations</h2></td></tr>
 
 <div class="memitem">
 <div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
       <table class="memname">
         <tr>
           <td class="memname">enum <a class="el" href="object_8hpp.html#ac738e03ff0843f4762bffbbfd93a1680">rmg::ObjectType</a></td>
         </tr>
       </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">strong</span></span>  </td>
+  </tr>
+</table>
 </div><div class="memdoc">
 
 <p>Type of object (Object3D, Sprite2D, .etc) </p>

@@ -13,6 +13,7 @@ var classrmg_1_1Object3D =
     [ "operator=", "classrmg_1_1Object3D.html#ad685b2e7ee579b61486267df1227636d", null ],
     [ "setDiffusion", "classrmg_1_1Object3D.html#ac9a463883e815fb88cb5f26148141c00", null ],
     [ "setMaterial", "classrmg_1_1Object3D.html#a86a4cce794221401fb0338bc1c285302", null ],
+    [ "setMaterial", "classrmg_1_1Object3D.html#a5c8f79ffc87ab4075f86bd6ba4ca3dcc", null ],
     [ "setPosition", "classrmg_1_1Object3D.html#aaaf41ef2fff07d9f860740a0b44ea475", null ],
     [ "setPosition", "classrmg_1_1Object3D.html#a89ac7a4e6bfd1e30f0b8c07f4fce5f8b", null ],
     [ "setRotation", "classrmg_1_1Object3D.html#ad9b6e60a5632d3937daa2b3a9814c311", null ],
