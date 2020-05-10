@@ -16,13 +16,13 @@ TEST(Euler, constructor) {
     ASSERT_EQ(-0.892f, rot2.yaw);
     
     rmg::Euler rot3 = rmg::Euler(-0.824f, 0.245f, -1.873f,
-                                 rmg::AngleUnit::UNIT_RADIAN);
+                                 rmg::AngleUnit::Radian);
     ASSERT_EQ(-0.824f, rot3.roll);
     ASSERT_EQ( 0.245f, rot3.pitch);
     ASSERT_EQ(-1.873f, rot3.yaw);
     
     rmg::Euler rot4 = rmg::Euler(40.37f, 67.4f, 121.55f,
-                                 rmg::AngleUnit::UNIT_DEGREE);
+                                 rmg::AngleUnit::Degree);
     ASSERT_NEAR(0.7046f, rot4.roll,  0.0001f);
     ASSERT_NEAR(1.1764f, rot4.pitch, 0.0001f);
     ASSERT_NEAR(2.1214f, rot4.yaw,   0.0001f);
