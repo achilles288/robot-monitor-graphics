@@ -31,12 +31,12 @@ struct Vec4 {
      */
     union {
         struct {
-            float x; /**< X-coordinate */
-            float y; /**< Y-coordinate */
-            float z; /**< Z-coordinate */
-            float w; /**< W-coordinate (4th coordinate) */
+            float x; ///< X-coordinate
+            float y; ///< Y-coordinate
+            float z; ///< Z-coordinate
+            float w; ///< W-coordinate (4th coordinate)
         };
-        float data[4]; /**< Vector data as array */
+        float data[4]; ///< Vector data as array
     };
     
     /**

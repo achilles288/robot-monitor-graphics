@@ -15,41 +15,38 @@
 #ifndef __RMG_CONTEXT_H__
 #define __RMG_CONTEXT_H__
 
-#include <rmg/math/vec.hpp>
-#include <rmg/math/euler.hpp>
-
+#include <cstdint>
 #include <list>
 #include <map>
+#include <memory>
 #include <queue>
 
-#include <cstdint>
+#include "color.hpp"
+#include "keyboard.hpp"
+#include "mouse.hpp"
+#include "math/euler.hpp"
+#include "math/mat3.hpp"
+#include "math/mat4.hpp"
+#include "math/vec.hpp"
+#include "internal/general_shader.hpp"
+#include "internal/line3d_shader.hpp"
+#include "internal/particle_shader.hpp"
+#include "internal/shadow_map_shader.hpp"
+#include "internal/sprite_shader.hpp"
+#include "internal/context_load.hpp"
 
 
 namespace rmg {
 
-struct Color;
-struct Plane;
+struct LineEq;
 
 class Object;
 class Object2D;
 class Object3D;
-class Particle;
+class Particle3D;
 class Line3D;
-class Texture;
+class Material;
 class Font;
-
-namespace internal {
-
-class VBOLoadPending;
-class TexturePending;
-class FontPending;
-class GeneralShader;
-class ShadowMapShader;
-class SpriteShader;
-class ParticleShader;
-class Line3DShader;
-
-}
 
 
 /**
@@ -57,72 +54,64 @@ class Line3DShader;
  *
  * Manages 2D/3D objects with GPU context resources and shader programs.
  * Abstract layer of OpenGL context.
+ * 
+ * @image html component.svg
+ * 
+ * The RMGraphics API involves these componets. The user applications have a
+ * custom update frame loop function for time events and animations as
+ * well as other event events (keyboard, mouse, buttons, .etc) supported by
+ * the GUI. In this system, those functions construct and manipulate
+ * 2D/3D objects, textures and configure the world model which is camera
+ * positions, projection model and context size.
  */
 class Context {
   private:
     uint64_t id;
-    glm::mat4 viewMatrix;
-    glm::mat4 projectionMatrix;
-    glm::mat4 VPMatrix;
+    uint16_t width;
+    uint16_t height;
+    bool sizeUpdate;
+    Color bgColor;
+    bool bgUpdate;
+    Mat4 viewMatrix;
+    Mat4 projectionMatrix;
+    Mat4 VPMatrix;
     float minDistance;
     float maxDistance;
     Vec3 directionalLight;
     Vec3 directionalLightCamera;
     Color directionalLightColor;
-    uint16_t width;
-    uint16_t height;
-    Color bgColor;
     std::map<uint64_t, Object2D*> objects2d;
     std::map<uint64_t, Object3D*> objects3d;
-    std::map<uint64_t, Particle*> particles;
+    std::map<uint64_t, Particle3D*> particles;
     std::map<uint64_t, Line3D*> lines3d;
-    std::map<uint64_t, Texture*> textures;
+    std::map<uint64_t, Material*> materials;
     std::map<uint64_t, Font*> fonts;
     
     internal::GeneralShader generalShader;
     internal::ShadowMapShader shadowMapShader;
     internal::SpriteShader spriteShader;
     internal::ParticleShader particleShader;
-    internal::Line3DShader line3dShader;
+    internal::Line3DShader line3dShader;    
+    internal::ContextLoader loader;
     
-    std::queue
-      <internal::VBOLoadPending> vboLoadPending;
-    
-    std::queue
-      <internal::TextureLoadPending> texLoadPending;
-    
-    std::queue
-      <internal::FontLoadPending> fontLoadPending;
+    bool initDone;
+    float fps;
+    bool destroyed;
+    int errorCode;
     
     static uint64_t lastContextID;
     static std::vector<Context*> contextList;
+    static float t1;
     
   protected:
-    /**
-     * @brief States whether the context is ready for GPU resources
-     */
-    bool initDone;
+    float startTime; /**< The time counted on context start up */
     
     /**
-     * @brief Time counted at the time the context starts up
-     */
-    uint64_t startTime;
-    
-    /**
-     * @brief Draws graphics from lists of objects pushed
+     * @brief Sets the error code of the context
      * 
-     * This function starts looping as soon as the graphics context
-     * starts up.
+     * @param err Error code
      */
-    void render();
-    
-    /**
-     * @brief Sets OpenGL viewport size
-     * 
-     * @param w Viewport width
-     * @param h Viewport height
-     */
-    void setContextSize(uint16_t w, uint16_t h);
+    void setErrorCode(int err);
     
   public:
     /**
@@ -131,7 +120,7 @@ class Context {
     Context();
     
     /**
-     * @brief Destructor cleans up context resources
+     * @brief Destructor
      */
     virtual ~Context();
     
@@ -145,11 +134,69 @@ class Context {
     virtual void update();
     
     /**
+     * @brief The function called when the mouse clicks on the context
+     * 
+     * @param event A set of attributes associated with the event
+     */
+    virtual void onMouseClick(const MouseEvent &event);
+    
+    /**
+     * @brief The function called when a mouse button is pressed
+     * 
+     * @param event A set of attributes associated with the event
+     */
+    virtual void onMousePress(const MouseEvent &event);
+    
+    /**
+     * @brief The function called when a mouse button is released
+     * 
+     * @param event A set of attributes associated with the event
+     */
+    virtual void onMouseRelease(const MouseEvent &event);
+    
+    /**
+     * @brief The function called when the mouse pointer moves over the context
+     * 
+     * @param event A set of attributes associated with the event
+     */
+    virtual void onMouseMove(const MouseEvent &event);
+    
+    /**
+     * @brief The function called when the mouse enters or exits te context
+     * 
+     * @param event A set of attributes associated with the event
+     */
+    virtual void onMouseEntry(const MouseEvent &event);
+    
+    /**
+     * @brief The function called when the mouse wheel is scrolled
+     * 
+     * @param event A set of attributes associated with the event
+     */
+    virtual void onMouseWheel(const MouseEvent &event);
+    
+    /**
+     * @brief The function called when a key is hit
+     * 
+     * @param event A set of attributes associated with the event
+     */
+    virtual void onKeyboard(const KeyboardEvent &event);
+    
+    /**
      * @brief Gets the running time of the context
      * 
-     * @return Running time in milliseconds
+     * @return Running time in seconds
      */
-    virtual uint64_t getTime();
+    virtual float getTime() = 0;
+    
+    /**
+     * @brief Gets the frame refresh rate of the context
+     * 
+     * The more FPS, the smoother the graphics looks.
+     * 
+     * @return Frame per second
+     */
+    float getFPS();
     
     /**
      * @brief Gets the ID of the context
@@ -157,6 +204,21 @@ class Context {
      * @return Context ID
      */
     uint64_t getID();
+    
+    /**
+     * @brief Sets OpenGL viewport size
+     * 
+     * @param w Viewport width
+     * @param h Viewport height
+     */
+    void setContextSize(uint16_t w, uint16_t h);
+    
+    /**
+     * @brief Gets the viewport size
+     * 
+     * @return Rectangular dimension
+     */
+    Rect getContextSize();
     
     /**
      * @brief Sets context background color
@@ -229,7 +291,7 @@ class Context {
      * @param unit The previous params are degree or radian
      */
     inline void setCameraRotation(float x, float y, float z, AngleUnit unit) {
-        if(unit == UNIT_RADIAN)
+        if(unit == AngleUnit::Radian)
             setCameraRotation(x, y, z);
         else
             setCameraRotation(radian(x), radian(y), radian(z));
@@ -303,7 +365,7 @@ class Context {
      * 
      * @return Field of view
      */
-    void getFieldOfView();
+    float getFieldOfView();
     
     /**
      * @brief Gets minimum distance for depth clipping
@@ -381,7 +443,7 @@ class Context {
     inline void setDirectionalLightAngles(float pitch, float yaw,
                                           AngleUnit unit)
     {
-        if(unit == UNIT_RADIAN)
+        if(unit == AngleUnit::Radian)
             setDirectionalLightAngles(pitch, yaw);
         else
             setDirectionalLightAngles(radian(pitch), radian(yaw));
@@ -410,7 +472,7 @@ class Context {
      * 
      * @return Rotation in Euler angles
      */
-    Vec3 getDirectionalLightAngles(float pitch, float yaw);
+    Euler getDirectionalLightAngles();
     
     /**
      * @brief Converts world coordinate to screen coordinate
@@ -420,8 +482,10 @@ class Context {
      * @param x X-coordinate
      * @param y Y-coordinate
      * @param z Z-coordinate
+     * 
+     * @return 2D point on screen
      */
-    Vec2 worldToScreen(float x, float y, float z);
+    Rect worldToScreen(float x, float y, float z);
     
     /**
      * @brief Converts world coordinate to screen coordinate
@@ -429,8 +493,22 @@ class Context {
      * Useful when displaying 2D sprites and texts around 3D objects.
      * 
      * @param p 3D point in world space
+     * 
+     * @return 2D point on screen
      */
-    Vec2 worldToScreen(const Vec3 &p);
+    Rect worldToScreen(const Vec3 &p);
+    
+    /**
+     * @brief Converts screen coordinate to world coordinate
+     * 
+     * Useful when interacting 3D objects with a mouse.
+     * 
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     * 
+     * @return Line equation in 3D world
+     */
+    LineEq screenToWorld(uint16_t x, uint16_t y);
     
     /**
      * @brief Converts screen coordinate to world coordinate
@@ -438,9 +516,10 @@ class Context {
      * Useful when interacting 3D objects with a mouse.
      * 
      * @param p Point on screen
-     * @param plane Plane in 3D world the mouse interacts
+     * 
+     * @return Line equation in 3D world
      */
-    Vec3 screenToWorld(const Vec2 &p, const Plane &plane);
+    LineEq screenToWorld(const Rect &p);
     
     /**
      * @brief Appends a 2D/3D object to the display list
@@ -450,11 +529,11 @@ class Context {
     void addObject(Object* obj);
     
     /**
-     * @brief Appends a texture to the list loading GPU resources
+     * @brief Appends a material to the list to load GPU resources
      * 
-     * @param tex Texture
+     * @param mat Material
      */
-    void addTexture(Texture* tex);
+    void addMaterial(Material* mat);
     
     /**
      * @brief Appends a font to the font list for text drawing
@@ -464,73 +543,46 @@ class Context {
     void addFont(Font* font);
     
     /**
-     * @brief Searches 2D/3D object from the display list
-     * 
-     * @param id Object ID
-     * 
-     * @return Resulting object as a pointer. NULL on not found.
-     */
-    Object* findObject(uint64_t id);
-    
-    /**
-     * @brief Searches texture from loaded texture list
-     * 
-     * @param id Texture ID
-     * 
-     * @return Resulting texture as a pointer. NULL on not found.
-     */
-    Texture* findTexture(uint64_t id);
-    
-    /**
-     * @brief Searches font from loaded font list
-     * 
-     * @param id Font ID
-     * 
-     * @return Resulting font as a pointer. NULL on not found.
-     */
-    Texture* findFont(uint64_t id);
-    
-    /**
-     * @brief Removes the object from the list cleaning the GPU resources
-     * 
-     * @param id Object ID
-     */
-    void removeObject(uint64_t id);
-    
-    /**
-     * @brief Removes the object from the list cleaning the GPU resources
+     * @brief Removes a 2D/3D object from the list cleaning the GPU resources
      * 
      * @param obj 2D/3D object
      */
     void removeObject(Object* obj);
     
     /**
-     * @brief Removes the texture from the list cleaning the GPU resources
+     * @brief Removes a material from the list cleaning the GPU resources
      * 
-     * @param id Texture ID
+     * @param mat Material
      */
-    void removeTexture(uint64_t id);
+    void removeMaterial(Material* mat);
     
     /**
-     * @brief Removes the texture from the list cleaning the GPU resources
-     * 
-     * @param tex Texture
-     */
-    void removeTexture(Texture* tex);
-    
-    /**
-     * @brief Removes the font from the list cleaning the GPU resources
-     * 
-     * @param id Texture ID
-     */
-    void removeFont(uint64_t id);
-    
-    /**
-     * @brief Removes the font from the list cleaning the GPU resources
+     * @brief Removes a font from the list cleaning the GPU resources
      * 
      * @param font Font
      */
     void removeFont(Font* font);
+    
+    /**
+     * @brief Gets the number of objects in the object list
+     * 
+     * @return Total number of objects from lists of every type
+     */
+    uint64_t getObjectCount();
+    
+    /**
+     * @brief Gets the number of materials in the list
+     * 
+     * @return Number of materials
+     */
+    uint64_t getMaterialCount();
+    
+    /**
+     * @brief Gets the number of fonts in the list
+     * 
+     * @return Number of fonts
+     */
+    uint64_t getFontCount();
     
     /**
      * @brief Removes all context resources
@@ -540,13 +592,38 @@ class Context {
     void cleanup();
     
     /**
+     * @brief Draws graphics from lists of objects pushed
+     * 
+     * This function starts looping as soon as the graphics context
+     * starts up.
+     */
+    void render();
+    
+    /**
      * @brief Makes OpenGL rederer focuses on this context
      * 
      * Whenever functions regarding OpenGL resources is intended to be
      * called, the function needs to be called first especially when working
      * with multiple contexts.
      */
-    virtual void setCurrent();
+    virtual void setCurrent() = 0;
+    
+    /**
+     * @brief Flushes the drawn graphics by OpenGL onto the screen
+     */
+    virtual void flush();
+    
+    /**
+     * @brief Cleans up GPU resources
+     */
+    virtual void destroy();
+    
+    /**
+     * @brief To see if the context is still active and usable
+     * 
+     * return True if the context is destroyed
+     */
+    bool isDestroyed();
     
     /**
      * @brief Searches context model by ID
@@ -554,7 +631,26 @@ class Context {
      * @return OpenGL context
      */
     static Context* getContextByID(uint64_t id);
+    
+    /**
+     * @brief Destroys every RMG context cleaning all GPU resources allocated
+     */
+    static void destroyAll();
+    
+    /**
+     * @brief Gets the error code of the context
+     * 
+     * @return 0 if no error. 1 for general error code. 503 is usually returned
+     *         if there is an error related with OpenGL or GPU driver.
+     */
+    int getErrorCode();
 };
+
+/**
+ * @brief Static mouse or keyboard event instance where the parameters are
+ *        stored
+ */
+extern MouseEvent mouseEvent;
 
 }
 

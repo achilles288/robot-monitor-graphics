@@ -26,7 +26,7 @@ namespace rmg {
  * Takes part in subscript operator and handles assertion.
  */
 struct Mat3Row {
-    float data[3]; /**< Matrix cells */
+    float data[3]; ///< Matrix cells
     
     /**
      * @brief Gets reference to matrix cell
@@ -64,8 +64,8 @@ struct Mat3 {
      * Row structure is used for assertion during subscript operation.
      */
     union {
-        float data[3][3]; /**< Matrix cells */
-        Mat3Row rows[3]; /**< Matrix rows */
+        float data[3][3]; ///< Matrix cells
+        Mat3Row rows[3]; ///< Matrix rows
     };
     
     /**

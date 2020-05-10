@@ -11,12 +11,12 @@
  */
 
 
-#include <rmg/math/euler.hpp>
+#include "../rmg/math/euler.hpp"
 
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#include <rmg/math/mat3.hpp>
+#include "../rmg/math/mat3.hpp"
 
 
 namespace rmg {
@@ -52,7 +52,7 @@ Euler::Euler(float x, float y, float z) {
  * @param unit Degree or radian
  */
 Euler::Euler(float x, float y, float z, AngleUnit unit) {
-    if(unit == AngleUnit::UNIT_RADIAN) {
+    if(unit == AngleUnit::Radian) {
         roll = x;
         pitch = y;
         yaw = z;

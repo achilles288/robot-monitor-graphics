@@ -9,10 +9,10 @@
 
 
 #pragma once
-#ifndef __RMG_SPRITE_SHADER_H__
-#define __RMG_SPRITE_SHADER_H__
+#ifndef __RMG_PARTICLE_SHADER_H__
+#define __RMG_PARTICLE_SHADER_H__
 
-#include <rmg/internal/shader.h>
+#include <rmg/internal/shader.hpp>
 
 namespace rmg {
 namespace internal {
@@ -26,6 +26,11 @@ class ParticleShader: public Shader {
     
   public:
     /**
+     * @brief Default constructor
+     */
+    ParticleShader();
+    
+    /**
      * @brief Constructor with its container
      * 
      * @param ctx Container context
@@ -38,9 +43,9 @@ class ParticleShader: public Shader {
     virtual ~ParticleShader();
     
     /**
-     * @brief Shader process
+     * @brief Compile, link and assign program parameters
      */
-    void process();
+    void load();
 };
 
 }}

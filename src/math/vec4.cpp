@@ -8,7 +8,7 @@
  */
 
 
-#include <rmg/math/vec4.hpp>
+#include "../rmg/math/vec4.hpp"
 
 
 namespace rmg {

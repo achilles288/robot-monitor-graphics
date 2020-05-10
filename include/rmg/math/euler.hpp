@@ -37,14 +37,14 @@ struct Euler {
      */
     union {
         struct {
-            float x; /**< Rotation along X-axis */
-            float y; /**< Rotation along Y-axis */
-            float z; /**< Rotation along Z-axis */
+            float x; ///< Rotation along X-axis
+            float y; ///< Rotation along Y-axis
+            float z; ///< Rotation along Z-axis
         };
         struct {
-            float roll;  /**< Rotation along X-axis */
-            float pitch; /**< Rotation along Y-axis */
-            float yaw;   /**< Rotation along Z-axis */
+            float roll;  ///< Rotation along X-axis
+            float pitch; ///< Rotation along Y-axis
+            float yaw;   ///< Rotation along Z-axis
         };
     };
     

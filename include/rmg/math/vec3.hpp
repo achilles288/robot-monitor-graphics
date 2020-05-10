@@ -33,11 +33,11 @@ struct Vec3 {
      */
     union {
         struct {
-            float x; /**< X-coordinate */
-            float y; /**< Y-coordinate */
-            float z; /**< Z-coordinate */
+            float x; ///< X-coordinate
+            float y; ///< Y-coordinate
+            float z; ///< Z-coordinate
         };
-        float data[3]; /**< Vector data as array */
+        float data[3]; ///< Vector data as array
     };
     
     /**

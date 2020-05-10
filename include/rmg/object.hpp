@@ -16,14 +16,13 @@
 #ifndef __RMG_OBJECT_H__
 #define __RMG_OBJECT_H__
 
-#include <rmg/texture.hpp>
-
 #include <cstdint>
+
+#include "color.hpp"
 
 
 namespace rmg {
 
-struct Color;
 class Context;
 
 
@@ -33,13 +32,13 @@ class Context;
  * Determines which object list to append by the Context and which
  * method of operations by Shader(s) (internal operations).
  */
-enum ObjectType {
-    OBJECT_DEFAULT,
-    OBJECT_OBJECT3D,
-    OBJECT_SPRITE,
-    OBJECT_TEXT2D,
-    OBJECT_PARTICLE,
-    OBJECT_LINE3D
+enum class ObjectType {
+    Default,
+    Object3D,
+    Sprite2D,
+    Text2D,
+    Particle3D,
+    Line3D
 };
 
 /**
@@ -53,7 +52,6 @@ class Object {
   private:
     uint64_t id;
     Context* context;
-    Texture* texture;
     Color color;
     bool hidden;
     
@@ -131,27 +129,13 @@ class Object {
     ObjectType getObjectType();
     
     /**
-     * @brief Sets object texture
+     * @brief Sets object color
      * 
-     * This function first loads a texture from file before assignment.
-     * 
-     * @param img Image file path
+     * @param r Red
+     * @param g Green
+     * @param b Blue
      */
-    void setTexture(const std::string &img);
-    
-    /**
-     * @brief Sets object texture
-     * 
-     * @param tex Preloaded texture
-     */
-    void setTexture(Texture* tex);
-    
-    /**
-     * @brief Gets object texture
-     * 
-     * @return Texture
-     */
-    Texture* getTexture();
+    void setColor(float r, float g, float b);
     
     /**
      * @brief Sets object color

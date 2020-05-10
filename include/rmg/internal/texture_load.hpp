@@ -12,18 +12,16 @@
 #ifndef __RMG_TEXTURE_LOAD_H__
 #define __RMG_TEXTURE_LOAD_H__
 
-#include <rmg/math.h>
-
 #include <vector>
-#include <cstdint>
 
-
-class rmg::Context;
-class rmg::Texture;
+#include <rmg/internal/context_load.hpp>
 
 
 namespace rmg {
 namespace internal {
+
+class Texture;
+
 
 /**
  * @brief Maintains the image data before context startup
@@ -37,17 +35,17 @@ namespace internal {
  * @see VBOLoadPending
  * @see FontLoadPending
  */
-class TextureLoadPending {
+class TextureLoad: public ContextLoad {
   private:
     Texture* texture;
-    std::vector<uint8_t> data;
+    std::vector<uint8_t> image;
     uint16_t width;
     uint16_t height;
-    uint8_t channel;
+    uint8_t colorChannel;
     
   public:
     /**
-     * Constructs a pending object
+     * @brief Constructs a pending object
      * 
      * @param tex Address to a Texture instance. This is to redirect 
      *            responses after loading.
@@ -56,41 +54,41 @@ class TextureLoadPending {
      * @param h Image height
      * @param c Color channel
      */
-    TextureLoadPending(Texture* tex, const std::vector<uint8_t> &dat,
-                       uint16_t w, uint16_t h, uint8_t c);
+    TextureLoad(Texture* tex, const std::vector<uint8_t> &dat,
+                uint16_t w, uint16_t h, uint8_t c);
     
     /**
      * @brief Destructor
      */
-    ~TextureLoadPending();
+    ~TextureLoad();
     
     /**
      * @brief Copy constructor
      * 
      * @param tex Source
      */
-    TextureLoadPending(const TextureLoadPending& tex);
+    TextureLoad(const TextureLoad& tex);
     
     /**
      * @brief Move constructor
      * 
      * @param tex Source
      */
-    TextureLoadPending(TextureLoadPending&& tex) noexcept;
+    TextureLoad(TextureLoad&& tex) noexcept;
     
     /**
      * @brief Copy assignment
      * 
      * @param tex Source
      */
-    TextureLoadPending& operator=(const TextureLoadPending& tex);
+    TextureLoad& operator=(const TextureLoad& tex);
     
     /**
      * @brief Move assignment
      * 
      * @param tex Source
      */
-    TextureLoadPending& operator=(TextureLoadPending&& tex) noexcept;
+    TextureLoad& operator=(TextureLoad&& tex) noexcept;
     
     /**
      * @brief Loads the texture data to the GPU
@@ -99,7 +97,64 @@ class TextureLoadPending {
      * Also this pending object's load function assigns the resource
      * addresses to the related Texture instance.
      */
-    void load();
+    void load() override;
+};
+
+
+/**
+ * @brief To enhance the appearance of 2D/3D objects with image data
+ */
+class Texture {
+  private:
+    uint32_t image;
+    uint8_t colorChannel;
+    
+    friend class TextureLoad;
+    
+  public:
+    /**
+     * @brief Default constructor
+     */
+    Texture();
+    
+    /**
+     * @brief Destructor
+     */
+    virtual ~Texture();
+    
+    /**
+     * @brief Copy constructor (deleted)
+     * 
+     * Copy constructor is not allowed to use since it contains a unique
+     * pointer.
+     * 
+     * @param tex Source texture
+     */
+    Texture(const Texture& tex) = delete;
+    
+    /**
+     * @brief Move constructor
+     * 
+     * @param tex Source texture
+     */
+    Texture(Texture&& tex) noexcept;
+    
+    /**
+     * @brief Copy assignment (deleted)
+     * 
+     * Copy assignment is not allowed to use since it contains a unique
+     * pointer.
+     * 
+     * @param tex Source texture
+     */
+    Texture& operator=(const Texture& tex) = delete;
+    
+    /**
+     * @brief Move assignment
+     * 
+     * @param tex Source texture
+     */
+    Texture& operator=(Texture&& tex) noexcept;
 };
 
 }}

@@ -12,12 +12,15 @@
 
 #include <rmg/math/vec.hpp>
 
-#include <cassert>
 #define _USE_MATH_DEFINES
 #include <cmath>
 
+#include <rmg/assert.hpp>
+
 
 namespace rmg {
+
+// Class: Vec2
 
 /**
  * @brief Default constructor
@@ -197,7 +200,7 @@ inline Vec2 operator * (float f, const Vec2 &v) {
  * @return Reference to vector member
  */
 inline float& Vec2::operator [] (uint8_t i) {
-     assert(i < 2);
+     RMG_ASSERT(i < 2);
      return data[i];
 }
 
@@ -209,8 +212,32 @@ inline float& Vec2::operator [] (uint8_t i) {
  * @return Reference to vector member
  */
 inline float const& Vec2::operator [] (uint8_t i) const {
-     assert(i < 2);
+     RMG_ASSERT(i < 2);
      return data[i];
+}
+
+
+
+
+// Class: Rect
+
+/**
+ * @brief Default constructor
+ */
+inline Rect::Rect() {
+    x = 0;
+    y = 0;
+}
+
+/**
+ * @brief Constructor with xy values
+ * 
+ * @param x X-coordinate
+ * @param y Y-coordinate
+ */
+inline Rect::Rect(uint16_t x, uint16_t y) {
+    this->x = x;
+    this->y = y;
 }
 
 }

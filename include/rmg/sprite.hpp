@@ -15,12 +15,22 @@
 #ifndef __RMG_SPRITE_H__
 #define __RMG_SPRITE_H__
 
-#include <rmg/object2d.hpp>
-
+#include <memory>
 #include <string>
+
+#include "object2d.hpp"
+#include "internal/context_load.hpp"
 
 
 namespace rmg {
+
+namespace internal {
+
+class SpriteShader;
+class Texture;
+
+}
+
 
 /**
  * @brief 2D sprite images for 2D games
@@ -29,6 +39,12 @@ namespace rmg {
  * Make 2D games like Mario.
  */
 class Sprite2D: public Object2D {
+  private:
+    std::shared_ptr<internal::Texture> texture;
+    internal::ContextLoader::Pending texLoad;
+    
+    friend class internal::SpriteShader;
+    
   public:
     /**
      * @brief Constructs a sprite object loading a sprite image
@@ -39,14 +55,6 @@ class Sprite2D: public Object2D {
     Sprite2D(Context* ctx, const std::string &img);
     
     /**
-     * @brief Constructs a sprite object with a preloaded texture
-     * 
-     * @param ctx Container context
-     * @param tex Loaded texture
-     */
-    Sprite2D(Context* ctx, Texture* tex);
-    
-    /**
      * @brief Constructs a sprite object loading a sprite image
      * 
      * @param ctx Container context
@@ -54,15 +62,6 @@ class Sprite2D: public Object2D {
      * @param size Sprite size
      */
     Sprite2D(Context* ctx, const std::string &img, const Vec2 &size);
-    
-    /**
-     * @brief Constructs a sprite object with a preloaded texture
-     * 
-     * @param ctx Container context
-     * @param tex Loaded texture
-     * @param size Sprite size
-     */
-    Sprite2D(Context* ctx, Texture* tex, const Vec2 &size);
     
     /**
      * @brief Destructor

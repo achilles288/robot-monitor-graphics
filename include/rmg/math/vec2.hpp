@@ -33,10 +33,10 @@ struct Vec2 {
      */
     union {
         struct {
-            float x; /**< X-coordinate */
-            float y; /**< Y-coordinate */
+            float x; ///< X-coordinate
+            float y; ///< Y-coordinate
         };
-        float data[2]; /**< Vector data as array */
+        float data[2]; ///< Vector data as array
     };
     
     /**
@@ -170,7 +170,33 @@ struct Vec2 {
  */
 Vec2 operator * (float f, const Vec2 &v);
 
+
+
+
+/**
+ * @brief A rectangular dimension or 2D point of screen coordinates
+ */
+struct Rect {
+    uint16_t x; ///< X-coordinate
+    uint16_t y; ///< Y-coordinate
+    
+    /**
+     * @brief Default constructor
+     */
+    Rect();
+    
+    /**
+     * @brief Constructor with xy values
+     * 
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     */
+    Rect(uint16_t x, uint16_t y);
+};
+
 }
+
+
 
 
 #include <rmg/math/vec2.inc>

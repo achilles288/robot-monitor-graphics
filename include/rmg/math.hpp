@@ -12,9 +12,9 @@
 #ifndef __RMG_MATH_H__
 #define __RMG_MATH_H__
 
-#include <rmg/math/vec.hpp>
-#include <rmg/math/euler.hpp>
-#include <rmg/math/mat3.hpp>
-#include <rmg/math/mat4.hpp>
+#include "math/vec.hpp"
+#include "math/euler.hpp"
+#include "math/mat3.hpp"
+#include "math/mat4.hpp"
 
 #endif

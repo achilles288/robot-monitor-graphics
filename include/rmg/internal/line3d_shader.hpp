@@ -9,10 +9,10 @@
 
 
 #pragma once
-#ifndef __RMG_SPRITE_SHADER_H__
-#define __RMG_SPRITE_SHADER_H__
+#ifndef __RMG_LINE3D_SHADER_H__
+#define __RMG_LINE3D_SHADER_H__
 
-#include <rmg/internal/shader.h>
+#include <rmg/internal/shader.hpp>
 
 namespace rmg {
 namespace internal {
@@ -26,6 +26,11 @@ class Line3DShader: public Shader {
     
   public:
     /**
+     * @brief Default constructor
+     */
+    Line3DShader();
+    
+    /**
      * @brief Constructor with its container
      * 
      * @param ctx Container context
@@ -38,9 +43,9 @@ class Line3DShader: public Shader {
     virtual ~Line3DShader();
     
     /**
-     * @brief Shader process
+     * @brief Compile, link and assign program parameters
      */
-    void process();
+    void load();
 };
 
 }}

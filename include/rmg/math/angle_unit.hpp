@@ -26,8 +26,8 @@ namespace rmg {
  * @brief Represents if the unit is degree or radian
  */
 enum class AngleUnit {
-    UNIT_DEGREE,
-    UNIT_RADIAN
+    Degree,
+    Radian
 };
 
 /**

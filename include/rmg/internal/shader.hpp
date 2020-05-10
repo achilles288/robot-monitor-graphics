@@ -15,13 +15,14 @@
 #ifndef __RMG_SHADER_H__
 #define __RMG_SHADER_H__
 
-#include <rmg/context.h>
-
 #include <cstdint>
 #include <string>
 
 
 namespace rmg {
+
+class Context;
+
 namespace internal {
 
 /**
@@ -37,7 +38,21 @@ class Shader {
     
     void compileShader(uint32_t shaderID, const std::string &path);
     
+    /**
+     * @brief Compiles a shader program from vertex and fragment shaders
+     * 
+     * @param vert Path to vertex shader
+     * @param frag Path to fragment shader
+     */
+    void compileShaderProgram(const std::string &vert,
+                              const std::string &frag);
+    
   public:
+    /**
+     * @brief Default constructor
+     */
+    Shader();
+    
     /**
      * @brief Constructor with its container
      * 
@@ -49,15 +64,6 @@ class Shader {
      * @brief Destructor
      */
     virtual ~Shader();
-    
-    /**
-     * @brief Compiles a shader program from vertex and fragment shaders
-     * 
-     * @param vert Path to vertex shader
-     * @param frag Path to fragment shader
-     */
-    void compileShaderProgram(const std::string &vert,
-                              const std::string &frag);
 };
 
 }}

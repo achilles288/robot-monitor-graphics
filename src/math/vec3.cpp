@@ -10,7 +10,7 @@
  */
 
 
-#include <rmg/math/vec3.hpp>
+#include "../rmg/math/vec3.hpp"
 
 
 namespace rmg {

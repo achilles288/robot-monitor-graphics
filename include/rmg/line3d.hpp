@@ -16,8 +16,8 @@
 #ifndef __RMG_LINE_3D_H__
 #define __RMG_LINE_3D_H__
 
-#include <rmg/math.hpp>
-#include <rmg/object.hpp>
+#include "object.hpp"
+#include "math/vec3.hpp"
 
 
 namespace rmg {

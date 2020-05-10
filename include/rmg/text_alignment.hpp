@@ -22,10 +22,10 @@ namespace rmg {
  * 
  * Supports the rendering operations for Text2D.
  */
-enum TextAlignment {
-    TEXT_LEFT,
-    TEXT_CENTER,
-    TEXT_RIGHT
+enum class TextAlignment {
+    Left,
+    Center,
+    Right
 };
 
 }

@@ -16,8 +16,10 @@
 #ifndef __RMG_OBJECT_2D_H__
 #define __RMG_OBJECT_2D_H__
 
-#include <rmg/math.hpp>
-#include <rmg/object.hpp>
+#include "object.hpp"
+#include "math/angle_unit.hpp"
+#include "math/vec.hpp"
+#include "math/mat3.hpp"
 
 
 namespace rmg {
@@ -25,7 +27,7 @@ namespace rmg {
 class Text2D;
 
 namespace internal {
-class SpriteShader;
+    class SpriteShader;
 }
 
 
@@ -38,7 +40,7 @@ class SpriteShader;
  */
 class Object2D: public Object {
   private:
-    glm::mat3 modelMatrix;
+    Mat3 modelMatrix;
     int8_t zOrder;
     float t;
     float width;
@@ -134,7 +136,7 @@ class Object2D: public Object {
      * @param unit If the rotation value is degree or radian
      */
     inline void setRotation(float t, AngleUnit unit) {
-        setRotation((unit == UNIT_RADIAN) ? t : radian(t));
+        setRotation((unit == AngleUnit::Radian) ? t : radian(t));
     }
     
     /**

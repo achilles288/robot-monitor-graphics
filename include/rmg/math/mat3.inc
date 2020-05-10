@@ -10,7 +10,9 @@
  */
 
 
-#include <cassert>
+#include <rmg/math/mat3.hpp>
+
+#include <rmg/assert.hpp>
 
 
 namespace rmg {
@@ -35,7 +37,7 @@ inline Mat3::Mat3(Mat3Row row0, Mat3Row row1, Mat3Row row2):
  * @return Reference to matrix row
  */
 inline Mat3Row& Mat3::operator [] (uint8_t i) {
-    assert(i < 3);
+    RMG_ASSERT(i < 3);
     return rows[i];
 }
 
@@ -47,7 +49,7 @@ inline Mat3Row& Mat3::operator [] (uint8_t i) {
  * @return Reference to matrix row
  */
 inline Mat3Row const& Mat3::operator [] (uint8_t i) const {
-    assert(i < 3);
+    RMG_ASSERT(i < 3);
     return rows[i];
 }
 
@@ -59,7 +61,7 @@ inline Mat3Row const& Mat3::operator [] (uint8_t i) const {
  * @return Reference to matrix cell
  */
 inline float& Mat3Row::operator [] (uint8_t i) {
-    assert(i < 3);
+    RMG_ASSERT(i < 3);
     return data[i];
 }
 
@@ -71,7 +73,7 @@ inline float& Mat3Row::operator [] (uint8_t i) {
  * @return Reference to matrix cell
  */
 inline float const& Mat3Row::operator [] (uint8_t i) const {
-    assert(i < 3);
+    RMG_ASSERT(i < 3);
     return data[i];
 }
 

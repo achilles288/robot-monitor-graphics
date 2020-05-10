@@ -15,14 +15,22 @@
 #ifndef __RMG_PARTICLE_H__
 #define __RMG_PARTICLE_H__
 
-#include <rmg/math.hpp>
-#include <rmg/object.hpp>
+#include <memory>
 
-
-class rmg::internal::ParticleShader;
+#include "object.hpp"
+#include "math/mat3.hpp"
+#include "internal/context_load.hpp"
 
 
 namespace rmg {
+
+namespace internal {
+
+class ParticleShader;
+class Texture;
+
+}
+
 
 /**
  * @brief 2D graphics displayed in terms of 3D space
@@ -32,7 +40,10 @@ namespace rmg {
  */
 class Particle3D: public Object {
   private:
-    glm::mat3 modelMatrix;
+    std::shared_ptr<internal::Texture> texture;
+    internal::ContextLoader::Pending texLoad;
+    
+    Mat3 modelMatrix;
     Vec3 position;
     float t;
     float width;
@@ -48,15 +59,6 @@ class Particle3D: public Object {
      * @param img Image file (supports the same format Texture class does)
      */
     Particle3D(Context* ctx, std::string img);
-    
-    /**
-     * @brief Constructs a particle object with a preloaded texture
-     * 
-     * @param ctx Container context
-     * @param tex Loaded texture
-     */
-    Particle3D(Context* ctx, Texture* tex);
-    
     /**
      * @brief Constructs a particle object loading a particle image
      * 
@@ -65,15 +67,6 @@ class Particle3D: public Object {
      * @param size Sprite size
      */
     Particle3D(Context* ctx, std::string img, Vec2 size);
-    
-    /**
-     * @brief Constructs a particle object with a preloaded texture
-     * 
-     * @param ctx Container context
-     * @param tex Loaded texture
-     * @param size Sprite size
-     */
-    Particle3D(Context* ctx, Texture* tex, Vec2 size);    
     
     /**
      * @brief Destructor

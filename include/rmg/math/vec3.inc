@@ -12,9 +12,10 @@
 
 #include <rmg/math/vec.hpp>
 
-#include <cassert>
 #define _USE_MATH_DEFINES
 #include <cmath>
+
+#include <rmg/assert.hpp>
 
 
 namespace rmg {
@@ -191,7 +192,7 @@ inline Vec3 operator * (float f, const Vec3 &v) {
  * @return Reference to vector member
  */
 inline float& Vec3::operator [] (uint8_t i) {
-     assert(i < 3);
+     RMG_ASSERT(i < 3);
      return data[i];
 }
 
@@ -203,7 +204,7 @@ inline float& Vec3::operator [] (uint8_t i) {
  * @return Reference to vector member
  */
 inline float const& Vec3::operator [] (uint8_t i) const{
-     assert(i < 3);
+     RMG_ASSERT(i < 3);
      return data[i];
 }
 

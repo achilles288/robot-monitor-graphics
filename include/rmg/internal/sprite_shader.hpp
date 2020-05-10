@@ -12,7 +12,7 @@
 #ifndef __RMG_SPRITE_SHADER_H__
 #define __RMG_SPRITE_SHADER_H__
 
-#include <rmg/internal/shader.h>
+#include <rmg/internal/shader.hpp>
 
 namespace rmg {
 namespace internal {
@@ -26,6 +26,11 @@ class SpriteShader: public Shader {
     
   public:
     /**
+     * @brief Default constructor
+     */
+    SpriteShader();
+    
+    /**
      * @brief Constructor with its container
      * 
      * @param ctx Container context
@@ -38,9 +43,9 @@ class SpriteShader: public Shader {
     virtual ~SpriteShader();
     
     /**
-     * @brief Shader process
+     * @brief Compile, link and assign program parameters
      */
-    void process();
+    void load();
 };
 
 }}

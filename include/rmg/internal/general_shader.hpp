@@ -17,7 +17,7 @@
 #ifndef __RMG_GENERAL_SHADER_H__
 #define __RMG_GENERAL_SHADER_H__
 
-#include <rmg/internal/shader.h>
+#include <rmg/internal/shader.hpp>
 
 namespace rmg {
 namespace internal {
@@ -36,6 +36,11 @@ class GeneralShader: public Shader {
     
   public:
     /**
+     * @brief Default constructor
+     */
+    GeneralShader();
+    
+    /**
      * @brief Constructor with its container
      * 
      * @param ctx Container context
@@ -48,9 +53,9 @@ class GeneralShader: public Shader {
     virtual ~GeneralShader();
     
     /**
-     * @brief Shader process
+     * @brief Compile, link and assign program parameters
      */
-    void process();
+    void load();
 };
 
 }}

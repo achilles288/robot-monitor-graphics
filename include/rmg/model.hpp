@@ -12,17 +12,30 @@
 #ifndef __RMG_MODEL_H__
 #define __RMG_MODEL_H__
 
-#include <rmg/object3d.hpp>
-
 #include <string>
+
+#include "object3d.hpp"
 
 
 namespace rmg {
+
+namespace internal {
+    class Texture;
+}
+
 
 /**
  * @brief 3D object loaded from file other than basic geometries
  */
 class Model3D: public Object3D {
+  private:
+    std::shared_ptr<internal::Texture> texture;
+    internal::ContextLoader::Pending texLoad;
+    
+    friend class Context;
+    friend class internal::GeneralShader;
+    friend class internal::ShadowMapShader;
+    
   public:
     /**
      * @brief Constructor loads 3D model from file.

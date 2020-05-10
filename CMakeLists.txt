@@ -7,19 +7,18 @@ set(RMGAPHICS_VERSION 0.1.0)
 
 set(CMAKE_CXX_STANDARD 17)
 
-if(NOT UNIX)
-add_subdirectory(external/glfw)
-endif()
 
 add_subdirectory(include)
+
+set(CMAKE_LIBRARY_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib)
+set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin)
+
 add_subdirectory(src)
 
 set(RMGRAPHICS_LIBRARIES
-    ${RMGCORE_LIBRARY}
-    ${RMGGLFW_LIBRARY}
-    ${RMGWX_LIBRARY}
+    rmgbase_s
+    rmgwindow_s
 )
 
-set(gtest_force_shared_crt ON CACHE BOOL "compile gtest with MD" FORCE)
-add_subdirectory(external/googletest/googletest)
 add_subdirectory(test)

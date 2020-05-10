@@ -12,17 +12,17 @@
 #ifndef __RMG_VBO_LOAD_H__
 #define __RMG_VBO_LOAD_H__
 
-#include <rmg/math.h>
-
 #include <vector>
-#include <cstdint>
 
-
-class rmg::internal::VBOLoad;
+#include <rmg/math/vec.hpp>
+#include <rmg/internal/context_load.hpp>
 
 
 namespace rmg {
 namespace internal {
+
+class VBO;
+
 
 /**
  * @brief Maintains the array of VBOs before context startup
@@ -37,9 +37,9 @@ namespace internal {
  * @see TextureLoadPending
  * @see FontLoadPending
  */
-class VBOLoadPending {
+class VBOLoad: public ContextLoad {
   private:
-    VBOLoad* vboLoad;
+    VBO* vbo;
     std::vector<Vec3> vertices;
     std::vector<Vec3> normals;
     std::vector<Vec2> text_coords;
@@ -49,51 +49,51 @@ class VBOLoadPending {
     /**
      * @brief Constructs a pending object
      * 
-     * @param vbo Address to a VBOLoad instance. This is to redirect 
+     * @param vbo Address to a VBO instance. This is to redirect 
      *            responses after loading.
      * @param vert Vertices
      * @param norm Normals
      * @param tex Texture coordinates
      * @param in Indecies
      */
-    VBOLoadPending(VBOLoad* vbo,
-                   const std::vector<Vec3> &vert,
-                   const std::vector<Vec3> &norm,
-                   const std::vector<Vec2> &tex,
-                   const std::vector<uint16_t> &in);
+    VBOLoad(VBO* vbo,
+            const std::vector<Vec3> &vert,
+            const std::vector<Vec3> &norm,
+            const std::vector<Vec2> &tex,
+            const std::vector<uint16_t> &in);
     
     /**
      * @brief Destructor
      */
-    ~VBOLoadPending();
+    ~VBOLoad();
     
     /**
      * @brief Copy constructor
      * 
      * @param vbo Source
      */
-    VBOLoadPending(const VBOLoadPending& vbo);
+    VBOLoad(const VBOLoad& vbo);
     
     /**
      * @brief Move constructor
      * 
      * @param vbo Source
      */
-    VBOLoadPending(VBOLoadPending&& vbo) noexcept;
+    VBOLoad(VBOLoad&& vbo) noexcept;
     
     /**
      * @brief Copy assignment
      * 
      * @param vbo Source
      */
-    VBOLoadPending& operator=(const VBOLoadPending& vbo);
+    VBOLoad& operator=(const VBOLoad& vbo);
     
     /**
      * @brief Move assignment
      * 
      * @param vbo Source
      */
-    VBOLoadPending& operator=(VBOLoadPending&& vbo) noexcept;
+    VBOLoad& operator=(VBOLoad&& vbo) noexcept;
     
     /**
      * @brief Loads the array of VBOs to the GPU
@@ -101,9 +101,9 @@ class VBOLoadPending {
      * Loads the arrays of vertices, normals, texture coordinate and indecies
      * which are created by model constructors (Cube3D, Model3D, .etc) into
      * GPU. Also this pending object's load function assigns the resource
-     * addresses to the related VBOLoad object.
+     * addresses to the related VBO object.
      */
-    void load();
+    void load() override;
 };
 
 
@@ -114,7 +114,7 @@ class VBOLoadPending {
  * actual drawing by the GPU processing power. Multiple Object3D may use
  * the common instance for efficient GPU memory space.
  */
-class VBOLoad {
+class VBO {
   private:
     uint32_t vertexArrayID;
     uint32_t vertexbuffer;
@@ -123,18 +123,18 @@ class VBOLoad {
     uint32_t elementbuffer;
     uint32_t indexCount;
     
-    friend class VBOLoadPending
+    friend class VBOLoad;
     
   public:
     /**
      * @brief Constructor
      */
-    VBOLoad();
+    VBO();
     
     /**
      * @brief Destructor
      */
-    ~VBOLoad();
+    ~VBO();
     
     /**
      * @brief Copy constructor (deleted)
@@ -144,14 +144,14 @@ class VBOLoad {
      * 
      * @param vbo Source
      */
-    VBOLoad(const VBOLoad& vbo) = delete;
+    VBO(const VBO& vbo) = delete;
     
     /**
      * @brief Move constructor
      * 
      * @param vbo Source
      */
-    VBOLoad(VBOLoad&& vbo) noexcept;
+    VBO(VBO&& vbo) noexcept;
     
     /**
      * @brief Copy assignment (deleted)
@@ -161,14 +161,14 @@ class VBOLoad {
      * 
      * @param vbo Source
      */
-    VBOLoad& operator=(const VBOLoad& vbo) = delete;
+    VBO& operator=(const VBO& vbo) = delete;
     
     /**
      * @brief Move assignment
      * 
      * @param vbo Source
      */
-    VBOLoad& operator=(VBOLoad&& vbo) noexcept;
+    VBO& operator=(VBO&& vbo) noexcept;
     
     /**
      * @brief Draws the VBO using a shader program

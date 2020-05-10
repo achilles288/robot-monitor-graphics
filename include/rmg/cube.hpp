@@ -15,11 +15,11 @@
 #ifndef __RMG_CUBE_H__
 #define __RMG_CUBE_H__
 
-#include <rmg/object3d.hpp>
-
 #include <cstdint>
 #include <vector>
 #include <utility>
+
+#include "object3d.hpp"
 
 
 namespace rmg::internal {

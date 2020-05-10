@@ -13,14 +13,17 @@
 #define __RMG_FONT_H__
 
 #include <cstdint>
+#include <memory>
 #include <string>
 
-
-class rmg::Context;
-class rmg::internal::FontLoadPending;
+#include "internal/context_load.hpp"
+#include "internal/texture_load.hpp"
 
 
 namespace rmg {
+
+class Context;
+
 
 /**
  * @brief For rendering texts on the context
@@ -28,13 +31,11 @@ namespace rmg {
 class Font {
   private:
     uint32_t id;
-    uint32_t loadID;
     Context* context;
-    
-    friend class internal::FontLoadPending;
+    internal::Texture texture;
+    internal::ContextLoader::Pending textureLoad;
     
     static uint64_t lastID;
-    static uint64_t generateID();
     
   public:
     /**
@@ -65,7 +66,7 @@ class Font {
      * 
      * @param ft Source font
      */
-    Font(Font&& ft) noexcept;
+    Font(Font&& ft) noexcept = default;
     
     /**
      * @brief Copy assignment (deleted)
@@ -82,14 +83,14 @@ class Font {
      * 
      * @param ft Source font
      */
-    Font& operator=(Font&& ft) noexcept;
+    Font& operator=(Font&& ft) noexcept = default;
     
     /**
      * @brief Gets font ID
      * 
      * @return Font ID
      */
-    uint32_t getID();
+    uint64_t getID();
     
     /**
      * @brief Gets the container context

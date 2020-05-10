@@ -18,10 +18,14 @@
 #ifndef __RMG_OBJECT_3D_H__
 #define __RMG_OBJECT_3D_H__
 
-#include <rmg/math.hpp>
-#include <rmg/object.hpp>
-
 #include <memory>
+
+#include "object.hpp"
+#include "math/euler.hpp"
+#include "math/mat3.hpp"
+#include "math/mat4.hpp"
+#include "math/vec.hpp"
+#include "internal/context_load.hpp"
 
 
 namespace rmg {
@@ -33,9 +37,9 @@ class Sphere3D;
 
 namespace internal {
 
-class VBOLoad;
 class GeneralShader;
 class ShadowMapShader;
+class VBO;
 
 }
 
@@ -51,15 +55,16 @@ class ShadowMapShader;
  */
 class Object3D: public Object {
   private:
-    using internal::VBOLoad;
+    std::shared_ptr<internal::VBO> vbo;
+    internal::ContextLoader::Pending vboLoad;
     
-    VBOLoad* vbo;
-    std::shared_ptr<VBOLoadPending> loadPending;
-    glm::mat4 modelMatrix;
-    glm::mat3 rotationMatrix;
+    Mat4 modelMatrix;
+    Mat3 rotationMatrix;
     Vec3 scale;
-    float diffuse;
-    float specular;
+    Material* material;
+    Color color;
+    float diffusion;
+    float specularity;
     
     friend class Context;
     friend class Cube3D;
@@ -169,7 +174,7 @@ class Object3D: public Object {
      * @param unit If the previous params are degree or radian
      */
     inline void setRotation(float x, float y, float z, AngleUnit unit) {
-        if(unit == UNIT_RADIAN)
+        if(unit == AngleUnit::Radian)
             setRotation(x, y, z);
         else
             setRotation(radian(x), radian(y), radian(z));
@@ -248,6 +253,16 @@ class Object3D: public Object {
      * @param spec Specularity coefficient
      */
     void setMaterial(Color col, float diff, float spec);
+    
+    /**
+     * @brief Sets the material texture
+     * 
+     * Sets the object to use a predefined material. This material data uses
+     * OpenGL context for texture image, normal maps, .etc.
+     * 
+     * @param mat Predefined material
+     */
+    void setMaterial(Material* mat);
     
     /**
      * @brief Sets the diffusion coefficient of the 3D object material
