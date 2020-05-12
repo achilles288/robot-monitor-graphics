@@ -13,7 +13,7 @@
 
 namespace rmg {
 
-uint64_t Material::lastID = 0;
+uint32_t Material::lastID = 0;
 
 /**
  * @brief Constructor
@@ -55,7 +55,7 @@ Material::~Material() {}
  * 
  * @return Material ID
  */
-uint64_t Material::getID() { return id; }
+uint32_t Material::getID() { return id; }
 
 /**
  * @brief Gets the container context

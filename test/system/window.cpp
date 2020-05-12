@@ -1,5 +1,8 @@
 #include <rmg/window.hpp>
 
+#include <GL/glew.h>
+#include <GL/gl.h>
+
 #include <cstdio>
 #include <cstring>
 
@@ -72,21 +75,21 @@ class TestWindow: public rmg::Window {
     void onMouseClick(const rmg::MouseEvent &event) override {
         char* button = buttonToString(event);
         char* mod = mouseModifiersToString(event);
-        printf("Window%ld clicked - x:%d y:%d button:%s modifiers:%s\n",
+        printf("Window%d clicked - x:%d y:%d button:%s modifiers:%s\n",
                getID(), event.getX(), event.getY(), button, mod);
     }
     
     void onMousePress(const rmg::MouseEvent &event) override {
         char* button = buttonToString(event);
         char* mod = mouseModifiersToString(event);
-        printf("Window%ld pressed - x:%d y:%d button:%s modifiers:%s\n",
+        printf("Window%d pressed - x:%d y:%d button:%s modifiers:%s\n",
                getID(), event.getX(), event.getY(), button, mod);
     }
     
     void onMouseRelease(const rmg::MouseEvent &event) override {
         char* button = buttonToString(event);
         char* mod = mouseModifiersToString(event);
-        printf("Window%ld released - x:%d y:%d button:%s modifiers:%s\n",
+        printf("Window%d released - x:%d y:%d button:%s modifiers:%s\n",
                getID(), event.getX(), event.getY(), button, mod);
     }
     
@@ -96,7 +99,7 @@ class TestWindow: public rmg::Window {
         t += (event.getDiffX()*0.5f);
         char* button = buttonToString(event);
         char* mod = mouseModifiersToString(event);
-        printf("Window%ld moved - x:%d y:%d dx:%d dy:%d "
+        printf("Window%d moved - x:%d y:%d dx:%d dy:%d "
                "button:%s modifiers:%s\n",
                getID(), event.getX(), event.getY(),
                event.getDiffX(), event.getDiffY(), button, mod);
@@ -105,7 +108,7 @@ class TestWindow: public rmg::Window {
     void onMouseWheel(const rmg::MouseEvent &event) override {
         char* button = buttonToString(event);
         char* mod = mouseModifiersToString(event);
-        printf("Window%ld wheel - x:%d y:%d scroll:%d "
+        printf("Window%d wheel - x:%d y:%d scroll:%d "
                "button:%s modifiers:%s\n",
                getID(), event.getX(), event.getY(), event.getScroll(),
                button, mod);
@@ -114,7 +117,7 @@ class TestWindow: public rmg::Window {
     void onMouseEntry(const rmg::MouseEvent &event) override {
         char* button = buttonToString(event);
         char* mod = mouseModifiersToString(event);
-        printf("Window%ld entry - x:%d y:%d button:%s modifiers:%s\n",
+        printf("Window%d entry - x:%d y:%d button:%s modifiers:%s\n",
                getID(), event.getX(), event.getY(), button, mod);
     }
     
@@ -124,7 +127,7 @@ class TestWindow: public rmg::Window {
             Context::destroyAll();
             return;
         }
-        printf("Window%ld keyboard - key:%c(%d) modifiers:%d%d%d\n",
+        printf("Window%d keyboard - key:%c(%d) modifiers:%d%d%d\n",
                getID(), event.getKeycode(), event.getKeycode(),
                event.isCtrl(), event.isAlt(), event.isShift());
     }
@@ -133,7 +136,7 @@ class TestWindow: public rmg::Window {
 
 int main() {
     auto window1 = new TestWindow();
-    //auto window2 = new TestWindow();
+    auto window2 = new TestWindow();
     printf("You can test mouse and keyboard events\n"
            "Press 'Q' to exit the program\n");
     rmg::Window::mainLoop();
@@ -141,6 +144,6 @@ int main() {
     if(window1->getErrorCode() != 0)// || window2->getErrorCode() != 0)
         err = 1;
     delete window1;
-    //delete window2;
+    delete window2;
     exit(err);
 }

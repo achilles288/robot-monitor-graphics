@@ -28,7 +28,7 @@ KeyboardEvent::KeyboardEvent() {
  * 
  * @return The keycode ('a', 'b', .etc)
  */
-char KeyboardEvent::getKeycode() const { return keycode; }
+int16_t KeyboardEvent::getKeycode() const { return keycode; }
 
 /**
  * @brief If the ctrl key is pressed

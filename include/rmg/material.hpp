@@ -38,7 +38,7 @@ class Material {
     float diffusion;
     float specularity;
     
-    static uint64_t lastID;
+    static uint32_t lastID;
     
   public:
     /**
@@ -105,7 +105,7 @@ class Material {
      * 
      * @return Material ID
      */
-    uint64_t getID();
+    uint32_t getID();
     
     /**
      * @brief Gets the container context

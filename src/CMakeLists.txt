@@ -1,16 +1,6 @@
 # 
 # RMGraphics Base Library
 # 
-find_package(OpenGL REQUIRED)
-
-if(UNIX)
-find_package(GLEW REQUIRED)
-else()
-add_subdirectory(external/glew)
-set(GLEW_INCLUDE_DIR ${CMAKE_CURRENT_SOURCE_DIR}/external/glew/include)
-set(GLEW_LIBRARIES glew_s)
-endif()
-
 include_directories(
     ../include
     ${OPENGL_INCLUDE_DIR}
@@ -84,6 +74,7 @@ set(RMGBASE_SOURCES
     rmg/internal/sprite_shader.hpp
     rmg/internal/texture_load.hpp
     rmg/internal/vbo_load.hpp
+    rmg/internal/window_callback.hpp
     
     rmg/math/mat3.inc
     rmg/math/mat4.inc
@@ -99,21 +90,14 @@ target_link_libraries(${RMGBASE_LIBRARY}_s PUBLIC
     ${GLEW_LIBRARIES}
 )
 
+set_target_properties(${RMGBASE_LIBRARY}_s
+    PROPERTIES FOLDER ${PROJECT_NAME}
+)
+
 
 # 
 # RMGraphics Window Framework Library
 # 
-if(UNIX)
-find_package(PkgConfig REQUIRED)
-pkg_check_modules(GLFW REQUIRED glfw3)
-else()
-set(GLFW_BUILD_DOCS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_TESTS OFF CACHE BOOL "" FORCE)
-set(GLFW_BUILD_EXAMPLES OFF CACHE BOOL "" FORCE)
-add_subdirectory(external/glfw)
-set(GLFW_INCLUDE_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/external/glfw/include)
-endif()
-
 include_directories(${GLFW_INCLUDE_DIRS})
 
 set(RMGWINDOW_LIBRARY rmgwindow)
@@ -127,4 +111,8 @@ add_library(${RMGWINDOW_LIBRARY}_s STATIC ${RMGWINDOW_SOURCES})
 
 target_link_libraries(${RMGWINDOW_LIBRARY}_s PUBLIC
     ${GLFW_LIBRARIES}
+)
+
+set_target_properties(${RMGWINDOW_LIBRARY}_s
+    PROPERTIES FOLDER ${PROJECT_NAME}
 )

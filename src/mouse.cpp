@@ -24,8 +24,8 @@ MouseEvent::MouseEvent() {
     y = 0;
     dx = 0;
     dy = 0;
-    xp = 65535;
-    yp = 65535;
+    xp = INT16_MAX;
+    yp = INT16_MAX;
     button = MouseButton::None;
     mouseStates = 0b0000;
     scroll = 0;
@@ -36,14 +36,14 @@ MouseEvent::MouseEvent() {
  * 
  * @return X-coordinate
  */
-uint16_t MouseEvent::getX() const { return x; }
+int16_t MouseEvent::getX() const { return x; }
 
 /**
  * @brief Gets mouse position
  * 
  * @return Y-coordinate
  */
-uint16_t MouseEvent::getY() const { return y; }
+int16_t MouseEvent::getY() const { return y; }
 
 /**
  * @brief Gets change in mouse position

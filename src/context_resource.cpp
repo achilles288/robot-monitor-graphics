@@ -88,7 +88,7 @@ void Context::addObject(Object* obj) {
  */
 void Context::addMaterial(Material* mat) {
     RMG_ASSERT(mat->getContext() == this);
-    auto elem = std::pair<uint64_t,Material*>(mat->getID(),mat);
+    auto elem = std::pair<uint32_t,Material*>(mat->getID(),mat);
     materials.insert(elem);
 }
 
@@ -99,7 +99,7 @@ void Context::addMaterial(Material* mat) {
  */
 void Context::addFont(Font* font) {
     RMG_ASSERT(font->getContext() == this);
-    auto elem = std::pair<uint64_t,Font*>(font->getID(),font);
+    auto elem = std::pair<uint32_t,Font*>(font->getID(),font);
     fonts.insert(elem);
 }
 

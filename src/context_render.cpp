@@ -80,7 +80,7 @@ void Context::render() {
     }
     
     float t2 = getTime();
-    fps = 1.0/(t2-t1);
+    fps = 1.0f/(t2-t1);
     t1 = t2;
     
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);

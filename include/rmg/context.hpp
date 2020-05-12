@@ -66,7 +66,7 @@ class Font;
  */
 class Context {
   private:
-    uint64_t id;
+    uint32_t id;
     uint16_t width;
     uint16_t height;
     bool sizeUpdate;
@@ -84,8 +84,8 @@ class Context {
     std::map<uint64_t, Object3D*> objects3d;
     std::map<uint64_t, Particle3D*> particles;
     std::map<uint64_t, Line3D*> lines3d;
-    std::map<uint64_t, Material*> materials;
-    std::map<uint64_t, Font*> fonts;
+    std::map<uint32_t, Material*> materials;
+    std::map<uint32_t, Font*> fonts;
     
     internal::GeneralShader generalShader;
     internal::ShadowMapShader shadowMapShader;
@@ -99,7 +99,7 @@ class Context {
     bool destroyed;
     int errorCode;
     
-    static uint64_t lastContextID;
+    static uint32_t lastContextID;
     static std::vector<Context*> contextList;
     static float t1;
     
@@ -203,7 +203,7 @@ class Context {
      * 
      * @return Context ID
      */
-    uint64_t getID();
+    uint32_t getID();
     
     /**
      * @brief Sets OpenGL viewport size
@@ -630,7 +630,7 @@ class Context {
      * 
      * @return OpenGL context
      */
-    static Context* getContextByID(uint64_t id);
+    static Context* getContextByID(uint32_t id);
     
     /**
      * @brief Destroys every RMG context cleaning all GPU resources allocated

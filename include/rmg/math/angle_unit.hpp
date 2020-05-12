@@ -16,8 +16,10 @@
 #define __RMG_ANGLE_UNIT_H__
 
 
-#define _USE_MATH_DEFINES
 #include <cmath>
+#ifndef M_PI
+#define M_PI 3.14159265359f
+#endif
 
 
 namespace rmg {

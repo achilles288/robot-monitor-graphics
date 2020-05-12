@@ -2,6 +2,9 @@
 #include <rmg/window.hpp>
 #include <gtest/gtest.h>
 
+#include <GL/glew.h>
+#include <GL/gl.h>
+
 #include <cstdio>
 #include <stdexcept>
 
@@ -171,7 +174,7 @@ class TestWindow4: public rmg::Window {
     
   public:
     TestWindow4(float p, float w, float t): rmg::Window() {
-        t = p;
+        t0 = p;
         rate = w;
         duration = t;
     }

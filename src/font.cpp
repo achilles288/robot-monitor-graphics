@@ -13,7 +13,7 @@
 
 namespace rmg {
 
-uint64_t Font::lastID = 0;
+uint32_t Font::lastID = 0;
 
 /**
  * @brief Constructor loads a font from file
@@ -38,7 +38,7 @@ Font::~Font() {}
  * 
  * @return Font ID
  */
-uint64_t Font::getID() { return id; }
+uint32_t Font::getID() { return id; }
 
 /**
  * @brief Gets the container context

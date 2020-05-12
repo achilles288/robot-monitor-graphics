@@ -35,7 +35,7 @@ class Font {
     internal::Texture texture;
     internal::ContextLoader::Pending textureLoad;
     
-    static uint64_t lastID;
+    static uint32_t lastID;
     
   public:
     /**
@@ -90,7 +90,7 @@ class Font {
      * 
      * @return Font ID
      */
-    uint64_t getID();
+    uint32_t getID();
     
     /**
      * @brief Gets the container context

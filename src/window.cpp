@@ -17,6 +17,9 @@
 #include <cstdio>
 #include <stdexcept>
 
+#include <GL/glew.h>
+#include <GLFW/glfw3.h>
+
 
 static bool glfwInitDone = false;
 
@@ -110,7 +113,7 @@ void Window::destroy() {
  * @return Running time in seconds
  */
 float Window::getTime() {
-    return glfwGetTime() - startTime;
+    return (float)glfwGetTime() - startTime;
 }
 
 /**
@@ -242,8 +245,8 @@ void window_mouse_button_callback(GLFWwindow* window, int button,
     else {
         mouseEvent.mouseStates ^= mouseEvent.mouseStates & mask;
         ctx->onMouseRelease(mouseEvent);
-        uint16_t dx = mouseEvent.x - mouseEvent.xp;
-        uint16_t dy = mouseEvent.y - mouseEvent.yp;
+        int16_t dx = mouseEvent.x - mouseEvent.xp;
+        int16_t dy = mouseEvent.y - mouseEvent.yp;
         if(abs(dx) < 5 && abs(dy) < 5)
             ctx->onMouseClick(mouseEvent);
     }
@@ -256,10 +259,10 @@ void window_cursor_position_callback(GLFWwindow* window,
 {
     rmg::Context* ctx = (rmg::Context*) glfwGetWindowUserPointer(window);
     
-    mouseEvent.dx = xpos - mouseEvent.x;
-    mouseEvent.dy = ypos - mouseEvent.y;
-    mouseEvent.x = xpos;
-    mouseEvent.y = ypos;
+    mouseEvent.dx = (int16_t)xpos - mouseEvent.x;
+    mouseEvent.dy = (int16_t)ypos - mouseEvent.y;
+    mouseEvent.x = (int16_t)xpos;
+    mouseEvent.y = (int16_t)ypos;
     ctx->onMouseMove(mouseEvent);
 }
 
@@ -272,8 +275,8 @@ void window_cursor_enter_callback(GLFWwindow* window, int entered)
         mouseEvent.mouseStates |= RMG_MOUSE_STATE_ENTRY;
         double xpos, ypos;
         glfwGetCursorPos(window, &xpos, &ypos);
-        mouseEvent.x = xpos;
-        mouseEvent.y = ypos;
+        mouseEvent.x = (int16_t)xpos;
+        mouseEvent.y = (int16_t)ypos;
     }
     else {
         mouseEvent.mouseStates ^= mouseEvent.mouseStates &
@@ -286,7 +289,7 @@ void window_cursor_enter_callback(GLFWwindow* window, int entered)
 void window_scroll_callback(GLFWwindow* window,
                             double xoffset, double yoffset)
 {
-    mouseEvent.scroll = yoffset;
+    mouseEvent.scroll = (int8_t)yoffset;
     if(mouseEvent.scroll == 0)
         return;
     rmg::Context* ctx = (rmg::Context*) glfwGetWindowUserPointer(window);
@@ -299,11 +302,11 @@ void window_key_callback(GLFWwindow* window, int key, int scancode,
                          int action, int mods)
 {
     uint8_t mask = 0b0000;
-    if(scancode == 37 || scancode == 105)
+    if(key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL)
         mask = RMG_KEY_STATE_CTRL;
-    else if(scancode == 64 || scancode == 108)
+    else if(key == GLFW_KEY_LEFT_ALT || key == GLFW_KEY_RIGHT_ALT)
         mask = RMG_KEY_STATE_ALT;
-    else if(scancode == 50 || scancode == 62)
+    else if(key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT)
         mask = RMG_KEY_STATE_SHIFT;
     
     if(action == GLFW_PRESS) {

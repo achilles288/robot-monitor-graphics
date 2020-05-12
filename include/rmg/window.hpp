@@ -17,10 +17,8 @@
 
 #include <string>
 
-#include <GL/glew.h>
-#include <GLFW/glfw3.h>
-
 #include "context.hpp"
+#include "internal/window_callback.hpp"
 
 
 namespace rmg {

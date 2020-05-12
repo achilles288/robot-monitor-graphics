@@ -44,12 +44,12 @@ enum class MouseButton {
  */
 class MouseEvent: public KeyboardEvent {
   private:
-    uint16_t x; ///< X-coordinate on screen
-    uint16_t y; ///< Y-coordinate on screen
+    int16_t x; ///< X-coordinate on screen
+    int16_t y; ///< Y-coordinate on screen
     int16_t dx; ///< Change in X-coordinate
     int16_t dy; ///< Change in Y-coordinate
-    uint16_t xp; ///< X-coordinate where press event occured
-    uint16_t yp; ///< Y-coordinate where press event occured
+    int16_t xp; ///< X-coordinate where press event occured
+    int16_t yp; ///< Y-coordinate where press event occured
     MouseButton button; ///< The mouse button which cause the event
     uint8_t mouseStates; ///< Which buttons are pressed or released
     int8_t scroll; ///< Scroll value by mouse wheel
@@ -80,14 +80,14 @@ class MouseEvent: public KeyboardEvent {
      * 
      * @return X-coordinate
      */
-    uint16_t getX() const;
+    int16_t getX() const;
     
     /**
      * @brief Gets mouse position
      * 
      * @return Y-coordinate
      */
-    uint16_t getY() const;
+    int16_t getY() const;
     
     /**
      * @brief Gets change in mouse position

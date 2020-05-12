@@ -33,7 +33,7 @@ namespace rmg {
  */
 class KeyboardEvent {
   private:
-    char keycode;  ///< The keycode ('a', 'b', .etc)
+    int16_t keycode;  ///< The keycode ('a', 'b', .etc)
     uint8_t keyStates;  ///< Ctrl, Alt and Shift
     
     
@@ -64,7 +64,7 @@ class KeyboardEvent {
      * 
      * @return The keycode ('a', 'b', .etc)
      */
-    char getKeycode() const;
+    int16_t getKeycode() const;
     
     /**
      * @brief If the ctrl key is pressed

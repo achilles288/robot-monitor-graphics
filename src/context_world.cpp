@@ -19,7 +19,7 @@
 
 namespace rmg {
 
-uint64_t Context::lastContextID = 0;
+uint32_t Context::lastContextID = 0;
 std::vector<Context*> Context::contextList;
 
 /**
@@ -49,6 +49,7 @@ Context::Context() {
     destroyed = false;
     initDone = false;
     startTime = 0;
+    fps = 0;
     errorCode = 0;
 }
 
@@ -66,7 +67,7 @@ Context::~Context() {
  * 
  * @return Context ID
  */
-uint64_t Context::getID() { return id; }
+uint32_t Context::getID() { return id; }
 
 /**
  * @brief Sets OpenGL viewport size
@@ -407,8 +408,8 @@ Euler Context::getDirectionalLightAngles() {
 Rect Context::worldToScreen(float x, float y, float z) {
     Vec4 S = VPMatrix * Vec4(x, y, z, 1);
     Rect pt;
-    pt.x = ((S.x + 1) * width/2);
-    pt.y = ((S.y + 1) * height/2);
+    pt.x = (int16_t)((S.x + 1) * width/2);
+    pt.y = (int16_t)((S.y + 1) * height/2);
     return pt;
 }
 
@@ -424,8 +425,8 @@ Rect Context::worldToScreen(float x, float y, float z) {
 Rect Context::worldToScreen(const Vec3 &p) {
     Vec4 S = VPMatrix * Vec4(p, 1);
     Rect pt;
-    pt.x = ((S.x + 1) * width/2);
-    pt.y = ((S.y + 1) * height/2);
+    pt.x = (int16_t)((S.x + 1) * width/2);
+    pt.y = (int16_t)((S.y + 1) * height/2);
     return pt;
 }
 
@@ -461,7 +462,7 @@ LineEq Context::screenToWorld(const Rect &p) {
  * 
  * @return OpenGL context
  */
-Context* Context::getContextByID(uint64_t id) {
+Context* Context::getContextByID(uint32_t id) {
     for(auto it=contextList.begin(); it!=contextList.end(); it++) {
         if((*it)->id == id)
             return *it;

@@ -46,4 +46,4 @@ doxygen_add_docs(
     COMMENT "Generate RMGraphics API documentation"
 )
 
-
+set_target_properties(doxygen PROPERTIES FOLDER ${PROJECT_NAME})
