@@ -188,7 +188,7 @@ class TestWindow4: public rmg::Window {
     }
 };
 
-TEST(Window, multipleContextsInit) {
+TEST(Window, DISABLED_multipleContextsInit) {
     EXPECT_EXIT(
         {
             auto window1 = new TestWindow4( 0.8f,  180, 0.4f);

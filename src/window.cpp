@@ -20,6 +20,10 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
+#include "rmg/assert.hpp"
+#include "rmg/bitmap.hpp"
+#include <rmg/config.hpp>
+
 
 static bool glfwInitDone = false;
 
@@ -83,6 +87,8 @@ Window::Window() {
     
     glfwSetWindowUserPointer(glfw_window, (void*)this);
     windowList.push_back(this);
+    
+    setWindowIcon(RMG_RESOURCE_PATH "/icon.png");
 }
 
 /**
@@ -128,13 +134,20 @@ void Window::setWindowName(const std::string &name) {
 /**
  * @brief Sets the icon file for the window
  * 
- * @param icon Path to the icon file
+ * @param file Path to the icon file
  */
-void Window::setWindowIcon(const std::string &icon) {
+void Window::setWindowIcon(const std::string &file) {
+    Bitmap bmp = Bitmap::loadFromFile(file);
+    RMG_EXPECT(bmp.getChannel() == 4);
+    #ifndef NDEBUG
+    if(bmp.getChannel() != 4)
+        return;
+    #endif
     GLFWimage icons[1];
-    // icons[0].pixels = load_png(icon.c_str());
+    icons[0].width = bmp.getWidth();
+    icons[0].height = bmp.getHeight();
+    icons[0].pixels = bmp.getPointer();
     glfwSetWindowIcon(glfw_window, 1, icons);
-    // free(icons[0].pixels);
 }
 
 /**

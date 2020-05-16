@@ -1,5 +1,5 @@
 /**
- * @file assert.cpp
+ * @file assert.inc
  * @brief Verifies assumptions made by the program
  * 
  * To verify assumptions made by the program and print a diagnostic message
@@ -14,8 +14,6 @@
 #include <cstdio>
 #include <cstdlib>
 
-#include "rmg/context.hpp"
-
 
 /**
  * @brief Verifies assumptions made by the program
@@ -28,7 +26,7 @@
  * @param file Path to source code
  * @param line Line number
  */
-void __rmg_assert(bool v, const char *e, const char *file, int line) {
+inline void __rmg_assert(bool v, const char *e, const char *file, int line) {
     if(v)
         return;
     
@@ -38,7 +36,6 @@ void __rmg_assert(bool v, const char *e, const char *file, int line) {
     printf("\033[0;1m%s:%u: \033[0;1;31merror: \033[0m", file, line);
     printf("failed assertion \033[0;1m'%s'\033[0m\n", e);
     #endif
-    rmg::Context::destroyAll();
     abort();
 }
 
@@ -54,7 +51,7 @@ void __rmg_assert(bool v, const char *e, const char *file, int line) {
  * @param file Path to source code
  * @param line Line number
  */
-void __rmg_expect(bool v, const char *e, const char *file, int line) {
+inline void __rmg_expect(bool v, const char *e, const char *file, int line) {
     if(v)
         return;
     

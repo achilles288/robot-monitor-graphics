@@ -1,6 +1,12 @@
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/test_config.h.in
+    ${CMAKE_BINARY_DIR}/config/rmg/test_config.h
+)
+
 include_directories(
     ../include
     external/googletest/googletest/include
+    ${CMAKE_BINARY_DIR}/config
     ${OPENGL_INCLUDE_DIR}
     ${GLEW_INCLUDE_DIR}
 )

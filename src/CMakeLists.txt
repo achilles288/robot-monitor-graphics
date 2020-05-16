@@ -1,8 +1,17 @@
+set(RMGCONFIG_RESOURCE_PATH ${PROJECT_SOURCE_DIR}/share)
+
+configure_file(
+    ${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
+    ${CMAKE_BINARY_DIR}/config/rmg/config.hpp
+)
+
+
 # 
 # RMGraphics Base Library
 # 
 include_directories(
     ../include
+    ${CMAKE_BINARY_DIR}/config
     ${OPENGL_INCLUDE_DIR}
     ${GLEW_INCLUDE_DIR}
 )
@@ -10,7 +19,6 @@ include_directories(
 set(RMGBASE_LIBRARY rmgbase)
 
 set(RMGBASE_SOURCES
-    assert.cpp
     color.cpp
     context_render.cpp
     context_resource.cpp
@@ -76,6 +84,7 @@ set(RMGBASE_SOURCES
     rmg/internal/vbo_load.hpp
     rmg/internal/window_callback.hpp
     
+    rmg/assert.inc
     rmg/math/mat3.inc
     rmg/math/mat4.inc
     rmg/math/vec2.inc
@@ -96,6 +105,37 @@ set_target_properties(${RMGBASE_LIBRARY}_s
 
 
 # 
+# RMGraphics Image Library
+# 
+include_directories(
+    ${PNG_INCLUDE_DIR}
+    ${TIFF_INCLUDE_DIR}
+)
+
+set(RMGIMAGE_LIBRARY rmgimage)
+
+set(RMGIMAGE_SOURCES
+    bitmap.cpp
+    bitmap_png.cpp
+    bitmap_tiff.cpp
+    
+    rmg/bitmap.hpp
+)
+
+add_library(${RMGIMAGE_LIBRARY}_s STATIC ${RMGIMAGE_SOURCES})
+
+target_link_libraries(${RMGIMAGE_LIBRARY}_s PUBLIC
+    ${GLFW_LIBRARIES}
+    ${PNG_LIBRARY}
+    ${TIFF_LIBRARY}
+)
+
+set_target_properties(${RMGIMAGE_LIBRARY}_s
+    PROPERTIES FOLDER ${PROJECT_NAME}
+)
+
+
+# 
 # RMGraphics Window Framework Library
 # 
 include_directories(${GLFW_INCLUDE_DIRS})
@@ -110,6 +150,7 @@ set(RMGWINDOW_SOURCES
 add_library(${RMGWINDOW_LIBRARY}_s STATIC ${RMGWINDOW_SOURCES})
 
 target_link_libraries(${RMGWINDOW_LIBRARY}_s PUBLIC
+    ${RMGIMAGE_LIBRARY}_s
     ${GLFW_LIBRARIES}
 )
 

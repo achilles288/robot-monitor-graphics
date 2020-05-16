@@ -1,0 +1,39 @@
+#ifndef __RMG_CONFIG_H__
+#define __RMG_CONFIG_H__
+
+/**
+ * @brief Constant string representing RMGraphics version
+ */
+#define RMG_VERSION_STRING "${RMGAPHICS_VERSION}"
+
+/**
+ * @brief Path to shared static resources that comes together with RMGraphics
+ */
+#define RMG_RESOURCE_PATH "${RMGCONFIG_RESOURCE_PATH}"
+
+
+
+
+#ifdef WIN32
+#include <Winsock.h>
+#else
+#include <unistd.h>
+#endif
+
+
+namespace rmg {
+
+/**
+ * @brief Gets the name of host computer
+ * 
+ * @return Host name (eg. achilles-HP-Pavilion-Notebook)
+ */
+inline char* getHostname() {
+    static char hostname[64+1];
+    gethostname(hostname, 64+1);
+    return hostname;
+}
+
+}
+
+#endif

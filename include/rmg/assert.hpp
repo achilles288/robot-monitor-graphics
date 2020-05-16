@@ -71,4 +71,6 @@ void __rmg_expect(bool v, const char *e, const char *file, int line);
 #define RMG_EXPECT(e)
 #endif
 
+#include "assert.inc"
+
 #endif

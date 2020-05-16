@@ -14,7 +14,8 @@
 
 #include <vector>
 
-#include <rmg/internal/context_load.hpp>
+#include "../bitmap.hpp"
+#include "context_load.hpp"
 
 
 namespace rmg {
@@ -38,10 +39,7 @@ class Texture;
 class TextureLoad: public ContextLoad {
   private:
     Texture* texture;
-    std::vector<uint8_t> image;
-    uint16_t width;
-    uint16_t height;
-    uint8_t colorChannel;
+    Bitmap bitmap;
     
   public:
     /**
@@ -50,12 +48,9 @@ class TextureLoad: public ContextLoad {
      * @param tex Address to a Texture instance. This is to redirect 
      *            responses after loading.
      * @param dat Data array
-     * @param w Image width
-     * @param h Image height
-     * @param c Color channel
+     * @param bmp Image data
      */
-    TextureLoad(Texture* tex, const std::vector<uint8_t> &dat,
-                uint16_t w, uint16_t h, uint8_t c);
+    TextureLoad(Texture* tex, const Bitmap& bmp);
     
     /**
      * @brief Destructor
@@ -106,8 +101,8 @@ class TextureLoad: public ContextLoad {
  */
 class Texture {
   private:
-    uint32_t image;
-    uint8_t colorChannel;
+    uint32_t textureID;
+    uint8_t channel;
     
     friend class TextureLoad;
     

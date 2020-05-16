@@ -68,9 +68,9 @@ class Window: public Context {
     /**
      * @brief Sets the icon file for the window
      * 
-     * @param icon Path to the icon file
+     * @param file Path to the icon file
      */
-    void setWindowIcon(const std::string &icon);
+    void setWindowIcon(const std::string &file);
     
     /**
      * @brief Sets the dimension of the window

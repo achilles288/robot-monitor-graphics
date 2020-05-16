@@ -29,6 +29,8 @@ link_directories(${CMAKE_BINARY_DIR}/lib)
 # Uses external libraries GLEW and GLFW
 if(UNIX)
 find_package(GLEW REQUIRED)
+find_package(PNG REQUIRED)
+find_package(TIFF REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLFW REQUIRED glfw3)
 
@@ -63,6 +65,7 @@ add_subdirectory(src)
 
 set(RMGRAPHICS_LIBRARIES
     rmgbase_s
+    rmgimage_s
     rmgwindow_s
 )
 
