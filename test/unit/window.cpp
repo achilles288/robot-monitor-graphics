@@ -8,6 +8,8 @@
 #include <cstdio>
 #include <stdexcept>
 
+using namespace rmg;
+
 
 static void drawTriangle(float ratio, float t) {
     glMatrixMode(GL_PROJECTION);
@@ -27,9 +29,9 @@ static void drawTriangle(float ratio, float t) {
 }
 
 
-class TestWindow1: public rmg::Window {
+class TestWindow1: public Window {
   public:
-    TestWindow1(): rmg::Window() {}
+    TestWindow1(): Window() {}
     
     void update() override {
         float t = getTime();
@@ -50,7 +52,7 @@ TEST(Window, initAndDestroy) {
     EXPECT_EXIT(
         {
             auto window = new TestWindow1();
-            rmg::Window::mainLoop();
+            Window::mainLoop();
             int err = window->getErrorCode();
             delete window;
             exit(err);
@@ -64,15 +66,15 @@ TEST(Window, initAndDestroy) {
 
 
 
-class TestWindow2: public rmg::Window {
+class TestWindow2: public Window {
   public:
-    TestWindow2(): rmg::Window() {}
+    TestWindow2(): Window() {}
     
     void update() override {
         float t = getTime();
         drawTriangle(1.778f, t*-180);
         if(t > 0.1f) {
-            throw std::runtime_error("Handled an exception\n");
+            throw std::runtime_error("Handled an exception");
         }
     }
 };
@@ -81,7 +83,7 @@ TEST(Window, exceptionHandling) {
     EXPECT_EXIT(
         {
             auto window = new TestWindow2();
-            rmg::Window::mainLoop();
+            Window::mainLoop();
             int err = window->getErrorCode();
             delete window;
             exit(err);
@@ -95,13 +97,13 @@ TEST(Window, exceptionHandling) {
 
 
 
-class TestWindow3: public rmg::Window {
+class TestWindow3: public Window {
   public:
-    TestWindow3(): rmg::Window() {}
+    TestWindow3(): Window() {}
     
     void update() override {
         float t = getTime();
-        rmg::Rect r;
+        Rect r;
         r = getContextSize();
         drawTriangle(r.x/(float)r.y, t*220);
         if(t > 0.1f) {
@@ -152,7 +154,7 @@ TEST(Window, setWindowSize) {
     EXPECT_EXIT(
         {
             auto window = new TestWindow3();
-            rmg::Window::mainLoop();
+            Window::mainLoop();
             int err = window->getErrorCode();
             delete window;
             exit(err);
@@ -166,14 +168,14 @@ TEST(Window, setWindowSize) {
 
 
 
-class TestWindow4: public rmg::Window {
+class TestWindow4: public Window {
   private:
     float t0;
     float rate;
     float duration;
     
   public:
-    TestWindow4(float p, float w, float t): rmg::Window() {
+    TestWindow4(float p, float w, float t): Window() {
         t0 = p;
         rate = w;
         duration = t;
@@ -188,13 +190,13 @@ class TestWindow4: public rmg::Window {
     }
 };
 
-TEST(Window, DISABLED_multipleContextsInit) {
+TEST(Window, multipleContextsInit) {
     EXPECT_EXIT(
         {
             auto window1 = new TestWindow4( 0.8f,  180, 0.4f);
             auto window2 = new TestWindow4(-0.4f, -230, 0.2f);
             auto window3 = new TestWindow4( 1.2f,  300, 0.6f);
-            rmg::Window::mainLoop();
+            Window::mainLoop();
             int err = 0;
             if(window1->getErrorCode() != 0  ||
                window1->getErrorCode() != 0  ||

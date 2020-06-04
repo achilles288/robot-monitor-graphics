@@ -91,12 +91,28 @@ void Context::render() {
 }
 
 /**
+ * @brief Makes OpenGL rederer focuses on this context
+ * 
+ * Whenever functions regarding OpenGL resources is intended to be
+ * called, the function needs to be called first especially when working
+ * with multiple contexts.
+ */
+void Context::setCurrent() {}
+
+/**
  * @brief Flushes the drawn graphics by OpenGL onto the screen
  */
 void Context::flush() {
     glFlush();
 }
 
+/**
+ * @brief Gets the running time of the context
+ * 
+ * @return Running time in seconds
+ */
+float Context::getTime() { return 0; }
+    
 /**
  * @brief Gets the frame refresh rate of the context
  * 

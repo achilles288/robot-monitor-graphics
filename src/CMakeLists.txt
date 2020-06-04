@@ -31,6 +31,7 @@ set(RMGBASE_SOURCES
     math/euler.cpp
     math/mat3.cpp
     math/mat4.cpp
+    math/ostream.cpp
     math/vec3.cpp
     math/vec4.cpp
     internal/context_load.cpp
@@ -118,7 +119,6 @@ set(RMGIMAGE_SOURCES
     bitmap.cpp
     bitmap_png.cpp
     bitmap_tiff.cpp
-    
     rmg/bitmap.hpp
 )
 

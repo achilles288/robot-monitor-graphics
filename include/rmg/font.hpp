@@ -37,6 +37,8 @@ class Font {
     
     static uint32_t lastID;
     
+    friend class Context;
+    
   public:
     /**
      * @brief Constructor loads a font from file

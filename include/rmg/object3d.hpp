@@ -25,15 +25,11 @@
 #include "math/mat3.hpp"
 #include "math/mat4.hpp"
 #include "math/vec.hpp"
+#include "internal/vbo_load.hpp"
 #include "internal/context_load.hpp"
 
 
 namespace rmg {
-
-class Context;
-class Cube3D;
-class Cylinder3D;
-class Sphere3D;
 
 namespace internal {
 
@@ -55,23 +51,43 @@ class VBO;
  */
 class Object3D: public Object {
   private:
+    Material* material;
+    float metalness;
+    float roughness;
+    float ambientOcculation;
+    
+    friend class Context;
+    friend class internal::GeneralShader;
+    friend class internal::ShadowMapShader;
+    
     std::shared_ptr<internal::VBO> vbo;
     internal::ContextLoader::Pending vboLoad;
     
+  protected:
+    /**
+     * @brief The matrix composed of all the transformations done by the
+     *        object
+     */
     Mat4 modelMatrix;
-    Mat3 rotationMatrix;
-    Vec3 scale;
-    Material* material;
-    Color color;
-    float diffusion;
-    float specularity;
+    Mat3 rotationMatrix; ///< Rotation done by the object
+    Vec3 scale; ///< Scaling factors as a vector
     
-    friend class Context;
-    friend class Cube3D;
-    friend class Cylinder3D;
-    friend class Sphere3D;
-    friend class internal::GeneralShader;
-    friend class internal::ShadowMapShader;
+    /**
+     * @brief Sets the shared VBO of the object
+     * 
+     * Usually used to shared existing VBOs of basic geometries,
+     * cubes, spheres and cylinders.
+     * 
+     * @param vbo Shared pointer
+     */
+    void setSharedVBO(std::shared_ptr<internal::VBO> vbo);
+    
+    /**
+     * @brief Sets the mesh of the 3D object
+     * 
+     * @param mesh 3D Mesh containing vertex coordinates
+     */
+    void setMesh(const Mesh& mesh);
     
   public:
     /**
@@ -90,32 +106,12 @@ class Object3D: public Object {
     virtual ~Object3D();
     
     /**
-     * @brief Copy constructor
+     * @brief The matrix composed of all the transformations done by the
+     *        object
      * 
-     * @param obj Source object
+     * @return Model matrix
      */
-    Object3D(const Object3D& obj);
-    
-    /**
-     * @brief Move constructor
-     * 
-     * @param obj Source object
-     */
-    Object3D(Object3D&& obj) noexcept;
-    
-    /**
-     * @brief Copy assignment
-     * 
-     * @param obj Source object
-     */
-    Object3D& operator=(const Object3D& obj);
-    
-    /**
-     * @brief Move assignment
-     * 
-     * @param obj Source object
-     */
-    Object3D& operator=(Object3D&& obj) noexcept;
+    Mat4 getModelMatrix();
     
     /**
      * @brief Sets the 3D coordinate which the object appears
@@ -126,7 +122,7 @@ class Object3D: public Object {
      * @param y Y-coordinate
      * @param z Z-coordinate
      */
-    void setPosition(float x, float y, float z);
+    void setTranslation(float x, float y, float z);
     
     /**
      * @brief Sets the 3D coordinate which the object appears
@@ -135,7 +131,7 @@ class Object3D: public Object {
      * 
      * @param pos Position vector
      */
-    void setPosition(const Vec3 &pos);
+    void setTranslation(const Vec3 &pos);
     
     /**
      * @brief Gets the 3D coordinate which the object appears
@@ -144,7 +140,7 @@ class Object3D: public Object {
      * 
      * @return Position vector
      */
-    Vec3 getPosition();
+    Vec3 getTranslation();
     
     /**
      * @brief Sets the orientaion of the 3D object
@@ -153,20 +149,32 @@ class Object3D: public Object {
      * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
      * The function is virtual as the derived classes' handling of model
      * matrix involves additional scaling components.
+     * 
+     * @param rot Euler angles
+     */
+    virtual void setRotation(const Euler &rot) {
+        setRotation(rot.roll, rot.pitch, rot.yaw);
+    }
+    
+    /**
+     * @brief Sets the orientaion of the 3D object
+     * 
+     * Sets the rotation matrix and the model matrix. Rotation of the object
+     * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
      * 
      * @param x Roll
      * @param y Pitch
      * @param z Yaw
      */
-    virtual void setRotation(float x, float y, float z);
+    inline void setRotation(float x, float y, float z) {
+        setRotation(Euler(x, y, z));
+    }
     
     /**
      * @brief Sets the orientaion of the 3D object
      * 
      * Sets the rotation matrix and the model matrix. Rotation of the object
      * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
-     * The function is virtual as the derived classes' handling of model
-     * matrix involves additional scaling components.
      * 
      * @param x Roll
      * @param y Pitch
@@ -181,25 +189,13 @@ class Object3D: public Object {
     }
     
     /**
-     * @brief Sets the orientaion of the 3D object
-     * 
-     * Sets the rotation matrix and the model matrix. Rotation of the object
-     * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
-     * 
-     * @param rot Euler angles
-     */
-    inline void setRotation(const Euler &rot) {
-        setRotation(rot.x, rot.y, rot.z);
-    }
-    
-    /**
      * @brief Gets the orientaion of the 3D object
      * 
      * Calculates Euler angles from the rotation matrix.
      * 
      * @return Euler angles
      */
-    Vec3 getRotation();
+    Euler getRotation();
     
     /**
      * @brief Sets the scale of the 3D object
@@ -265,42 +261,46 @@ class Object3D: public Object {
     void setMaterial(Material* mat);
     
     /**
-     * @brief Sets the diffusion coefficient of the 3D object material
+     * @brief Sets the metalness coefficient of the texture
      * 
-     * Diffused light diffuses along the whole surface almost uniformly.
-     * 
-     * @param diff Diffusion coefficient
+     * @param m Metalness coefficient
      */
-    void setDiffusion(float diff);
+    void setMetalness(float m);
     
     /**
-     * @brief Gets the diffusion coefficient of the 3D object material
+     * @brief Gets the metalness coefficient of the texturey.
      * 
-     * Diffused light diffuses along the whole surface almost uniformly.
-     * 
-     * @return Diffusion coefficient
+     * @return Metalness coefficient
      */
-    float getDiffusion();
+    float getMetalness();
     
     /**
-     * @brief Sets the specularity coefficient of the 3D object material
+     * @brief Sets the roughness coefficient of the texture.
      * 
-     * Specular light means reflected light and this property usually forms
-     * bright spot at some angles of the object.
-     * 
-     * @param spec Specularity coefficient
+     * @param r Roughness coefficient
      */
-    void setSpecularity(float spec);
+    void setRoughness(float r);
     
     /**
-     * @brief Gets the specularity coefficient of the 3D object material
+     * @brief Gets the roughness coefficient of the texture
      * 
-     * Specular light means reflected light and this property usually forms
-     * bright spot at some angles of the object.
-     * 
-     * @return Specularity coefficient
+     * @return Roughness coefficient
      */
-    float getSpecularity();
+    float getRoughness();
+    
+    /**
+     * @brief Sets the ambient occulation of the texture.
+     * 
+     * @param a Ambient occulation
+     */
+    void setAmbientOcculation(float a);
+    
+    /**
+     * @brief Gets the ambient occulation of the texture
+     * 
+     * @return Ambient occulation
+     */
+    float getAmbientOcculation();
 };
 
 }

@@ -6,25 +6,27 @@
 #include <rmg/test_config.h>
 #include <gtest/gtest.h>
 
+using namespace rmg;
+
 
 /**
  * @brief Pixel struct constructor test
  */
 TEST(Pixel, constructor) {
-    rmg::Pixel p1 = rmg::Pixel();
+    Pixel p1 = Pixel();
     ASSERT_EQ(0, p1.channel);
     
-    rmg::Pixel p2 = rmg::Pixel(53);
+    Pixel p2 = Pixel(53);
     ASSERT_EQ(53, p2.value);
     ASSERT_EQ(1, p2.channel);
     
-    rmg::Pixel p3 = rmg::Pixel(142, 64, 12);
+    Pixel p3 = Pixel(142, 64, 12);
     ASSERT_EQ(142, p3.red);
     ASSERT_EQ(64, p3.green);
     ASSERT_EQ(12, p3.blue);
     ASSERT_EQ(3, p3.channel);
     
-    rmg::Pixel p4 = rmg::Pixel(87, 213, 165, 109);
+    Pixel p4 = Pixel(87, 213, 165, 109);
     ASSERT_EQ(87, p4.red);
     ASSERT_EQ(213, p4.green);
     ASSERT_EQ(165, p4.blue);
@@ -39,16 +41,16 @@ TEST(Pixel, constructor) {
  * @brief Bitmap class constructor test
  */
 TEST(Bitmap, constructor) {
-    rmg::Bitmap bmp1 = rmg::Bitmap();
+    Bitmap bmp1 = Bitmap();
     ASSERT_EQ(0, bmp1.getWidth());
     ASSERT_EQ(0, bmp1.getHeight());
     ASSERT_EQ(0, bmp1.getChannel());
     ASSERT_EQ((uint8_t*)NULL, bmp1.getPointer());
     
-    rmg::Bitmap bmp2 = rmg::Bitmap::loadFromFile(
+    Bitmap bmp2 = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/cat.png"
     );
-    rmg::Bitmap bmp3 = bmp2;
+    Bitmap bmp3 = bmp2;
     ASSERT_EQ(bmp2.getWidth(), bmp3.getWidth());
     ASSERT_EQ(bmp2.getHeight(), bmp3.getHeight());
     ASSERT_EQ(bmp2.getChannel(), bmp3.getChannel());
@@ -59,7 +61,7 @@ TEST(Bitmap, constructor) {
     uint16_t h2 = bmp2.getHeight();
     uint8_t c2 = bmp2.getChannel();
     uint8_t* ptr2 = bmp2.getPointer();
-    rmg::Bitmap bmp4 = std::move(bmp2);
+    Bitmap bmp4 = std::move(bmp2);
     ASSERT_EQ(w2, bmp4.getWidth());
     ASSERT_EQ(h2, bmp4.getHeight());
     ASSERT_EQ(c2, bmp4.getChannel());
@@ -79,14 +81,14 @@ TEST(Bitmap, constructor) {
  * certain pixels at some locations.
  */
 TEST(Bitmap, loadPNG_gray) {
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/einstein.png"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(120, bmp.getWidth());
     EXPECT_EQ(117, bmp.getHeight());
     EXPECT_EQ(1, bmp.getChannel());
-    rmg::Pixel p1, p2, p3;
+    Pixel p1, p2, p3;
     p1 = bmp.getPixel(30, 27);
     p2 = bmp.getPixel(10, 98);
     p3 = bmp.getPixel(86, 75);
@@ -96,14 +98,14 @@ TEST(Bitmap, loadPNG_gray) {
 }
 
 TEST(Bitmap, loadPNG_rgb) {
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/cat.png"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(144, bmp.getWidth());
     EXPECT_EQ(128, bmp.getHeight());
     EXPECT_EQ(3, bmp.getChannel());
-    rmg::Pixel p1, p2, p3;
+    Pixel p1, p2, p3;
     p1 = bmp.getPixel(71, 43);
     p2 = bmp.getPixel(26, 106);
     p3 = bmp.getPixel(134, 89);
@@ -119,14 +121,14 @@ TEST(Bitmap, loadPNG_rgb) {
 }
 
 TEST(Bitmap, loadPNG_rgba) {
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/wine.png"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(32, bmp.getWidth());
     EXPECT_EQ(80, bmp.getHeight());
     EXPECT_EQ(4, bmp.getChannel());
-    rmg::Pixel p1, p2, p3, p4;
+    Pixel p1, p2, p3, p4;
     p1 = bmp.getPixel(9, 13);
     p2 = bmp.getPixel(20, 29);
     p3 = bmp.getPixel(30, 28);
@@ -157,14 +159,14 @@ TEST(Bitmap, loadPNG_rgba) {
  * certain pixels at some locations.
  */
 TEST(Bitmap, loadTIFF_gray) {
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/graycat.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(100, bmp.getWidth());
     EXPECT_EQ(75, bmp.getHeight());
     EXPECT_EQ(1, bmp.getChannel());
-    rmg::Pixel p1, p2, p3;
+    Pixel p1, p2, p3;
     p1 = bmp.getPixel(42, 27);
     p2 = bmp.getPixel(16, 42);
     p3 = bmp.getPixel(64, 64);
@@ -174,14 +176,14 @@ TEST(Bitmap, loadTIFF_gray) {
 }
 
 TEST(Bitmap, loadTIFF_rgb) {
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/vase.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(120, bmp.getWidth());
     EXPECT_EQ(120, bmp.getHeight());
     EXPECT_EQ(3, bmp.getChannel());
-    rmg::Pixel p1, p2, p3;
+    Pixel p1, p2, p3;
     p1 = bmp.getPixel(52, 13);
     p2 = bmp.getPixel(82, 54);
     p3 = bmp.getPixel(26, 99);
@@ -197,14 +199,14 @@ TEST(Bitmap, loadTIFF_rgb) {
 }
 
 TEST(Bitmap, loadTIFF_rgba) {
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/fire.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(65, bmp.getWidth());
     EXPECT_EQ(100, bmp.getHeight());
     EXPECT_EQ(4, bmp.getChannel());
-    rmg::Pixel p1, p2, p3, p4;
+    Pixel p1, p2, p3, p4;
     p1 = bmp.getPixel(35, 24);
     p2 = bmp.getPixel(25, 51);
     p3 = bmp.getPixel(32, 79);
@@ -238,7 +240,7 @@ TEST(Bitmap, savePNG) {
     remove(RMGTEST_OUTPUT_PATH "/bitmap_savePNG.png");
     
     // Opens the image file
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/wine.png"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
@@ -264,7 +266,7 @@ TEST(Bitmap, savePNG) {
     bmp.saveFile(RMGTEST_OUTPUT_PATH "/bitmap_savePNG.png");
     
     // Reopens the output image and does logic tests
-    rmg::Bitmap saved = rmg::Bitmap::loadFromFile(
+    Bitmap saved = Bitmap::loadFromFile(
         RMGTEST_OUTPUT_PATH "/bitmap_savePNG.png"
     );
     ASSERT_NE((uint8_t*)NULL, saved.getPointer());
@@ -272,7 +274,7 @@ TEST(Bitmap, savePNG) {
     EXPECT_EQ(80, saved.getHeight());
     EXPECT_EQ(4, saved.getChannel());
     
-    rmg::Pixel p1, p2, p3, p4;
+    Pixel p1, p2, p3, p4;
     p1 = saved.getPixel(11, 10);
     p2 = saved.getPixel(12, 24);
     p3 = saved.getPixel(23, 41);
@@ -306,7 +308,7 @@ TEST(Bitmap, saveTIFF_gray) {
     remove(RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_gray.tif");
     
     // Opens the image file
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/graycat.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
@@ -327,7 +329,7 @@ TEST(Bitmap, saveTIFF_gray) {
     bmp.saveFile(RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_gray.tif");
     
     // Reopens the output image and does logic tests
-    rmg::Bitmap saved = rmg::Bitmap::loadFromFile(
+    Bitmap saved = Bitmap::loadFromFile(
         RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_gray.tif"
     );
     ASSERT_NE((uint8_t*)NULL, saved.getPointer());
@@ -335,7 +337,7 @@ TEST(Bitmap, saveTIFF_gray) {
     EXPECT_EQ(75, saved.getHeight());
     EXPECT_EQ(1, saved.getChannel());
     
-    rmg::Pixel p1, p2, p3;
+    Pixel p1, p2, p3;
     p1 = bmp.getPixel(30, 33);
     p2 = bmp.getPixel(60, 42);
     p3 = bmp.getPixel(56, 67);
@@ -348,7 +350,7 @@ TEST(Bitmap, saveTIFF_rgba) {
     remove(RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_rgba.tif");
     
     // Opens the image file
-    rmg::Bitmap bmp = rmg::Bitmap::loadFromFile(
+    Bitmap bmp = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/fire.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
@@ -373,7 +375,7 @@ TEST(Bitmap, saveTIFF_rgba) {
     bmp.saveFile(RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_rgba.tif");
     
     // Reopens the output image and does logic tests
-    rmg::Bitmap saved = rmg::Bitmap::loadFromFile(
+    Bitmap saved = Bitmap::loadFromFile(
         RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_rgba.tif"
     );
     ASSERT_NE((uint8_t*)NULL, saved.getPointer());
@@ -381,7 +383,7 @@ TEST(Bitmap, saveTIFF_rgba) {
     EXPECT_EQ(100, saved.getHeight());
     EXPECT_EQ(4, saved.getChannel());
     
-    rmg::Pixel p1, p2, p3, p4;
+    Pixel p1, p2, p3, p4;
     p1 = saved.getPixel(24, 53);
     p2 = saved.getPixel(40, 49);
     p3 = saved.getPixel(43, 70);

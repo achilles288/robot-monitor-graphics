@@ -11,7 +11,7 @@ include_directories(
     ${GLEW_INCLUDE_DIR}
 )
 
-file(GLOB RMGTEST_UNIT_SOURCES unit/*.cpp)
+file(GLOB_RECURSE RMGTEST_UNIT_SOURCES unit/*.cpp)
 
 add_executable(rmg_test
     ${RMGTEST_UNIT_SOURCES}

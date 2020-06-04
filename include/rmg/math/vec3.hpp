@@ -16,6 +16,7 @@
 
 
 #include <cstdint>
+#include <ostream>
 
 
 namespace rmg {
@@ -179,6 +180,16 @@ struct Vec3 {
  * @return Multiplied vector
  */
 Vec3 operator * (float f, const Vec3 &v);
+
+/**
+ * @brief Prints a vector
+ * 
+ * @param os Output stream
+ * @param v The vector to print
+ * 
+ * @return Reference of passed output stream
+ */
+std::ostream& operator << (std::ostream& os, const Vec3& v);
 
 }
 

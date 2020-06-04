@@ -61,12 +61,12 @@ class ContextLoader {
      * the loading list and prevents data duplication in the queue.
      */
     class Pending {
+      private:
         struct Shared {
             uint64_t use_count; /**< Reference count */
             bool added; /**< States if the instance is added to the list */
         };
         
-      private:
         ContextLoad* data;
         Shared* shared;
         
@@ -102,7 +102,7 @@ class ContextLoader {
          * 
          * @param p Source instance
          */
-        Pending(Pending&& p) noexcept = default;
+        Pending(Pending&& p) noexcept;
         
         /**
          * @brief Copy assignment
@@ -116,7 +116,14 @@ class ContextLoader {
          * 
          * @param p Source instance
          */
-        Pending& operator=(Pending&& p) noexcept = default;
+        Pending& operator=(Pending&& p) noexcept;
+        
+        /**
+         * @brief Gets the reference count
+         * 
+         * @return Reference count
+         */
+        uint64_t getUseCount();
     };
     
     /**

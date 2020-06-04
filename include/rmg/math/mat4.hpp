@@ -16,6 +16,7 @@
 
 
 #include <cstdint>
+#include <ostream>
 
 
 namespace rmg {
@@ -111,6 +112,16 @@ struct Mat4 {
     Vec4 operator * (const Vec4 &P) const;
     
     /**
+     * @brief Gets the inverse matrix
+     * 
+     * Determinant checking is not included for performance. The function
+     * doesn't determine if the output matrix is valid or not.
+     * 
+     * @return Inverse matrix
+     */
+    Mat4 inverse() const;
+    
+    /**
      * @brief Gets reference to matrix row
      * 
      * @param i Row index
@@ -128,6 +139,16 @@ struct Mat4 {
      */
     Mat4Row const& operator [] (uint8_t i) const;
 };
+
+/**
+ * @brief Prints a matrix with UTF-8 encoded characters
+ * 
+ * @param os Output stream
+ * @param M The matrix to print
+ * 
+ * @return Reference of passed output stream
+ */
+std::ostream& operator << (std::ostream& os, const Mat4& M);
 
 }
 

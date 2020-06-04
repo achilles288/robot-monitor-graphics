@@ -15,8 +15,6 @@
 #include <cstdint>
 #include <string>
 
-#include "color.hpp"
-#include "internal/context_load.hpp"
 #include "internal/texture_load.hpp"
 
 
@@ -28,17 +26,15 @@ class Context;
 /**
  * @brief To enhance the appearance of 2D/3D objects with image data
  */
-class Material {
+class Material: public internal::Texture {
   private:
     uint32_t id;
     Context* context;
-    internal::Texture texture;
     internal::ContextLoader::Pending textureLoad;
-    Color color;
-    float diffusion;
-    float specularity;
     
     static uint32_t lastID;
+    
+    friend class Context;
     
   public:
     /**
@@ -57,9 +53,22 @@ class Material {
      * wood, .etc.
      * 
      * @param ctx Conatiner context
-     * @param f Path to image file (.png)
+     * @param f Path to material textures (folder or zip)
      */
     Material(Context* ctx, const std::string &f);
+    
+    /**
+     * @brief Constructor loads an image from file
+     * 
+     * Creates a textural material from an image, ceramic tiles, stones,
+     * wood, .etc.
+     * 
+     * @param ctx Conatiner context
+     * @param f Path to material textures (folder or zip)
+     * @param col Colorize the base image if supported making a color variant
+     *            of an existing one
+     */
+    Material(Context* ctx, const std::string &f, const Color &col);
     
     /**
      * @brief Destructor
@@ -113,77 +122,6 @@ class Material {
      * @return Container context
      */
     Context* getContext();
-    
-    /**
-     * @brief Sets material color
-     * 
-     * @param r Red
-     * @param g Green
-     * @param b Blue
-     */
-    void setColor(float r, float g, float b);
-    
-    /**
-     * @brief Sets material color
-     * 
-     * @param r Red
-     * @param g Green
-     * @param b Blue
-     * @param a Alpha
-     */
-    void setColor(float r, float g, float b, float a);
-    
-    /**
-     * @brief Sets material color
-     * 
-     * @param col RGBA color
-     */
-    void setColor(const Color &col);
-    
-    /**
-     * @brief Gets material color
-     * 
-     * @return RGBA color
-     */
-    Color getColor();
-    
-    /**
-     * @brief Sets the diffusion coefficient of the 3D object material
-     * 
-     * Diffused light diffuses along the whole surface almost uniformly.
-     * 
-     * @param diff Diffusion coefficient
-     */
-    void setDiffusion(float diff);
-    
-    /**
-     * @brief Gets the diffusion coefficient of the 3D object material
-     * 
-     * Diffused light diffuses along the whole surface almost uniformly.
-     * 
-     * @return Diffusion coefficient
-     */
-    float getDiffusion();
-    
-    /**
-     * @brief Sets the specularity coefficient of the 3D object material
-     * 
-     * Specular light means reflected light and this property usually forms
-     * bright spot at some angles of the object.
-     * 
-     * @param spec Specularity coefficient
-     */
-    void setSpecularity(float spec);
-    
-    /**
-     * @brief Gets the specularity coefficient of the 3D object material
-     * 
-     * Specular light means reflected light and this property usually forms
-     * bright spot at some angles of the object.
-     * 
-     * @return Specularity coefficient
-     */
-    float getSpecularity();
 };
 
 }

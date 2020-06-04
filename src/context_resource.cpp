@@ -68,6 +68,7 @@ void Context::addObject(Object* obj) {
         Object3D* obj3d = (Object3D*) obj;
         auto elem = std::pair<uint64_t,Object3D*>(obj->getID(),obj3d);
         objects3d.insert(elem);
+        loader.push(obj3d->vboLoad);
     }
     else if(obj->getObjectType() == ObjectType::Particle3D) {
         Particle3D* part = (Particle3D*) obj;
@@ -90,6 +91,7 @@ void Context::addMaterial(Material* mat) {
     RMG_ASSERT(mat->getContext() == this);
     auto elem = std::pair<uint32_t,Material*>(mat->getID(),mat);
     materials.insert(elem);
+    loader.push(mat->textureLoad);
 }
 
 /**
@@ -101,6 +103,7 @@ void Context::addFont(Font* font) {
     RMG_ASSERT(font->getContext() == this);
     auto elem = std::pair<uint32_t,Font*>(font->getID(),font);
     fonts.insert(elem);
+    loader.push(font->textureLoad);
 }
 
 /**
@@ -116,19 +119,23 @@ void Context::removeObject(Object* obj) {
        obj->getObjectType() == ObjectType::Text2D)
     {
         auto it = objects2d.find(obj->getID());
-        objects2d.erase(it);
+        if(it != objects2d.end())
+            objects2d.erase(it);
     }
     else if(obj->getObjectType() == ObjectType::Object3D) {
         auto it = objects3d.find(obj->getID());
-        objects3d.erase(it);
+        if(it != objects3d.end())
+            objects3d.erase(it);
     }
     else if(obj->getObjectType() == ObjectType::Particle3D) {
         auto it = particles.find(obj->getID());
-        particles.erase(it);
+        if(it != particles.end())
+            particles.erase(it);
     }
     else if(obj->getObjectType() == ObjectType::Line3D) {
         auto it = lines3d.find(obj->getID());
-        lines3d.erase(it);
+        if(it != lines3d.end())
+            lines3d.erase(it);
     }
 }
 

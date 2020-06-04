@@ -15,6 +15,7 @@
 #include <vector>
 
 #include "../bitmap.hpp"
+#include "../color.hpp"
 #include "context_load.hpp"
 
 
@@ -39,7 +40,12 @@ class Texture;
 class TextureLoad: public ContextLoad {
   private:
     Texture* texture;
-    Bitmap bitmap;
+    Bitmap basecolor;
+    Bitmap heightmap;
+    Bitmap normalmap;
+    Bitmap mrao;
+    Bitmap colormap;
+    Bitmap emissivity;
     
   public:
     /**
@@ -53,37 +59,26 @@ class TextureLoad: public ContextLoad {
     TextureLoad(Texture* tex, const Bitmap& bmp);
     
     /**
+     * @brief Constructs a pending object
+     * 
+     * @param tex Address to a Texture instance. This is to redirect 
+     *            responses after loading.
+     * @param dat Data array
+     * @param base Base image
+     * @param h Height mapping
+     * @param norm Normal mapping
+     * @param m Metallic, rough, ambient
+     * @param col Color mapping
+     * @param e Emissivity
+     */
+    TextureLoad(Texture* tex, const Bitmap& base, const Bitmap& h,
+                const Bitmap& norm, const Bitmap& m, const Bitmap& col,
+                const Bitmap& e);
+    
+    /**
      * @brief Destructor
      */
     ~TextureLoad();
-    
-    /**
-     * @brief Copy constructor
-     * 
-     * @param tex Source
-     */
-    TextureLoad(const TextureLoad& tex);
-    
-    /**
-     * @brief Move constructor
-     * 
-     * @param tex Source
-     */
-    TextureLoad(TextureLoad&& tex) noexcept;
-    
-    /**
-     * @brief Copy assignment
-     * 
-     * @param tex Source
-     */
-    TextureLoad& operator=(const TextureLoad& tex);
-    
-    /**
-     * @brief Move assignment
-     * 
-     * @param tex Source
-     */
-    TextureLoad& operator=(TextureLoad&& tex) noexcept;
     
     /**
      * @brief Loads the texture data to the GPU
@@ -101,8 +96,22 @@ class TextureLoad: public ContextLoad {
  */
 class Texture {
   private:
-    uint32_t textureID;
-    uint8_t channel;
+    uint32_t basecolor;
+    uint32_t heightMap;
+    uint32_t normalMap;
+    uint32_t mraoMap;
+    uint32_t colorMap;
+    uint32_t opacity;
+    uint32_t emissivity;
+    
+    uint16_t width;
+    uint16_t height;
+    
+    Color color;
+    float metalness;
+    float roughness;
+    float ambientOcculation;
+    float depth;
     
     friend class TextureLoad;
     
@@ -150,6 +159,81 @@ class Texture {
      * @param tex Source texture
      */
     Texture& operator=(Texture&& tex) noexcept;
+    
+    /**
+     * @brief Sets material color
+     * 
+     * @param r Red
+     * @param g Green
+     * @param b Blue
+     */
+    void setColor(float r, float g, float b);
+    
+    /**
+     * @brief Sets material color
+     * 
+     * @param r Red
+     * @param g Green
+     * @param b Blue
+     * @param a Alpha
+     */
+    void setColor(float r, float g, float b, float a);
+    
+    /**
+     * @brief Sets material color
+     * 
+     * @param col RGBA color
+     */
+    void setColor(const Color &col);
+    
+    /**
+     * @brief Gets material color
+     * 
+     * @return RGBA color
+     */
+    Color getColor();
+    
+    /**
+     * @brief Sets the metalness coefficient of the texture
+     * 
+     * @param m Metalness coefficient
+     */
+    void setMetalness(float m);
+    
+    /**
+     * @brief Gets the metalness coefficient of the texturey.
+     * 
+     * @return Metalness coefficient
+     */
+    float getMetalness();
+    
+    /**
+     * @brief Sets the roughness coefficient of the texture.
+     * 
+     * @param r Roughness coefficient
+     */
+    void setRoughness(float r);
+    
+    /**
+     * @brief Gets the roughness coefficient of the texture
+     * 
+     * @return Roughness coefficient
+     */
+    float getRoughness();
+    
+    /**
+     * @brief Sets the ambient occulation of the texture.
+     * 
+     * @param ao Ambient occulation
+     */
+    void setAmbientOcculation(float ao);
+    
+    /**
+     * @brief Gets the ambient occulation of the texture
+     * 
+     * @return Ambient occulation
+     */
+    float getAmbientOcculation();
 };
 
 }}

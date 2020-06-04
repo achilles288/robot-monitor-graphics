@@ -16,6 +16,7 @@
 
 
 #include <cstdint>
+#include <ostream>
 
 
 namespace rmg {
@@ -170,6 +171,16 @@ struct Vec2 {
  */
 Vec2 operator * (float f, const Vec2 &v);
 
+/**
+ * @brief Prints a vector
+ * 
+ * @param os Output stream
+ * @param v The vector to print
+ * 
+ * @return Reference of passed output stream
+ */
+std::ostream& operator << (std::ostream& os, const Vec2& v);
+
 
 
 
@@ -193,6 +204,16 @@ struct Rect {
      */
     Rect(uint16_t x, uint16_t y);
 };
+
+/**
+ * @brief Prints a screen coordinate
+ * 
+ * @param os Output stream
+ * @param rect The rectangular dimension
+ * 
+ * @return Reference of passed output stream
+ */
+std::ostream& operator << (std::ostream& os, const Rect& rect);
 
 }
 

@@ -91,4 +91,55 @@ Vec3 Mat3::operator * (const Vec3 &P) const {
     return Y;
 }
 
+/**
+ * @brief Gets the inverse matrix
+ * 
+ * Determinant checking is not included for performance. The function
+ * doesn't determine if the output matrix is valid or not.
+ * 
+ * @return Inverse matrix
+ */
+Mat3 Mat3::inverse() const {
+    // Gauss-Jordan elimination method
+    Mat3 A = *this;
+    Mat3 B;
+    for(int i=0; i<3; i++) {
+        // Make pivot in ith column by dividing the ith row
+        float p = A[i][i];
+        if(fabs(p) < 0.0001f) {
+            // Pivot is zero and need to swap with another row
+            for(int k=i+1; ; k++) {
+                if(k >= 3)
+                    return Mat3(NAN);
+                if(fabs(A[k][i]) < 0.001f)
+                    continue;
+                Mat3Row tmp;
+                tmp = A[i];
+                A[i] = A[k];
+                A[k] = tmp;
+                tmp = B[i];
+                B[i] = B[k];
+                B[k] = tmp;
+                p = A[i][i];
+                break;
+            }
+        }
+        for(int j=0; j<3; j++) {
+            A[i][j] /= p;
+            B[i][j] /= p;
+        }
+        // Eliminate ith column
+        for(int j=0; j<3; j++) {
+            if(j == i)
+                continue;
+            float q = A[j][i];
+            for(int k=0; k<3; k++) {
+                A[j][k] -= q*A[i][k];
+                B[j][k] -= q*B[i][k];
+            }
+        }
+    }
+    return B;
+}
+
 }

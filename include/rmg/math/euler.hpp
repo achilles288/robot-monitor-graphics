@@ -18,6 +18,8 @@
 
 #include <rmg/math/angle_unit.hpp>
 
+#include <ostream>
+
 
 namespace rmg {
 
@@ -30,23 +32,9 @@ struct Mat3;
  * They can also be called yaw, pitch and roll. Values are stored as radian.
  */
 struct Euler {
-    /**
-     * @brief Gives option to access data as xyz or roll-pitch-yaw
-     * 
-     * Please use roll-pitch-yaw if possible.
-     */
-    union {
-        struct {
-            float x; ///< Rotation along X-axis
-            float y; ///< Rotation along Y-axis
-            float z; ///< Rotation along Z-axis
-        };
-        struct {
-            float roll;  ///< Rotation along X-axis
-            float pitch; ///< Rotation along Y-axis
-            float yaw;   ///< Rotation along Z-axis
-        };
-    };
+    float roll;  ///< Rotation along X-axis
+    float pitch; ///< Rotation along Y-axis
+    float yaw;   ///< Rotation along Z-axis
     
     /**
      * @brief Default constructor
@@ -86,6 +74,16 @@ struct Euler {
      */
     Mat3 toRotationMatrix();
 };
+
+/**
+ * @brief Prints a tuple of Euler angles
+ * 
+ * @param os Output stream
+ * @param euler The Euler angles
+ * 
+ * @return Reference of passed output stream
+ */
+std::ostream& operator << (std::ostream& os, const Euler& euler);
 
 }
 

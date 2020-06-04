@@ -12,10 +12,8 @@
 #ifndef __RMG_VBO_LOAD_H__
 #define __RMG_VBO_LOAD_H__
 
-#include <vector>
-
-#include <rmg/math/vec.hpp>
-#include <rmg/internal/context_load.hpp>
+#include "../mesh.hpp"
+#include "context_load.hpp"
 
 
 namespace rmg {
@@ -37,13 +35,9 @@ class VBO;
  * @see TextureLoadPending
  * @see FontLoadPending
  */
-class VBOLoad: public ContextLoad {
+class VBOLoad: public ContextLoad, public Mesh {
   private:
     VBO* vbo;
-    std::vector<Vec3> vertices;
-    std::vector<Vec3> normals;
-    std::vector<Vec2> text_coords;
-    std::vector<uint16_t> indecies;
     
   public:
     /**
@@ -51,49 +45,14 @@ class VBOLoad: public ContextLoad {
      * 
      * @param vbo Address to a VBO instance. This is to redirect 
      *            responses after loading.
-     * @param vert Vertices
-     * @param norm Normals
-     * @param tex Texture coordinates
-     * @param in Indecies
+     * @param mesh Mesh
      */
-    VBOLoad(VBO* vbo,
-            const std::vector<Vec3> &vert,
-            const std::vector<Vec3> &norm,
-            const std::vector<Vec2> &tex,
-            const std::vector<uint16_t> &in);
+    VBOLoad(VBO* vbo, const Mesh& mesh);
     
     /**
      * @brief Destructor
      */
-    ~VBOLoad();
-    
-    /**
-     * @brief Copy constructor
-     * 
-     * @param vbo Source
-     */
-    VBOLoad(const VBOLoad& vbo);
-    
-    /**
-     * @brief Move constructor
-     * 
-     * @param vbo Source
-     */
-    VBOLoad(VBOLoad&& vbo) noexcept;
-    
-    /**
-     * @brief Copy assignment
-     * 
-     * @param vbo Source
-     */
-    VBOLoad& operator=(const VBOLoad& vbo);
-    
-    /**
-     * @brief Move assignment
-     * 
-     * @param vbo Source
-     */
-    VBOLoad& operator=(VBOLoad&& vbo) noexcept;
+    virtual ~VBOLoad();
     
     /**
      * @brief Loads the array of VBOs to the GPU

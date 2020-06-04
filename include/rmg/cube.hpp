@@ -22,11 +22,6 @@
 #include "object3d.hpp"
 
 
-namespace rmg::internal {
-class VBOLoad;
-}
-
-
 namespace rmg {
 
 /**
@@ -41,7 +36,7 @@ class Cube3D: public Object3D {
     float breadth;
     float height;
     
-    using Sample = shared_ptr<internal::VBOLoad>;
+    using Sample = shared_ptr<internal::VBO>;
     static std::vector<std::pair<uint32_t, Sample>> samples;
     
   public:
@@ -59,34 +54,6 @@ class Cube3D: public Object3D {
      * @brief Destructor
      */
     virtual ~Cube3D();
-    
-    /**
-     * @brief Copy constructor
-     * 
-     * @param obj Source object
-     */
-    Cube3D(const Cube3D& obj);
-    
-    /**
-     * @brief Move constructor
-     * 
-     * @param obj Source object
-     */
-    Cube3D(Cube3D&& obj) noexcept;
-    
-    /**
-     * @brief Copy assignment
-     * 
-     * @param obj Source object
-     */
-    Cube3D& operator=(const Cube3D& obj);
-    
-    /**
-     * @brief Move assignment
-     * 
-     * @param obj Source object
-     */
-    Cube3D& operator=(Cube3D&& obj) noexcept;
     
     /**
      * @brief Modify the dimension of the cube
@@ -112,11 +79,9 @@ class Cube3D: public Object3D {
      * Model matrix calculation includes additional factors length, width and
      * height.
      * 
-     * @param x Roll
-     * @param y Pitch
-     * @param z Yaw
+     * @param rot Euler angles
      */
-    void setRotation(float x, float y, float z) override;
+    void setRotation(const Euler& rot) override;
     
     /**
      * @brief Sets the scale of the cube

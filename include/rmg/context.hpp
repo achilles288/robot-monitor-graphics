@@ -77,9 +77,9 @@ class Context {
     Mat4 VPMatrix;
     float minDistance;
     float maxDistance;
-    Vec3 directionalLight;
-    Vec3 directionalLightCamera;
-    Color directionalLightColor;
+    Vec3 dlWorldSpace;
+    Vec3 dlCameraSpace;
+    Color dlColor;
     std::map<uint64_t, Object2D*> objects2d;
     std::map<uint64_t, Object3D*> objects3d;
     std::map<uint64_t, Particle3D*> particles;
@@ -187,7 +187,7 @@ class Context {
      * 
      * @return Running time in seconds
      */
-    virtual float getTime() = 0;
+    virtual float getTime();
     
     /**
      * @brief Gets the frame refresh rate of the context
@@ -267,9 +267,7 @@ class Context {
      * @brief Sets rotation of the camera
      * 
      * Sets the view matrix. Rotation of the camera is in Euler angles.
-     * Rotation order is ZYX (Yaw-Pitch-Roll). Initial camera direction
-     * or X-axis is along the Y-axis of the world (rotation values of
-     * (0,0,0)).
+     * Rotation order is ZYX (Yaw-Pitch-Roll).
      * 
      * @param x Roll
      * @param y Pitch
@@ -281,9 +279,7 @@ class Context {
      * @brief Sets rotation of the camera
      * 
      * Sets the view matrix. Rotation of the camera is in Euler angles.
-     * Rotation order is ZYX (Yaw-Pitch-Roll). Initial camera direction
-     * or X-axis is along the Y-axis of the world (rotation values of
-     * (0,0,0)).
+     * Rotation order is ZYX (Yaw-Pitch-Roll).
      * 
      * @param x Roll
      * @param y Pitch
@@ -306,7 +302,7 @@ class Context {
      * @param rot Euler angles
      */
     inline void setCameraRotation(const Euler &rot) {
-        setCameraRotation(rot.x, rot.y, rot.z);
+        setCameraRotation(rot.roll, rot.pitch, rot.yaw);
     }
     
     /**
@@ -407,9 +403,7 @@ class Context {
     /**
      * @brief Gets the directional lighting color
      * 
-     * RGB color. Light intensity is in place of alpha component.
-     * 
-     * @return Light color and intensity
+     * @return RGBA color. Alpha component is used as light intensity.
      */
     Color getDirectionalLightColor();
     
@@ -418,9 +412,7 @@ class Context {
      * 
      * Directional light takes the main role in fragment shaders and
      * shadow mappings for 3D object viewing. Rotation order is
-     * ZY (Yaw-Pitch). Rolling has no effect. Directional light vector
-     * with angle values of zeros is pointed towards the Y-axis which
-     * is the same as initial camera direction.
+     * ZY (Yaw-Pitch). Rolling has no effect.
      * 
      * @param pitch Angle above xy-plane
      * @param yaw Angle about z-axis
@@ -432,9 +424,7 @@ class Context {
      * 
      * Directional light takes the main role in fragment shaders and
      * shadow mappings for 3D object viewing. Rotation order is
-     * ZY (Yaw-Pitch). Rolling has no effect. Directional light vector
-     * with angle values of zeros is pointed towards the Y-axis which
-     * is the same as initial camera direction.
+     * ZY (Yaw-Pitch). Rolling has no effect.
      * 
      * @param pitch Angle above xy-plane
      * @param yaw Angle about z-axis
@@ -454,9 +444,7 @@ class Context {
      * 
      * Directional light takes the main role in fragment shaders and
      * shadow mappings for 3D object viewing. Rotation order is
-     * ZY (Yaw-Pitch). Rolling has no effect. Directional light vector
-     * with angle values of zeros is pointed towards the Y-axis which
-     * is the same as initial camera direction.
+     * ZY (Yaw-Pitch). Rolling has no effect.
      * 
      * @param rot Euler angles
      */
@@ -473,6 +461,17 @@ class Context {
      * @return Rotation in Euler angles
      */
     Euler getDirectionalLightAngles();
+    
+    /**
+     * @brief Converts world space to OpenGL clip space
+     * 
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     * @param z Z-coordinate
+     * 
+     * @return 3D coordinate in OpenGL clip space
+     */
+    Vec3 worldToClip(float x, float y, float z);
     
     /**
      * @brief Converts world coordinate to screen coordinate
@@ -606,7 +605,7 @@ class Context {
      * called, the function needs to be called first especially when working
      * with multiple contexts.
      */
-    virtual void setCurrent() = 0;
+    virtual void setCurrent();
     
     /**
      * @brief Flushes the drawn graphics by OpenGL onto the screen

@@ -16,6 +16,8 @@
 
 #include "../rmg/internal/context_load.hpp"
 
+#include <utility>
+
 
 namespace rmg {
 namespace internal {
@@ -38,9 +40,7 @@ void ContextLoad::load() {}
  */
 ContextLoader::Pending::Pending() {
     data = NULL;
-    shared = new Shared();
-    shared->use_count = 1;
-    shared->added = false;
+    shared = NULL;
 }
 
 /**
@@ -59,6 +59,8 @@ ContextLoader::Pending::Pending(ContextLoad* load) {
  * @brief Destructor
  */
 ContextLoader::Pending::~Pending() {
+    if(shared == NULL)
+        return;
     shared->use_count--;
     if(shared->use_count == 0) {
         delete data;
@@ -79,6 +81,17 @@ ContextLoader::Pending::Pending(const ContextLoader::Pending& p)
 }
 
 /**
+ * @brief Move constructor
+ * 
+ * @param p Source instance
+ */
+ContextLoader::Pending::Pending(ContextLoader::Pending&& p) noexcept
+{
+    data = std::exchange(p.data, nullptr);
+    shared = std::exchange(p.shared, nullptr);
+}
+
+/**
  * @brief Copy assignment
  * 
  * @param p Source instance
@@ -90,6 +103,30 @@ ContextLoader::Pending::operator=(const ContextLoader::Pending& p)
     shared = p.shared;
     shared->use_count++;
     return *this;
+}
+
+/**
+ * @brief Copy assignment
+ * 
+ * @param p Source instance
+ */
+ContextLoader::Pending&
+ContextLoader::Pending::operator=(ContextLoader::Pending&& p) noexcept
+{
+    data = std::exchange(p.data, nullptr);
+    shared = std::exchange(p.shared, nullptr);
+    return *this;
+}
+
+/**
+ * @brief Gets the reference count
+ * 
+ * @return Reference count
+ */
+uint64_t ContextLoader::Pending::getUseCount() {
+    if(shared == NULL)
+        return 0;
+    return shared->use_count;
 }
 
 
@@ -117,13 +154,10 @@ ContextLoader::~ContextLoader() {}
  */
 void ContextLoader::push(const ContextLoader::Pending& elem)
 {
-    if(elem.shared->added)
+    if(elem.shared == NULL || elem.shared->added)
         return;
-    ContextLoader::Pending p;
-    p.data = elem.data;
-    p.shared = elem.shared;
-    p.shared->added = true;
-    pendingList.push(p);
+    elem.shared->added = true;
+    pendingList.push(elem);
 }
 
 /**
@@ -135,8 +169,8 @@ void ContextLoader::push(const ContextLoader::Pending& elem)
  */
 void ContextLoader::load() {
     while(pendingList.size() != 0) {
-        ContextLoader::Pending p = pendingList.front();
-        if(p.shared->use_count != 0)
+        ContextLoader::Pending& p = pendingList.front();
+        if(p.shared->use_count != 1)
             p.data->load();
         pendingList.pop();
     }

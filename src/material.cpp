@@ -22,12 +22,9 @@ uint32_t Material::lastID = 0;
  * 
  * @param ctx Conatiner context
  */
-Material::Material(Context* ctx) {
+Material::Material(Context* ctx): internal::Texture() {
     id = ++lastID;
     context = ctx;
-    color = Color(1, 1, 1, 1);
-    diffusion = 0.5f;
-    specularity = 0.5f;
 }
 
 /**
@@ -63,85 +60,5 @@ uint32_t Material::getID() { return id; }
  * @return Container context
  */
 Context* Material::getContext() { return context; }
-
-/**
- * @brief Sets material color
- * 
- * @param r Red
- * @param g Green
- * @param b Blue
- */
-void Material::setColor(float r, float g, float b) {
-    color.red = r;
-    color.green = g;
-    color.blue = b;
-}
-
-/**
- * @brief Sets material color
- * 
- * @param r Red
- * @param g Green
- * @param b Blue
- * @param a Alpha
- */
-void Material::setColor(float r, float g, float b, float a) {
-    color.red = r;
-    color.green = g;
-    color.blue = b;
-    color.alpha = a;
-}
-
-/**
- * @brief Sets material color
- * 
- * @param col RGBA color
- */
-void Material::setColor(const Color &col) { color = col; }
-
-/**
- * @brief Gets material color
- * 
- * @return RGBA color
- */
-Color Material::getColor() { return color; }
-
-/**
- * @brief Sets the diffusion coefficient of the 3D object material
- * 
- * Diffused light diffuses along the whole surface almost uniformly.
- * 
- * @param diff Diffusion coefficient
- */
-void Material::setDiffusion(float diff) { diffusion = diff; }
-
-/**
- * @brief Gets the diffusion coefficient of the 3D object material
- * 
- * Diffused light diffuses along the whole surface almost uniformly.
- * 
- * @return Diffusion coefficient
- */
-float Material::getDiffusion() { return diffusion; }
-
-/**
- * @brief Sets the specularity coefficient of the 3D object material
- * 
- * Specular light means reflected light and this property usually forms
- * bright spot at some angles of the object.
- * 
- * @param spec Specularity coefficient
- */
-void Material::setSpecularity(float spec) { specularity = spec; }
-
-/**
- * @brief Gets the specularity coefficient of the 3D object material
- * 
- * Specular light means reflected light and this property usually forms
- * bright spot at some angles of the object.
- * 
- * @return Specularity coefficient
- */
-float Material::getSpecularity() { return specularity; }
 
 }
