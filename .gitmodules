@@ -4,3 +4,9 @@
 [submodule "googletest"]
 	path = external/googletest
 	url = https://github.com/google/googletest
+[submodule "libpng"]
+	path = external/libpng
+	url = git://git.code.sf.net/p/libpng/code
+[submodule "libtiff"]
+	path = external/libtiff
+	url = https://gitlab.com/libtiff/libtiff

@@ -35,7 +35,7 @@ Bitmap Bitmap::loadTIFF(const std::string& file) {
     TIFF *tif = TIFFOpen(file.c_str(), "r");
     
     if(!tif) {
-        #ifdef WIN32
+        #ifdef _WIN32
         printf("error: File '%s' could not be opened\n", file.c_str());
         #else
         printf("\033[0;1;31merror: \033[0m"
@@ -52,7 +52,7 @@ Bitmap Bitmap::loadTIFF(const std::string& file) {
     TIFFGetField(tif, TIFFTAG_SAMPLESPERPIXEL, &channel);
     bmp.width = width;
     bmp.height = height;
-    bmp.channel = channel;
+    bmp.channel = (uint8_t) channel;
     size_t bmp_size = width * height * channel;
     bmp.data = (uint8_t*) malloc(bmp_size);
     for(tstrip_t s = 0; s < TIFFNumberOfStrips(tif); s++)
@@ -70,7 +70,7 @@ void Bitmap::saveTIFF(const std::string& file) {
     // Creates the file
     TIFF *tif = TIFFOpen(file.c_str(), "w");
     if(!tif) {
-        #ifdef WIN32
+        #ifdef _WIN32
         printf("error: Image could not be saved at '%s'\n", file.c_str());
         #else
         printf("\033[0;1;31merror: \033[0m"
@@ -103,7 +103,7 @@ void Bitmap::saveTIFF(const std::string& file) {
     TIFFSetField(tif, TIFFTAG_PLANARCONFIG, PLANARCONFIG_CONTIG);
     TIFFSetField(tif, TIFFTAG_RESOLUTIONUNIT, RESUNIT_NONE);
     
-    size_t rowsize = width * channel;
+    uint32_t rowsize = width * channel;
     TIFFSetField(tif, TIFFTAG_ROWSPERSTRIP, TIFFDefaultStripSize(tif,rowsize));
     
     // Writes the bytes

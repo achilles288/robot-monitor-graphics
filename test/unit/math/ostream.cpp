@@ -96,15 +96,22 @@ TEST(Ostream, mat) {
     testing::internal::CaptureStdout();
     std::cout << M;
     std::string str = testing::internal::GetCapturedStdout();
-    std::string expected = u8"┌─                            ─┐\n"
-                             "│ 101.9400,  1.2943, 2.015e+05 │\n"
-                             "│  -2.1720, -3.1256,       nan │\n"
-                             "│   0.0000,  0.0000,    1.0000 │\n"
-                             "└─                            ─┘\n";
+    
+    std::string expected = 
+        "\xe2\x94\x8c\xe2\x94\x80"
+        "                            "
+        "\xe2\x94\x80\xe2\x94\x90\n"
+        "\xe2\x94\x82 101.9400,  1.2943, 2.015e+05 \xe2\x94\x82\n"
+        "\xe2\x94\x82  -2.1720, -3.1256,       nan \xe2\x94\x82\n"
+        "\xe2\x94\x82   0.0000,  0.0000,    1.0000 \xe2\x94\x82\n"
+        "\xe2\x94\x94\xe2\x94\x80"
+        "                            "
+        "\xe2\x94\x80\xe2\x94\x98\n";
+    
     if(str != expected) {
         FAIL() << "Expected print:\n" << expected
                << "Actual print:\n" << str << std::endl;
     }
     else
-        std::cout << "Test print:\n" << str;
+        std::cout << "Test print:\n" << M;
 }

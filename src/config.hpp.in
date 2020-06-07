@@ -14,8 +14,9 @@
 
 
 
-#ifdef WIN32
-#include <Winsock.h>
+#ifdef _WIN32
+#include <Windows.h>
+#include <Winbase.h>
 #else
 #include <unistd.h>
 #endif
@@ -30,7 +31,12 @@ namespace rmg {
  */
 inline char* getHostname() {
     static char hostname[64+1];
+    #ifdef _WIN32
+    DWORD len = 64+1;
+    GetComputerName(hostname, &len);
+    #else
     gethostname(hostname, 64+1);
+    #endif
     return hostname;
 }
 

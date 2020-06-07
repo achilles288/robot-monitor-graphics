@@ -40,7 +40,7 @@ void Context::render() {
         glewExperimental = true; // Needed for core profile
         if(glewInit() != GLEW_OK) {
             destroy();
-            #ifdef WIN32
+            #ifdef _WIN32
             throw std::runtime_error("error: Failed to initialize GLEW");
             #else
             throw std::runtime_error("\033[0;1;31merror: \033[0m"
@@ -52,7 +52,7 @@ void Context::render() {
         glGetIntegerv(GL_MINOR_VERSION, &minor);
         if(major*100 + minor < 3*100 + 2) { // 3.2
             setErrorCode(503);
-            #ifdef WIN32
+            #ifdef _WIN32
             printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
             throw std::runtime_error("error: Requires OpenGL 3.2. "
                                      "Please check if you have the latest "

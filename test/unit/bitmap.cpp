@@ -257,8 +257,8 @@ TEST(Bitmap, savePNG) {
             uint8_t tmp = ptr[0];
             ptr[0] = ptr[1];
             ptr[1] = tmp;
-            ptr[2] *= 0.75f;
-            ptr[3] *= 0.55f;
+            ptr[2] = (uint8_t) (ptr[2] * 0.75f);
+            ptr[3] = (uint8_t) (ptr[3] * 0.55f);
         }
     }
     
@@ -366,8 +366,8 @@ TEST(Bitmap, saveTIFF_rgba) {
             uint8_t tmp = ptr[0];
             ptr[0] = ptr[1];
             ptr[1] = ptr[2];
-            ptr[2] = tmp * 0.8f;
-            ptr[3] *= 0.7f;
+            ptr[2] = (uint8_t) (tmp * 0.8f);
+            ptr[3] = (uint8_t) (ptr[3] * 0.7f);
         }
     }
     

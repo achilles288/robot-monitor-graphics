@@ -55,7 +55,7 @@ Window::Window() {
     if(!glfwInitDone) {
         if(!glfwInit()) {
             setErrorCode(503);
-            #ifdef WIN32
+            #ifdef _WIN32
             printf("error: Failed to initialize GLFW\n");
             #else
             printf("\033[0;1;31merror:\033[0m Failed to initialize GLFW\n");
@@ -71,7 +71,7 @@ Window::Window() {
     glfw_window = glfwCreateWindow(768, 432, "RMGraphics Window", NULL, NULL);
     if(glfw_window == NULL) {
         setErrorCode(503);
-        #ifdef WIN32
+        #ifdef _WIN32
         printf("error: Failed to open GLFW window\n");
         #else
         printf("\033[0;1;31merror:\033[0m Failed to open GLFW window\n");

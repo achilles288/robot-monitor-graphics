@@ -36,7 +36,7 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
     FILE *fp = fopen(file.c_str(), "rb");
     char header[8];
     
-    #ifdef WIN32
+    #ifdef _WIN32
     // Opens the file
     if(!fp) {
         printf("error: File '%s' could not be opened\n", file.c_str());
@@ -99,7 +99,7 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
                              PNG_MAX_PALETTE_LENGTH, histogram, 0);
         }
         else {
-            #ifdef WIN32
+            #ifdef _WIN32
             printf("error: Failed reading palette '%s'\n", file.c_str());
             #else
             printf("\033[0;1;31merror: \033[0m"
@@ -119,7 +119,7 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
     
     // Extracting array of data
     size_t rowsize = png_get_rowbytes(png_ptr,info_ptr);
-    bmp.channel = rowsize / bmp.width;
+    bmp.channel = (uint8_t) (rowsize / bmp.width);
     
     bmp.data = (uint8_t*) malloc(bmp.height * rowsize);
     png_bytep* row_ptrs = (png_bytep*) malloc(sizeof(png_bytep) * bmp.height);
@@ -156,7 +156,7 @@ void Bitmap::savePNG(const std::string& file) {
     // Creates the file
     FILE *fp = fopen(file.c_str(), "wb");
     if(!fp) {
-        #ifdef WIN32
+        #ifdef _WIN32
         printf("error: Image could not be saved at '%s'\n", file.c_str());
         #else
         printf("\033[0;1;31merror: \033[0m"
