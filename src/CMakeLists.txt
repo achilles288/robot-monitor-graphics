@@ -10,7 +10,6 @@ configure_file(
 # RMGraphics Base Library
 # 
 include_directories(
-    ../include
     ${CMAKE_BINARY_DIR}/config
     ${OPENGL_INCLUDE_DIR}
     ${GLEW_INCLUDE_DIR}

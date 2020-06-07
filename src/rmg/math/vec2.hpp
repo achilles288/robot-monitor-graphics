@@ -220,7 +220,7 @@ std::ostream& operator << (std::ostream& os, const Rect& rect);
 
 
 
-#include <rmg/math/vec2.inc>
+#include "vec2.inc"
 
 
 #endif

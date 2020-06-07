@@ -153,7 +153,7 @@ std::ostream& operator << (std::ostream& os, const Mat4& M);
 }
 
 
-#include <rmg/math/mat4.inc>
+#include "mat4.inc"
 
 
 #endif

@@ -9,7 +9,7 @@
 
 #ifndef NDEBUG
 
-#include "rmg/assert.hpp"
+#include "assert.hpp"
 
 #include <cstdio>
 #include <cstdlib>

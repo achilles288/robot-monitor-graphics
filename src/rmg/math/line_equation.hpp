@@ -13,7 +13,7 @@
 #define __RMG_LINE_EQ_H__
 
 
-#include <rmg/math/vec3.hpp>
+#include "vec3.hpp"
 
 
 namespace rmg {

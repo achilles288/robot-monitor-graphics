@@ -16,7 +16,7 @@
 #define __RMG_PLANE_EQ_H__
 
 
-#include <rmg/math/line_equation.hpp>
+#include "line_equation.hpp"
 
 
 namespace rmg {

@@ -10,14 +10,14 @@
  */
 
 
-#include <rmg/math/vec.hpp>
+#include "vec.hpp"
 
 #include <cmath>
 #ifndef M_PI
 #define M_PI 3.14159265359f
 #endif
 
-#include <rmg/assert.hpp>
+#include "../assert.hpp"
 
 
 namespace rmg {

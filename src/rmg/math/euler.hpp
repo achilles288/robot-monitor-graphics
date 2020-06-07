@@ -16,7 +16,7 @@
 #define __RMG_EULER_H__
 
 
-#include <rmg/math/angle_unit.hpp>
+#include "angle_unit.hpp"
 
 #include <ostream>
 

@@ -174,7 +174,7 @@ std::ostream& operator << (std::ostream& os, const Vec4& v);
 }
 
 
-#include <rmg/math/vec4.inc>
+#include "vec4.inc"
 
 
 #endif

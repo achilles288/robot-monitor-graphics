@@ -13,12 +13,12 @@
 
 #pragma once
 #ifndef __RMG_ANGLE_UNIT_H__
-#define __RMG_ANGLE_UNIT_H__
+#define __RMG_ANGLE_UNIT_H__ ///< Header guard
 
 
 #include <cmath>
 #ifndef M_PI
-#define M_PI 3.14159265359f
+#define M_PI 3.14159265359f ///< PI
 #endif
 
 

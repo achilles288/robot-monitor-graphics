@@ -4,7 +4,7 @@ configure_file(
 )
 
 include_directories(
-    ../include
+    ../src
     external/googletest/googletest/include
     ${CMAKE_BINARY_DIR}/config
     ${OPENGL_INCLUDE_DIR}

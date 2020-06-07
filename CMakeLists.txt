@@ -8,7 +8,7 @@ set(RMGAPHICS_VERSION 0.1.0)
 set(CMAKE_CXX_STANDARD 17)
 
 # RMGraphics C++ API documentation
-add_subdirectory(include)
+add_subdirectory(docs)
 
 
 # Gets OpenGL header and library

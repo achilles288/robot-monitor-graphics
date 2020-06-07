@@ -17,7 +17,7 @@
 #ifndef __RMG_GENERAL_SHADER_H__
 #define __RMG_GENERAL_SHADER_H__
 
-#include <rmg/internal/shader.hpp>
+#include "shader.hpp"
 
 namespace rmg {
 namespace internal {

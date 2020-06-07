@@ -10,9 +10,9 @@
  */
 
 
-#include <rmg/math/mat3.hpp>
+#include "mat3.hpp"
 
-#include <rmg/assert.hpp>
+#include "../assert.hpp"
 
 
 namespace rmg {

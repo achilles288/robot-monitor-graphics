@@ -8,7 +8,7 @@
  */
 
 
-#include "rmg/internal/vbo_load.hpp"
+#include "../rmg/internal/vbo_load.hpp"
 
 #include <cstdlib>
 #include <utility>

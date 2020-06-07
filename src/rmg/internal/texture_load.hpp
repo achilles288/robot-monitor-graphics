@@ -53,7 +53,6 @@ class TextureLoad: public ContextLoad {
      * 
      * @param tex Address to a Texture instance. This is to redirect 
      *            responses after loading.
-     * @param dat Data array
      * @param bmp Image data
      */
     TextureLoad(Texture* tex, const Bitmap& bmp);
@@ -63,17 +62,14 @@ class TextureLoad: public ContextLoad {
      * 
      * @param tex Address to a Texture instance. This is to redirect 
      *            responses after loading.
-     * @param dat Data array
      * @param base Base image
      * @param h Height mapping
      * @param norm Normal mapping
      * @param m Metallic, rough, ambient
-     * @param col Color mapping
      * @param e Emissivity
      */
     TextureLoad(Texture* tex, const Bitmap& base, const Bitmap& h,
-                const Bitmap& norm, const Bitmap& m, const Bitmap& col,
-                const Bitmap& e);
+                const Bitmap& norm, const Bitmap& m, const Bitmap& e);
     
     /**
      * @brief Destructor
