@@ -1,3 +1,3 @@
 build
 src/rmg/config.h
-test/test-config.h
+test/testconf.h

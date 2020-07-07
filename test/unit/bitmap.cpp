@@ -5,7 +5,7 @@
 
 #include <gtest/gtest.h>
 
-#include "../test_config.h"
+#include "../testconf.h"
 
 using namespace rmg;
 
