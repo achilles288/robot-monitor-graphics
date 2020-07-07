@@ -31,61 +31,25 @@ namespace rmg {
 class Text2D: public Object2D {
   private:
     Font* font;
-    float fontSize;
     std::string text;
     
   public:
     /**
-     * @brief Constructor with its container
-     * 
-     * This constructor doesn't request any other parameters font, font size
-     * and this constructor constructs one instance with a preloaded default
-     * font and default font size.
+     * @brief Default constructor
      * 
      * @param ctx Container context
      */
-    Text2D(Context* ctx);
+    Text2D();
     
     /**
      * @brief Constructor with loaded font
      * 
      * @param ctx Container context
      * @param ft Loaded font
+     * @param s Font size
+     * @param txt String to display
      */
-    Text2D(Context* ctx, Font* ft);
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~Text2D();
-    
-    /**
-     * @brief Copy constructor
-     * 
-     * @param obj Source object
-     */
-    Text2D(const Text2D& obj);
-    
-    /**
-     * @brief Move constructor
-     * 
-     * @param obj Source object
-     */
-    Text2D(Text2D&& obj) noexcept;
-    
-    /**
-     * @brief Copy assignment
-     * 
-     * @param obj Source object
-     */
-    Text2D& operator=(const Text2D& obj);
-    
-    /**
-     * @brief Move assignment
-     * 
-     * @param obj Source object
-     */
-    Text2D& operator=(Text2D&& obj) noexcept;
+    Text2D(Context* ctx, Font* ft, float s=16, const std::string &txt="Text");
     
     /**
      * @brief Sets the text to display
@@ -99,7 +63,7 @@ class Text2D: public Object2D {
      * 
      * @return String to display
      */
-    std::string getText();
+    std::string getText() const;
     
     /**
      * @brief Sets the font of the text object
@@ -113,7 +77,7 @@ class Text2D: public Object2D {
      * 
      * @return Current font of the object
      */
-    Font* getFont();
+    Font* getFont() const;
     
     /**
      * @brief Sets the font size of the text object
@@ -127,17 +91,7 @@ class Text2D: public Object2D {
      * 
      * @return Font size
      */
-    float getFontSize();
-    
-    /**
-     * @brief Sets the rotation of the text object
-     * 
-     * Scaling factor of the model matrix changes from size of 2D object to
-     * font size.
-     * 
-     * @param t Rotation in degrees
-     */
-    void setRotation(float t) override;
+    float getFontSize() const;
 };
 
 }

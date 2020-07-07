@@ -28,24 +28,12 @@ class SpriteShader: public Shader {
     /**
      * @brief Default constructor
      */
-    SpriteShader();
-    
-    /**
-     * @brief Constructor with its container
-     * 
-     * @param ctx Container context
-     */
-    SpriteShader(Context* ctx);
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~SpriteShader();
+    SpriteShader() = default;
     
     /**
      * @brief Compile, link and assign program parameters
      */
-    void load();
+    void load() override;
 };
 
 }}

@@ -70,6 +70,8 @@ class ContextLoader {
         ContextLoad* data;
         Shared* shared;
         
+        void swap(Pending& x) noexcept;
+        
         friend class ContextLoader;
         
       public:
@@ -123,7 +125,7 @@ class ContextLoader {
          * 
          * @return Reference count
          */
-        uint64_t getUseCount();
+        uint64_t getUseCount() const;
     };
     
     /**
@@ -160,7 +162,7 @@ class ContextLoader {
      * 
      * @return Size of pending list
      */
-    uint64_t getLoadCount();
+    uint64_t getLoadCount() const;
     
   private:
     std::queue<Pending> pendingList;

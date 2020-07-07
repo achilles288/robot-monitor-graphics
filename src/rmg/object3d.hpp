@@ -31,10 +31,12 @@
 
 namespace rmg {
 
+class Bitmap;
+class Material;
+
 namespace internal {
 
-class GeneralShader;
-class ShadowMapShader;
+class Texture;
 class VBO;
 
 }
@@ -56,12 +58,11 @@ class Object3D: public Object {
     float roughness;
     float ambientOcculation;
     
-    friend class Context;
-    friend class internal::GeneralShader;
-    friend class internal::ShadowMapShader;
-    
     std::shared_ptr<internal::VBO> vbo;
     internal::ContextLoader::Pending vboLoad;
+    
+    std::shared_ptr<internal::Texture> texture;
+    internal::ContextLoader::Pending texLoad;
     
   protected:
     /**
@@ -69,14 +70,13 @@ class Object3D: public Object {
      *        object
      */
     Mat4 modelMatrix;
-    Mat3 rotationMatrix; ///< Rotation done by the object
     Vec3 scale; ///< Scaling factors as a vector
     
     /**
      * @brief Sets the shared VBO of the object
      * 
-     * Usually used to shared existing VBOs of basic geometries,
-     * cubes, spheres and cylinders.
+     * Usually used to share existing VBOs of basic geometries like
+     * cubes, cylinders and spheres.
      * 
      * @param vbo Shared pointer
      */
@@ -91,6 +91,11 @@ class Object3D: public Object {
     
   public:
     /**
+     * @brief Default constructor
+     */
+    Object3D();
+    
+    /**
      * @brief Constructor with its container
      * 
      * @param ctx Container context
@@ -98,12 +103,12 @@ class Object3D: public Object {
     Object3D(Context* ctx);
     
     /**
-     * @brief Destructor decreases the VBO reference count
+     * @brief Constructor loads 3D model from file.
      * 
-     * When the reference count of the shared pointer drops to zero, it
-     * cleans up the GPU resource taken by the VBO.
+     * @param ctx Container context
+     * @param file 3D model file (.obj)
      */
-    virtual ~Object3D();
+    Object3D(Context* ctx, std::string file);
     
     /**
      * @brief The matrix composed of all the transformations done by the
@@ -111,7 +116,7 @@ class Object3D: public Object {
      * 
      * @return Model matrix
      */
-    Mat4 getModelMatrix();
+    const Mat4& getModelMatrix() const;
     
     /**
      * @brief Sets the 3D coordinate which the object appears
@@ -140,21 +145,17 @@ class Object3D: public Object {
      * 
      * @return Position vector
      */
-    Vec3 getTranslation();
+    Vec3 getTranslation() const;
     
     /**
      * @brief Sets the orientaion of the 3D object
      * 
      * Sets the rotation matrix and the model matrix. Rotation of the object
      * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
-     * The function is virtual as the derived classes' handling of model
-     * matrix involves additional scaling components.
      * 
      * @param rot Euler angles
      */
-    virtual void setRotation(const Euler &rot) {
-        setRotation(rot.roll, rot.pitch, rot.yaw);
-    }
+    void setRotation(const Euler &rot);
     
     /**
      * @brief Sets the orientaion of the 3D object
@@ -183,43 +184,40 @@ class Object3D: public Object {
      */
     inline void setRotation(float x, float y, float z, AngleUnit unit) {
         if(unit == AngleUnit::Radian)
-            setRotation(x, y, z);
+            setRotation(Euler(x, y, z));
         else
-            setRotation(radian(x), radian(y), radian(z));
+            setRotation(Euler(x, y, z, AngleUnit::Degree));
     }
     
     /**
      * @brief Gets the orientaion of the 3D object
      * 
-     * Calculates Euler angles from the rotation matrix.
+     * Calculates Euler angles retriving the rotation matrix from the model
+     * matrix. Additional scaling components involves in such process.
      * 
      * @return Euler angles
      */
-    Euler getRotation();
+    Euler getRotation() const;
     
     /**
      * @brief Sets the scale of the 3D object
      * 
      * Sets the scale and the model matrix.
-     * The function is virtual as the derived classes' handling of model
-     * matrix involves additional scaling components.
      * 
      * @param x Scaling factor in x-component
      * @param y Scaling factor in y-component
      * @param z Scaling factor in z-component
      */
-    virtual void setScale(float x, float y, float z);
+    void setScale(float x, float y, float z);
     
     /**
      * @brief Sets the scale of the 3D object
      * 
      * Sets the scale and the model matrix.
-     * The function is virtual as the derived classes' handling of model
-     * matrix involves additional scaling components.
      * 
      * @param f Scaling factor
      */
-    virtual void setScale(float f);
+    void setScale(float f);
     
     /**
      * @brief Sets the scale of the 3D object
@@ -235,20 +233,7 @@ class Object3D: public Object {
      * 
      * @return Scaling factors in x, y and z components
      */
-    Vec3 getScale();
-    
-    /**
-     * @brief Sets the material properties of the 3D object
-     * 
-     * Color is 4-channel. Diffused light diffuses along the whole surface
-     * almost uniformly. Specular light means reflected light and this
-     * property usually forms bright spot at some angles of the object.
-     * 
-     * @param col RGBA color
-     * @param diff Diffusion coefficient
-     * @param spec Specularity coefficient
-     */
-    void setMaterial(Color col, float diff, float spec);
+    Vec3 getScale() const;
     
     /**
      * @brief Sets the material texture
@@ -258,7 +243,54 @@ class Object3D: public Object {
      * 
      * @param mat Predefined material
      */
-    void setMaterial(Material* mat);
+    virtual void setMaterial(Material* mat);
+    
+    /**
+     * @brief Gets the material texture
+     * 
+     * Gets the object to use a predefined material. This material data uses
+     * OpenGL context for texture image, normal maps, .etc.
+     * 
+     * @return Predefined material texture
+     */
+    Material *getMaterial() const;
+    
+    /**
+     * @brief Loads texture from file
+     * 
+     * @param f Path to material textures (file, folder or zip)
+     */
+    void loadTexture(const std::string &f);
+    
+    /**
+     * @brief Loads texture from bitmap
+     * 
+     * @param bmp Base image
+     */
+    void loadTexture(const Bitmap &bmp);
+    
+    /**
+     * @brief Loads texture from bitmap
+     * 
+     * @param base Base image
+     * @param h Height mapping
+     * @param norm Normal mapping
+     * @param m Metallic, rough, ambient occulation
+     * @param e Emissivity
+     */
+    void loadTexture(const Bitmap& base, const Bitmap& h,
+                     const Bitmap& norm, const Bitmap& m, const Bitmap& e);
+    
+    /**
+     * @brief Sets the material properties of the 3D object
+     * 
+     * Sets all three material lighting properties by a single setter function.
+     * 
+     * @param m Metalness
+     * @param r Roughness
+     * @param ao Ambient occulation
+     */
+    void setMRAO(float m, float r, float ao);
     
     /**
      * @brief Sets the metalness coefficient of the texture
@@ -272,7 +304,7 @@ class Object3D: public Object {
      * 
      * @return Metalness coefficient
      */
-    float getMetalness();
+    float getMetalness() const;
     
     /**
      * @brief Sets the roughness coefficient of the texture.
@@ -286,7 +318,7 @@ class Object3D: public Object {
      * 
      * @return Roughness coefficient
      */
-    float getRoughness();
+    float getRoughness() const;
     
     /**
      * @brief Sets the ambient occulation of the texture.
@@ -300,7 +332,35 @@ class Object3D: public Object {
      * 
      * @return Ambient occulation
      */
-    float getAmbientOcculation();
+    float getAmbientOcculation() const;
+    
+    /**
+     * @brief Gets the pointer to VBO
+     * 
+     * @return Pointer to VBO
+     */
+    const internal::VBO *getVBO() const;
+    
+    /**
+     * @brief Gets the pointer to the texture
+     * 
+     * @return Pointer to the texture
+     */
+    const internal::Texture *getTexture() const;
+    
+    /**
+     * @brief Gets the VBO loader
+     * 
+     * @return VBO loader
+     */
+    const internal::ContextLoader::Pending& getVBOLoad() const;
+    
+    /**
+     * @brief Gets the texture loader
+     * 
+     * @return Texture loader
+     */
+    const internal::ContextLoader::Pending& getTextureLoad() const;
 };
 
 }

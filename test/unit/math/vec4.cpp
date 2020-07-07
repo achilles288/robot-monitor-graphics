@@ -1,4 +1,5 @@
 #include <rmg/math/vec.hpp>
+
 #include <gtest/gtest.h>
 
 using namespace rmg;

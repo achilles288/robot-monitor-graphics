@@ -21,10 +21,13 @@ namespace rmg {
  * @brief Structural build of a 3D model consisting of polygons
  */
 class Mesh {
+  private:
+    void swap(Mesh& mesh) noexcept;
+    
   protected:
     Vec3* vertices; ///< Coordinate in 3D space
     Vec3* normals; ///< Normal vector used in calculating reflections
-    Vec2* textures; ///< Coordinate representing a portion of textural image
+    Vec2* texCoords; ///< Coordinate representing a portion of textural image
     uint64_t vertex_count; ///< Number of vertecies
     uint16_t* indecies; ///< Array of vertex indecies forming polygons
     uint64_t index_count; ///< Number of indecies
@@ -44,6 +47,14 @@ class Mesh {
      * @brief Default constructor
      */
     Mesh();
+    
+    /**
+     * @brief Constructor from pointers of arrays
+     * 
+     * @param vert Vertex array
+     * @param vcount Number of vertices
+     */
+    Mesh(Vec3* vert, uint64_t vcount);
     
     /**
      * @brief Constructor from pointers of arrays

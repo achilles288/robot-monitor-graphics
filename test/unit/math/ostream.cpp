@@ -2,9 +2,10 @@
 #include <rmg/math/mat3.hpp>
 #include <rmg/math/mat4.hpp>
 #include <rmg/math/vec.hpp>
-#include <gtest/gtest.h>
 
 #include <iostream>
+
+#include <gtest/gtest.h>
 
 using namespace rmg;
 

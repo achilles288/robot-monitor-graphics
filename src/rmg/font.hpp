@@ -92,15 +92,20 @@ class Font {
      * 
      * @return Font ID
      */
-    uint32_t getID();
+    uint32_t getID() const;
     
     /**
      * @brief Gets the container context
      * 
      * @return Container context
      */
-    Context* getContext();
+    Context* getContext() const;
 };
+
+/**
+ * @brief Indication of the use of default font
+ */
+#define RMG_DEFAULT_FONT nullptr
 
 }
 

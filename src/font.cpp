@@ -38,13 +38,13 @@ Font::~Font() {}
  * 
  * @return Font ID
  */
-uint32_t Font::getID() { return id; }
+uint32_t Font::getID() const { return id; }
 
 /**
  * @brief Gets the container context
  * 
  * @return Container context
  */
-Context* Font::getContext() { return context; }
+Context* Font::getContext() const { return context; }
 
 }

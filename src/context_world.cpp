@@ -17,6 +17,7 @@
 #include "rmg/math/line_equation.hpp"
 
 #include <iostream>
+
 using std::cout;
 using std::endl;
 
@@ -76,7 +77,7 @@ Context::~Context() {
  * 
  * @return Context ID
  */
-uint32_t Context::getID() { return id; }
+uint32_t Context::getID() const { return id; }
 
 /**
  * @brief Sets OpenGL viewport size
@@ -97,7 +98,7 @@ void Context::setContextSize(uint16_t w, uint16_t h) {
  * 
  * @return Rectangular dimension
  */
-Rect Context::getContextSize() {
+Rect Context::getContextSize() const {
     return Rect(width, height);
 }
 
@@ -130,7 +131,30 @@ void Context::setBackgroundColor(const Color &col) {
  * 
  * @return RGB color
  */
-Color Context::getBackgroundColor() { return bgColor; }
+Color Context::getBackgroundColor() const { return bgColor; }
+
+/**
+ * @brief Gets the view matrix
+ */
+const Mat4& Context::getViewMatrix() const { return viewMatrix; }
+
+/**
+ * @brief Gets the projection matrix
+ */
+const Mat4& Context::getProjectionMatrix() const { return projectionMatrix; }
+
+/**
+ * @brief Gets the composition of view and projection matrix
+ */
+const Mat4& Context::getVPMatrix() const { return VPMatrix; }
+
+
+static const Mat4 adjust1 = {
+    { 0,-1, 0, 0},
+    { 0, 0, 1, 0},
+    {-1, 0, 0, 0},
+    { 0, 0, 0, 1}
+};
 
 /**
  * @brief Sets xyz position of the camera
@@ -142,9 +166,16 @@ Color Context::getBackgroundColor() { return bgColor; }
  * @param z Z-coordinate
  */
 void Context::setCameraTranslation(float x, float y, float z) {
-    viewMatrix[0][3] = y;
-    viewMatrix[1][3] = -z;
-    viewMatrix[2][3] = x;
+    cameraPosition.x = x;
+    cameraPosition.y = y;
+    cameraPosition.z = z;
+    Mat4 translation = {
+        {1, 0, 0, -x},
+        {0, 1, 0, -y},
+        {0, 0, 1, -z},
+        {0, 0, 0,  1}
+    };
+    viewMatrix = adjust1 * Mat4(cameraRotation) * translation;
     VPMatrix = projectionMatrix * viewMatrix;
 }
 
@@ -156,9 +187,14 @@ void Context::setCameraTranslation(float x, float y, float z) {
  * @param pos Camera position
  */
 void Context::setCameraTranslation(const Vec3 &pos) {
-    viewMatrix[0][3] = pos.y;
-    viewMatrix[1][3] = -pos.z;
-    viewMatrix[2][3] = pos.x;
+    cameraPosition = pos;
+    Mat4 translation = {
+        {1, 0, 0, -pos.x},
+        {0, 1, 0, -pos.y},
+        {0, 0, 1, -pos.z},
+        {0, 0, 0,    1  }
+    };
+    viewMatrix = adjust1 * Mat4(cameraRotation) * translation;
     VPMatrix = projectionMatrix * viewMatrix;
 }
 
@@ -173,18 +209,14 @@ void Context::setCameraTranslation(const Vec3 &pos) {
  * @param z Yaw
  */
 void Context::setCameraRotation(float x, float y, float z) {
-    Mat3 adjust = {
-        { 0,-1, 0},
-        { 0, 0, 1},
-        {-1, 0, 0}
+    cameraRotation = Euler(x,y,z).toRotationMatrix().inverse();
+    Mat4 translation = {
+        {1, 0, 0, -cameraPosition.x},
+        {0, 1, 0, -cameraPosition.y},
+        {0, 0, 1, -cameraPosition.z},
+        {0, 0, 0,          1       }
     };
-    Mat3 R = adjust * Euler(x,y,z).toRotationMatrix().inverse();
-    
-    for(int i=0; i<3; i++) {
-        for(int j=0; j<3; j++)
-            viewMatrix[i][j] = R[i][j];
-    }
-    
+    viewMatrix = adjust1 * Mat4(cameraRotation) * translation;
     VPMatrix = projectionMatrix * viewMatrix;
     dlCameraSpace = (Vec3) (viewMatrix * Vec4(dlWorldSpace, 0));
 }
@@ -196,13 +228,7 @@ void Context::setCameraRotation(float x, float y, float z) {
  * 
  * @return XYZ position
  */
-Vec3 Context::getCameraTranslation() {
-    return Vec3(
-        viewMatrix[2][3],
-        viewMatrix[0][3],
-        -viewMatrix[1][3]
-    );
-}
+Vec3 Context::getCameraTranslation() const { return cameraPosition; }
 
 /**
  * @brief Gets rotation of the camera
@@ -212,13 +238,8 @@ Vec3 Context::getCameraTranslation() {
  *
  * @return Rotation in Euler angles
  */
-Euler Context::getCameraRotation() {
-    Mat3 adjust = {
-        { 0, 0,-1},
-        {-1, 0, 0},
-        { 0, 1, 0}
-    };
-    Mat3 R = (adjust * Mat3(viewMatrix)).inverse();
+Euler Context::getCameraRotation() const {
+    Mat3 R = cameraRotation.inverse();
     return Euler(R);
 }
 
@@ -300,7 +321,7 @@ void Context::setMaximumDistance(float far) {
  * 
  * @return Field of view
  */
-float Context::getFieldOfView() {
+float Context::getFieldOfView() const {
     return 2*atan(1/projectionMatrix[1][1]);
 }
     
@@ -309,14 +330,14 @@ float Context::getFieldOfView() {
  * 
  * @return Minimum clipping distance
  */
-float Context::getMinimumDistance() { return minDistance; }
+float Context::getMinimumDistance() const { return minDistance; }
 
 /**
  * @brief Gets maximum distance for depth clipping
  * 
  * @return Maximum clipping distance
  */
-float Context::getMaximumDistance() { return maxDistance; }
+float Context::getMaximumDistance() const { return maxDistance; }
 
 /**
  * @brief Sets the directional lighting color
@@ -354,7 +375,7 @@ void Context::setDirectionalLightColor(const Color &col) {
  * 
  * @return RGBA color. Alpha component is used as light intensity.
  */
-Color Context::getDirectionalLightColor() { return dlColor; }
+Color Context::getDirectionalLightColor() const { return dlColor; }
 
 /**
  * @brief Sets the directional lighting angles
@@ -381,7 +402,7 @@ void Context::setDirectionalLightAngles(float pitch, float yaw) {
  * 
  * @return Rotation in Euler angles
  */
-Euler Context::getDirectionalLightAngles() {
+Euler Context::getDirectionalLightAngles() const {
     Euler rot;
     rot.roll = 0;
     rot.pitch = asin(-dlWorldSpace.z);
@@ -399,7 +420,7 @@ Euler Context::getDirectionalLightAngles() {
  * 
  * @return 3D coordinate in OpenGL clip space
  */
-Vec3 Context::worldToClip(float x, float y, float z) {
+Vec3 Context::worldToClip(float x, float y, float z) const {
     Vec4 v = VPMatrix * Vec4(x, y, z, 1);
     return Vec3(v.x/v.w, v.y/v.w, v.z/v.w);
 }
@@ -415,7 +436,7 @@ Vec3 Context::worldToClip(float x, float y, float z) {
  * 
  * @return 2D point on screen
  */
-Rect Context::worldToScreen(float x, float y, float z) {
+Rect Context::worldToScreen(float x, float y, float z) const {
     Vec4 S = VPMatrix * Vec4(x, y, z, 1);
     Rect pt;
     pt.x = (int16_t)((S.x/S.w + 1) * width/2);
@@ -432,7 +453,7 @@ Rect Context::worldToScreen(float x, float y, float z) {
  * 
  * @return 2D point on screen
  */
-Rect Context::worldToScreen(const Vec3 &p) {
+Rect Context::worldToScreen(const Vec3 &p) const {
     Vec4 S = VPMatrix * Vec4(p, 1);
     Rect pt;
     pt.x = (int16_t)((S.x/S.w + 1) * width/2);
@@ -450,7 +471,7 @@ Rect Context::worldToScreen(const Vec3 &p) {
  * 
  * @return Line equation in 3D world
  */
-LineEq Context::screenToWorld(uint16_t x, uint16_t y) {
+LineEq Context::screenToWorld(uint16_t x, uint16_t y) const {
     return LineEq();
 }
 
@@ -463,7 +484,7 @@ LineEq Context::screenToWorld(uint16_t x, uint16_t y) {
  * 
  * @return Line equation in 3D world
  */
-LineEq Context::screenToWorld(const Rect &p) {
+LineEq Context::screenToWorld(const Rect &p) const {
     return LineEq();
 }
 

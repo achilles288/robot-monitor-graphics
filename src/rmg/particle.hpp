@@ -18,11 +18,13 @@
 #include <memory>
 
 #include "object.hpp"
-#include "math/mat3.hpp"
+#include "math/vec.hpp"
 #include "internal/context_load.hpp"
 
 
 namespace rmg {
+
+class Bitmap;
 
 namespace internal {
 
@@ -43,63 +45,34 @@ class Particle3D: public Object {
     std::shared_ptr<internal::Texture> texture;
     internal::ContextLoader::Pending texLoad;
     
-    Mat3 modelMatrix;
     Vec3 position;
-    float t;
-    float width;
-    float height;
+    Vec2 size;
     
     friend class internal::ParticleShader;
     
   public:
     /**
+     * @brief Default constructor
+     */
+    Particle3D() = default;
+    
+    /**
      * @brief Constructs a particle object loading a particle image
      * 
      * @param ctx Container context
      * @param img Image file (supports the same format Texture class does)
+     * @param s Particle size
      */
-    Particle3D(Context* ctx, std::string img);
+    Particle3D(Context* ctx, const std::string &img, const Vec2 &s=Vec2());
+    
     /**
      * @brief Constructs a particle object loading a particle image
      * 
      * @param ctx Container context
-     * @param img Image file (supports the same format Texture class does)
-     * @param size Sprite size
+     * @param bmp Particle image
+     * @param s Particle size
      */
-    Particle3D(Context* ctx, std::string img, Vec2 size);
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~Particle3D();
-    
-    /**
-     * @brief Copy constructor
-     * 
-     * @param obj Source object
-     */
-    Particle3D(const Particle3D& obj);
-    
-    /**
-     * @brief Move constructor
-     * 
-     * @param obj Source object
-     */
-    Particle3D(Particle3D&& obj) noexcept;
-    
-    /**
-     * @brief Copy assignment
-     * 
-     * @param obj Source object
-     */
-    Particle3D& operator=(const Particle3D& obj);
-    
-    /**
-     * @brief Move assignment
-     * 
-     * @param obj Source object
-     */
-    Particle3D& operator=(Particle3D&& obj) noexcept;
+    Particle3D(Context* ctx, const Bitmap &bmp, const Vec2 &s=Vec2());
     
     /**
      * @brief Sets the location which the particle appears
@@ -108,35 +81,21 @@ class Particle3D: public Object {
      * @param y Y-coordinate
      * @param z Z-coordinate
      */
-    void setPosition(float x, float y, float z);
+    void setTranslation(float x, float y, float z);
     
     /**
      * @brief Sets the location which the particle appears
      * 
      * @param pos Position vector
      */
-    void setPosition(const Vec3 &pos);
+    void setTranslation(const Vec3 &pos);
     
     /**
      * @brief Gets the location of the particle
      * 
      * @return Position vector
      */
-    Vec3 getPosition();
-    
-    /**
-     * @brief Sets the rotation of the particle
-     * 
-     * @param t Rotation in degrees
-     */
-    void setRotation(float t);
-    
-    /**
-     * @brief Gets the rotation of the particle
-     * 
-     * @return Rotation in degrees
-     */
-    float getRotation();
+    Vec3 getTranslation() const;
     
     /**
      * @brief Sets the size of the particle
@@ -149,16 +108,16 @@ class Particle3D: public Object {
     /**
      * @brief Sets the size of the particle
      * 
-     * @param size Size
+     * @param s Size
      */
-    void setSize(const Vec2 &size);
+    void setSize(const Vec2 &s);
     
     /**
      * @brief Gets the size of the particle
      * 
      * @return Width and height as a rectangular dimension
      */
-    Vec2 getSize();
+    Vec2 getSize() const;
 };
 
 }

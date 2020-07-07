@@ -28,24 +28,12 @@ class ParticleShader: public Shader {
     /**
      * @brief Default constructor
      */
-    ParticleShader();
-    
-    /**
-     * @brief Constructor with its container
-     * 
-     * @param ctx Container context
-     */
-    ParticleShader(Context* ctx);
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~ParticleShader();
+    ParticleShader() = default;
     
     /**
      * @brief Compile, link and assign program parameters
      */
-    void load();
+    void load() override;
 };
 
 }}

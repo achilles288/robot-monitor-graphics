@@ -14,7 +14,7 @@
 
 #include "rmg/object.hpp"
 
-#include "rmg/context.hpp"
+#include <utility>
 
 
 namespace rmg {
@@ -22,22 +22,29 @@ namespace rmg {
 uint64_t Object::lastID = 0;
 
 /**
- * @brief Constructor with its container
- * 
- * @param ctx Container context
+ * @brief Default constructor
  */
-Object::Object(Context* ctx) {
-    id = ++lastID;
-    context = ctx;
+Object::Object() {
+    id = 0;
+    context = nullptr;
     color = Color(1, 1, 1, 1);
     hidden = false;
     type = ObjectType::Default;
 }
 
 /**
- * @brief Destructor
+ * @brief Constructor with its container
+ * 
+ * @param ctx Container context
  */
-Object::~Object() {}
+Object::Object(Context* ctx) {
+    
+    id = ++lastID;
+    context = ctx;
+    color = Color(1, 1, 1, 1);
+    hidden = false;
+    type = ObjectType::Default;
+}
 
 /**
  * @brief Copy constructor
@@ -58,24 +65,21 @@ Object::Object(const Object& obj) {
  * @param obj Source object
  */
 Object::Object(Object&& obj) noexcept {
-    id = obj.id;
-    context = obj.context;
-    color = obj.color;
-    hidden = obj.hidden;
-    type = obj.type;
+    id = std::exchange(obj.id, 0);
+    context = std::exchange(obj.context, nullptr);
+    color = std::exchange(obj.color, Color(1,1,1,1));
+    hidden = std::exchange(obj.hidden, false);
+    type = std::exchange(obj.type, ObjectType::Default);
 }
-
+    
 /**
  * @brief Copy assignment
  * 
  * @param obj Source object
  */
 Object& Object::operator=(const Object& obj) {
-    id = ++lastID;
-    context = obj.context;
-    color = obj.color;
-    hidden = obj.hidden;
-    type = obj.type;
+    Object tmp = Object(obj);
+    swap(tmp);
     return *this;
 }
 
@@ -85,12 +89,17 @@ Object& Object::operator=(const Object& obj) {
  * @param obj Source object
  */
 Object& Object::operator=(Object&& obj) noexcept {
-    id = obj.id;
-    context = obj.context;
-    color = obj.color;
-    hidden = obj.hidden;
-    type = obj.type;
+    Object tmp = std::move(obj);
+    swap(tmp);
     return *this;
+}
+
+void Object::swap(Object& x) noexcept {
+    std::swap(id, x.id);
+    std::swap(context, x.context);
+    std::swap(color, x.color);
+    std::swap(hidden, x.hidden);
+    std::swap(type, x.type);
 }
 
 /**
@@ -98,21 +107,35 @@ Object& Object::operator=(Object&& obj) noexcept {
  * 
  * @return Object ID
  */
-uint64_t Object::getID() { return id; }
+uint64_t Object::getID() const { return id; }
 
 /**
  * @brief Gets container context
  * 
  * @return Container context
  */
-Context* Object::getContext() { return context; }
+Context* Object::getContext() const { return context; }
 
 /**
  * @brief Gets object type
  * 
  * @return Object type
  */
-ObjectType Object::getObjectType() { return type; }
+ObjectType Object::getObjectType() const { return type; }
+
+/**
+ * @brief Sets object color
+ * 
+ * @param r Red
+ * @param g Green
+ * @param b Blue
+ */
+void Object::setColor(float r, float g, float b) {
+    color.red = r;
+    color.green = g;
+    color.blue = b;
+    color.alpha = 1.0f;
+}
 
 /**
  * @brief Sets object color
@@ -141,7 +164,7 @@ void Object::setColor(const Color &col) { color = col; }
  * 
  * @return RGBA color
  */
-Color Object::getColor() { return color; }
+Color Object::getColor() const { return color; }
 
 /**
  * @brief Sets object visibility
@@ -158,6 +181,6 @@ void Object::setHidden(bool hide) { hidden = hide; }
  * 
  * @return True if the object is hidden
  */
-bool Object::isHidden() { return hidden; }
+bool Object::isHidden() const { return hidden; }
 
 }

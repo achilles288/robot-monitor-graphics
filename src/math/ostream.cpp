@@ -188,7 +188,7 @@ void printMatrix(std::ostream& os, const float *data, int row, int col)
     for(int i=0; i<col; i++) {
         int m = 0;
         for(int j=0; j<row; j++) {
-            if(isnan(data[j * col + i]))
+            if(std::isnan(data[j * col + i]))
                 snprintf(cells[j][i], 11, "nan");
             else if(fabs(data[j * col + i]) < 10000.0000f)
                 snprintf(cells[j][i], 11, "%.4f", data[j*col + i]);

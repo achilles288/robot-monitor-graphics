@@ -24,6 +24,8 @@
 
 namespace rmg {
 
+class Bitmap;
+
 namespace internal {
 
 class SpriteShader;
@@ -47,54 +49,27 @@ class Sprite2D: public Object2D {
     
   public:
     /**
-     * @brief Constructs a sprite object loading a sprite image
-     * 
-     * @param ctx Container context
-     * @param img Image file (supports the same format Texture class does)
+     * @brief Default constructor
      */
-    Sprite2D(Context* ctx, const std::string &img);
+    Sprite2D() = default;
     
     /**
      * @brief Constructs a sprite object loading a sprite image
      * 
      * @param ctx Container context
      * @param img Image file (supports the same format Texture class does)
-     * @param size Sprite size
+     * @param size Image size
      */
-    Sprite2D(Context* ctx, const std::string &img, const Vec2 &size);
+    Sprite2D(Context* ctx, const std::string &img, const Vec2 &size=Vec2());
     
     /**
-     * @brief Destructor
-     */
-    virtual ~Sprite2D();
-    
-    /**
-     * @brief Copy constructor
+     * @brief Constructs a sprite object from bitmap
      * 
-     * @param obj Source object
+     * @param ctx Conatiner context
+     * @param bmp Sprite image
+     * @param size Image size
      */
-    Sprite2D(const Sprite2D& obj);
-    
-    /**
-     * @brief Move constructor
-     * 
-     * @param obj Source object
-     */
-    Sprite2D(Sprite2D&& obj) noexcept;
-    
-    /**
-     * @brief Copy assignment
-     * 
-     * @param obj Source object
-     */
-    Sprite2D& operator=(const Sprite2D& obj);
-    
-    /**
-     * @brief Move assignment
-     * 
-     * @param obj Source object
-     */
-    Sprite2D& operator=(Sprite2D&& obj) noexcept;
+    Sprite2D(Context* ctx, const Bitmap &bmp, const Vec2 &size=Vec2());
 };
 
 }

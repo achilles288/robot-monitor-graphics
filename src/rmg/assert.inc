@@ -56,9 +56,9 @@ inline void __rmg_expect(bool v, const char *e, const char *file, int line) {
         return;
     
     #ifdef _WIN32
-    printf("%s:%u: error: failed assertion '%s'\n", file, line, e);
+    printf("%s:%u: warning: failed assertion '%s'\n", file, line, e);
     #else
-    printf("\033[0;1m%s:%u: \033[0;1;33mwarning :\033[0m", file, line);
+    printf("\033[0;1m%s:%u: \033[0;1;33mwarning: \033[0m", file, line);
     printf("failed assertion \033[0;1m'%s'\033[0m\n", e);
     #endif
 }

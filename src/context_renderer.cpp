@@ -1,5 +1,5 @@
 /**
- * @file context_render.cpp
+ * @file context_renderer.cpp
  * @brief 2D/3D graphics context rendering function
  * 
  * Manages the rendering order of 2D/3D objects, handles GPU resources
@@ -37,7 +37,7 @@ MouseEvent mouseEvent;
 void Context::render() {
     setCurrent();
     if(!initDone) {
-        glewExperimental = true; // Needed for core profile
+        glewExperimental = true;
         if(glewInit() != GLEW_OK) {
             destroy();
             #ifdef _WIN32
@@ -66,6 +66,7 @@ void Context::render() {
                                      "GPU driver.");
             #endif
         }
+        generalShader.load();
         startTime = 0;
         startTime = getTime();
         initDone = true;
@@ -79,14 +80,21 @@ void Context::render() {
         bgUpdate = false;
     }
     
+    if(loader.getLoadCount() > 0)
+        loader.load();
+    
     float t2 = getTime();
     fps = 1.0f/(t2-t1);
     t1 = t2;
     
+    glClearDepth(-1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
     if(destroyed)
         throw std::domain_error("Exit on context destruction");
+    
+    generalShader.process(viewMatrix, projectionMatrix,
+                          dlCameraSpace, dlColor, objects3d);
     flush();
 }
 
@@ -111,7 +119,7 @@ void Context::flush() {
  * 
  * @return Running time in seconds
  */
-float Context::getTime() { return 0; }
+float Context::getTime() const { return 0; }
     
 /**
  * @brief Gets the frame refresh rate of the context
@@ -120,7 +128,7 @@ float Context::getTime() { return 0; }
  * 
  * @return Frame per second
  */
-float Context::getFPS() { return fps; }
+float Context::getFPS() const { return fps; }
 
 /**
  * @breif Sets the error code of the context
@@ -135,7 +143,7 @@ void Context::setErrorCode(int err) { errorCode = err; }
  * @return 0 if no error. 1 for general error code. 503 is usually returned
  *         if there is an error related with OpenGL or GPU driver.
  */
-int Context::getErrorCode() { return errorCode; }
+int Context::getErrorCode() const { return errorCode; }
 
 /**
  * @brief Idle display loop function
@@ -189,10 +197,17 @@ void Context::onMouseEntry(const MouseEvent &event) {}
 void Context::onMouseWheel(const MouseEvent &event) {}
 
 /**
- * @brief The function called when a key is hit
+ * @brief The function called when a key is pressed
  * 
  * @param event A set of attributes associated with the event
  */
-void Context::onKeyboard(const KeyboardEvent &event) {}
+void Context::onKeyPress(const KeyboardEvent &event) {}
+
+/**
+ * @brief The function called when a pressed key is released
+ * 
+ * @param event A set of attributes associated with the event
+ */
+void Context::onKeyRelease(const KeyboardEvent &event) {}
 
 }

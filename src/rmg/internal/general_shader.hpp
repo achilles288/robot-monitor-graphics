@@ -17,9 +17,18 @@
 #ifndef __RMG_GENERAL_SHADER_H__
 #define __RMG_GENERAL_SHADER_H__
 
+#include <map>
+
 #include "shader.hpp"
+#include "../color.hpp"
+#include "../math/mat4.hpp"
+#include "../math/vec3.hpp"
+
 
 namespace rmg {
+
+class Object3D;
+
 namespace internal {
 
 /**
@@ -33,29 +42,40 @@ namespace internal {
 class GeneralShader: public Shader {
   private:
     uint32_t idMVP;
+    uint32_t idMV;
+    uint32_t idScale;
+    uint32_t idDLCamera;
+    uint32_t idDLColor;
+    uint32_t idMatColor;
+    uint32_t idMatMetal;
+    uint32_t idMatRough;
+    uint32_t idMatAO;
+    uint32_t idTexOn;
     
   public:
     /**
      * @brief Default constructor
      */
-    GeneralShader();
+    GeneralShader() = default;
     
     /**
-     * @brief Constructor with its container
+     * @brief Compiles and links shader program and assigns parameter IDs
+     */
+    void load() override;
+    
+    /**
+     * @brief Renders the given list of 3D objects with world model, object
+     *        model and material properties
      * 
-     * @param ctx Container context
+     * @param V View matrix
+     * @param P Projection matrix
+     * @param dlCam Directional light vector in camera space
+     * @param dlColor Directional light color
+     * @param list List of 3D objects
      */
-    GeneralShader(Context* ctx);
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~GeneralShader();
-    
-    /**
-     * @brief Compile, link and assign program parameters
-     */
-    void load();
+    void process(const Mat4 &V, const Mat4 &VP,
+                 const Vec3 &dlCam, const Color &dlColor,
+                 const std::map<uint64_t, Object3D*> &list);
 };
 
 }}

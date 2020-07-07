@@ -12,6 +12,7 @@ add_subdirectory(docs)
 
 
 # Gets OpenGL header and library
+set(OpenGL_GL_PREFERENCE LEGACY)
 find_package(OpenGL REQUIRED)
 
 

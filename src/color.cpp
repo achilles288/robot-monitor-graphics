@@ -15,18 +15,12 @@
 #include <cmath>
 #include <cstdint>
 
+#include "rmg/assert.hpp"
+
 
 namespace rmg {
 
-/**
- * @brief Default constructor
- */
-ColorRGBA::ColorRGBA() {
-    red = 1;
-    green = 1;
-    blue = 1;
-    alpha = 1;
-}
+// Class: ColorRGBA
 
 /**
  * @brief Constructor with RGB values
@@ -41,7 +35,7 @@ ColorRGBA::ColorRGBA(float r, float g, float b) {
     red = r;
     green = g;
     blue = b;
-    alpha = 1;
+    alpha = 1.0f;
 }
 
 /**
@@ -64,7 +58,7 @@ ColorRGBA::ColorRGBA(float r, float g, float b, float a) {
 /**
  * @brief Converts RGBA to HSLA
  */
-ColorRGBA::operator ColorHSLA() {
+ColorRGBA::operator ColorHSLA() const {
     ColorHSLA hsla;
     uint8_t cmax_case;
     float cmax, cmin;
@@ -151,16 +145,34 @@ ColorRGBA ColorRGBA::brightness(float val) const {
     return col;
 }
 
-    
 /**
- * @brief Default constructor
+ * @brief Gets reference to color data as array subscript
+ * 
+ * @param i Index
+ * 
+ * @return Reference to color member
  */
-ColorHSLA::ColorHSLA() {
-    hue = 0;
-    saturation = 0;
-    luminance = 1;
-    alpha = 1;
+float& ColorRGBA::operator [] (uint8_t i) {
+     RMG_ASSERT(i < 4);
+     return (&red)[i];
 }
+
+/**
+ * @brief Gets reference to color data as array subscript
+ * 
+ * @param i Index
+ * 
+ * @return Reference to color member
+ */
+float const& ColorRGBA::operator [] (uint8_t i) const {
+     RMG_ASSERT(i < 4);
+     return (&red)[i];
+}
+
+
+
+
+// Class: ColorHSLA
 
 /**
  * @brief Constructor with HSL values
@@ -176,7 +188,7 @@ ColorHSLA::ColorHSLA(float h, float s, float l) {
     hue = h;
     saturation = s;
     luminance = l;
-    alpha = 1;
+    alpha = 1.0f;
 }
 
 /**
@@ -200,7 +212,7 @@ ColorHSLA::ColorHSLA(float h, float s, float l, float a) {
 /**
  * @brief Converts HSLA to RGBA
  */
-ColorHSLA::operator ColorRGBA() {
+ColorHSLA::operator ColorRGBA() const {
     ColorRGBA rgba;
     
     float c = (1 - fabs(2*luminance - 1)) * saturation;

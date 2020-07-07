@@ -32,38 +32,46 @@ namespace internal {
  * loaded vertex buffer objects and make drawings.
  */
 class Shader {
-  private:
-    uint32_t id;
-    Context* context;
-    
-    void compileShader(uint32_t shaderID, const std::string &path);
-    
-    /**
-     * @brief Compiles a shader program from vertex and fragment shaders
-     * 
-     * @param vert Path to vertex shader
-     * @param frag Path to fragment shader
-     */
-    void compileShaderProgram(const std::string &vert,
-                              const std::string &frag);
+  protected:
+    uint32_t id = 0; ///< Shader program ID
     
   public:
     /**
      * @brief Default constructor
      */
-    Shader();
-    
-    /**
-     * @brief Constructor with its container
-     * 
-     * @param ctx Container context
-     */
-    Shader(Context* ctx);
+    Shader() = default;
     
     /**
      * @brief Destructor
      */
     virtual ~Shader();
+    
+    /**
+     * @brief Compiles and links shader program and assigns parameter IDs
+     */
+    virtual void load() = 0;
+    
+    /**
+     * @brief Compiles a shader from file (Vertex shader or fragment shader)
+     * 
+     * @param type Shader type (GL_VERTEX_SHADER, GL_FRAGMENT_SHADER, .etc)
+     * @param path Path to shader file
+     * 
+     * @return ID of the compiled shader used to retrive it
+     */
+    static uint32_t compileShader(uint32_t type,
+                                  const std::string &path);
+    
+    /**
+     * @brief Compiles and links a shader program
+     * 
+     * @param vert Vertex shader file
+     * @param frag Fragment shader file
+     * 
+     * @return Shader program ID
+     */
+    static uint32_t compileShaderProgram(const std::string &vert,
+                                         const std::string &frag);
 };
 
 }}

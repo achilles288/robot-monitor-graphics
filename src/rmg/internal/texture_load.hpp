@@ -44,10 +44,18 @@ class TextureLoad: public ContextLoad {
     Bitmap heightmap;
     Bitmap normalmap;
     Bitmap mrao;
-    Bitmap colormap;
     Bitmap emissivity;
     
   public:
+    /**
+     * @brief Constructs a pending object
+     * 
+     * @param tex Address to a Texture instance. This is to redirect 
+     *            responses after loading.
+     * @param f Path to texture file, folder or zip
+     */
+    TextureLoad(Texture* tex, const std::string &f);
+    
     /**
      * @brief Constructs a pending object
      * 
@@ -65,7 +73,7 @@ class TextureLoad: public ContextLoad {
      * @param base Base image
      * @param h Height mapping
      * @param norm Normal mapping
-     * @param m Metallic, rough, ambient
+     * @param m Metallic, rough, ambient occulation
      * @param e Emissivity
      */
     TextureLoad(Texture* tex, const Bitmap& base, const Bitmap& h,
@@ -96,7 +104,6 @@ class Texture {
     uint32_t heightMap;
     uint32_t normalMap;
     uint32_t mraoMap;
-    uint32_t colorMap;
     uint32_t opacity;
     uint32_t emissivity;
     
@@ -137,7 +144,7 @@ class Texture {
      * 
      * @param tex Source texture
      */
-    Texture(Texture&& tex) noexcept;
+    Texture(Texture&& tex) noexcept = default;
     
     /**
      * @brief Copy assignment (deleted)
@@ -154,7 +161,7 @@ class Texture {
      * 
      * @param tex Source texture
      */
-    Texture& operator=(Texture&& tex) noexcept;
+    Texture& operator=(Texture&& tex) noexcept = default;
     
     /**
      * @brief Sets material color
@@ -187,7 +194,7 @@ class Texture {
      * 
      * @return RGBA color
      */
-    Color getColor();
+    Color getColor() const;
     
     /**
      * @brief Sets the metalness coefficient of the texture
@@ -201,7 +208,7 @@ class Texture {
      * 
      * @return Metalness coefficient
      */
-    float getMetalness();
+    float getMetalness() const;
     
     /**
      * @brief Sets the roughness coefficient of the texture.
@@ -215,7 +222,7 @@ class Texture {
      * 
      * @return Roughness coefficient
      */
-    float getRoughness();
+    float getRoughness() const;
     
     /**
      * @brief Sets the ambient occulation of the texture.
@@ -229,7 +236,17 @@ class Texture {
      * 
      * @return Ambient occulation
      */
-    float getAmbientOcculation();
+    float getAmbientOcculation() const;
+    
+    /**
+     * @brief Sets the maximum unit for height mapping
+     */
+    void setDepth(float d);
+    
+    /**
+     * @brief Gets the maximum unit for height mapping
+     */
+    float getDepth() const;
 };
 
 }}

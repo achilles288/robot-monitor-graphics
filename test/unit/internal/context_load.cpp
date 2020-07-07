@@ -40,7 +40,8 @@ TEST(ContextLoader_Pending, constructor) {
     ASSERT_EQ(1, p3->getUseCount()); // Reference count 1
     ContextLoader::Pending p4 = *p3;
     ASSERT_EQ(2, p4.getUseCount()); // Reference count 1 to 2
-    ContextLoader::Pending p5 = p4;
+    ContextLoader::Pending p5;
+    p5 = p4;
     ASSERT_EQ(3, p5.getUseCount()); // Reference count 2 to 3
     
     // Move constructor remains the reference count

@@ -3,8 +3,9 @@
 #include <algorithm>
 #include <utility>
 
-#include <rmg/test_config.h>
 #include <gtest/gtest.h>
+
+#include "../test_config.h"
 
 using namespace rmg;
 
@@ -47,21 +48,25 @@ TEST(Bitmap, constructor) {
     ASSERT_EQ(0, bmp1.getChannel());
     ASSERT_EQ((uint8_t*)NULL, bmp1.getPointer());
     
+    // Copy constructor test
     Bitmap bmp2 = Bitmap::loadFromFile(
         RMGTEST_RESOURCE_PATH "/cat.png"
     );
-    Bitmap bmp3 = bmp2;
+    Bitmap bmp3;
+    bmp3 = bmp2;
     ASSERT_EQ(bmp2.getWidth(), bmp3.getWidth());
     ASSERT_EQ(bmp2.getHeight(), bmp3.getHeight());
     ASSERT_EQ(bmp2.getChannel(), bmp3.getChannel());
     ASSERT_NE((uint8_t*)NULL, bmp3.getPointer());
     ASSERT_NE(bmp2.getPointer(), bmp3.getPointer());
     
+    // Move constructor test
     uint16_t w2 = bmp2.getWidth();
     uint16_t h2 = bmp2.getHeight();
     uint8_t c2 = bmp2.getChannel();
     uint8_t* ptr2 = bmp2.getPointer();
-    Bitmap bmp4 = std::move(bmp2);
+    Bitmap bmp4;
+    bmp4 = std::move(bmp2);
     ASSERT_EQ(w2, bmp4.getWidth());
     ASSERT_EQ(h2, bmp4.getHeight());
     ASSERT_EQ(c2, bmp4.getChannel());

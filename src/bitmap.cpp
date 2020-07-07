@@ -65,7 +65,7 @@ Bitmap::Bitmap(Bitmap&& bmp) noexcept {
     width = std::exchange(bmp.width, 0);
     height = std::exchange(bmp.height, 0);
     channel = std::exchange(bmp.channel, 0);
-    data = std::exchange(bmp.data, (uint8_t*)NULL);
+    data = std::exchange(bmp.data, nullptr);
 }
 
 /**
@@ -74,16 +74,8 @@ Bitmap::Bitmap(Bitmap&& bmp) noexcept {
  * @param bmp Source
  */
 Bitmap& Bitmap::operator=(const Bitmap& bmp) {
-    width = bmp.width;
-    height = bmp.height;
-    channel = bmp.channel;
-    if(bmp.data != NULL) {
-        data = (uint8_t*) malloc(width * height * channel);
-        memcpy(data, bmp.data, width * height * channel);
-    }
-    else
-        data = NULL;
-    
+    Bitmap tmp = Bitmap(bmp);
+    swap(tmp);
     return *this;
 }
 
@@ -93,11 +85,16 @@ Bitmap& Bitmap::operator=(const Bitmap& bmp) {
  * @param bmp Source
  */
 Bitmap& Bitmap::operator=(Bitmap&& bmp) noexcept {
-    width = std::exchange(bmp.width, 0);
-    height = std::exchange(bmp.height, 0);
-    channel = std::exchange(bmp.channel, 0);
-    data = std::exchange(bmp.data, (uint8_t*)NULL);
+    Bitmap tmp = std::move(bmp);
+    swap(tmp);
     return *this;
+}
+
+void Bitmap::swap(Bitmap &bmp) noexcept {
+    std::swap(width, bmp.width);
+    std::swap(height, bmp.height);
+    std::swap(channel, bmp.channel);
+    std::swap(data, bmp.data);
 }
 
 /**
@@ -139,7 +136,7 @@ Bitmap Bitmap::loadFromFile(const std::string& file) {
  * 
  * @param file Path for image file
  */
-void Bitmap::saveFile(const std::string& file) {
+void Bitmap::saveFile(const std::string& file) const {
     auto i = file.find_last_of(".");
     std::string ext = "";
     if(i != std::string::npos)
@@ -166,21 +163,21 @@ void Bitmap::saveFile(const std::string& file) {
  * 
  * @return Image width
  */
-uint16_t Bitmap::getWidth() { return width; }
+uint16_t Bitmap::getWidth() const { return width; }
 
 /**
  * @brief Gets the height of the image
  * 
  * @return Image height
  */
-uint16_t Bitmap::getHeight() { return height; }
+uint16_t Bitmap::getHeight() const { return height; }
 
 /**
  * @brief Gets the number of color channels used in the bitmap
  * 
  * @return Number of channels
  */
-uint8_t Bitmap::getChannel() { return channel; }
+uint8_t Bitmap::getChannel() const { return channel; }
 
 /**
  * @brief Gets the pointer to the image data array
@@ -197,7 +194,7 @@ uint8_t* Bitmap::getPointer() { return data; }
  * 
  * @return Pixel value
  */
-Pixel Bitmap::getPixel(uint16_t x, uint16_t y) {
+Pixel Bitmap::getPixel(uint16_t x, uint16_t y) const {
     RMG_ASSERT(x > 0 && x < width);
     RMG_ASSERT(y > 0 && y < height);
     

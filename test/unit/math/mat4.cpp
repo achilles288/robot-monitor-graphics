@@ -1,7 +1,9 @@
-#include <rmg/math/mat3.hpp>
 #include <rmg/math/mat4.hpp>
-#include <rmg/math/vec4.hpp>
+
 #include <gtest/gtest.h>
+
+#include <rmg/math/mat3.hpp>
+#include <rmg/math/vec4.hpp>
 
 using namespace rmg;
 

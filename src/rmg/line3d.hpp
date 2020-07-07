@@ -37,20 +37,9 @@ class Line3D: public Object {
     
   public:
     /**
-     * @brief Constructor with its container
-     * 
-     * @param ctx Container context
+     * @brief Default constructor
      */
-    Line3D(Context* ctx);
-    
-    /**
-     * @brief Constructor with thickness and color
-     * 
-     * @param ctx Container context
-     * @param t Line thickness
-     * @param col RGBA color
-     */
-    Line3D(Context* ctx, float t, const Color &col);
+    Line3D() = default;
     
     /**
      * @brief Constructor with thickness, color and 2 initial end-points
@@ -61,41 +50,8 @@ class Line3D: public Object {
      * @param p1 Position vector of point-1
      * @param p2 Position vector of point-2
      */
-    Line3D(Context* ctx, float t, const Color &col,
-           const Vec3 &p1, const Vec3 &p2);
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~Line3D();
-    
-    /**
-     * @brief Copy constructor
-     * 
-     * @param obj Source object
-     */
-    Line3D(const Line3D& obj);
-    
-    /**
-     * @brief Move constructor
-     * 
-     * @param obj Source object
-     */
-    Line3D(Line3D&& obj) noexcept;
-    
-    /**
-     * @brief Copy assignment
-     * 
-     * @param obj Source object
-     */
-    Line3D& operator=(const Line3D& obj);
-    
-    /**
-     * @brief Move assignment
-     * 
-     * @param obj Source object
-     */
-    Line3D& operator=(Line3D&& obj) noexcept;
+    Line3D(Context* ctx, float t, const Color &col=Color(1,1,1),
+           const Vec3 &p1=Vec3(), const Vec3 &p2=Vec3());
     
     /**
      * @brief Sets the location of point-1
@@ -134,14 +90,14 @@ class Line3D: public Object {
      * 
      * @return Position vector
      */
-    Vec3 getPoint1();
+    Vec3 getPoint1() const;
     
     /**
      * @brief Gets the location of point-1
      * 
      * @return Position vector
      */
-    Vec3 getPoint2();
+    Vec3 getPoint2() const;
     
     /**
      * @brief Sets the line thickness
@@ -155,7 +111,7 @@ class Line3D: public Object {
      * 
      * @return Line thickness
      */
-    float getThickness();
+    float getThickness() const;
 };
 
 }

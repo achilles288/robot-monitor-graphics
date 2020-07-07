@@ -23,6 +23,16 @@ class VBO;
 
 
 /**
+ * @brief Options to render a VBO
+ */
+enum class VBOMode {
+    None,
+    Default,
+    Textured
+};
+
+
+/**
  * @brief Maintains the array of VBOs before context startup
  * 
  * During construction of 3D objects, they generate VBOs for polygons that
@@ -81,6 +91,7 @@ class VBO {
     uint32_t texturebuffer;
     uint32_t elementbuffer;
     uint32_t indexCount;
+    VBOMode mode;
     
     friend class VBOLoad;
     
@@ -110,7 +121,7 @@ class VBO {
      * 
      * @param vbo Source
      */
-    VBO(VBO&& vbo) noexcept;
+    VBO(VBO&& vbo) noexcept = default;
     
     /**
      * @brief Copy assignment (deleted)
@@ -127,12 +138,17 @@ class VBO {
      * 
      * @param vbo Source
      */
-    VBO& operator=(VBO&& vbo) noexcept;
+    VBO& operator=(VBO&& vbo) noexcept = default;
+    
+    /**
+     * @brief Gets the mode of VBO rendering
+     */
+    VBOMode getMode() const;
     
     /**
      * @brief Draws the VBO using a shader program
      */
-    void draw();
+    void draw() const;
 };
 
 }}

@@ -1,5 +1,5 @@
 /**
- * @file context_resource.cpp
+ * @file context_container.cpp
  * @brief 2D/3D graphics context resource manager
  * 
  * Manages GPU resources of 2D/3D objects, maintaining them in lists of
@@ -47,7 +47,7 @@ void Context::destroy() {
  * 
  * @return True if the context is destroyed
  */
-bool Context::isDestroyed() { return destroyed; }
+bool Context::isDestroyed() const { return destroyed; }
 
 /**
  * @brief Appends a 2D/3D object to the display list
@@ -57,8 +57,7 @@ bool Context::isDestroyed() { return destroyed; }
 void Context::addObject(Object* obj) {
     RMG_ASSERT(obj->getContext() == this);
     
-    if(obj->getObjectType() == ObjectType::Sprite2D ||
-       obj->getObjectType() == ObjectType::Text2D)
+    if(obj->getObjectType() == ObjectType::Object2D)
     {
         Object2D* obj2d = (Object2D*) obj;
         auto elem = std::pair<uint64_t,Object2D*>(obj->getID(),obj2d);
@@ -68,7 +67,7 @@ void Context::addObject(Object* obj) {
         Object3D* obj3d = (Object3D*) obj;
         auto elem = std::pair<uint64_t,Object3D*>(obj->getID(),obj3d);
         objects3d.insert(elem);
-        loader.push(obj3d->vboLoad);
+        loader.push(obj3d->getVBOLoad());
     }
     else if(obj->getObjectType() == ObjectType::Particle3D) {
         Particle3D* part = (Particle3D*) obj;
@@ -115,8 +114,7 @@ void Context::addFont(Font* font) {
  * @param obj 2D/3D object
  */
 void Context::removeObject(Object* obj) {
-    if(obj->getObjectType() == ObjectType::Sprite2D ||
-       obj->getObjectType() == ObjectType::Text2D)
+    if(obj->getObjectType() == ObjectType::Object2D)
     {
         auto it = objects2d.find(obj->getID());
         if(it != objects2d.end())
@@ -172,7 +170,7 @@ void Context::removeFont(Font* font) {
  * 
  * @return Total number of objects from lists of every type
  */
-uint64_t Context::getObjectCount() {
+uint64_t Context::getObjectCount() const {
     return objects2d.size() +
            objects3d.size() +
            particles.size() +
@@ -184,14 +182,14 @@ uint64_t Context::getObjectCount() {
  * 
  * @return Number of materials
  */
-uint64_t Context::getMaterialCount() { return materials.size(); }
+uint64_t Context::getMaterialCount() const { return materials.size(); }
 
 /**
  * @brief Gets the number of fonts in the list
  * 
  * @return Number of fonts
  */
-uint64_t Context::getFontCount() { return fonts.size(); }
+uint64_t Context::getFontCount() const { return fonts.size(); }
 
 /**
  * @brief Removes all context resources

@@ -110,8 +110,10 @@ class Bitmap {
     
     static Bitmap loadPNG(const std::string& file);
     static Bitmap loadTIFF(const std::string& file);
-    void savePNG(const std::string& file);
-    void saveTIFF(const std::string& file);
+    void savePNG(const std::string& file) const;
+    void saveTIFF(const std::string& file) const;
+    
+    void swap(Bitmap &bmp) noexcept;
     
   public:
     /**
@@ -170,28 +172,28 @@ class Bitmap {
      * 
      * @param file Path for image file
      */
-    void saveFile(const std::string& file);
+    void saveFile(const std::string& file) const;
     
     /**
      * @brief Gets the width of the image
      * 
      * @return Image width
      */
-    uint16_t getWidth();
+    uint16_t getWidth() const;
     
     /**
      * @brief Gets the height of the image
      * 
      * @return Image height
      */
-    uint16_t getHeight();
+    uint16_t getHeight() const;
     
     /**
      * @brief Gets the number of color channels used in the bitmap
      * 
      * @return Number of channels
      */
-    uint8_t getChannel();
+    uint8_t getChannel() const;
     
     /**
      * @brief Gets the pointer to the image data array
@@ -208,7 +210,7 @@ class Bitmap {
      * 
      * @return Pixel value
      */
-    Pixel getPixel(uint16_t x, uint16_t y);
+    Pixel getPixel(uint16_t x, uint16_t y) const;
     
     /**
      * @brief Sets the pixel at some coordinate in the image

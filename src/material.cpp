@@ -52,13 +52,13 @@ Material::~Material() {}
  * 
  * @return Material ID
  */
-uint32_t Material::getID() { return id; }
+uint32_t Material::getID() const { return id; }
 
 /**
  * @brief Gets the container context
  * 
  * @return Container context
  */
-Context* Material::getContext() { return context; }
+Context* Material::getContext() const { return context; }
 
 }

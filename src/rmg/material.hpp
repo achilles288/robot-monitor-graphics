@@ -15,6 +15,7 @@
 #include <cstdint>
 #include <string>
 
+#include "bitmap.hpp"
 #include "internal/texture_load.hpp"
 
 
@@ -33,6 +34,8 @@ class Material: public internal::Texture {
     internal::ContextLoader::Pending textureLoad;
     
     static uint32_t lastID;
+    
+    void swap(Material& mat) noexcept;
     
     friend class Context;
     
@@ -53,22 +56,36 @@ class Material: public internal::Texture {
      * wood, .etc.
      * 
      * @param ctx Conatiner context
-     * @param f Path to material textures (folder or zip)
+     * @param f Path to material textures (file, folder or zip)
      */
     Material(Context* ctx, const std::string &f);
     
     /**
-     * @brief Constructor loads an image from file
+     * @brief Constructs from bitmap object
      * 
      * Creates a textural material from an image, ceramic tiles, stones,
      * wood, .etc.
      * 
      * @param ctx Conatiner context
-     * @param f Path to material textures (folder or zip)
-     * @param col Colorize the base image if supported making a color variant
-     *            of an existing one
+     * @param bmp Base image
      */
-    Material(Context* ctx, const std::string &f, const Color &col);
+    Material(Context* ctx, const Bitmap &bmp);
+    
+    /**
+     * @brief Constructs from a set of bitmap objects
+     * 
+     * Creates a textural material from an image, ceramic tiles, stones,
+     * wood, .etc.
+     * 
+     * @param ctx Conatiner context
+     * @param base Base image
+     * @param h Height mapping
+     * @param norm Normal mapping
+     * @param m Metallic, rough, ambient occulation
+     * @param e Emissivity
+     */
+    Material(Context* ctx, const Bitmap& base, const Bitmap& h,
+             const Bitmap& norm, const Bitmap& m, const Bitmap& e);
     
     /**
      * @brief Destructor
@@ -90,7 +107,7 @@ class Material: public internal::Texture {
      * 
      * @param mat Source material
      */
-    Material(Material&& mat) noexcept = default;
+    Material(Material&& mat) noexcept;
     
     /**
      * @brief Copy assignment (deleted)
@@ -107,21 +124,21 @@ class Material: public internal::Texture {
      * 
      * @param mat Source material
      */
-    Material& operator=(Material&& mat) noexcept = default;
+    Material& operator=(Material&& mat) noexcept;
     
     /**
      * @brief Gets texture ID
      * 
      * @return Material ID
      */
-    uint32_t getID();
+    uint32_t getID() const;
     
     /**
      * @brief Gets the container context
      * 
      * @return Container context
      */
-    Context* getContext();
+    Context* getContext() const;
 };
 
 }

@@ -56,7 +56,7 @@ class Window: public Context {
      * 
      * @return Running time in seconds
      */
-    float getTime() override;
+    float getTime() const override;
     
     /**
      * @brief Sets the name of the window
@@ -85,7 +85,7 @@ class Window: public Context {
      * 
      * @return Rectangular dimension
      */
-    Rect getWindowSize();
+    Rect getWindowSize() const;
     
     /**
      * @brief Makes OpenGL rederer focuses on this context

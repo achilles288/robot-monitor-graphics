@@ -11,6 +11,7 @@
 #include "rmg/mesh.hpp"
 
 #include <cstdlib>
+#include <cstring>
 #include <utility>
 
 
@@ -20,11 +21,11 @@ namespace rmg {
  * @brief Default constructor
  */
 Mesh::Mesh() {
-    vertices = NULL;
-    normals = NULL;
-    textures = NULL;
+    vertices = nullptr;
+    normals = nullptr;
+    texCoords = nullptr;
     vertex_count = 0;
-    indecies = NULL;
+    indecies = nullptr;
     index_count = 0;
 }
 
@@ -32,7 +33,17 @@ Mesh::Mesh() {
  * @brief Constructor from pointers of arrays
  * 
  * @param vert Vertex array
- * @param tex Textural coordinate array (optional)
+ * @param vcount Number of vertices
+ */
+Mesh::Mesh(Vec3* vert, uint64_t vcount)
+     :Mesh(vert, nullptr, vcount)
+{}
+
+/**
+ * @brief Constructor from pointers of arrays
+ * 
+ * @param vert Vertex array
+ * @param tex Textural coordinate array
  * @param vcount Number of vertices
  */
 Mesh::Mesh(Vec3* vert, Vec2* tex, uint64_t vcount) {
@@ -40,18 +51,18 @@ Mesh::Mesh(Vec3* vert, Vec2* tex, uint64_t vcount) {
     memcpy(vertices, vert, sizeof(Vec3)*vcount);
     vertex_count = vcount;
     
-    indecies = NULL;
+    indecies = nullptr;
     index_count = 0;
     
     normals = (Vec3*) malloc(sizeof(Vec3)*vcount);
     buildNormals();
     
-    if(tex != NULL) {
-        textures = (Vec2*) malloc(sizeof(Vec2)*vcount);
-        memcpy(textures, tex, sizeof(Vec2)*vcount);
+    if(tex != nullptr) {
+        texCoords = (Vec2*) malloc(sizeof(Vec2)*vcount);
+        memcpy(texCoords, tex, sizeof(Vec2)*vcount);
     }
     else {
-        textures = NULL;
+        texCoords = nullptr;
     }
     
     buildIndecies();
@@ -74,18 +85,18 @@ Mesh::Mesh(Vec3* vert, Vec3* norm, Vec2* tex, uint64_t vcount,
     memcpy(vertices, vert, sizeof(Vec3)*vcount);
     vertex_count = vcount;
     
-    normals = (Vec2*) malloc(sizeof(Vec3)*vcount);
-    if(norm != NULL)
+    normals = (Vec3*) malloc(sizeof(Vec3)*vcount);
+    if(norm != nullptr)
         memcpy(normals, norm, sizeof(Vec3)*vcount);
     else
         buildNormals();
     
-    if(tex != NULL) {
-        textures = (Vec2*) malloc(sizeof(Vec2)*vcount);
-        memcpy(textures, tex, sizeof(Vec2)*vcount);
+    if(tex != nullptr) {
+        texCoords = (Vec2*) malloc(sizeof(Vec2)*vcount);
+        memcpy(texCoords, tex, sizeof(Vec2)*vcount);
     }
     else {
-        textures = NULL;
+        texCoords = nullptr;
     }
     indecies = (uint16_t*) malloc(sizeof(uint16_t)*icount);
     memcpy(indecies, in, sizeof(uint16_t)*icount);
@@ -98,7 +109,7 @@ Mesh::Mesh(Vec3* vert, Vec3* norm, Vec2* tex, uint64_t vcount,
 Mesh::~Mesh() {
     free(vertices);
     free(normals);
-    free(textures);
+    free(texCoords);
     free(indecies);
 }
 
@@ -118,12 +129,12 @@ Mesh::Mesh(const Mesh& mesh) {
     memcpy(normals, mesh.normals, sizeof(Vec3)*vertex_count);
     memcpy(indecies, mesh.indecies, sizeof(uint16_t)*index_count);
     
-    if(mesh.textures != NULL) {
-        textures = (Vec2*) malloc(sizeof(Vec2)*vertex_count)
-        memcpy(textures, mesh.textures, sizeof(Vec2)*vertex_count);
+    if(mesh.texCoords != nullptr) {
+        texCoords = (Vec2*) malloc(sizeof(Vec2)*vertex_count);
+        memcpy(texCoords, mesh.texCoords, sizeof(Vec2)*vertex_count);
     }
     else
-        textures = NULL;
+        texCoords = nullptr;
 }
 
 /**
@@ -132,9 +143,9 @@ Mesh::Mesh(const Mesh& mesh) {
  * @param mesh Source
  */
 Mesh::Mesh(Mesh&& mesh) noexcept {
-    vertecies = std::exchange(mesh.vertecies, nullptr);
+    vertices = std::exchange(mesh.vertices, nullptr);
     normals = std::exchange(mesh.normals, nullptr);
-    textures = std::exchange(mesh.textures, nullptr);
+    texCoords = std::exchange(mesh.texCoords, nullptr);
     vertex_count = std::exchange(mesh.vertex_count, 0);
     indecies = std::exchange(mesh.indecies, nullptr);
     index_count = std::exchange(mesh.index_count, 0);
@@ -146,23 +157,8 @@ Mesh::Mesh(Mesh&& mesh) noexcept {
  * @param mesh Source
  */
 Mesh& Mesh::operator=(const Mesh& mesh) {
-    vertex_count = mesh.vertex_count;
-    index_count = mesh.index_count;
-    vertices = (Vec3*) malloc(sizeof(Vec3)*vertex_count);
-    normals = (Vec3*) malloc(sizeof(Vec3)*vertex_count);;
-    indecies = (uint16_t*) malloc(sizeof(uint16_t)*index_count);
-    
-    memcpy(vertices, mesh.vertices, sizeof(Vec3)*vertex_count);
-    memcpy(normals, mesh.normals, sizeof(Vec3)*vertex_count);
-    memcpy(indecies, mesh.indecies, sizeof(uint16_t)*index_count);
-    
-    if(mesh.textures != NULL) {
-        textures = (Vec2*) malloc(sizeof(Vec2)*vertex_count)
-        memcpy(textures, mesh.textures, sizeof(Vec2)*vertex_count);
-    }
-    else
-        textures = NULL;
-    
+    Mesh tmp = Mesh(mesh);
+    swap(tmp);
     return *this;
 }
 
@@ -172,25 +168,31 @@ Mesh& Mesh::operator=(const Mesh& mesh) {
  * @param mesh Source
  */
 Mesh& Mesh::operator=(Mesh&& mesh) noexcept {
-    vertecies = std::exchange(mesh.vertecies, nullptr);
-    normals = std::exchange(mesh.normals, nullptr);
-    textures = std::exchange(mesh.textures, nullptr);
-    vertex_count = std::exchange(mesh.vertex_count, 0);
-    indecies = std::exchange(mesh.indecies, nullptr);
-    index_count = std::exchange(mesh.index_count, 0);
+    Mesh tmp = std::move(mesh);
+    swap(tmp);
+    return *this;
+}
+
+void Mesh::swap(Mesh& mesh) noexcept {
+    std::swap(vertex_count, mesh.vertex_count);
+    std::swap(index_count, mesh.index_count);
+    std::swap(vertices, mesh.vertices);
+    std::swap(normals, mesh.normals);
+    std::swap(texCoords, mesh.texCoords);
+    std::swap(indecies, mesh.indecies);
 }
 
 /**
  * @brief Calculate the normal vectors for every vertex in the array
  */
-void Mesh::Mesh buildNormals() {
+void Mesh::buildNormals() {
     
 }
 
 /**
- * @brief Shuffles the arrays to reuse the duplicate vertecies
+ * @brief Shuffles the arrays to reuse the duplicate vertices
  */
-void Mesh::Mesh buildIndecies() {
+void Mesh::buildIndecies() {
     
 }
 

@@ -72,6 +72,8 @@ class Context {
     bool sizeUpdate;
     Color bgColor;
     bool bgUpdate;
+    Vec3 cameraPosition;
+    Mat3 cameraRotation;
     Mat4 viewMatrix;
     Mat4 projectionMatrix;
     Mat4 VPMatrix;
@@ -176,18 +178,25 @@ class Context {
     virtual void onMouseWheel(const MouseEvent &event);
     
     /**
-     * @brief The function called when a key is hit
+     * @brief The function called when a key is pressed
      * 
      * @param event A set of attributes associated with the event
      */
-    virtual void onKeyboard(const KeyboardEvent &event);
+    virtual void onKeyPress(const KeyboardEvent &event);
+    
+    /**
+     * @brief The function called when a pressed key is released
+     * 
+     * @param event A set of attributes associated with the event
+     */
+    virtual void onKeyRelease(const KeyboardEvent &event);
     
     /**
      * @brief Gets the running time of the context
      * 
      * @return Running time in seconds
      */
-    virtual float getTime();
+    virtual float getTime() const;
     
     /**
      * @brief Gets the frame refresh rate of the context
@@ -196,14 +205,14 @@ class Context {
      * 
      * @return Frame per second
      */
-    float getFPS();
+    float getFPS() const;
     
     /**
      * @brief Gets the ID of the context
      * 
      * @return Context ID
      */
-    uint32_t getID();
+    uint32_t getID() const;
     
     /**
      * @brief Sets OpenGL viewport size
@@ -218,7 +227,7 @@ class Context {
      * 
      * @return Rectangular dimension
      */
-    Rect getContextSize();
+    Rect getContextSize() const;
     
     /**
      * @brief Sets context background color
@@ -241,7 +250,22 @@ class Context {
      * 
      * @return RGB color
      */
-    Color getBackgroundColor();
+    Color getBackgroundColor() const;
+    
+    /**
+     * @brief Gets the view matrix
+     */
+    const Mat4& getViewMatrix() const;
+    
+    /**
+     * @brief Gets the projection matrix
+     */
+    const Mat4& getProjectionMatrix() const;
+    
+    /**
+     * @brief Gets the composition of view and projection matrix
+     */
+    const Mat4& getVPMatrix() const;
     
     /**
      * @brief Sets xyz position of the camera
@@ -312,7 +336,7 @@ class Context {
      * 
      * @return XYZ position
      */
-    Vec3 getCameraTranslation();
+    Vec3 getCameraTranslation() const;
     
     /**
      * @brief Gets rotation of the camera
@@ -322,7 +346,7 @@ class Context {
      *
      * @return Rotation in Euler angles
      */
-    Euler getCameraRotation();
+    Euler getCameraRotation() const;
     
     /**
      * @brief Sets the parameters for perspective projection
@@ -361,21 +385,21 @@ class Context {
      * 
      * @return Field of view
      */
-    float getFieldOfView();
+    float getFieldOfView() const;
     
     /**
      * @brief Gets minimum distance for depth clipping
      * 
      * @return Minimum clipping distance
      */
-    float getMinimumDistance();
+    float getMinimumDistance() const;
     
     /**
      * @brief Gets maximum distance for depth clipping
      * 
      * @return Maximum clipping distance
      */
-    float getMaximumDistance();
+    float getMaximumDistance() const;
     
     /**
      * @brief Sets the directional lighting color
@@ -405,7 +429,7 @@ class Context {
      * 
      * @return RGBA color. Alpha component is used as light intensity.
      */
-    Color getDirectionalLightColor();
+    Color getDirectionalLightColor() const;
     
     /**
      * @brief Sets the directional lighting angles
@@ -460,7 +484,7 @@ class Context {
      * 
      * @return Rotation in Euler angles
      */
-    Euler getDirectionalLightAngles();
+    Euler getDirectionalLightAngles() const;
     
     /**
      * @brief Converts world space to OpenGL clip space
@@ -471,7 +495,7 @@ class Context {
      * 
      * @return 3D coordinate in OpenGL clip space
      */
-    Vec3 worldToClip(float x, float y, float z);
+    Vec3 worldToClip(float x, float y, float z) const;
     
     /**
      * @brief Converts world coordinate to screen coordinate
@@ -484,7 +508,7 @@ class Context {
      * 
      * @return 2D point on screen
      */
-    Rect worldToScreen(float x, float y, float z);
+    Rect worldToScreen(float x, float y, float z) const;
     
     /**
      * @brief Converts world coordinate to screen coordinate
@@ -495,7 +519,7 @@ class Context {
      * 
      * @return 2D point on screen
      */
-    Rect worldToScreen(const Vec3 &p);
+    Rect worldToScreen(const Vec3 &p) const;
     
     /**
      * @brief Converts screen coordinate to world coordinate
@@ -507,7 +531,7 @@ class Context {
      * 
      * @return Line equation in 3D world
      */
-    LineEq screenToWorld(uint16_t x, uint16_t y);
+    LineEq screenToWorld(uint16_t x, uint16_t y) const;
     
     /**
      * @brief Converts screen coordinate to world coordinate
@@ -518,7 +542,7 @@ class Context {
      * 
      * @return Line equation in 3D world
      */
-    LineEq screenToWorld(const Rect &p);
+    LineEq screenToWorld(const Rect &p) const;
     
     /**
      * @brief Appends a 2D/3D object to the display list
@@ -567,21 +591,21 @@ class Context {
      * 
      * @return Total number of objects from lists of every type
      */
-    uint64_t getObjectCount();
+    uint64_t getObjectCount() const;
     
     /**
      * @brief Gets the number of materials in the list
      * 
      * @return Number of materials
      */
-    uint64_t getMaterialCount();
+    uint64_t getMaterialCount() const;
     
     /**
      * @brief Gets the number of fonts in the list
      * 
      * @return Number of fonts
      */
-    uint64_t getFontCount();
+    uint64_t getFontCount() const;
     
     /**
      * @brief Removes all context resources
@@ -622,7 +646,7 @@ class Context {
      * 
      * return True if the context is destroyed
      */
-    bool isDestroyed();
+    bool isDestroyed() const;
     
     /**
      * @brief Searches context model by ID
@@ -642,7 +666,7 @@ class Context {
      * @return 0 if no error. 1 for general error code. 503 is usually returned
      *         if there is an error related with OpenGL or GPU driver.
      */
-    int getErrorCode();
+    int getErrorCode() const;
 };
 
 /**

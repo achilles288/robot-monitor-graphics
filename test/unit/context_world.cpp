@@ -1,4 +1,5 @@
 #include <rmg/context.hpp>
+
 #include <gtest/gtest.h>
 
 using namespace rmg;
@@ -159,6 +160,16 @@ TEST(ContextVP, worldToClip_cameraRotated) {
     Context ctx = Context();
     ctx.setCameraRotation(30.4f, 41.3f, 155.7f, AngleUnit::Degree);
     Vec3 p = ctx.worldToClip(-2.5543f, 0.8303f, -1.9611f);
+    EXPECT_NEAR(-0.2926f, p.x, 0.0001f);
+    EXPECT_NEAR( 0.0731f, p.y, 0.0001f);
+    EXPECT_NEAR(-0.5488f, p.z, 0.0001f);
+}
+
+TEST(ContextVP, worldToClip_cameraTransformed) {
+    Context ctx = Context();
+    ctx.setCameraRotation(30.4f, 41.3f, 155.7f, AngleUnit::Degree);
+    ctx.setCameraTranslation(-3.0f, 2.0f, 1.0f);
+    Vec3 p = ctx.worldToClip(-5.5543f, 2.8303f, -0.9611f);
     EXPECT_NEAR(-0.2926f, p.x, 0.0001f);
     EXPECT_NEAR( 0.0731f, p.y, 0.0001f);
     EXPECT_NEAR(-0.5488f, p.z, 0.0001f);

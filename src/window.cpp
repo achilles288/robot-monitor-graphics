@@ -16,13 +16,20 @@
 #include <algorithm>
 #include <cstdio>
 #include <stdexcept>
+#ifdef _WIN32
+#include <Windows.h>
+#define sleep(X) Sleep(X)
+#else
+#include <unistd.h>
+#define sleep(X) usleep((X)*1000)
+#endif
 
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include "rmg/assert.hpp"
 #include "rmg/bitmap.hpp"
-#include <rmg/config.hpp>
+#include "rmg/config.h"
 
 
 static bool glfwInitDone = false;
@@ -77,7 +84,7 @@ Window::Window() {
         printf("\033[0;1;31merror:\033[0m Failed to open GLFW window\n");
         #endif
         destroy();
-		return;
+        return;
     }
     glfwSetMouseButtonCallback(glfw_window, window_mouse_button_callback);
     glfwSetCursorPosCallback(glfw_window, window_cursor_position_callback);
@@ -118,7 +125,7 @@ void Window::destroy() {
  * 
  * @return Running time in seconds
  */
-float Window::getTime() {
+float Window::getTime() const {
     return (float)glfwGetTime() - startTime;
 }
 
@@ -165,7 +172,7 @@ void Window::setWindowSize(uint16_t w, uint16_t h) {
  * 
  * @return Rectangular dimension
  */
-Rect Window::getWindowSize() {
+Rect Window::getWindowSize() const {
     int x, y;
     glfwGetWindowSize(glfw_window, &x, &y);
     return Rect(x, y);
@@ -224,6 +231,7 @@ void Window::mainLoop() {
             }
         }
         glfwPollEvents();
+        sleep(16);
     }
     glfwTerminate();
     glfwInitDone = false;
@@ -322,14 +330,15 @@ void window_key_callback(GLFWwindow* window, int key, int scancode,
     else if(key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT)
         mask = RMG_KEY_STATE_SHIFT;
     
+    rmg::Context* ctx = (rmg::Context*) glfwGetWindowUserPointer(window);
+    mouseEvent.keycode = key;
     if(action == GLFW_PRESS) {
         mouseEvent.keyStates |= mask;
-        rmg::Context* ctx = (rmg::Context*) glfwGetWindowUserPointer(window);
-        mouseEvent.keycode = key;
-        ctx->onKeyboard(*((rmg::KeyboardEvent*)(&mouseEvent)));
+        ctx->onKeyPress(*((rmg::KeyboardEvent*)(&mouseEvent)));
     }
     else if(action == GLFW_RELEASE) {
         mouseEvent.keyStates ^= mouseEvent.keyStates & mask;
+        ctx->onKeyRelease(*((rmg::KeyboardEvent*)(&mouseEvent)));
     }
 }
 

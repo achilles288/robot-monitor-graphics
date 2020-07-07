@@ -48,9 +48,7 @@ VBOLoad::~VBOLoad() {}
  * addresses to the related VBO object.
  */
 void VBOLoad::load() {
-    if(vbo->vertexArrayID != 0)
-        return;
-    
+    vbo->mode = VBOMode::Default;
     glGenVertexArrays(1, &vbo->vertexArrayID);
     glBindVertexArray(vbo->vertexArrayID);
     
@@ -65,15 +63,19 @@ void VBOLoad::load() {
     glBufferData(GL_ARRAY_BUFFER, vertex_count*sizeof(Vec3), normals,
                  GL_STATIC_DRAW);
     // Textural coordinates
-    glGenBuffers(1, &vbo->texturebuffer);
-    glBindBuffer(GL_ARRAY_BUFFER, vbo->texturebuffer);
-    glBufferData(GL_ARRAY_BUFFER, vertex_count*sizeof(Vec2), textures,
-                 GL_STATIC_DRAW);
+    if(texCoords != nullptr) {
+        glGenBuffers(1, &vbo->texturebuffer);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo->texturebuffer);
+        glBufferData(GL_ARRAY_BUFFER, vertex_count*sizeof(Vec2), texCoords,
+                     GL_STATIC_DRAW);
+        vbo->mode = VBOMode::Textured;
+    }
     // Indecies
     glGenBuffers(1, &vbo->elementbuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo->elementbuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count*sizeof(uint32_t),
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count*sizeof(uint16_t),
                  indecies, GL_STATIC_DRAW);
+    vbo->indexCount = index_count;
 }
 
 
@@ -91,54 +93,35 @@ VBO::VBO() {
     texturebuffer = 0;
     elementbuffer = 0;
     indexCount = 0;
+    mode = VBOMode::None;
 }
 
 /**
  * @brief Destructor
  */
 VBO::~VBO() {
-    if(vertexArrayID != 0) {
+    if(mode != VBOMode::None) {
         glDeleteBuffers(1, &vertexbuffer);
         glDeleteBuffers(1, &normalbuffer);
-        glDeleteBuffers(1, &texturebuffer);
+        if(mode == VBOMode::Textured)
+            glDeleteBuffers(1, &texturebuffer);
         glDeleteBuffers(1, &elementbuffer);
         glDeleteVertexArrays(1, &vertexArrayID);
     }
 }
 
 /**
- * @brief Move constructor
- * 
- * @param vbo Source
+ * @brief Gets the mode of VBO rendering
  */
-VBO::VBO(VBO&& vbo) noexcept {
-    vertexArrayID = std::exchange(vbo.vertexArrayID, 0);
-    vertexbuffer = std::exchange(vbo.vertexbuffer, 0);
-    normalbuffer = std::exchange(vbo.normalbuffer, 0);
-    texturebuffer = std::exchange(vbo.texturebuffer, 0);
-    elementbuffer = std::exchange(vbo.elementbuffer, 0);
-    indexCount = std::exchange(vbo.indexCount, 0);
-}
-
-/**
- * @brief Move assignment
- * 
- * @param vbo Source
- */
-VBO& VBO::operator=(VBO&& vbo) noexcept {
-    vertexArrayID = std::exchange(vbo.vertexArrayID, 0);
-    vertexbuffer = std::exchange(vbo.vertexbuffer, 0);
-    normalbuffer = std::exchange(vbo.normalbuffer, 0);
-    texturebuffer = std::exchange(vbo.texturebuffer, 0);
-    elementbuffer = std::exchange(vbo.elementbuffer, 0);
-    indexCount = std::exchange(vbo.indexCount, 0);
-    return *this;
-}
+VBOMode VBO::getMode() const { return mode; }
 
 /**
  * @brief Draws the VBO using a shader program
  */
-void VBO::draw() {
+void VBO::draw() const {
+    if(mode == VBOMode::None)
+        return;
+    
     // 1st attribute buffer : vertices
     glEnableVertexAttribArray(0);
     glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
@@ -157,22 +140,23 @@ void VBO::draw() {
         1,
         3,
         GL_FLOAT,
-        GL_TRUE,
-        0,
-        (void*)0
-    );
-    // 3nd attribute buffer : textures
-    glEnableVertexAttribArray(2);
-    glBindBuffer(GL_ARRAY_BUFFER, texturebuffer);
-    glVertexAttribPointer(
-        1,
-        2,
-        GL_FLOAT,
         GL_FALSE,
         0,
         (void*)0
     );
-    
+    // 3nd attribute buffer : textures
+    if(mode == VBOMode::Textured) {
+        glEnableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, texturebuffer);
+        glVertexAttribPointer(
+            2,
+            2,
+            GL_FLOAT,
+            GL_FALSE,
+            0,
+            (void*)0
+        );
+    }
     // Index buffer
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     
@@ -185,7 +169,8 @@ void VBO::draw() {
     );
     glDisableVertexAttribArray(0);
     glDisableVertexAttribArray(1);
-    glDisableVertexAttribArray(2);
+    if(mode == VBOMode::Textured)
+        glDisableVertexAttribArray(2);
 }
 
 }}

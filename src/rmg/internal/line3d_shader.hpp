@@ -22,30 +22,21 @@ namespace internal {
  */
 class Line3DShader: public Shader {
   private:
-    uint32_t idMVP;
+    uint32_t idThickness;
+    uint32_t idColor;
+    uint32_t idP1;
+    uint32_t idP2;
     
   public:
     /**
      * @brief Default constructor
      */
-    Line3DShader();
-    
-    /**
-     * @brief Constructor with its container
-     * 
-     * @param ctx Container context
-     */
-    Line3DShader(Context* ctx);
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~Line3DShader();
+    Line3DShader() = default;
     
     /**
      * @brief Compile, link and assign program parameters
      */
-    void load();
+    void load() override;
 };
 
 }}

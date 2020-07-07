@@ -15,10 +15,16 @@
 
 #include <cstdio>
 #include <cstdlib>
+#ifdef _WIN32
+#include <Windows.h>
+#include <Winbase.h>
+#else
+#include <unistd.h>
+#endif
 
 #include <tiffio.h>
 
-#include <rmg/config.hpp>
+#include "rmg/config.h"
 
 
 namespace rmg {
@@ -66,7 +72,7 @@ Bitmap Bitmap::loadTIFF(const std::string& file) {
  * 
  * @param file Path for image file
  */
-void Bitmap::saveTIFF(const std::string& file) {
+void Bitmap::saveTIFF(const std::string& file) const {
     // Creates the file
     TIFF *tif = TIFFOpen(file.c_str(), "w");
     if(!tif) {
@@ -80,9 +86,16 @@ void Bitmap::saveTIFF(const std::string& file) {
         return;
     }
     
-    // Sets the attributes
+    // Sets the tags
     TIFFSetField(tif, TIFFTAG_SOFTWARE, "RMGraphics " RMG_VERSION_STRING);
-    TIFFSetField(tif, TIFFTAG_HOSTCOMPUTER, getHostname());
+    char hostname[64+1];
+    #ifdef _WIN32
+    DWORD len = 64+1;
+    GetComputerName(hostname, &len);
+    #else
+    gethostname(hostname, 64+1);
+    #endif
+    TIFFSetField(tif, TIFFTAG_HOSTCOMPUTER, hostname);
     TIFFSetField(tif, TIFFTAG_ORIENTATION, ORIENTATION_TOPLEFT);
     
     TIFFSetField(tif, TIFFTAG_IMAGEWIDTH, width);

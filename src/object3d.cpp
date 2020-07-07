@@ -16,8 +16,22 @@
 
 #include "rmg/object3d.hpp"
 
+#include "rmg/internal/texture_load.hpp"
+
 
 namespace rmg {
+
+/**
+ * @brief Default constructor
+ */
+Object3D::Object3D() {
+    modelMatrix = Mat4();
+    scale = Vec3(1, 1, 1);
+    material = NULL;
+    metalness = 0.0f;
+    roughness = 0.6f;
+    ambientOcculation = 0.6f;
+}
 
 /**
  * @brief Constructor with its container
@@ -25,22 +39,14 @@ namespace rmg {
  * @param ctx Container context
  */
 Object3D::Object3D(Context* ctx): Object(ctx) {
-    vbo = internal::VBO();
-    vboLoad = internal::ContextLoader::Pending();
     modelMatrix = Mat4();
-    rotationMatrix = Mat3();
     scale = Vec3(1, 1, 1);
     material = NULL;
-    color = Color(1, 1, 1, 1);
+    metalness = 0.0f;
+    roughness = 0.6f;
+    ambientOcculation = 0.6f;
+    type = ObjectType::Object3D;
 }
-
-/**
- * @brief Destructor decreases the VBO reference count
- * 
- * When the reference count of the shared pointer drops to zero, it
- * cleans up the GPU resource taken by the VBO.
- */
-Object3D::~Object3D() {}
 
 /**
  * @brief Sets the shared VBO of the object
@@ -70,7 +76,7 @@ void Object3D::setMesh(const Mesh& mesh) {
  * 
  * @return Model matrix
  */
-Mat4 Object3D::getModelMatrix() { return modelMatrix; }
+const Mat4& Object3D::getModelMatrix() const { return modelMatrix; }
 
 /**
  * @brief Sets the 3D coordinate which the object appears
@@ -107,7 +113,7 @@ void Object3D::setTranslation(const Vec3 &pos) {
  * 
  * @return Position vector
  */
-Vec3 Object3D::getTranslation() {
+Vec3 Object3D::getTranslation() const {
     return Vec3(modelMatrix[0][3], modelMatrix[1][3], modelMatrix[2][3]);
 }
 
@@ -116,22 +122,20 @@ Vec3 Object3D::getTranslation() {
  * 
  * Sets the rotation matrix and the model matrix. Rotation of the object
  * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
- * The function is virtual as the derived classes' handling of model
- * matrix involves additional scaling components.
  * 
  * @param rot Euler angles
  */
 void Object3D::setRotation(const Euler &rot) {
-    rotationMatrix = rot.toRotationMatrix();
-    modelMatrix[0][0] = rotationMatrix[0][0] * scale.x;
-    modelMatrix[0][1] = rotationMatrix[0][1];
-    modelMatrix[0][2] = rotationMatrix[0][2];
-    modelMatrix[1][0] = rotationMatrix[1][0];
-    modelMatrix[1][1] = rotationMatrix[1][1] * scale.y;
-    modelMatrix[1][2] = rotationMatrix[1][2];
-    modelMatrix[2][0] = rotationMatrix[2][0];
-    modelMatrix[2][1] = rotationMatrix[2][1];
-    modelMatrix[2][2] = rotationMatrix[2][2] * scale.z;
+    Mat3 R = rot.toRotationMatrix();
+    modelMatrix[0][0] = R[0][0] * scale.x;
+    modelMatrix[0][1] = R[0][1];
+    modelMatrix[0][2] = R[0][2];
+    modelMatrix[1][0] = R[1][0];
+    modelMatrix[1][1] = R[1][1] * scale.y;
+    modelMatrix[1][2] = R[1][2];
+    modelMatrix[2][0] = R[2][0];
+    modelMatrix[2][1] = R[2][1];
+    modelMatrix[2][2] = R[2][2] * scale.z;
 }
 
 /**
@@ -141,7 +145,13 @@ void Object3D::setRotation(const Euler &rot) {
  * 
  * @return Euler angles
  */
-Euler Object3D::getRotation() { return Euler(rotationMatrix); }
+Euler Object3D::getRotation() const {
+    Mat3 R = (Mat3) modelMatrix;
+    R[0][0] /= scale.x;
+    R[1][1] /= scale.y;
+    R[2][2] /= scale.z;
+    return Euler(R);
+}
 
 /**
  * @brief Sets the scale of the 3D object
@@ -155,12 +165,12 @@ Euler Object3D::getRotation() { return Euler(rotationMatrix); }
  * @param z Scaling factor in z-component
  */
 void Object3D::setScale(float x, float y, float z) {
+    modelMatrix[0][0] *= x/scale.x;
+    modelMatrix[1][1] *= y/scale.y;
+    modelMatrix[2][2] *= z/scale.z;
     scale.x = x;
     scale.y = y;
     scale.z = z;
-    modelMatrix[0][0] = rotationMatrix[0][0] * x;
-    modelMatrix[1][1] = rotationMatrix[1][1] * y;
-    modelMatrix[2][2] = rotationMatrix[2][2] * z;
 }
 
 /**
@@ -173,12 +183,12 @@ void Object3D::setScale(float x, float y, float z) {
  * @param f Scaling factor
  */
 void Object3D::setScale(float f) {
+    modelMatrix[0][0] *= f/scale.x;
+    modelMatrix[1][1] *= f/scale.y;
+    modelMatrix[2][2] *= f/scale.z;
     scale.x = f;
     scale.y = f;
     scale.z = f;
-    modelMatrix[0][0] = rotationMatrix[0][0] * f;
-    modelMatrix[1][1] = rotationMatrix[1][1] * f;
-    modelMatrix[2][2] = rotationMatrix[2][2] * f;
 }
 
 /**
@@ -186,25 +196,7 @@ void Object3D::setScale(float f) {
  * 
  * @return Scaling factors in x, y and z components
  */
-Vec3 Object3D::getScale() { return scale; }
-
-/**
- * @brief Sets the material properties of the 3D object
- * 
- * Color is 4-channel. Diffused light diffuses along the whole surface
- * almost uniformly. Specular light means reflected light and this
- * property usually forms bright spot at some angles of the object.
- * 
- * @param col RGBA color
- * @param diff Diffusion coefficient
- * @param spec Specularity coefficient
- */
-void Object3D::setMaterial(Color col, float m, float r, float ao) {
-    setColor(col);
-    metalness = m;
-    roughness = r;
-    ambientOcculation = ao;
-}
+Vec3 Object3D::getScale() const { return scale; }
 
 /**
  * @brief Sets the material texture
@@ -215,6 +207,71 @@ void Object3D::setMaterial(Color col, float m, float r, float ao) {
  * @param mat Predefined material
  */
 void Object3D::setMaterial(Material* mat) { material = mat; }
+
+/**
+ * @brief Gets the material texture
+ * 
+ * Gets the object to use a predefined material. This material data uses
+ * OpenGL context for texture image, normal maps, .etc.
+ * 
+ * @return Predefined material texture
+ */
+Material *Object3D::getMaterial() const { return material; }
+
+/**
+ * @brief Loads texture from file
+ * 
+ * @param f Path to material textures (file, folder or zip)
+ */
+void Object3D::loadTexture(const std::string &f) {
+    auto texture = std::make_shared<internal::Texture>(internal::Texture());
+    auto load = new internal::TextureLoad(texture.get(), f);
+    vboLoad = internal::ContextLoader::Pending(load);
+}
+
+/**
+ * @brief Loads texture from bitmap
+ * 
+ * @param bmp Base image
+ */
+void Object3D::loadTexture(const Bitmap &bmp) {
+    auto texture = std::make_shared<internal::Texture>(internal::Texture());
+    auto load = new internal::TextureLoad(texture.get(), bmp);
+    vboLoad = internal::ContextLoader::Pending(load);
+}
+
+/**
+ * @brief Loads texture from bitmap
+ * 
+ * @param base Base image
+ * @param h Height mapping
+ * @param norm Normal mapping
+ * @param m Metallic, rough, ambient occulation
+ * @param e Emissivity
+ */
+void Object3D::loadTexture(const Bitmap& base, const Bitmap& h,
+                           const Bitmap& norm, const Bitmap& m,
+                           const Bitmap& e)
+{
+    auto texture = std::make_shared<internal::Texture>(internal::Texture());
+    auto load = new internal::TextureLoad(texture.get(), base, h, norm, m, e);
+    vboLoad = internal::ContextLoader::Pending(load);
+}
+
+/**
+ * @brief Sets the material properties of the 3D object
+ * 
+ * Sets all three material lighting properties by a single setter function.
+ * 
+ * @param m Metalness
+ * @param r Roughness
+ * @param ao Ambient occulation
+ */
+void Object3D::setMRAO(float m, float r, float ao) {
+    metalness = m;
+    roughness = r;
+    ambientOcculation = ao;
+}
 
 /**
  * @brief Sets the metalness coefficient of the texture
@@ -228,7 +285,7 @@ void Object3D::setMetalness(float m) { metalness = m; }
  * 
  * @return Metalness coefficient
  */
-float Object3D::getMetalness() { return metalness; }
+float Object3D::getMetalness() const { return metalness; }
 
 /**
  * @brief Sets the roughness coefficient of the texture.
@@ -242,7 +299,7 @@ void Object3D::setRoughness(float r) { roughness = r; }
  * 
  * @return Roughness coefficient
  */
-float Object3D::getRoughness() { return roughness; }
+float Object3D::getRoughness() const { return roughness; }
 
 /**
  * @brief Sets the ambient occulation of the texture.
@@ -256,6 +313,38 @@ void Object3D::setAmbientOcculation(float ao) { ambientOcculation = ao; }
  * 
  * @return Ambient occulation
  */
-float Object3D::getAmbientOcculation() { return ambientOcculation; }
+float Object3D::getAmbientOcculation() const { return ambientOcculation; }
+
+/**
+ * @brief Gets the pointer to VBO
+ * 
+ * @return Pointer to VBO
+ */
+const internal::VBO *Object3D::getVBO() const { return vbo.get(); }
+
+/**
+ * @brief Gets the pointer to the texture
+ * 
+ * @return Pointer to the texture
+ */
+const internal::Texture *Object3D::getTexture() const {
+    return texture.get();
+}
+
+using Pending = internal::ContextLoader::Pending;
+
+/**
+ * @brief Gets the VBO loader
+ * 
+ * @return VBO loader
+ */
+const Pending& Object3D::getVBOLoad() const { return vboLoad; }
+
+/**
+ * @brief Gets the texture loader
+ * 
+ * @return Texture loader
+ */
+const Pending& Object3D::getTextureLoad() const { return texLoad; }
 
 }

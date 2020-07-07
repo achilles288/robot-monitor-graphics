@@ -22,15 +22,6 @@
 namespace rmg {
 
 /**
- * @brief Default constructor
- */
-Euler::Euler() {
-    roll = 0;
-    pitch = 0;
-    yaw = 0;
-}
-
-/**
  * @brief Constructor with roll, pitch and yaw
  * 
  * @param x Rotation about x-axis (Roll)
@@ -95,7 +86,7 @@ Euler::Euler(const Mat3 &R) {
  * 
  * @return 3x3 rotation matrix
  */
-Mat3 Euler::toRotationMatrix() {
+Mat3 Euler::toRotationMatrix() const {
     float c1 = cos(roll);
     float c2 = cos(pitch);
     float c3 = cos(yaw);
@@ -107,6 +98,30 @@ Mat3 Euler::toRotationMatrix() {
         { c2*s3,  s1*s2*s3 + c1*c3,  c1*s2*s3 - s1*c3 },
         {  -s2 ,       s1*c2      ,       c1*c2       }
     };
+}
+
+/**
+ * @brief Gets reference to color data as array subscript
+ * 
+ * @param i Index
+ * 
+ * @return Reference to color member
+ */
+float& Euler::operator [] (uint8_t i) {
+     RMG_ASSERT(i < 3);
+     return (&roll)[i];
+}
+
+/**
+ * @brief Gets reference to color data as array subscript
+ * 
+ * @param i Index
+ * 
+ * @return Reference to color member
+ */
+float const& Euler::operator [] (uint8_t i) const {
+     RMG_ASSERT(i < 3);
+     return (&roll)[i];
 }
 
 }

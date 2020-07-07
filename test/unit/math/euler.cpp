@@ -1,6 +1,8 @@
 #include <rmg/math/euler.hpp>
-#include <rmg/math/mat3.hpp>
+
 #include <gtest/gtest.h>
+
+#include <rmg/math/mat3.hpp>
 
 using namespace rmg;
 

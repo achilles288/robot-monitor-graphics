@@ -1,12 +1,13 @@
-#include <rmg/assert.hpp>
 #include <rmg/window.hpp>
-#include <gtest/gtest.h>
-
-#include <GL/glew.h>
-#include <GL/gl.h>
 
 #include <cstdio>
 #include <stdexcept>
+
+#include <GL/glew.h>
+#include <GL/gl.h>
+#include <gtest/gtest.h>
+
+#include <rmg/assert.hpp>
 
 using namespace rmg;
 
@@ -49,7 +50,7 @@ class TestWindow1: public Window {
 };
 
 TEST(Window, initAndDestroy) {
-    EXPECT_EXIT(
+    ASSERT_EXIT(
         {
             auto window = new TestWindow1();
             Window::mainLoop();
@@ -80,7 +81,7 @@ class TestWindow2: public Window {
 };
 
 TEST(Window, exceptionHandling) {
-    EXPECT_EXIT(
+    ASSERT_EXIT(
         {
             auto window = new TestWindow2();
             Window::mainLoop();
@@ -151,7 +152,7 @@ class TestWindow3: public Window {
 };
 
 TEST(Window, setWindowSize) {
-    EXPECT_EXIT(
+    ASSERT_EXIT(
         {
             auto window = new TestWindow3();
             Window::mainLoop();
@@ -191,7 +192,7 @@ class TestWindow4: public Window {
 };
 
 TEST(Window, multipleContextsInit) {
-    EXPECT_EXIT(
+    ASSERT_EXIT(
         {
             auto window1 = new TestWindow4( 0.8f,  180, 0.4f);
             auto window2 = new TestWindow4(-0.4f, -230, 0.2f);

@@ -34,9 +34,8 @@ class Context;
  */
 enum class ObjectType {
     Default,
+    Object2D,
     Object3D,
-    Sprite2D,
-    Text2D,
     Particle3D,
     Line3D
 };
@@ -57,6 +56,8 @@ class Object {
     
     static uint64_t lastID;
     
+    void swap(Object& x) noexcept;
+    
   protected:
     /**
      * @brief Type of object (Object3D, Sprite2D, .etc)
@@ -68,6 +69,11 @@ class Object {
     
   public:
     /**
+     * @brief Default constructor
+     */
+    Object();
+    
+    /**
      * @brief Constructor with its container
      * 
      * @param ctx Container context
@@ -77,7 +83,7 @@ class Object {
     /**
      * @brief Destructor
      */
-    virtual ~Object();
+    virtual ~Object() = default;
     
     /**
      * @brief Copy constructor
@@ -112,21 +118,21 @@ class Object {
      * 
      * @return Object ID
      */
-    uint64_t getID();
+    uint64_t getID() const;
     
     /**
      * @brief Gets container context
      * 
      * @return Container context
      */
-    Context* getContext();
+    Context* getContext() const;
     
     /**
      * @brief Gets object type
      * 
      * @return Object type
      */
-    ObjectType getObjectType();
+    ObjectType getObjectType() const;
     
     /**
      * @brief Sets object color
@@ -159,7 +165,7 @@ class Object {
      * 
      * @return RGBA color
      */
-    Color getColor();
+    Color getColor() const;
     
     /**
      * @brief Sets object visibility
@@ -176,7 +182,7 @@ class Object {
      * 
      * @return True if the object is hidden
      */
-    bool isHidden();
+    bool isHidden() const;
 };
 
 }

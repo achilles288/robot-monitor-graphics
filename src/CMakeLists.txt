@@ -1,8 +1,8 @@
 set(RMGCONFIG_RESOURCE_PATH ${PROJECT_SOURCE_DIR}/share)
 
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/config.hpp.in
-    ${CMAKE_BINARY_DIR}/config/rmg/config.hpp
+    ${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/rmg/config.h
 )
 
 
@@ -19,14 +19,24 @@ set(RMGBASE_LIBRARY rmgbase)
 
 set(RMGBASE_SOURCES
     color.cpp
-    context_render.cpp
-    context_resource.cpp
+    context_container.cpp
+    context_renderer.cpp
     context_world.cpp
+    cube.cpp
+    cylinder.cpp
     font.cpp
     keyboard.cpp
     material.cpp
+    mesh.cpp
     mouse.cpp
+    line3d.cpp
     object.cpp
+    object2d.cpp
+    object3d.cpp
+    particle.cpp
+    sphere.cpp
+    sprite.cpp
+    text2d.cpp
     math/euler.cpp
     math/mat3.cpp
     math/mat4.cpp
@@ -54,7 +64,6 @@ set(RMGBASE_SOURCES
     rmg/line3d.hpp
     rmg/material.hpp
     rmg/math.hpp
-    rmg/model.hpp
     rmg/mouse.hpp
     rmg/object.hpp
     rmg/object2d.hpp

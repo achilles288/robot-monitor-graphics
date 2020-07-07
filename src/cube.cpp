@@ -11,10 +11,19 @@
  */
 
 
+#include "rmg/cube.hpp"
+
+
 namespace rmg {
 
-using Sample = shared_ptr<internal::VBO>;
-std::vector<std::pair<uint32_t, Sample>> Cube3D::samples;
+/**
+ * @brief Default constructor
+ */
+Cube3D::Cube3D() {    
+    length = 1.0f;
+    breadth = 1.0f;
+    height = 1.0f;
+}
 
 /**
  * @brief Constructs a 3D cube model from specific dimensions
@@ -26,129 +35,138 @@ std::vector<std::pair<uint32_t, Sample>> Cube3D::samples;
  */
 Cube3D::Cube3D(Context* ctx, float l, float b, float h): Object3D(ctx)
 {
-    setDimension(l, b, h);
-    
-    uint32_t ctxID = getContext()->getID();
-    for(auto it=samples.begin(); it!=samples.end(); it++) {
-        if(it->first == ctxID) {
-            setSharedVBO(it->second);
-            return;
-        }
-    }
-    
-    Sample sample = std::make_shared(internal::VBO());
-    setSharedVBO(sample);
-    Vec3 verticies[24];
-    Vec3 normals[24];
-    Vec2 textures[24];
-    uint32_t* indecies[36];
-    setMesh(Mesh(verticies, normals, textures, 24, indecies, 36));
-    auto elem = std::pair<uint32_t,Sample>(ctxID,sample);
-    samples.insert(elem);
-}
-
-/**
- * @brief Destructor
- */
-Cube3D::~Cube3D() {
-    uint32_t ctxID = getContext()->getID();
-    for(auto it=samples.begin(); it!=samples.end(); it++) {
-        if(it->first == ctxID) {
-            if(it->second.use_count() == 2)
-                samples.erase(it);
-            return;
-        }
-    }
-}
-
-/**
- * @brief Modify the dimension of the cube
- * 
- * @param l Length
- * @param b Breadth
- * @param h Height
- */
-void Cube3D::setDimension(float l, float b, float h) {
     length = l;
     breadth = b;
     height = h;
-    modelMatrix[0][0] = rotationMatrix[0][0] * scale.x * l;
-    modelMatrix[1][1] = rotationMatrix[1][1] * scale.y * b;
-    modelMatrix[2][2] = rotationMatrix[2][2] * scale.z * h;
+    auto vbo = std::make_shared<internal::VBO>(internal::VBO());
+    setSharedVBO(vbo);
+    setMesh(createMesh());
+}
+
+Mesh Cube3D::createMesh() {
+    Vec3 vertices[6][4];
+    Vec3 normals[6][4];
+    Vec2 texCoords[6][4];
+    uint16_t indecies[6][6];
+    
+    // Left and right faces
+    for(int i=-1; i<=1; i+=2) {
+        int a = (i==-1) ? 0 : 1;
+        vertices[a][0] = Vec3(i*length/2,  i*breadth/2, -height/2);
+        vertices[a][1] = Vec3(i*length/2,  i*breadth/2,  height/2);
+        vertices[a][2] = Vec3(i*length/2, -i*breadth/2,  height/2);
+        vertices[a][3] = Vec3(i*length/2, -i*breadth/2, -height/2);
+        Vec3 n = Vec3(i, 0, 0);
+        for(int j=0; j<4; j++)
+            normals[a][j] = n;
+        if(getMaterial() == nullptr) {
+            float d = (i==-1) ? 0 : length+breadth;
+            texCoords[a][0] = Vec2(d+breadth, breadth);
+            texCoords[a][1] = Vec2(d+breadth, breadth+height);
+            texCoords[a][2] = Vec2(d, breadth+height);
+            texCoords[a][3] = Vec2(d, breadth);
+        }
+    }
+    
+    // Front and back faces
+    for(int i=-1; i<=1; i+=2) {
+        int a = (i==-1) ? 2 : 3;
+        vertices[a][0] = Vec3(-i*length/2, i*breadth/2, -height/2);
+        vertices[a][1] = Vec3(-i*length/2, i*breadth/2,  height/2);
+        vertices[a][2] = Vec3( i*length/2, i*breadth/2,  height/2);
+        vertices[a][3] = Vec3( i*length/2, i*breadth/2, -height/2);
+        Vec3 n = Vec3(0, i, 0);
+        for(int j=0; j<4; j++)
+            normals[a][j] = n;
+        if(getMaterial() == nullptr) {
+            float d = (i==-1) ? breadth : length+2*breadth;
+            texCoords[a][0] = Vec2(d+length, breadth);
+            texCoords[a][1] = Vec2(d+length, breadth+height);
+            texCoords[a][2] = Vec2(d, breadth+height);
+            texCoords[a][3] = Vec2(d, breadth);
+        }
+    }
+    
+    // Top and bottom faces
+    for(int i=-1; i<=1; i+=2) {
+        int a = (i==-1) ? 4 : 5;
+        vertices[a][0] = Vec3( length/2, -i*breadth/2, i*height/2);
+        vertices[a][1] = Vec3( length/2,  i*breadth/2, i*height/2);
+        vertices[a][2] = Vec3(-length/2,  i*breadth/2, i*height/2);
+        vertices[a][3] = Vec3(-length/2, -i*breadth/2, i*height/2);
+        Vec3 n = Vec3(0, 0, i);
+        for(int j=0; j<4; j++)
+            normals[a][j] = n;
+        if(getMaterial() == nullptr) {
+            float d = (i==-1) ? breadth : breadth+length;
+            texCoords[a][0] = Vec2(d+length, height);
+            texCoords[a][1] = Vec2(d+length, height+breadth);
+            texCoords[a][2] = Vec2(d, height+breadth);
+            texCoords[a][3] = Vec2(d, height);
+        }
+    }
+    
+    // Scaling textural coordinates
+    if(getMaterial() == nullptr) {
+        float imageWidth = 2*(breadth+length);
+        float imageHeight = height + 2*breadth;
+        for(int i=0; i<6; i++) {
+            for(int j=0; j<4; j++) {
+                texCoords[i][j].x /= imageWidth;
+                texCoords[i][j].y /= imageHeight;
+            }
+        }
+    }
+    
+    // The textural coordinates when using a material
+    if(getMaterial() != nullptr) {
+        for(int i=0; i<6; i++) {
+            texCoords[i][0] = Vec2(1, 0);
+            texCoords[i][1] = Vec2(1, 1);
+            texCoords[i][2] = Vec2(0, 1);
+            texCoords[i][3] = Vec2(0, 0);
+        }
+    }
+    
+    // Setting indecies for all 6 faces
+    for(int i=0; i<6; i++) {
+        indecies[i][0] = i*4 + 0;
+        indecies[i][1] = i*4 + 1;
+        indecies[i][2] = i*4 + 2;
+        indecies[i][3] = i*4 + 2;
+        indecies[i][4] = i*4 + 3;
+        indecies[i][5] = i*4 + 0;
+    }
+    
+    return Mesh(&vertices[0][0], &normals[0][0], &texCoords[0][0], 24,
+                &indecies[0][0], 36);
 }
 
 /**
- * Gets the dimension of the cube
+ * @brief Gets the dimension of the cube
  * 
  * @return Cubic dimension
  */
-Vec3 Cube3D::getDimension() {
-    return Vec3(lenght, breadth, height);
+Vec3 Cube3D::getDimension() const {
+    return Vec3(length, breadth, height);
 }
 
 /**
- * @brief Sets the orientaion of the cube
+ * @brief Sets the material texture
  * 
- * Sets the rotation matrix and the model matrix. Rotation of the cube
- * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
- * Model matrix calculation includes additional factors length, width and
- * height.
+ * Sets the object to use a predefined material. This material data uses
+ * OpenGL context for texture image, normal maps, .etc.
  * 
- * @param rot Euler angles
+ * @param mat Predefined material
  */
-void Cube3D::setRotation(const Euler& rot) {
-    rotationMatrix = rot.toRotationMatrix();
-    modelMatrix[0][0] = rotationMatrix[0][0] * scale.x * length;
-    modelMatrix[0][1] = rotationMatrix[0][1];
-    modelMatrix[0][2] = rotationMatrix[0][2];
-    modelMatrix[1][0] = rotationMatrix[1][0];
-    modelMatrix[1][1] = rotationMatrix[1][1] * scale.y * breadth;
-    modelMatrix[1][2] = rotationMatrix[1][2];
-    modelMatrix[2][0] = rotationMatrix[2][0];
-    modelMatrix[2][1] = rotationMatrix[2][1];
-    modelMatrix[2][2] = rotationMatrix[2][2] * scale.z * height;
-}
-
-/**
- * @brief Sets the scale of the cube
- * 
- * Sets the scale and the model matrix.
- * The function is virtual as the derived classes' handling of model
- * matrix involves additional scaling components.
- * Model matrix calculation includes additional factors length, width and
- * height.
- * 
- * @param x Scaling factor in x-component
- * @param y Scaling factor in y-component
- * @param z Scaling factor in z-component
- */
-void Cube3D::setScale(float x, float y, float z) {
-    scale.x = x;
-    scale.y = y;
-    scale.z = z;
-    modelMatrix[0][0] = rotationMatrix[0][0] * x * length;
-    modelMatrix[1][1] = rotationMatrix[1][1] * y * breadth;
-    modelMatrix[2][2] = rotationMatrix[2][2] * z * height;
-}
-
-/**
- * @brief Sets the scale of the cube
- * 
- * Sets the scale and the model matrix.
- * The function is virtual as the derived classes' handling of model
- * matrix involves additional scaling components.
- * Model matrix calculation includes additional factors length, width and
- * height.
- * 
- * @param f Scaling factor
- */
-void Cube3D::setScale(float f) {
-    scale.x = f;
-    scale.y = f;
-    scale.z = f;
-    modelMatrix[0][0] = rotationMatrix[0][0] * f * length;
-    modelMatrix[1][1] = rotationMatrix[1][1] * f * breadth;
-    modelMatrix[2][2] = rotationMatrix[2][2] * f * height;
+void Cube3D::setMaterial(Material* mat) {
+    Material *prev = getMaterial();
+    Object3D::setMaterial(mat);
+    if(prev == nullptr) {
+        auto vbo = std::make_shared<internal::VBO>(internal::VBO());
+        setSharedVBO(vbo);
+        setMesh(createMesh());
+    }
 }
 
 }

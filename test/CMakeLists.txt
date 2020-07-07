@@ -1,6 +1,6 @@
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/test_config.h.in
-    ${CMAKE_BINARY_DIR}/config/rmg/test_config.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/config.h.in
+    ${CMAKE_CURRENT_SOURCE_DIR}/test_config.h
 )
 
 include_directories(

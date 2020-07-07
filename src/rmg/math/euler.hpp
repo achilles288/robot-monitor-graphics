@@ -18,6 +18,7 @@
 
 #include "angle_unit.hpp"
 
+#include <cstdint>
 #include <ostream>
 
 
@@ -32,14 +33,14 @@ struct Mat3;
  * They can also be called yaw, pitch and roll. Values are stored as radian.
  */
 struct Euler {
-    float roll;  ///< Rotation along X-axis
-    float pitch; ///< Rotation along Y-axis
-    float yaw;   ///< Rotation along Z-axis
+    float roll = 0.0f;  ///< Rotation along X-axis
+    float pitch = 0.0f; ///< Rotation along Y-axis
+    float yaw = 0.0f;   ///< Rotation along Z-axis
     
     /**
      * @brief Default constructor
      */
-    Euler();
+    Euler() = default;
     
     /**
      * @brief Constructor with roll, pitch and yaw
@@ -72,7 +73,25 @@ struct Euler {
      * 
      * @return 3x3 rotation matrix
      */
-    Mat3 toRotationMatrix();
+    Mat3 toRotationMatrix() const;
+    
+    /**
+     * @brief Gets reference to data as array subscript
+     * 
+     * @param i Index
+     * 
+     * @return Reference to a member
+     */
+    float& operator [] (uint8_t i);
+    
+    /**
+     * @brief Gets reference to data as array subscript
+     * 
+     * @param i Index
+     * 
+     * @return Reference to a member
+     */
+    float const& operator [] (uint8_t i) const;
 };
 
 /**

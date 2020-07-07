@@ -139,7 +139,7 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
  * 
  * @param file Path for image file
  */
-void Bitmap::savePNG(const std::string& file) {
+void Bitmap::savePNG(const std::string& file) const {
     RMG_ASSERT(data != NULL);
     png_byte color_type;
     if(channel == 1)

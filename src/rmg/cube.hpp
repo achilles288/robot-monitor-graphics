@@ -15,10 +15,6 @@
 #ifndef __RMG_CUBE_H__
 #define __RMG_CUBE_H__
 
-#include <cstdint>
-#include <vector>
-#include <utility>
-
 #include "object3d.hpp"
 
 
@@ -36,10 +32,14 @@ class Cube3D: public Object3D {
     float breadth;
     float height;
     
-    using Sample = shared_ptr<internal::VBO>;
-    static std::vector<std::pair<uint32_t, Sample>> samples;
+    Mesh createMesh();
     
   public:
+    /**
+     * @brief Default constructor
+     */
+    Cube3D();
+    
     /**
      * @brief Constructs a 3D cube model from specific dimensions
      * 
@@ -51,65 +51,21 @@ class Cube3D: public Object3D {
     Cube3D(Context* ctx, float l, float b, float h);
     
     /**
-     * @brief Destructor
-     */
-    virtual ~Cube3D();
-    
-    /**
-     * @brief Modify the dimension of the cube
-     * 
-     * @param l Length
-     * @param b Breadth
-     * @param h Height
-     */
-    void setDimension(float l, float b, float h);
-    
-    /**
-     * Gets the dimension of the cube
+     * @brief Gets the dimension of the cube
      * 
      * @return Cubic dimension
      */
-    Vec3 getDimension();
+    Vec3 getDimension() const;
     
     /**
-     * @brief Sets the orientaion of the cube
+     * @brief Sets the material texture
      * 
-     * Sets the rotation matrix and the model matrix. Rotation of the cube
-     * is in Euler angles. Rotation order is ZYX (Yaw-Pitch-Roll).
-     * Model matrix calculation includes additional factors length, width and
-     * height.
+     * Sets the object to use a predefined material. This material data uses
+     * OpenGL context for texture image, normal maps, .etc.
      * 
-     * @param rot Euler angles
+     * @param mat Predefined material
      */
-    void setRotation(const Euler& rot) override;
-    
-    /**
-     * @brief Sets the scale of the cube
-     * 
-     * Sets the scale and the model matrix.
-     * The function is virtual as the derived classes' handling of model
-     * matrix involves additional scaling components.
-     * Model matrix calculation includes additional factors length, width and
-     * height.
-     * 
-     * @param x Scaling factor in x-component
-     * @param y Scaling factor in y-component
-     * @param z Scaling factor in z-component
-     */
-    void setScale(float x, float y, float z) override;
-    
-    /**
-     * @brief Sets the scale of the cube
-     * 
-     * Sets the scale and the model matrix.
-     * The function is virtual as the derived classes' handling of model
-     * matrix involves additional scaling components.
-     * Model matrix calculation includes additional factors length, width and
-     * height.
-     * 
-     * @param f Scaling factor
-     */
-    void setScale(float f) override;
+    void setMaterial(Material* mat) override;
 };
 
 }

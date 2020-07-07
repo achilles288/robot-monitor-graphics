@@ -13,6 +13,9 @@
 #define __RMG_COLOR_H__
 
 
+#include <cstdint>
+
+
 namespace rmg {
 
 struct ColorRGBA;
@@ -38,9 +41,9 @@ using Color = rmg::ColorRGBA;
  * @see ColorHSLA
  */
 struct ColorRGBA {
-    float red; ///< Red color component
-    float blue; ///< Blue color component
-    float green; ///< Green color component
+    float red = 1.0f; ///< Red color component
+    float green = 1.0f; ///< Green color component
+    float blue = 1.0f; ///< Blue color component
     
     /**
      * @brief Opacity value
@@ -49,13 +52,12 @@ struct ColorRGBA {
      * color is opaque or transparent is considered. The less alpha value,
      * the more transparent the color is.
      */
-    float alpha;
-    
+    float alpha = 1.0f;
     
     /**
      * @brief Default constructor
      */
-    ColorRGBA();
+    ColorRGBA() = default;
     
     /**
      * @brief Constructor with RGB values
@@ -79,7 +81,7 @@ struct ColorRGBA {
     /**
      * @brief Converts RGBA to HSLA
      */
-    explicit operator ColorHSLA();
+    explicit operator ColorHSLA() const;
     
     /**
      * @brief Apply brightness to the color
@@ -94,6 +96,24 @@ struct ColorRGBA {
      * @param val Brightness value between -1 and 1
      */
     ColorRGBA brightness(float val) const;
+    
+    /**
+     * @brief Gets reference to color data as array subscript
+     * 
+     * @param i Index
+     * 
+     * @return Reference to color member
+     */
+    float& operator [] (uint8_t i);
+    
+    /**
+     * @brief Gets reference to color data as array subscript
+     * 
+     * @param i Index
+     * 
+     * @return Reference to color member
+     */
+    float const& operator [] (uint8_t i) const;
 };
 
 /**
@@ -110,9 +130,9 @@ struct ColorRGBA {
  * @see ColorRGBA
  */
 struct ColorHSLA {
-    float hue; ///< Value in 360 degree of color spectrum
-    float saturation; ///< Saturation of the color spectrum
-    float luminance; ///< Amount of lightness
+    float hue = 0.0f; ///< Value in 360 degree of color spectrum
+    float saturation = 0.0f; ///< Saturation of the color spectrum
+    float luminance = 1.0f; ///< Amount of lightness
     
     /**
      * @brief Opacity value
@@ -121,13 +141,13 @@ struct ColorHSLA {
      * color is opaque or transparent is considered. The less alpha value,
      * the more transparent the color is.
      */
-    float alpha;
+    float alpha = 1.0f;
     
     
     /**
      * @brief Default constructor
      */
-    ColorHSLA();
+    ColorHSLA() = default;
     
     /**
      * @brief Constructor with HSL values
@@ -151,7 +171,7 @@ struct ColorHSLA {
     /**
      * @brief Converts HSLA to RGBA
      */
-    operator ColorRGBA();
+    operator ColorRGBA() const;
 };
 
 }

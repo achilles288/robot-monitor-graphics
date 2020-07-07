@@ -28,24 +28,12 @@ class ShadowMapShader: public Shader {
     /**
      * @brief Default constructor
      */
-    ShadowMapShader();
-    
-    /**
-     * @brief Constructor with its container
-     * 
-     * @param ctx Container context
-     */
-    ShadowMapShader(Context* ctx);
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~ShadowMapShader();
+    ShadowMapShader() = default;
     
     /**
      * @brief Compile, link and assign program parameters
      */
-    void load();
+    void load() override;
 };
 
 }}
