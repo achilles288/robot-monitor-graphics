@@ -1,0 +1,128 @@
+/*! \page transform Transforming Objects To The Screen
+ * 
+ * \par
+ * The physical display of our personal computers are acutally only 2D. If we
+ * want to render the 3D objects on the screen, we should be able to transform 
+ * the world coordinates to screen coordinates. When rendering a 3D model, we
+ * have the following components, the model, the camera and the projection
+ * screen. In terms of matrix transformation, we apply the matricies of model,
+ * view and projection which is commonly known as the MVP matrix and is the
+ * best way to seperate the transformations cleanly.
+ * 
+ * <h1>The Model Matrix</h1>
+ * 
+ * \par
+ * A 3D model is made from a set of coordinates in its own space. To display
+ * this model as part of our 3D world, it also has a translation vector,
+ * an orientation and a scale. When applying these 3 transformations, the
+ * model space is converted into the world space.
+ * 
+ * \image html model_space.svg
+ * \image latex pdf/model_space.pdf "Model space" width=2.29in
+ * 
+ * \f[
+ * M = M_{scale} M_{rotate} M_{translate}
+ * \f]
+ * 
+ * \f[
+ * M = M_{translate} \times M_{rotate} \times M_{scale}
+ * \f]
+ * 
+ * \f[
+ * M = 
+ * \begin{pmatrix}
+ *   1 & 0 & 0 & 14 \\
+ *   0 & 1 & 0 & -9 \\
+ *   0 & 0 & 1 &  6 \\
+ *   0 & 0 & 0 &  1
+ * \end{pmatrix}
+ * \begin{pmatrix}
+ *    0.59 & -0.81 & -0.04 & 0 \\
+ *    0.68 &  0.52 & -0.51 & 0 \\
+ *    0.43 &  0.28 &  0.86 & 0 \\
+ *    0    &  0    &  0    & 1
+ * \end{pmatrix}
+ * \begin{pmatrix}
+ *   1.5 & 0   & 0 & 0 \\
+ *   0   & 1.2 & 0 & 0 \\
+ *   0   & 0   & 2 & 0 \\
+ *   0   & 0   & 0 & 1
+ * \end{pmatrix}
+ * \f]
+ * \htmlonly
+ * <style>
+ * #MathJax-Span-75 {
+ *   font-size: 14px;
+ *   line-height: 22px;
+ * }
+ * </style>
+ * \endhtmlonly
+ * 
+ * \par
+ * By multiplying the local coordinates with the model matrix, the coordinates
+ * with respect to the world is obtained. Other models may be seen in this
+ * world space. In brief, the model matrix determines the size, orientation and
+ * location of the model in the world.
+ * 
+ * \image html world_space.svg
+ * \image latex pdf/world_space.pdf "World space" width=1.98in
+ * 
+ * 
+ * <h1>The View Matrix</h1>
+ * 
+ * <blockquote>
+ * The engines don’t move the ship at all. The ship stays where it is and the
+ * engines move the universe around it.
+ * </blockquote>
+ * 
+ * \par
+ * When you think about it, the same applies to cameras. It you want to view a
+ * moutain from another angle, you can either move the camera or move the
+ * mountain. While not practical in real life, this is really simple and handy
+ * in computer graphics.
+ * 
+ * \par
+ * To translate the camera by 8 units along X-axis, we translate the world in
+ * the reverse coordinates which is the -8 units along X-axis. The same
+ * approach is applied in rotations.
+ * 
+ * \image html camera_space.svg
+ * \image latex pdf/camera_space.pdf "Camera space" width=3.12in
+ * 
+ * \par
+ * We have to make one more transformation in the view matrix. In model space
+ * and world space, the displacement above the ground is taken as the
+ * Z-coordinate. In the camera space, the Z-coordinate is taken as the
+ * displacement towards the lens. Why it is taken this way is explained later.
+ * 
+ * 
+ * <h1>The Projection Matrix</h1>
+ * 
+ * \par
+ * After applying the model transform and camera transform, only one last
+ * transformation is needed to be done to reach the screen space. This can be
+ * either orthographic or perspective. Perspective projection is usually used
+ * in rendering 3D graphics. See the detailed explaination at later pages.
+ * 
+ * 
+ * <h1>Combining All These Together</h1>
+ * 
+ * \par
+ * Combining all these together, we have the MVP matrix which is used to
+ * transform all the verticies of a model resource. This matrix is passed
+ * into the vertex shader together with the model resource, computed by the
+ * GPU and the model is render on the screen.
+ * 
+ * \f[
+ * \vec{v}_{screen}
+ * = M V P \times \vec{v}_{local} = P \times V \times M \times \vec{v}_{local}
+ * \f]
+ * 
+ * 
+ * \n
+ * \par
+ * You can read more about the transformations here
+ * 
+ * - \subpage transform_euler_mat
+ * - \subpage transform_projection
+ */

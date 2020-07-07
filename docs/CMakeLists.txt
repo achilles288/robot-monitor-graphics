@@ -36,9 +36,23 @@ set(DOXYGEN_HTML_HEADER pages/api/header.html)
 set(DOXYGEN_HTML_FOOTER pages/api/footer.html)
 
 
-doxygen_add_docs(doxygen
+set(DOXYGEN_GENERATE_LATEX YES)
+set(DOXYGEN_LATEX_OUTPUT ${CMAKE_BINARY_DIR}/docs/latex)
+set(DOXYGEN_EXTRA_PACKAGES amsmath)
+
+
+file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/docs)
+
+
+doxygen_add_docs(
+    doxygen
     ${PROJECT_SOURCE_DIR}/src/rmg
-    pages/api
+    ${PROJECT_SOURCE_DIR}/docs/pages/api/main.dox
+    ${PROJECT_SOURCE_DIR}/docs/pages/api/install.dox
+    ${PROJECT_SOURCE_DIR}/docs/pages/api/getting_started.dox
+    ${PROJECT_SOURCE_DIR}/docs/pages/api/transform.dox
+    ${PROJECT_SOURCE_DIR}/docs/pages/api/lighting.dox
+    ${PROJECT_SOURCE_DIR}/docs/pages/api
     COMMENT "Generate RMGraphics API documentation"
 )
 

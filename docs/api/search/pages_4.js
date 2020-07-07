@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['lighting_20model',['Lighting Model',['../math_lighting.html',1,'math_analysis']]]
+  ['lighting_20model_738',['Lighting Model',['../lighting.html',1,'']]]
 ];

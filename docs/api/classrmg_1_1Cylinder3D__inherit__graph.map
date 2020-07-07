@@ -1,4 +1,5 @@
 <map id="rmg::Cylinder3D" name="rmg::Cylinder3D">
-<area shape="rect" id="node2" href="$classrmg_1_1Object3D.html" title="3D object whose model and appearance can be controlled quickly " alt="" coords="11,80,117,107"/>
-<area shape="rect" id="node3" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures. " alt="" coords="19,5,109,32"/>
+<area shape="rect" id="node1" title="Visual cylinder model." alt="" coords="5,155,133,181"/>
+<area shape="rect" id="node2" href="$classrmg_1_1Object3D.html" title="3D object whose model and appearance can be controlled quickly" alt="" coords="11,80,127,107"/>
+<area shape="rect" id="node3" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures." alt="" coords="20,5,119,32"/>
 </map>

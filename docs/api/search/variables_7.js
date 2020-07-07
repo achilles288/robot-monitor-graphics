@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['n',['n',['../structrmg_1_1PlaneEq.html#ab445e97d26de3bd39106c1433a952ad2',1,'rmg::PlaneEq']]]
+  ['luminance_678',['luminance',['../structrmg_1_1ColorHSLA.html#a174d6bf6d5233232d99477a3ad7def8c',1,'rmg::ColorHSLA']]]
 ];

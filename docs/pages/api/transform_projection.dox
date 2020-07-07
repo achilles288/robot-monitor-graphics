@@ -1,0 +1,203 @@
+/*! \page transform_projection Projection To The Screen
+ * 
+ * \par
+ * After model transform and camera transform, we have the coordinates in
+ * camera space. For the projection transform matrix, we have to use one
+ * of these, orthographic projection or perspective projection.
+ * 
+ * <h1>OpenGL Coordinate System</h1>
+ * 
+ * \image html clip_space.svg
+ * \image latex pdf/clip_space.pdf "Clip space" width=2.71in
+ * 
+ * \par
+ * In a vertex shader of the OpenGL API, the triangle coordinates are placed
+ * within -1 and 1 of xyz coordinates. This can be visualized as a clipping
+ * volume. Only the fragments within this volume is rendered on the screen.
+ * These coordinates are later transformed to the screen space as below.
+ * 
+ * \image html screen_space.svg
+ * \image latex pdf/screen_space.pdf "Screen space" width=1.88in
+ * 
+ * \par
+ * The X-coordinate of -1 in the clip space means the left most part of the
+ * window and 1 the right most. The Z-coordinate is often called depth value.
+ * The fragment with greater depth value is rendered in front of other
+ * fragments.
+ * 
+ * \par
+ * When defining a projection matrix, transform matricies to make the camera
+ * space fit in the clip space is to be considered.
+ * 
+ * 
+ * <h1>Orthographic Projection</h1>
+ * 
+ * \image html orthographic.svg
+ * \image latex pdf/orthographic.pdf "Orthographic projection" width=2.08in
+ * 
+ * \par
+ * It is a form of parallel projection, in which all the projection lines are
+ * orthogonal to the projection plane, resulting in every plane of the scene 
+ * appearing in affine transformation on the viewing surface.
+ * 
+ * \par
+ * In this type of projection, the vectors transformed by the view matrix is
+ * almost directly used since all the light particles are parallel along the
+ * viewing direction.
+ * 
+ * \par
+ * All we have to do is scaling and translation so that the vectors fit in the
+ * OpenGL clip space. In the world space, a near plane is defined at distance
+ * <i>n</i> and a far plane is defined at distance <i>f</i>.
+ * 
+ * \f[
+ * P = 
+ * \begin{pmatrix}
+ *   s.aspect & 0 & 0 & 0 \\
+ *       0    & s & 0 & 0 \\
+ *       0    & 0 & A & B \\
+ *       0    & 0 & 0 & 1
+ * \end{pmatrix}
+ * \f]
+ * 
+ * \par
+ * \f$s\f$ is the uniform scaling factor in X and Y coordinates.
+ * \f$aspect = {width \over height}\f$ is the aspect ratio of the viewport.
+ * The Z-scaling and Z-translation \f$A\f$ and \f$B\f$ are calculated
+ * as follow,
+ * \par
+ * \f$
+ * \begin{pmatrix}
+ *   A && B \\
+ *   0 && 1
+ * \end{pmatrix}
+ * \begin{pmatrix}
+ *   z \\ 1
+ * \end{pmatrix}
+ * =
+ * \begin{pmatrix}
+ *   Az + B \\ 1
+ * \end{pmatrix}
+ * \f$
+ * 
+ * \par
+ * \f$z = -n \Rightarrow -An + B = 1 \f$
+ * \par
+ * \f$z = -f \Rightarrow -Af + B = -1 \f$
+ * 
+ * \f[
+ * A = {2 \over {f-n}} \qquad B = {{n+f} \over {f-n}}
+ * \f]
+ * 
+ * 
+ * <h1>Perspective Projection</h1>
+ * 
+ * \par
+ * In a projective projection, instead of the parallel lines, the light
+ * particles from the scene converge at a single point. At some focal
+ * length from the focus, the image is captured.
+ * 
+ * \image html perspective.svg
+ * \image latex pdf/perspective.pdf "Perspective projection" width=2.81in
+ * 
+ * \par
+ * From the above figure, applying similar triangles ratio, we have the
+ * following equations.
+ * 
+ * \f[
+ * {{x'} \over d} = {x \over z} \qquad {{y'} \over d} = {y \over z}
+ * \f]
+ * 
+ * \f[
+ * \begin{pmatrix}
+ * x' \\ y'
+ * \end{pmatrix}
+ * =
+ * \begin{pmatrix}
+ * {d \over z} \times x \\ {d \over z} \times y
+ * \end{pmatrix}
+ * \f]
+ * 
+ * \par
+ * In matricies, the transform makes homogeneous coordinate and w coordinate
+ * no longer 1 and we must divide at the end.
+ * 
+ * \f[
+ * P = 
+ * \begin{pmatrix}
+ *   1 & 0 & 0 & 0 \\
+ *   0 & 1 & 0 & 0 \\
+ *   0 & 0 & 1 & 0 \\
+ *   0 & 0 & -{1 \over d} & 0
+ * \end{pmatrix}
+ * \f]
+ * 
+ * \par
+ * To verify it with above equations,
+ * \par
+ * \f$
+ * P 
+ * \begin{pmatrix}
+ *   x \\ y \\ z \\ 1
+ * \end{pmatrix}
+ * =
+ * \begin{pmatrix}
+ *   x \\ y \\ z \\ -{z \over d}
+ * \end{pmatrix}
+ * \rightarrow
+ * \begin{pmatrix}
+ *   {d \times x} \over {-z} \\
+ *   {d \times y} \over {-z} \\
+ *   -d \\
+ *   1
+ * \end{pmatrix}
+ * \f$
+ * 
+ * \par
+ * Modifying the matrix,
+ * 
+ * \f[
+ * P = 
+ * \begin{pmatrix}
+ *   d.aspect & 0 &  0 & 0 \\
+ *       0    & d &  0 & 0 \\
+ *       0    & 0 &  A & B \\
+ *       0    & 0 & -1 & 0
+ * \end{pmatrix}
+ * \f]
+ * 
+ * \par
+ * \f$d = 1 / \mathrm{tan}{\theta \over 2}\f$ is focal length. \f$\theta\f$ is
+ * the field of view in Y-coordinate. The \f$A\f$ and \f$B\f$ are calculated
+ * as follow,
+ * \par
+ * \f$
+ * \begin{pmatrix}
+ *    A && B \\
+ *   -1 && 0
+ * \end{pmatrix}
+ * \begin{pmatrix}
+ *   z \\ 1
+ * \end{pmatrix}
+ * =
+ * \begin{pmatrix}
+ *   Az + B \\ -z
+ * \end{pmatrix}
+ * \f$
+ * 
+ * \par
+ * \f$z = -n \Rightarrow {{-An + B} \over n} = 1 \f$
+ * \par
+ * \f$z = -f \Rightarrow {{-Af + B} \over f} = -1 \f$
+ * 
+ * \f[
+ * A = {{n+f} \over {f-n}} \qquad B = {{2nf} \over {f-n}}
+ * \f]
+ * 
+ * 
+ * \htmlonly
+ * <a class="next-article-link" href="math_lighting.html">
+ * Next: Lighting Model
+ * </a>
+ * \endhtmlonly
+ */

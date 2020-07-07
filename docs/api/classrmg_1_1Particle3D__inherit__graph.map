@@ -1,3 +1,4 @@
 <map id="rmg::Particle3D" name="rmg::Particle3D">
-<area shape="rect" id="node2" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures. " alt="" coords="17,5,107,32"/>
+<area shape="rect" id="node1" title="2D graphics displayed in terms of 3D space" alt="" coords="5,80,128,107"/>
+<area shape="rect" id="node2" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures." alt="" coords="17,5,116,32"/>
 </map>

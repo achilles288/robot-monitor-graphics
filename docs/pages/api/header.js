@@ -8,14 +8,15 @@ window.addEventListener("load", function() {
         projectname_txt.innerHTML = "RMGraphics";
         projectbrief_txt.style.display = "none";
     }
-    if(window.innerWidth < 800) {
+    if(window.innerWidth < 765) {
         $("#doc-content").css({marginLeft:6+"px"});
         $("#side-nav").css({width:0 + "px"});
-    }
-    var handle = document.getElementsByClassName("ui-resizable-handle");
-    for(let i=0; i<handle.length; i++) {
-        var new_element = handle[i].cloneNode(true);
-        handle[i].parentNode.replaceChild(new_element, handle[i]);
+        var handle = document.getElementsByClassName("ui-resizable-handle");
+        for(let i=0; i<handle.length; i++) {
+            var new_element = handle[i].cloneNode(true);
+            new_element.style.display = "none";
+            handle[i].parentNode.replaceChild(new_element, handle[i]);
+        }
     }
 });
 

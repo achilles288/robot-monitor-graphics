@@ -1,3 +1,4 @@
 <map id="rmg::MouseEvent" name="rmg::MouseEvent">
-<area shape="rect" id="node2" href="$classrmg_1_1KeyboardEvent.html" title="Keyboard event and attributes. " alt="" coords="5,5,147,32"/>
+<area shape="rect" id="node1" title="Stores mouse position and states." alt="" coords="15,80,151,107"/>
+<area shape="rect" id="node2" href="$classrmg_1_1KeyboardEvent.html" title="Keyboard event and attributes." alt="" coords="5,5,160,32"/>
 </map>

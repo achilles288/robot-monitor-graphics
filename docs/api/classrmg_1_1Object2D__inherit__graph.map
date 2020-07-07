@@ -1,5 +1,6 @@
 <map id="rmg::Object2D" name="rmg::Object2D">
-<area shape="rect" id="node3" href="$classrmg_1_1Sprite2D.html" title="2D sprite images for 2D games " alt="" coords="5,155,108,181"/>
-<area shape="rect" id="node4" href="$classrmg_1_1Text2D.html" title="Renders text as an 2D object. " alt="" coords="132,155,227,181"/>
-<area shape="rect" id="node2" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures. " alt="" coords="73,5,163,32"/>
+<area shape="rect" id="node1" title="2D graphics displayed on top of the 3D graphics context" alt="" coords="69,80,185,107"/>
+<area shape="rect" id="node3" href="$classrmg_1_1Sprite2D.html" title="2D sprite images for 2D games" alt="" coords="5,155,117,181"/>
+<area shape="rect" id="node4" href="$classrmg_1_1Text2D.html" title="Renders text as an 2D object." alt="" coords="141,155,243,181"/>
+<area shape="rect" id="node2" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures." alt="" coords="77,5,176,32"/>
 </map>

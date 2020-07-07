@@ -18,6 +18,11 @@ body, table, div, p, dl {
     font-size: 1.5em;
 }
 
+blockquote {
+    margin-left: 24px;
+    color: #666;
+}
+
 .full-row-2 {
     display: flex;
     width: 100%;
@@ -32,7 +37,7 @@ body, table, div, p, dl {
     margin: 0 5px;
 }
 
-@media only screen and (max-width: 800px) {
+@media only screen and (max-width: 765px) {
     .full-row-2 {
         display: block;
     }
@@ -40,6 +45,10 @@ body, table, div, p, dl {
     .full-row-2 * {
         width: calc(60% + 80px);
         margin: 5px calc(20% - 40px);
+    }
+    
+    dd {
+        margin-left: 20px;
     }
 }
 

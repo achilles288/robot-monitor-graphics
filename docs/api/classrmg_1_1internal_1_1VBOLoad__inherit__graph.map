@@ -1,3 +1,5 @@
 <map id="rmg::internal::VBOLoad" name="rmg::internal::VBOLoad">
-<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1ContextLoad.html" title="Maintains the data to be loaded into OpenGL context before startup. " alt="" coords="5,5,181,32"/>
+<area shape="rect" id="node1" title="Maintains the array of VBOs before context startup." alt="" coords="101,80,274,107"/>
+<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1ContextLoad.html" title="Maintains the data to be loaded into OpenGL context before startup." alt="" coords="5,5,201,32"/>
+<area shape="rect" id="node3" href="$classrmg_1_1Mesh.html" title="Structural build of a 3D model consisting of polygons." alt="" coords="226,5,317,32"/>
 </map>

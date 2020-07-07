@@ -1,5 +1,6 @@
 var hierarchy =
 [
+    [ "rmg::Bitmap", "classrmg_1_1Bitmap.html", null ],
     [ "rmg::ColorHSLA", "structrmg_1_1ColorHSLA.html", null ],
     [ "rmg::ColorRGBA", "structrmg_1_1ColorRGBA.html", null ],
     [ "rmg::Context", "classrmg_1_1Context.html", [
@@ -20,7 +21,9 @@ var hierarchy =
     [ "rmg::Mat3Row", "structrmg_1_1Mat3Row.html", null ],
     [ "rmg::Mat4", "structrmg_1_1Mat4.html", null ],
     [ "rmg::Mat4Row", "structrmg_1_1Mat4Row.html", null ],
-    [ "rmg::Material", "classrmg_1_1Material.html", null ],
+    [ "rmg::Mesh", "classrmg_1_1Mesh.html", [
+      [ "rmg::internal::VBOLoad", "classrmg_1_1internal_1_1VBOLoad.html", null ]
+    ] ],
     [ "rmg::Object", "classrmg_1_1Object.html", [
       [ "rmg::Line3D", "classrmg_1_1Line3D.html", null ],
       [ "rmg::Object2D", "classrmg_1_1Object2D.html", [
@@ -30,12 +33,12 @@ var hierarchy =
       [ "rmg::Object3D", "classrmg_1_1Object3D.html", [
         [ "rmg::Cube3D", "classrmg_1_1Cube3D.html", null ],
         [ "rmg::Cylinder3D", "classrmg_1_1Cylinder3D.html", null ],
-        [ "rmg::Model3D", "classrmg_1_1Model3D.html", null ],
         [ "rmg::Sphere3D", "classrmg_1_1Sphere3D.html", null ]
       ] ],
       [ "rmg::Particle3D", "classrmg_1_1Particle3D.html", null ]
     ] ],
     [ "rmg::internal::ContextLoader::Pending", "classrmg_1_1internal_1_1ContextLoader_1_1Pending.html", null ],
+    [ "rmg::Pixel", "structrmg_1_1Pixel.html", null ],
     [ "rmg::PlaneEq", "structrmg_1_1PlaneEq.html", null ],
     [ "rmg::Rect", "structrmg_1_1Rect.html", null ],
     [ "rmg::internal::Shader", "classrmg_1_1internal_1_1Shader.html", [
@@ -45,7 +48,9 @@ var hierarchy =
       [ "rmg::internal::ShadowMapShader", "classrmg_1_1internal_1_1ShadowMapShader.html", null ],
       [ "rmg::internal::SpriteShader", "classrmg_1_1internal_1_1SpriteShader.html", null ]
     ] ],
-    [ "rmg::internal::Texture", "classrmg_1_1internal_1_1Texture.html", null ],
+    [ "rmg::internal::Texture", "classrmg_1_1internal_1_1Texture.html", [
+      [ "rmg::Material", "classrmg_1_1Material.html", null ]
+    ] ],
     [ "rmg::internal::VBO", "classrmg_1_1internal_1_1VBO.html", null ],
     [ "rmg::Vec2", "structrmg_1_1Vec2.html", null ],
     [ "rmg::Vec3", "structrmg_1_1Vec3.html", null ],

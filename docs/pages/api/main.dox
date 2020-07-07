@@ -21,6 +21,8 @@
  * </style>
  * \endhtmlonly
  * 
+ * \image latex pdf/logo_home.pdf width=3.34in
+ * 
  * \par
  * The founder was a mechatronic engineer and wanted to build a monitoring
  * system for real time operating robots. When running a robot software, 
@@ -58,9 +60,13 @@
  * </div>
  * \endhtmlonly
  * 
+ * \image latex pdf/screenshot1.pdf "Rendered shapes" width=3.34in
+ * \image latex pdf/screenshot2.pdf "Robot arm simulation" width=3.34in
+ * 
  * \par
  * The following links describe contents of the documentation.
  * 
  * - \ref getting_started
- * - \ref math_analysis
+ * - \ref transform
+ * - \ref lighting
  */

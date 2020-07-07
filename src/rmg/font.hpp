@@ -10,7 +10,7 @@
 
 #pragma once
 #ifndef __RMG_FONT_H__
-#define __RMG_FONT_H__
+#define __RMG_FONT_H__ ///< Header guard
 
 #include <cstdint>
 #include <memory>

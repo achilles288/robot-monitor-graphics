@@ -1,3 +1,4 @@
 <map id="rmg::internal::ParticleShader" name="rmg::internal::ParticleShader">
-<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1Shader.html" title="The shader program taking main backend role in drawing. " alt="" coords="27,5,170,32"/>
+<area shape="rect" id="node1" title="Calculates the location of particle and displays as a 2D sprite." alt="" coords="5,80,213,107"/>
+<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1Shader.html" title="The shader program taking main backend role in drawing." alt="" coords="30,5,189,32"/>
 </map>

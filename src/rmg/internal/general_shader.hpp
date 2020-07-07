@@ -73,7 +73,7 @@ class GeneralShader: public Shader {
      * @param dlColor Directional light color
      * @param list List of 3D objects
      */
-    void process(const Mat4 &V, const Mat4 &VP,
+    void process(const Mat4 &V, const Mat4 &P,
                  const Vec3 &dlCam, const Color &dlColor,
                  const std::map<uint64_t, Object3D*> &list);
 };

@@ -51,6 +51,7 @@
  * they relate should be known to the users.
  * 
  * \image html component.svg
+ * \image latex pdf/component.pdf "Component diagram" width=3.59in
  * 
  * \par
  * The RMGraphics API involves these componets. The user applications have a
@@ -64,7 +65,9 @@
  * In the next page, you will learn how to open a window and render and
  * manipulate 2D graphics.
  * 
+ * \htmlonly
  * <a class="next-article-link" href="tutorial1.html">
  * Next: Rendering And Manipulating 2D Sprites
  * </a>
+ * \endhtmlonly
  */

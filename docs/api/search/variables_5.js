@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['luminance',['luminance',['../structrmg_1_1ColorHSLA.html#a174d6bf6d5233232d99477a3ad7def8c',1,'rmg::ColorHSLA']]]
+  ['hue_674',['hue',['../structrmg_1_1ColorHSLA.html#ac57da6c77552e6ece010fcc8aa372a1b',1,'rmg::ColorHSLA']]]
 ];

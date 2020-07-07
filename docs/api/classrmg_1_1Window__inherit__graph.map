@@ -1,3 +1,4 @@
 <map id="rmg::Window" name="rmg::Window">
-<area shape="rect" id="node2" href="$classrmg_1_1Context.html" title="2D/3D OpenGL graphics context " alt="" coords="5,5,104,32"/>
+<area shape="rect" id="node1" title="Standalone graphical context in a window." alt="" coords="5,80,113,107"/>
+<area shape="rect" id="node2" href="$classrmg_1_1Context.html" title="2D/3D OpenGL graphics context" alt="" coords="6,5,113,32"/>
 </map>

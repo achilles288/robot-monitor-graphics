@@ -1,4 +1,4 @@
-/*! \page math_euler_mat Euler And Matrix
+/*! \page transform_euler_mat Euler And Matrix
  * 
  * \par
  * There are many forms to represent orientation in 3D space. Matrices,
@@ -10,6 +10,7 @@
  * this representation.
  *
  * \image html airplane.png
+ * \image latex pdf/airplane.pdf "Airplane model showing rotation axes" width=2.27in
  * 
  * \par
  * Matrices are mainly used in the back-end and Euler angles in the front-end.
@@ -58,6 +59,7 @@
  * \theta = \sin^{-1}(-R_{20})
  * \f]
  * 
+ * 
  * <h1>Finding \f$\boldsymbol{\psi}\f$</h1>
  * 
  * \par
@@ -80,6 +82,7 @@
  * \psi = \mathrm{atan2}({R_{21} \over \cos\theta},{R_{22} \over \cos\theta})
  * \f]
  * 
+ * 
  * <h1>Finding \f$\boldsymbol{\phi}\f$</h1>
  * 
  * \par
@@ -89,6 +92,7 @@
  * \f[
  * \phi = \mathrm{atan2}({R_{10} \over \cos\theta},{R_{00} \over \cos\theta})
  * \f]
+ * 
  * 
  * <h1>What If Gimbal Lock?</h1>
  * 
@@ -139,7 +143,9 @@
  * \phi = \mathrm{atan2}(-R_{01}, -R_{02})
  * \f]
  * 
- * <a class="next-article-link" href="math_lighting.html">
- * Next: Lighting Model
+ * \htmlonly
+ * <a class="next-article-link" href="transform_projection.html">
+ * Next: Projection To The Screen Space
  * </a>
+ * \endhtmlonly
  */

@@ -1,3 +1,4 @@
 <map id="rmg::internal::Line3DShader" name="rmg::internal::Line3DShader">
-<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1Shader.html" title="The shader program taking main backend role in drawing. " alt="" coords="26,5,169,32"/>
+<area shape="rect" id="node1" title="Displays non&#45;polygon objects like lines in 3D space." alt="" coords="5,80,209,107"/>
+<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1Shader.html" title="The shader program taking main backend role in drawing." alt="" coords="28,5,187,32"/>
 </map>
