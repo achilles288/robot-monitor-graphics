@@ -16,11 +16,6 @@
 #include "rmg/color.hpp"
 #include "rmg/math/line_equation.hpp"
 
-#include <iostream>
-
-using std::cout;
-using std::endl;
-
 
 namespace rmg {
 
@@ -33,26 +28,11 @@ std::vector<Context*> Context::contextList;
 Context::Context() {
     id = ++lastContextID;
     contextList.push_back(this);
-    width = 1;
-    height = 1;
+    width = 0;
+    height = 0;
     bgColor = Color(0, 0, 0, 1);
     sizeUpdate = true;
     bgUpdate = true;
-    viewMatrix = {
-      { 0,-1, 0, 0},
-      { 0, 0, 1, 0},
-      {-1, 0, 0, 0},
-      { 0, 0, 0, 1}
-    };
-    projectionMatrix = {
-      {2.414f, 0     ,  0     ,  0     },
-      {0     , 2.414f,  0     ,  0     },
-      {0     , 0     , 11/9.0f, 20/9.0f},
-      {0     , 0     , -1     ,  0     }
-    };
-    VPMatrix = projectionMatrix * viewMatrix;
-    minDistance = 1.0f;
-    maxDistance = 10.0f;
     dlWorldSpace = Vec3(-0.354f, 0.612f, -0.707f);
     dlCameraSpace = Vec3(-0.354f, 0.612f, -0.707f);
     dlColor = Color(1, 1, 1, 1);
@@ -89,8 +69,7 @@ void Context::setContextSize(uint16_t w, uint16_t h) {
     width = w;
     height = h;
     sizeUpdate = true;
-    projectionMatrix[0][0] = (h/(float)w) * projectionMatrix[1][1];
-    VPMatrix = projectionMatrix * viewMatrix;
+    camera.setAspectRatio((float)w/h);
 }
 
 /**
@@ -134,29 +113,6 @@ void Context::setBackgroundColor(const Color &col) {
 Color Context::getBackgroundColor() const { return bgColor; }
 
 /**
- * @brief Gets the view matrix
- */
-const Mat4& Context::getViewMatrix() const { return viewMatrix; }
-
-/**
- * @brief Gets the projection matrix
- */
-const Mat4& Context::getProjectionMatrix() const { return projectionMatrix; }
-
-/**
- * @brief Gets the composition of view and projection matrix
- */
-const Mat4& Context::getVPMatrix() const { return VPMatrix; }
-
-
-static const Mat4 adjust1 = {
-    { 0,-1, 0, 0},
-    { 0, 0, 1, 0},
-    {-1, 0, 0, 0},
-    { 0, 0, 0, 1}
-};
-
-/**
  * @brief Sets xyz position of the camera
  * 
  * Sets the translation part of the view matrix.
@@ -166,17 +122,7 @@ static const Mat4 adjust1 = {
  * @param z Z-coordinate
  */
 void Context::setCameraTranslation(float x, float y, float z) {
-    cameraPosition.x = x;
-    cameraPosition.y = y;
-    cameraPosition.z = z;
-    Mat4 translation = {
-        {1, 0, 0, -x},
-        {0, 1, 0, -y},
-        {0, 0, 1, -z},
-        {0, 0, 0,  1}
-    };
-    viewMatrix = adjust1 * Mat4(cameraRotation) * translation;
-    VPMatrix = projectionMatrix * viewMatrix;
+    camera.setTranslation(x, y, z);
 }
 
 /**
@@ -187,15 +133,7 @@ void Context::setCameraTranslation(float x, float y, float z) {
  * @param pos Camera position
  */
 void Context::setCameraTranslation(const Vec3 &pos) {
-    cameraPosition = pos;
-    Mat4 translation = {
-        {1, 0, 0, -pos.x},
-        {0, 1, 0, -pos.y},
-        {0, 0, 1, -pos.z},
-        {0, 0, 0,    1  }
-    };
-    viewMatrix = adjust1 * Mat4(cameraRotation) * translation;
-    VPMatrix = projectionMatrix * viewMatrix;
+    camera.setTranslation(pos);
 }
 
 /**
@@ -209,16 +147,37 @@ void Context::setCameraTranslation(const Vec3 &pos) {
  * @param z Yaw
  */
 void Context::setCameraRotation(float x, float y, float z) {
-    cameraRotation = Euler(x,y,z).toRotationMatrix().inverse();
-    Mat4 translation = {
-        {1, 0, 0, -cameraPosition.x},
-        {0, 1, 0, -cameraPosition.y},
-        {0, 0, 1, -cameraPosition.z},
-        {0, 0, 0,          1       }
-    };
-    viewMatrix = adjust1 * Mat4(cameraRotation) * translation;
-    VPMatrix = projectionMatrix * viewMatrix;
-    dlCameraSpace = (Vec3) (viewMatrix * Vec4(dlWorldSpace, 0));
+    camera.setRotation(x, y, z);
+    dlCameraSpace = (Vec3) (camera.getViewMatrix() * Vec4(dlWorldSpace, 0));
+}
+
+/**
+ * @brief Sets rotation of the camera
+ * 
+ * Sets the view matrix. Rotation of the camera is in Euler angles.
+ * Rotation order is ZYX (Yaw-Pitch-Roll).
+ * 
+ * @param x Roll
+ * @param y Pitch
+ * @param z Yaw
+ * @param unit The previous params are degree or radian
+ */
+void Context::setCameraRotation(float x, float y, float z, AngleUnit unit) {
+    camera.setRotation(x, y, z, unit);
+    dlCameraSpace = (Vec3) (camera.getViewMatrix() * Vec4(dlWorldSpace, 0));
+}
+
+/**
+ * @brief Sets rotation of the camera
+ * 
+ * Sets the view matrix. Rotation of the camera is in Euler angles.
+ * Rotation order is ZYX (Yaw-Pitch-Roll).
+ * 
+ * @param rot Euler angles
+ */
+void Context::setCameraRotation(const Euler &rot) {
+    camera.setRotation(rot);
+    dlCameraSpace = (Vec3) (camera.getViewMatrix() * Vec4(dlWorldSpace, 0));
 }
 
 /**
@@ -228,7 +187,7 @@ void Context::setCameraRotation(float x, float y, float z) {
  * 
  * @return XYZ position
  */
-Vec3 Context::getCameraTranslation() const { return cameraPosition; }
+Vec3 Context::getCameraTranslation() const { return camera.getTranslation(); }
 
 /**
  * @brief Gets rotation of the camera
@@ -238,10 +197,7 @@ Vec3 Context::getCameraTranslation() const { return cameraPosition; }
  *
  * @return Rotation in Euler angles
  */
-Euler Context::getCameraRotation() const {
-    Mat3 R = cameraRotation.inverse();
-    return Euler(R);
-}
+Euler Context::getCameraRotation() const { return camera.getRotation(); }
 
 /**
  * @brief Sets the parameters for perspective projection
@@ -253,26 +209,7 @@ Euler Context::getCameraRotation() const {
  * @param far Maximum clipping distance
  */
 void Context::setPerspectiveProjection(float fov, float near, float far) {
-    minDistance = near;
-    maxDistance = far;
-    float d = 1/tan(fov/2);
-    float aspect = height/(float)width;
-    float A = (near+far)/(far-near);
-    float B = (2*near*far)/(far-near);
-    /**
-     * projectionMatrix = {
-     *   {d*aspect, 0,  0, 0},
-     *   {    0   , d,  0, 0},
-     *   {    0   , 0,  A, B},
-     *   {    0   , 0, -1, 0}
-     * };
-     */
-    projectionMatrix[0][0] = d*aspect;
-    projectionMatrix[1][1] = d;
-    projectionMatrix[2][2] = A;
-    projectionMatrix[2][3] = B;
-    
-    VPMatrix = projectionMatrix * viewMatrix;
+    camera.setPerspectiveProjection(fov, near, far);
 }
 
 /**
@@ -280,13 +217,7 @@ void Context::setPerspectiveProjection(float fov, float near, float far) {
  * 
  * @param fov Field of view
  */
-void Context::setFieldOfView(float fov) {
-    float d = 1/tan(fov/2);
-    float aspect = height/(float)width;
-    projectionMatrix[0][0] = d*aspect;
-    projectionMatrix[1][1] = d;
-    VPMatrix = projectionMatrix * viewMatrix;
-}
+void Context::setFieldOfView(float fov) { camera.setFieldOfView(fov); }
 
 /**
  * @brief Sets minimum distance for depth clipping
@@ -294,12 +225,7 @@ void Context::setFieldOfView(float fov) {
  * @param near Minimum clipping distance
  */
 void Context::setMinimumDistance(float near) {
-    minDistance = near;
-    projectionMatrix[2][2] = (minDistance+maxDistance) /
-                             (maxDistance-minDistance);
-    projectionMatrix[2][3] = (2*minDistance*maxDistance) /
-                             (maxDistance-minDistance);
-    VPMatrix = projectionMatrix * viewMatrix;
+    camera.setMinimumDistance(near);
 }
 
 /**
@@ -308,12 +234,7 @@ void Context::setMinimumDistance(float near) {
  * @param far Maximum clipping distance
  */
 void Context::setMaximumDistance(float far) {
-    maxDistance = far;
-    projectionMatrix[2][2] = (minDistance+maxDistance) /
-                             (maxDistance-minDistance);
-    projectionMatrix[2][3] = (2*minDistance*maxDistance) /
-                             (maxDistance-minDistance);
-    VPMatrix = projectionMatrix * viewMatrix;
+    camera.setMaximumDistance(far);
 }
 
 /**
@@ -321,23 +242,25 @@ void Context::setMaximumDistance(float far) {
  * 
  * @return Field of view
  */
-float Context::getFieldOfView() const {
-    return 2*atan(1/projectionMatrix[1][1]);
-}
+float Context::getFieldOfView() const { return camera.getFieldOfView(); }
     
 /**
  * @brief Gets minimum distance for depth clipping
  * 
  * @return Minimum clipping distance
  */
-float Context::getMinimumDistance() const { return minDistance; }
+float Context::getMinimumDistance() const {
+    return camera.getMinimumDistance();
+}
 
 /**
  * @brief Gets maximum distance for depth clipping
  * 
  * @return Maximum clipping distance
  */
-float Context::getMaximumDistance() const { return maxDistance; }
+float Context::getMaximumDistance() const {
+    return camera.getMinimumDistance();
+}
 
 /**
  * @brief Sets the directional lighting color
@@ -391,7 +314,7 @@ void Context::setDirectionalLightAngles(float pitch, float yaw) {
     dlWorldSpace.x = cos(yaw) * cos(pitch);
     dlWorldSpace.y = sin(yaw) * cos(pitch);
     dlWorldSpace.z = -sin(pitch);
-    dlCameraSpace = Vec3(viewMatrix * Vec4(dlWorldSpace, 0));
+    dlCameraSpace = Vec3(camera.getViewMatrix() * Vec4(dlWorldSpace, 0));
 }
 
 /**
@@ -412,20 +335,6 @@ Euler Context::getDirectionalLightAngles() const {
 }
 
 /**
- * @brief Converts world space to OpenGL clip space
- * 
- * @param x X-coordinate
- * @param y Y-coordinate
- * @param z Z-coordinate
- * 
- * @return 3D coordinate in OpenGL clip space
- */
-Vec3 Context::worldToClip(float x, float y, float z) const {
-    Vec4 v = VPMatrix * Vec4(x, y, z, 1);
-    return Vec3(v.x/v.w, v.y/v.w, v.z/v.w);
-}
-
-/**
  * @brief Converts world coordinate to screen coordinate
  * 
  * Useful when displaying 2D sprites and texts around 3D objects.
@@ -437,7 +346,7 @@ Vec3 Context::worldToClip(float x, float y, float z) const {
  * @return 2D point on screen
  */
 Rect Context::worldToScreen(float x, float y, float z) const {
-    Vec4 S = VPMatrix * Vec4(x, y, z, 1);
+    Vec4 S = camera.getVPMatrix() * Vec4(x, y, z, 1);
     Rect pt;
     pt.x = (int16_t)((S.x/S.w + 1) * width/2);
     pt.y = (int16_t)((S.y/S.w + 1) * height/2);
@@ -454,7 +363,7 @@ Rect Context::worldToScreen(float x, float y, float z) const {
  * @return 2D point on screen
  */
 Rect Context::worldToScreen(const Vec3 &p) const {
-    Vec4 S = VPMatrix * Vec4(p, 1);
+    Vec4 S = camera.getVPMatrix() * Vec4(p, 1);
     Rect pt;
     pt.x = (int16_t)((S.x/S.w + 1) * width/2);
     pt.y = (int16_t)((S.y/S.w + 1) * height/2);

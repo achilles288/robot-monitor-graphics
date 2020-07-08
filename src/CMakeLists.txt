@@ -18,6 +18,7 @@ include_directories(
 set(RMGBASE_LIBRARY rmgbase)
 
 set(RMGBASE_SOURCES
+    camera.cpp
     color.cpp
     context_container.cpp
     context_renderer.cpp
@@ -55,6 +56,7 @@ set(RMGBASE_SOURCES
     
     rmg/rmg.hpp
     rmg/assert.hpp
+    rmg/camera.hpp
     rmg/color.hpp
     rmg/context.hpp
     rmg/cube.hpp

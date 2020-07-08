@@ -87,14 +87,20 @@ void Context::render() {
     fps = 1.0f/(t2-t1);
     t1 = t2;
     
-    glClearDepth(-1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
     if(destroyed)
         throw std::domain_error("Exit on context destruction");
     
-    generalShader.process(viewMatrix, projectionMatrix,
-                          dlCameraSpace, dlColor, objects3d);
+    glClearDepth(-1.0);
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    generalShader.process(
+        camera.getViewMatrix(),
+        camera.getProjectionMatrix(),
+        dlCameraSpace,
+        dlColor,
+        objects3d
+    );
     flush();
 }
 

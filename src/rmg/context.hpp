@@ -1,7 +1,7 @@
 /**
  * @file context.hpp
  * @brief 2D/3D graphics context container
- *
+ * 
  * Manages 2D/3D objects with GPU context resources and shader programs.
  * Abstract layer of OpenGL context.
  *
@@ -21,13 +21,10 @@
 #include <memory>
 #include <queue>
 
+#include "camera.hpp"
 #include "color.hpp"
 #include "keyboard.hpp"
 #include "mouse.hpp"
-#include "math/euler.hpp"
-#include "math/mat3.hpp"
-#include "math/mat4.hpp"
-#include "math/vec.hpp"
 #include "internal/general_shader.hpp"
 #include "internal/line3d_shader.hpp"
 #include "internal/particle_shader.hpp"
@@ -72,13 +69,7 @@ class Context {
     bool sizeUpdate;
     Color bgColor;
     bool bgUpdate;
-    Vec3 cameraPosition;
-    Mat3 cameraRotation;
-    Mat4 viewMatrix;
-    Mat4 projectionMatrix;
-    Mat4 VPMatrix;
-    float minDistance;
-    float maxDistance;
+    Camera camera;
     Vec3 dlWorldSpace;
     Vec3 dlCameraSpace;
     Color dlColor;
@@ -253,19 +244,11 @@ class Context {
     Color getBackgroundColor() const;
     
     /**
-     * @brief Gets the view matrix
+     * @brief Gets the camera that displays the context
+     * 
+     * @return Reference to the immutable camera object
      */
-    const Mat4& getViewMatrix() const;
-    
-    /**
-     * @brief Gets the projection matrix
-     */
-    const Mat4& getProjectionMatrix() const;
-    
-    /**
-     * @brief Gets the composition of view and projection matrix
-     */
-    const Mat4& getVPMatrix() const;
+    const Camera& getCamera() const;
     
     /**
      * @brief Sets xyz position of the camera
@@ -310,12 +293,7 @@ class Context {
      * @param z Yaw
      * @param unit The previous params are degree or radian
      */
-    inline void setCameraRotation(float x, float y, float z, AngleUnit unit) {
-        if(unit == AngleUnit::Radian)
-            setCameraRotation(x, y, z);
-        else
-            setCameraRotation(radian(x), radian(y), radian(z));
-    }
+    void setCameraRotation(float x, float y, float z, AngleUnit unit);
     
     /**
      * @brief Sets rotation of the camera
@@ -325,9 +303,7 @@ class Context {
      * 
      * @param rot Euler angles
      */
-    inline void setCameraRotation(const Euler &rot) {
-        setCameraRotation(rot.roll, rot.pitch, rot.yaw);
-    }
+    void setCameraRotation(const Euler &rot);
     
     /**
      * @brief Gets xyz position of the camera
@@ -485,17 +461,6 @@ class Context {
      * @return Rotation in Euler angles
      */
     Euler getDirectionalLightAngles() const;
-    
-    /**
-     * @brief Converts world space to OpenGL clip space
-     * 
-     * @param x X-coordinate
-     * @param y Y-coordinate
-     * @param z Z-coordinate
-     * 
-     * @return 3D coordinate in OpenGL clip space
-     */
-    Vec3 worldToClip(float x, float y, float z) const;
     
     /**
      * @brief Converts world coordinate to screen coordinate
