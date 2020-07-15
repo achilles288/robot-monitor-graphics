@@ -64,16 +64,25 @@ TEST(Camera, rotationAssert_pitchNegative90) {
 
 
 /**
- * @brief Perspective FOV test
+ * @brief Projection FOV test
  * 
  * Only checks setter and getter. If getter returns the same value passed to
  * setter, the test is passed.
  */
 TEST(Camera, perspectiveFOVAssert) {
     Camera cam = Camera();
+    cam.setPerspectiveProjection();
     cam.setFieldOfView(radian(35.0f));
     float fov = cam.getFieldOfView();
     EXPECT_NEAR(radian(35.0f), fov, 0.0001f);
+}
+
+TEST(Camera, orthographicFOVAssert) {
+    Camera cam = Camera();
+    cam.setOrthographicProjection();
+    cam.setFieldOfView(12);
+    float fov = cam.getFieldOfView();
+    EXPECT_NEAR(12, fov, 0.0001f);
 }
 
 
@@ -88,15 +97,15 @@ TEST(Camera, worldToClip_default) {
     Camera cam = Camera();
     Vec3 p1 = cam.worldToClip(7.56f, -1.52f, 3.01f);
     // Camera space = (1.52, 3.01, -7.56)
-    ASSERT_NEAR( 0.4854f, p1.x, 0.0001f);
-    ASSERT_NEAR( 0.9611f, p1.y, 0.0001f);
-    ASSERT_NEAR(-0.9283f, p1.z, 0.0001f);
+    ASSERT_NEAR(0.4854f, p1.x, 0.0001f);
+    ASSERT_NEAR(0.9611f, p1.y, 0.0001f);
+    ASSERT_NEAR(0.9641f, p1.z, 0.0001f);
     
     Vec3 p2 = cam.worldToClip(3.55f, 2.81f, -1.32f);
     // Camera space = (-2.81, -1.32, -3.55)
     ASSERT_NEAR(-1.9108f, p2.x, 0.0001f);
     ASSERT_NEAR(-0.8976f, p2.y, 0.0001f);
-    ASSERT_NEAR(-0.5962f, p2.z, 0.0001f);
+    ASSERT_NEAR( 0.7981f, p2.z, 0.0001f);
 }
 
 TEST(Camera, worldToClip_translated) {
@@ -106,7 +115,7 @@ TEST(Camera, worldToClip_translated) {
     // Camera space = (-2.03, 0.79, -5.57)
     EXPECT_NEAR(-0.8798f, p.x, 0.0001f);
     EXPECT_NEAR( 0.3424f, p.y, 0.0001f);
-    EXPECT_NEAR(-0.8233f, p.z, 0.0001f);
+    EXPECT_NEAR( 0.9116f, p.z, 0.0001f);
 }
 
 TEST(Camera, worldToClip_rotated) {
@@ -115,7 +124,7 @@ TEST(Camera, worldToClip_rotated) {
     Vec3 p = cam.worldToClip(-2.5543f, 0.8303f, -1.9611f);
     EXPECT_NEAR(-0.2926f, p.x, 0.0001f);
     EXPECT_NEAR( 0.0731f, p.y, 0.0001f);
-    EXPECT_NEAR(-0.5488f, p.z, 0.0001f);
+    EXPECT_NEAR( 0.7744f, p.z, 0.0001f);
 }
 
 TEST(Camera, worldToClip_transformed) {
@@ -125,18 +134,18 @@ TEST(Camera, worldToClip_transformed) {
     Vec3 p = cam.worldToClip(-5.5543f, 2.8303f, -0.9611f);
     EXPECT_NEAR(-0.2926f, p.x, 0.0001f);
     EXPECT_NEAR( 0.0731f, p.y, 0.0001f);
-    EXPECT_NEAR(-0.5488f, p.z, 0.0001f);
+    EXPECT_NEAR( 0.7744f, p.z, 0.0001f);
 }
 
 TEST(Camera, worldToClip_perspectiveAspectChanged) {
     Camera cam = Camera();
+    cam.setPerspectiveProjection();
     cam.setAspectRatio(640.0f/360.0f);
-    // aspect = 9/16,  d = 2.414
+    // aspect = 16/9,  d = 2.414
     Vec3 p = cam.worldToClip(7.56f, -1.52f, 3.01f);
     // Camera space = (1.52, 3.01, -7.56)
     EXPECT_NEAR( 0.2730f, p.x, 0.0001f);
     EXPECT_NEAR( 0.9611f, p.y, 0.0001f);
-    EXPECT_NEAR(-0.9283f, p.z, 0.0001f);
 }
 
 TEST(Camera, worldToClip_perspectiveFOVChanged) {
@@ -145,37 +154,35 @@ TEST(Camera, worldToClip_perspectiveFOVChanged) {
      * matrix changed on aspect ratio change fails, this also fails.
      */
     Camera cam = Camera();
+    cam.setPerspectiveProjection();
     cam.setAspectRatio(640.0f/360.0f);
     cam.setFieldOfView(radian(60));
-    // aspect = 9/16,  d = 1/tan(30deg)
+    // aspect = 16/9,  d = 1/tan(30deg)
     Vec3 p = cam.worldToClip(3.55f, 2.81f, -1.32f);
     // Camera space = (-2.81, -1.32, -3.55)
     EXPECT_NEAR(-0.7712f, p.x, 0.0001f);
     EXPECT_NEAR(-0.6440f, p.y, 0.0001f);
-    EXPECT_NEAR(-0.5962f, p.z, 0.0001f);
 }
 
 TEST(Camera, worldToClip_perspectiveNearChanged) {
     Camera cam = Camera();
+    cam.setPerspectiveProjection();
     cam.setMinimumDistance(2.5f);
-    // A = 5/3,  B = 20/3
+    // A = -4/3,  B = -10/3
     Vec3 p = cam.worldToClip(7.56f, -1.52f, 3.01f);
     // Camera space = (1.52, 3.01, -7.56)
-    EXPECT_NEAR( 0.4854f, p.x, 0.0001f);
-    EXPECT_NEAR( 0.9611f, p.y, 0.0001f);
-    EXPECT_NEAR(-0.7848f, p.z, 0.0001f);
+    EXPECT_NEAR(0.8924f, p.z, 0.0001f);
 }
 
 TEST(Camera, worldToClip_perspectiveFarChanged) {
     Camera cam = Camera();
+    cam.setPerspectiveProjection();
     cam.setMinimumDistance(2.0f);
     cam.setMaximumDistance(100.0f);
-    // A = 51/49,  B = 200/49
+    // A = -50/49,  B = -100/49
     Vec3 p = cam.worldToClip(60.55f, 12.01f, -9.62f);
     // Camera space = (-12.01, -9.62, -60.55)
-    EXPECT_NEAR(-0.4788f, p.x, 0.0001f);
-    EXPECT_NEAR(-0.3835f, p.y, 0.0001f);
-    EXPECT_NEAR(-0.9734f, p.z, 0.0001f);
+    EXPECT_NEAR(0.9867f, p.z, 0.0001f);
 }
 
 TEST(Camera, worldToClip_perspectiveChanged) {
@@ -185,12 +192,75 @@ TEST(Camera, worldToClip_perspectiveChanged) {
     /**
      * aspect = 3/4,
      * d = 1/tan(30deg),
-     * A = 13/12,
-     * B = 25/6
+     * A = -25/24,
+     * B = -25/12
      */
     Vec3 p = cam.worldToClip(46.321f, 17.57f, -12.42f);
     // Camera space = (-17.57, -12.42, -46.321)
-    EXPECT_NEAR(-0.4927f, p.x, 0.0001f);
-    EXPECT_NEAR(-0.4644f, p.y, 0.0001f);
-    EXPECT_NEAR(-0.9934f, p.z, 0.0001f);
+    EXPECT_NEAR(0.9967f, p.z, 0.0001f);
+}
+
+TEST(Camera, worldToClip_orthographicAspectChanged) {
+    Camera cam = Camera();
+    cam.setOrthographicProjection();
+    cam.setAspectRatio(640.0f/360.0f);
+    // aspect = 16/9,  s = 0.2
+    Vec3 p = cam.worldToClip(7.56f, -1.52f, 3.01f);
+    // Camera space = (1.52, 3.01, -7.56)
+    EXPECT_NEAR(0.1710f, p.x, 0.0001f);
+    EXPECT_NEAR(0.6020f, p.y, 0.0001f);
+}
+
+TEST(Camera, worldToClip_orthographicFOVChanged) {
+    /**
+     * The function involves context aspect ratio. So, if the perspective
+     * matrix changed on aspect ratio change fails, this also fails.
+     */
+    Camera cam = Camera();
+    cam.setOrthographicProjection();
+    cam.setAspectRatio(640.0f/360.0f);
+    cam.setFieldOfView(21.0f);
+    // aspect = 16/9,  s = 2/21
+    Vec3 p = cam.worldToClip(3.55f, 2.81f, -7.32f);
+    // Camera space = (-2.81, -7.32, -3.55)
+    EXPECT_NEAR(-0.1505f, p.x, 0.0001f);
+    EXPECT_NEAR(-0.6971f, p.y, 0.0001f);
+}
+
+TEST(Camera, worldToClip_orthographicNearChanged) {
+    Camera cam = Camera();
+    cam.setOrthographicProjection();
+    cam.setMinimumDistance(2.5f);
+    // A = -2/15,  B = 1/3
+    Vec3 p = cam.worldToClip(7.56f, -1.52f, 3.01f);
+    // Camera space = (1.52, 3.01, -7.56)
+    EXPECT_NEAR(0.6747f, p.z, 0.0001f);
+}
+
+TEST(Camera, worldToClip_orthographicFarChanged) {
+    Camera cam = Camera();
+    cam.setOrthographicProjection();
+    cam.setMinimumDistance(2.0f);
+    cam.setMaximumDistance(100.0f);
+    // A = -1/98,  B = -1/49
+    Vec3 p = cam.worldToClip(8.55f, 5.01f, -4.62f);
+    // Camera space = (-5.01, -4.62, -8.55)
+    EXPECT_NEAR(0.0668f, p.z, 0.0001f);
+}
+
+TEST(Camera, worldToClip_orthographicChanged) {
+    Camera cam = Camera();
+    cam.setAspectRatio(400.0f/300.0f);
+    cam.setOrthographicProjection(8.0f, 2.0f, 50.0f);
+    /**
+     * aspect = 4/3,
+     * s = 1/4,
+     * A = -1/48,
+     * B = -1/24
+     */
+    Vec3 p = cam.worldToClip(32.811f, 3.46f, -1.77f);
+    // Camera space = (-3.46, -1.77, -32.811)
+    EXPECT_NEAR(-0.6488f, p.x, 0.0001f);
+    EXPECT_NEAR(-0.4425f, p.y, 0.0001f);
+    EXPECT_NEAR( 0.6419f, p.z, 0.0001f);
 }

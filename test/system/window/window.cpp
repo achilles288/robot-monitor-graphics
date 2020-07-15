@@ -1,5 +1,6 @@
 #include <rmg/window.hpp>
 
+#include <algorithm>
 #include <cstdio>
 #include <cstring>
 #include <iostream>
@@ -14,25 +15,24 @@ using namespace rmg;
 class TestWindow: public Window {
   private:
     Object3D *floor, *block1, *block2, *cylinder, *sphere;
-    Vec3 pos;
-    Euler rot;
-    float fov;
+    Vec3 pos = Vec3(-13.3606f, 6.3603f, 9.8690f);
+    Euler rot = Euler(0.0f, 0.5472f, -0.4640f);
+    Euler lightAngles = Euler(0.0f, 0.0f, 0.0f);
+    float fov = radian(45);
     bool keyW, keyA, keyS, keyD, keyF, keyG;
-    bool shift;
+    bool shift = false;
+    bool lightConfig = false;
     
   public:
     TestWindow() {
-        pos = Vec3(-13.3606f, 6.3603f, 9.8690f);
-        rot = Euler(0.0000, 0.5472f, -0.4640f);
-        fov = radian(45);
         keyW = keyA = keyS = keyD = keyF = keyG = false;
-        shift = false;
         setBackgroundColor(0.847f, 0.949f, 1.0f);
         setCameraTranslation(pos);
         setCameraRotation(rot);
-        setPerspectiveProjection(fov, 0.5f, 30.0f);
+        setDirectionalLightAngles(lightAngles);
+        // setOrthographicProjection(8.0f, 1.0f, 30.0f);
+        setPerspectiveProjection(fov, 1.0f, 30.0f);
         setDirectionalLightColor(1, 1, 1, 2);
-        setDirectionalLightAngles(radian(-60), radian(60));
         floor = new Cube3D(this, 15, 15, 1);
         floor->setColor(0.3f, 0.3f, 0.4f);
         floor->setRoughness(0.7f);
@@ -78,7 +78,24 @@ class TestWindow: public Window {
         cylinder->setRotation(0, 0.9f*t, 1.8f*t);
         sphere->setTranslation(-0.5f, -0.5f, 3+1.5f*cos(3*t));
         
-        if(keyW || keyA || keyS || keyD || keyF || keyG) {
+        bool move = false;
+        if(keyW || keyA || keyS || keyD || keyF || keyG)
+            move = true;
+        
+        if(move && lightConfig) {
+            float rotSpeed = radian(45);
+            if(keyW)
+                lightAngles.pitch += rotSpeed*dt;
+            if(keyA)
+                lightAngles.yaw -= rotSpeed*dt;
+            if(keyS)
+                lightAngles.pitch -= rotSpeed*dt;
+            if(keyD)
+                lightAngles.yaw += rotSpeed*dt;
+            lightAngles.pitch = std::clamp(lightAngles.pitch, -1.571f, 1.571f);
+            setDirectionalLightAngles(lightAngles);
+        }
+        else if(move) {
             if(!shift) {
                 float speed = 5.0f;
                 Vec3 v0, v;
@@ -110,6 +127,7 @@ class TestWindow: public Window {
                     rot.pitch += rotSpeed*dt;
                 if(keyD)
                     rot.yaw -= rotSpeed*dt;
+                rot.pitch = std::clamp(rot.pitch, -1.571f, 1.571f);
                 setCameraRotation(rot);
             }
         }
@@ -131,6 +149,10 @@ class TestWindow: public Window {
             keyF = true;
         else if(event.getKeycode() == 'G')
             keyG = true;
+        
+        else if(event.getKeycode() == 'L') {
+            lightConfig = !lightConfig;
+        }
         
         else if(event.getKeycode() == 'P') {
             std::cout << "Position: " << pos << "  "

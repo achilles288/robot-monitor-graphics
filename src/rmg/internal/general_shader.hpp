@@ -44,13 +44,15 @@ class GeneralShader: public Shader {
     uint32_t idMVP;
     uint32_t idMV;
     uint32_t idScale;
+    uint32_t idShadow;
+    uint32_t idShadowMVP;
     uint32_t idDLCamera;
     uint32_t idDLColor;
     uint32_t idMatColor;
     uint32_t idMatMetal;
     uint32_t idMatRough;
     uint32_t idMatAO;
-    uint32_t idTexOn;
+    uint32_t idFlags;
     
   public:
     /**
@@ -69,13 +71,15 @@ class GeneralShader: public Shader {
      * 
      * @param V View matrix
      * @param P Projection matrix
+     * @param S Shadow matrix
      * @param dlCam Directional light vector in camera space
      * @param dlColor Directional light color
+     * @param shadow Shadow map
      * @param list List of 3D objects
      */
-    void process(const Mat4 &V, const Mat4 &P,
-                 const Vec3 &dlCam, const Color &dlColor,
-                 const std::map<uint64_t, Object3D*> &list);
+    void render(const Mat4 &V, const Mat4 &P, const Mat4 &S,
+                const Vec3 &dlCam, const Color &dlColor, uint32_t shadow,
+                const std::map<uint64_t, Object3D*> &list);
 };
 
 }}

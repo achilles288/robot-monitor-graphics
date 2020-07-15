@@ -27,6 +27,14 @@
 namespace rmg {
 
 /**
+ * @brief Perspective or orthographic projection
+ */
+enum class ProjectionMode {
+    Perspective,
+    Orthographic
+};
+
+/**
  * @brief Virtual camera in 3D space
  * 
  * Calculates view and projection matrices and pass them to shader processing.
@@ -41,9 +49,9 @@ class Camera {
     Mat4 projectionMatrix;
     Mat4 VPMatrix;
     float aspect;
-    float minDistance;
-    float maxDistance;
-    uint8_t projectionMode;
+    float near;
+    float far;
+    ProjectionMode projectionMode;
     
   public:
     /**
@@ -65,6 +73,11 @@ class Camera {
      * @brief Gets the composition of view and projection matrix
      */
     const Mat4& getVPMatrix() const;
+    
+    /**
+     * @brief Gets the projection mode of the camera
+     */
+    ProjectionMode getProjectionMode() const;
     
     /**
      * @brief Sets xyz position of the camera
@@ -148,29 +161,36 @@ class Camera {
     Euler getRotation() const;
     
     /**
+     * @brief Sets the projection to perspective mode
+     */
+    void setPerspectiveProjection();
+    
+    /**
      * @brief Sets the parameters for perspective projection
      * 
      * Sets the perspective matrix.
      * 
      * @param fov Field of view
-     * @param near Minimum clipping distance
-     * @param far Maximum clipping distance
+     * @param n Minimum clipping distance
+     * @param f Maximum clipping distance
      */
-    void setPerspectiveProjection(float fov, float near, float far);
+    void setPerspectiveProjection(float fov, float n, float f);
     
     /**
-     * @brief Sets angle of view for perspective projection
-     * 
-     * @param fov Field of view
+     * @brief Sets the projection to orthographic mode
      */
-    void setFieldOfView(float fov);
+    void setOrthographicProjection();
     
     /**
-     * @brief Gets angle of view used in perspective projection
+     * @brief Sets the parameters for orthographic projection
      * 
-     * @return Field of view
+     * Sets the perspective matrix.
+     * 
+     * @param fov Viewing distance along Y-axis of the screen
+     * @param n Minimum clipping distance
+     * @param f Maximum clipping distance
      */
-    float getFieldOfView() const;
+    void setOrthographicProjection(float fov, float n, float f);
     
     /**
      * @brief Sets image aspect ratio
@@ -180,18 +200,29 @@ class Camera {
     void setAspectRatio(float a);
     
     /**
+     * @brief Sets the field of view for the projection
+     * 
+     * For perspective projection, the parameter is the viewing angle along
+     * the Y-axis. In case of orthographic projection, it is the distance of
+     * view along Y-axis of the screen.
+     * 
+     * @param fov Field of view
+     */
+    void setFieldOfView(float fov);
+    
+    /**
      * @brief Sets minimum distance for depth clipping
      * 
-     * @param near Minimum clipping distance
+     * @param n Minimum clipping distance
      */
-    void setMinimumDistance(float near);
+    void setMinimumDistance(float n);
     
     /**
      * @brief Sets maximum distance for depth clipping
      * 
-     * @param far Maximum clipping distance
+     * @param f Maximum clipping distance
      */
-    void setMaximumDistance(float far);
+    void setMaximumDistance(float f);
     
     /**
      * @brief Gets the aspect ratio of the camera
@@ -199,6 +230,13 @@ class Camera {
      * @return Aspect ratio of camera image
      */
     float getAspectRatio() const;
+    
+    /**
+     * @brief Gets angle of view used in the projection
+     * 
+     * @return Field of view
+     */
+    float getFieldOfView() const;
     
     /**
      * @brief Gets minimum distance for depth clipping

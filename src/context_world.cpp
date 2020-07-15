@@ -31,10 +31,8 @@ Context::Context() {
     width = 0;
     height = 0;
     bgColor = Color(0, 0, 0, 1);
-    sizeUpdate = true;
-    bgUpdate = true;
-    dlWorldSpace = Vec3(-0.354f, 0.612f, -0.707f);
-    dlCameraSpace = Vec3(-0.354f, 0.612f, -0.707f);
+    dlWorldSpace = Vec3(1.0f, 0.0f, 0.0f);
+    dlCameraSpace = Vec3(0.0f, 0.0f, -1.0f);
     dlColor = Color(1, 1, 1, 1);
     destroyed = false;
     initDone = false;
@@ -68,7 +66,6 @@ uint32_t Context::getID() const { return id; }
 void Context::setContextSize(uint16_t w, uint16_t h) {
     width = w;
     height = h;
-    sizeUpdate = true;
     camera.setAspectRatio((float)w/h);
 }
 
@@ -92,7 +89,6 @@ void Context::setBackgroundColor(float r, float g, float b) {
     bgColor.red = r;
     bgColor.green = g;
     bgColor.blue = b;
-    bgUpdate = true;
 }
 
 /**
@@ -102,7 +98,6 @@ void Context::setBackgroundColor(float r, float g, float b) {
  */
 void Context::setBackgroundColor(const Color &col) {
     bgColor = col;
-    bgUpdate = true;
 }
 
 /**
@@ -123,6 +118,7 @@ Color Context::getBackgroundColor() const { return bgColor; }
  */
 void Context::setCameraTranslation(float x, float y, float z) {
     camera.setTranslation(x, y, z);
+    shadowMapShader.setCameraTranslation(Vec3(x,y,z));
 }
 
 /**
@@ -134,6 +130,7 @@ void Context::setCameraTranslation(float x, float y, float z) {
  */
 void Context::setCameraTranslation(const Vec3 &pos) {
     camera.setTranslation(pos);
+    shadowMapShader.setCameraTranslation(pos);
 }
 
 /**
@@ -149,6 +146,7 @@ void Context::setCameraTranslation(const Vec3 &pos) {
 void Context::setCameraRotation(float x, float y, float z) {
     camera.setRotation(x, y, z);
     dlCameraSpace = (Vec3) (camera.getViewMatrix() * Vec4(dlWorldSpace, 0));
+    shadowMapShader.setCameraRotation(x, y, z);
 }
 
 /**
@@ -165,6 +163,7 @@ void Context::setCameraRotation(float x, float y, float z) {
 void Context::setCameraRotation(float x, float y, float z, AngleUnit unit) {
     camera.setRotation(x, y, z, unit);
     dlCameraSpace = (Vec3) (camera.getViewMatrix() * Vec4(dlWorldSpace, 0));
+    shadowMapShader.setCameraRotation(x, y, z, unit);
 }
 
 /**
@@ -178,6 +177,7 @@ void Context::setCameraRotation(float x, float y, float z, AngleUnit unit) {
 void Context::setCameraRotation(const Euler &rot) {
     camera.setRotation(rot);
     dlCameraSpace = (Vec3) (camera.getViewMatrix() * Vec4(dlWorldSpace, 0));
+    shadowMapShader.setCameraRotation(rot);
 }
 
 /**
@@ -200,16 +200,51 @@ Vec3 Context::getCameraTranslation() const { return camera.getTranslation(); }
 Euler Context::getCameraRotation() const { return camera.getRotation(); }
 
 /**
+ * @brief Sets the projection to perspective mode
+ */
+void Context::setPerspectiveProjection() {
+    camera.setPerspectiveProjection();
+    shadowMapShader.setMinimumDistance(1.0f);
+    shadowMapShader.setMaximumDistance(10.0f);
+}
+
+/**
  * @brief Sets the parameters for perspective projection
  * 
  * Sets the perspective matrix.
  * 
  * @param fov Field of view
+ * @param n Minimum clipping distance
+ * @param f Maximum clipping distance
+ */
+void Context::setPerspectiveProjection(float fov, float n, float f) {
+    camera.setPerspectiveProjection(fov, n, f);
+    shadowMapShader.setMinimumDistance(n);
+    shadowMapShader.setMaximumDistance(f);
+}
+
+/**
+ * @brief Sets the projection to orthographic mode
+ */
+void Context::setOrthographicProjection() {
+    camera.setOrthographicProjection();
+    shadowMapShader.setMinimumDistance(1.0f);
+    shadowMapShader.setMaximumDistance(10.0f);
+}
+
+/**
+ * @brief Sets the parameters for orthographic projection
+ * 
+ * Sets the perspective matrix.
+ * 
+ * @param fov Viewing distance along Y-axis of the screen
  * @param near Minimum clipping distance
  * @param far Maximum clipping distance
  */
-void Context::setPerspectiveProjection(float fov, float near, float far) {
-    camera.setPerspectiveProjection(fov, near, far);
+void Context::setOrthographicProjection(float fov, float n, float f) {
+    camera.setOrthographicProjection(fov, n, f);
+    shadowMapShader.setMinimumDistance(n);
+    shadowMapShader.setMaximumDistance(f);
 }
 
 /**
@@ -222,19 +257,21 @@ void Context::setFieldOfView(float fov) { camera.setFieldOfView(fov); }
 /**
  * @brief Sets minimum distance for depth clipping
  * 
- * @param near Minimum clipping distance
+ * @param n Minimum clipping distance
  */
-void Context::setMinimumDistance(float near) {
-    camera.setMinimumDistance(near);
+void Context::setMinimumDistance(float n) {
+    camera.setMinimumDistance(n);
+    shadowMapShader.setMinimumDistance(n);
 }
 
 /**
  * @brief Sets maximum distance for depth clipping
  * 
- * @param far Maximum clipping distance
+ * @param f Maximum clipping distance
  */
-void Context::setMaximumDistance(float far) {
-    camera.setMaximumDistance(far);
+void Context::setMaximumDistance(float f) {
+    camera.setMaximumDistance(f);
+    shadowMapShader.setMaximumDistance(f);
 }
 
 /**
@@ -315,6 +352,7 @@ void Context::setDirectionalLightAngles(float pitch, float yaw) {
     dlWorldSpace.y = sin(yaw) * cos(pitch);
     dlWorldSpace.z = -sin(pitch);
     dlCameraSpace = Vec3(camera.getViewMatrix() * Vec4(dlWorldSpace, 0));
+    shadowMapShader.setDirectionalLightVector(dlWorldSpace);
 }
 
 /**

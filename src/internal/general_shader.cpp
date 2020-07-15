@@ -15,9 +15,6 @@
 
 #include "../rmg/internal/general_shader.hpp"
 
-#include <glm/glm.hpp>
-#include <glm/gtc/matrix_transform.hpp>
-
 #include <GL/glew.h>
 #include <GL/gl.h>
 
@@ -39,13 +36,15 @@ void GeneralShader::load() {
     idMVP = glGetUniformLocation(id, "MVP");
     idMV = glGetUniformLocation(id, "MV");
     idScale = glGetUniformLocation(id, "scale");
+    idShadow = glGetUniformLocation(id, "shadowMap");
+    idShadowMVP = glGetUniformLocation(id, "shadowMVP");
     idDLCamera = glGetUniformLocation(id, "dirLight.direction");
     idDLColor = glGetUniformLocation(id, "dirLight.color");
     idMatColor = glGetUniformLocation(id, "mat.color");
     idMatMetal = glGetUniformLocation(id, "mat.metalness");
     idMatRough = glGetUniformLocation(id, "mat.roughness");
     idMatAO = glGetUniformLocation(id, "mat.ao");
-    idTexOn = glGetUniformLocation(id, "textured");
+    idFlags = glGetUniformLocation(id, "vflags");
 }
 
 /**
@@ -54,18 +53,26 @@ void GeneralShader::load() {
  * 
  * @param V View matrix
  * @param P Projection matrix
+ * @param S Shadow matrix
  * @param dlCam Directional light vector in camera space
  * @param dlColor Directional light color
+ * @param shadow Shadow map
  * @param list List of 3D objects
  */
-void GeneralShader::process(const Mat4 &V, const Mat4 &P,
-                            const Vec3 &dlCam, const Color &dlColor,
-                            const std::map<uint64_t, Object3D*> &list)
+void GeneralShader::render(
+    const Mat4 &V,
+    const Mat4 &P,
+    const Mat4 &S,
+    const Vec3 &dlCam,
+    const Color &dlColor,
+    uint32_t shadow,
+    const std::map<uint64_t, Object3D*> &list
+)
 {
     if(id == 0)
         return;
     glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_GREATER);
+    glDepthFunc(GL_LESS);
     glFrontFace(GL_CCW);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_BACK);
@@ -73,12 +80,25 @@ void GeneralShader::process(const Mat4 &V, const Mat4 &P,
     glUniform3fv(idDLCamera, 1, &dlCam[0]);
     glUniform4fv(idDLColor, 1, &dlColor[0]);
     for(auto it=list.begin(); it!=list.end(); it++) {
+        uint32_t flags = 0;
         Object3D *obj = it->second;
+        if(obj->isHidden())
+            continue;
         Mat4 MV = V * obj->getModelMatrix();
         Mat4 MVP = P * MV;
         glUniformMatrix4fv(idMVP, 1, GL_TRUE, &MVP[0][0]);
         glUniformMatrix4fv(idMV, 1, GL_TRUE, &MV[0][0]);
         glUniform3fv(idScale, 1, &obj->getScale()[0]);
+        
+        if(shadow != 0) {
+            flags |= (1 << 0);
+            Mat4 shadowMVP = S * obj->getModelMatrix();
+            glUniformMatrix4fv(idShadowMVP, 1, GL_TRUE, &shadowMVP[0][0]);
+            glActiveTexture(GL_TEXTURE0);
+            glBindTexture(GL_TEXTURE_2D, shadow);
+            glUniform1i(idShadow, 0);
+        }
+        
         glUniform4fv(idMatColor, 1, &obj->getColor()[0]);
         glUniform1f(idMatMetal, obj->getMetalness());
         glUniform1f(idMatRough, obj->getRoughness());
@@ -87,11 +107,9 @@ void GeneralShader::process(const Mat4 &V, const Mat4 &P,
         if(obj->getVBO()->getMode() == VBOMode::Textured &&
            obj->getTexture() != nullptr)
         {
-            glUniform1i(idTexOn, GL_TRUE);
+            flags |= (1 << 8);
         }
-        else {
-            glUniform1i(idTexOn, GL_FALSE);
-        }
+        glUniform1i(idFlags, flags);
         obj->getVBO()->draw();
     }
 }

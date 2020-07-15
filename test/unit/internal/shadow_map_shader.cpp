@@ -1,4 +1,4 @@
-#include <rmg/internal/general_shader.hpp>
+#include <rmg/internal/shadow_map_shader.hpp>
 
 #include <map>
 #include <utility>
@@ -17,7 +17,7 @@ using rmg::internal::ContextLoader;
 using rmg::internal::Shader;
 
 
-class GeneralShader: public ::testing::Test {
+class ShadowMapShader: public ::testing::Test {
   protected:
     GLFWwindow* window;
     
@@ -43,32 +43,32 @@ class GeneralShader: public ::testing::Test {
 
 
 /**
- * @brief General shader compilation and linking test
+ * @brief Shadow map shader compilation and linking test
  * 
  * Checks compile timer error
  */
-TEST_F(GeneralShader, compileVertex) {
+TEST_F(ShadowMapShader, compileVertex) {
     uint32_t id = Shader::compileShader(
         GL_VERTEX_SHADER,
-        RMG_RESOURCE_PATH "/shaders/general.vs.glsl"
+        RMG_RESOURCE_PATH "/shaders/shadow_map.vs.glsl"
     );
     ASSERT_NE(0, id);
     glDeleteShader(id);
 }
 
-TEST_F(GeneralShader, compileFrag) {
+TEST_F(ShadowMapShader, compileFrag) {
     uint32_t id = Shader::compileShader(
         GL_FRAGMENT_SHADER,
-        RMG_RESOURCE_PATH "/shaders/general.fs.glsl"
+        RMG_RESOURCE_PATH "/shaders/shadow_map.fs.glsl"
     );
     ASSERT_NE(0, id);
     glDeleteShader(id);
 }
 
-TEST_F(GeneralShader, link) {
+TEST_F(ShadowMapShader, link) {
     uint32_t id = Shader::compileShaderProgram(
-        RMG_RESOURCE_PATH "/shaders/general.vs.glsl",
-        RMG_RESOURCE_PATH "/shaders/general.fs.glsl"
+        RMG_RESOURCE_PATH "/shaders/shadow_map.vs.glsl",
+        RMG_RESOURCE_PATH "/shaders/shadow_map.fs.glsl"
     );
     ASSERT_NE(0, id);
     glDeleteProgram(id);
@@ -76,14 +76,14 @@ TEST_F(GeneralShader, link) {
 
 
 /**
- * @brief General shader runtime test
+ * @brief Shadow map shader runtime test
  * 
  * To make sure there is no runtime error.
  * Loads the shader program and process it for a certain times in a 
  * death test.
  */
-TEST_F(GeneralShader, runtime) {
-    auto shader = rmg::internal::GeneralShader();
+TEST_F(ShadowMapShader, runtime) {
+    auto shader = rmg::internal::ShadowMapShader();
     shader.load();
     
     std::map<uint64_t, Object3D*> list;
@@ -100,7 +100,8 @@ TEST_F(GeneralShader, runtime) {
     list.insert(std::pair<uint64_t,Object3D*>(2, obj2));
     list.insert(std::pair<uint64_t,Object3D*>(3, obj3));
     
-    shader.render(Mat4(), Mat4(), Mat4(), Vec3(), Color(), 0, list);
+    uint32_t res = shader.createShadowMap(list);
+    EXPECT_NE(0, res);
     glfwSwapBuffers(window);
     glfwPollEvents();
     delete obj1;

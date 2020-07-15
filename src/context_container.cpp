@@ -34,6 +34,12 @@ void Context::destroy() {
     if(destroyed)
         return;
     cleanup();
+    generalShader = internal::GeneralShader();
+    shadowMapShader = internal::ShadowMapShader();
+    spriteShader = internal::SpriteShader();
+    particleShader = internal::ParticleShader();
+    line3dShader = internal::Line3DShader();
+    
     contextList.erase(std::find(
         contextList.begin(),
         contextList.end(),

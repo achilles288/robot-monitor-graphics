@@ -66,9 +66,7 @@ class Context {
     uint32_t id;
     uint16_t width;
     uint16_t height;
-    bool sizeUpdate;
     Color bgColor;
-    bool bgUpdate;
     Camera camera;
     Vec3 dlWorldSpace;
     Vec3 dlCameraSpace;
@@ -84,7 +82,7 @@ class Context {
     internal::ShadowMapShader shadowMapShader;
     internal::SpriteShader spriteShader;
     internal::ParticleShader particleShader;
-    internal::Line3DShader line3dShader;    
+    internal::Line3DShader line3dShader;
     internal::ContextLoader loader;
     
     bool initDone;
@@ -325,6 +323,11 @@ class Context {
     Euler getCameraRotation() const;
     
     /**
+     * @brief Sets the projection to perspective mode
+     */
+    void setPerspectiveProjection();
+    
+    /**
      * @brief Sets the parameters for perspective projection
      * 
      * Sets the perspective matrix.
@@ -336,6 +339,22 @@ class Context {
     void setPerspectiveProjection(float fov, float near, float far);
     
     /**
+     * @brief Sets the projection to orthographic mode
+     */
+    void setOrthographicProjection();
+    
+    /**
+     * @brief Sets the parameters for orthographic projection
+     * 
+     * Sets the perspective matrix.
+     * 
+     * @param fov Viewing distance along Y-axis of the screen
+     * @param near Minimum clipping distance
+     * @param far Maximum clipping distance
+     */
+    void setOrthographicProjection(float fov, float near, float far);
+    
+    /**
      * @brief Sets angle of view for perspective projection
      * 
      * @param fov Field of view
@@ -345,16 +364,16 @@ class Context {
     /**
      * @brief Sets minimum distance for depth clipping
      * 
-     * @param near Minimum clipping distance
+     * @param n Minimum clipping distance
      */
-    void setMinimumDistance(float near);
+    void setMinimumDistance(float n);
     
     /**
      * @brief Sets maximum distance for depth clipping
      * 
-     * @param far Maximum clipping distance
+     * @param f Maximum clipping distance
      */
-    void setMaximumDistance(float far);
+    void setMaximumDistance(float f);
     
     /**
      * @brief Gets angle of view used in perspective projection
@@ -448,8 +467,8 @@ class Context {
      * 
      * @param rot Euler angles
      */
-    inline void setDirectionalLightAngles(const Vec3 &rot) {
-        setDirectionalLightAngles(rot.y, rot.z);
+    inline void setDirectionalLightAngles(const Euler &rot) {
+        setDirectionalLightAngles(rot.pitch, rot.yaw);
     }
     
     /**

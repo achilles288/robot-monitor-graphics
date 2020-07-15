@@ -67,17 +67,10 @@ void Context::render() {
             #endif
         }
         generalShader.load();
+        shadowMapShader.load();
         startTime = 0;
         startTime = getTime();
         initDone = true;
-    }
-    if(sizeUpdate) {
-        glViewport(0, 0, width, height);
-        sizeUpdate = false;
-    }
-    if(bgUpdate) {
-        glClearColor(bgColor.red, bgColor.green, bgColor.blue, 1);
-        bgUpdate = false;
     }
     
     if(loader.getLoadCount() > 0)
@@ -87,18 +80,23 @@ void Context::render() {
     fps = 1.0f/(t2-t1);
     t1 = t2;
     
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
     update();
     if(destroyed)
         throw std::domain_error("Exit on context destruction");
     
-    glClearDepth(-1.0);
+    uint32_t shadow = shadowMapShader.createShadowMap(objects3d);
+    
+    glViewport(0, 0, width, height);
+    glClearColor(bgColor.red, bgColor.green, bgColor.blue, 1);
+    glClearDepth(1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-    generalShader.process(
+    generalShader.render(
         camera.getViewMatrix(),
         camera.getProjectionMatrix(),
+        shadowMapShader.getShadowMatrix(),
         dlCameraSpace,
         dlColor,
+        shadow,
         objects3d
     );
     flush();

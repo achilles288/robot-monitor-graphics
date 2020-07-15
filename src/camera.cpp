@@ -15,10 +15,6 @@
 #include "rmg/camera.hpp"
 
 
-#define CAMERA_PERSPECTIVE  0
-#define CAMERA_ORTHOGRAPHIC 1
-
-
 namespace rmg {
 
 static const Mat4 adjust1 = {
@@ -32,18 +28,12 @@ static const Mat4 adjust1 = {
  * @brief Default constructor
  */
 Camera::Camera() {
-    aspect = 1.0f;
     viewMatrix = adjust1;
-    projectionMatrix = {
-      {2.414f, 0     ,  0     ,  0     },
-      {0     , 2.414f,  0     ,  0     },
-      {0     , 0     , 11/9.0f, 20/9.0f},
-      {0     , 0     , -1     ,  0     }
-    };
-    VPMatrix = projectionMatrix * viewMatrix;
-    minDistance = 1.0f;
-    maxDistance = 10.0f;
-    projectionMode = CAMERA_PERSPECTIVE;
+    aspect = 1.0f;
+    near = 1.0f;
+    far = 10.0f;
+    projectionMode = ProjectionMode::Orthographic;
+    setPerspectiveProjection();
 }
 
 /**
@@ -60,6 +50,11 @@ const Mat4& Camera::getProjectionMatrix() const { return projectionMatrix; }
  * @brief Gets the composition of view and projection matrix
  */
 const Mat4& Camera::getVPMatrix() const { return VPMatrix; }
+
+/**
+ * @brief Gets the projection mode of the camera
+ */
+ProjectionMode Camera::getProjectionMode() const { return projectionMode; }
 
 /**
  * @brief Sets xyz position of the camera
@@ -148,21 +143,15 @@ Euler Camera::getRotation() const {
 }
 
 /**
- * @brief Sets the parameters for perspective projection
- * 
- * Sets the perspective matrix.
- * 
- * @param fov Field of view
- * @param near Minimum clipping distance
- * @param far Maximum clipping distance
+ * @brief Sets the projection to perspective mode
  */
-void Camera::setPerspectiveProjection(float fov, float near, float far) {
-    projectionMode = CAMERA_PERSPECTIVE;
-    minDistance = near;
-    maxDistance = far;
-    float d = 1/tan(fov/2);
-    float A = (near+far)/(far-near);
-    float B = (2*near*far)/(far-near);
+void Camera::setPerspectiveProjection() {
+    if(projectionMode == ProjectionMode::Perspective)
+        return;
+    projectionMode = ProjectionMode::Perspective;
+    float d = 2.414f;
+    float A = -far/(far-near);
+    float B = -(near*far)/(far-near);
     /**
      * projectionMatrix = {
      *   {d/aspect, 0,  0, 0},
@@ -175,29 +164,106 @@ void Camera::setPerspectiveProjection(float fov, float near, float far) {
     projectionMatrix[1][1] = d;
     projectionMatrix[2][2] = A;
     projectionMatrix[2][3] = B;
+    projectionMatrix[3][2] = -1;
+    projectionMatrix[3][3] = 0;
     
     VPMatrix = projectionMatrix * viewMatrix;
 }
 
 /**
- * @brief Sets angle of view for perspective projection
+ * @brief Sets the parameters for perspective projection
+ * 
+ * Sets the perspective matrix.
  * 
  * @param fov Field of view
+ * @param n Minimum clipping distance
+ * @param f Maximum clipping distance
  */
-void Camera::setFieldOfView(float fov) {
+void Camera::setPerspectiveProjection(float fov, float n, float f) {
+    projectionMode = ProjectionMode::Perspective;
+    near = n;
+    far = f;
     float d = 1/tan(fov/2);
+    float A = -far/(far-near);
+    float B = -(near*far)/(far-near);
+    /**
+     * projectionMatrix = {
+     *   {d/aspect, 0,  0, 0},
+     *   {    0   , d,  0, 0},
+     *   {    0   , 0,  A, B},
+     *   {    0   , 0, -1, 0}
+     * };
+     */
     projectionMatrix[0][0] = d/aspect;
     projectionMatrix[1][1] = d;
+    projectionMatrix[2][2] = A;
+    projectionMatrix[2][3] = B;
+    projectionMatrix[3][2] = -1;
+    projectionMatrix[3][3] = 0;
+    
     VPMatrix = projectionMatrix * viewMatrix;
 }
 
 /**
- * @brief Gets angle of view used in perspective projection
- * 
- * @return Field of view
+ * @brief Sets the projection to orthographic mode
  */
-float Camera::getFieldOfView() const {
-    return 2*atan(1/projectionMatrix[1][1]);
+void Camera::setOrthographicProjection() {
+    if(projectionMode == ProjectionMode::Orthographic)
+        return;
+    projectionMode = ProjectionMode::Orthographic;
+    float s = 0.2f;
+    float A = -1/(far-near);
+    float B = -near/(far-near);
+    /**
+     * projectionMatrix = {
+     *   {s/aspect, 0, 0, 0},
+     *   {    0   , s, 0, 0},
+     *   {    0   , 0, A, B},
+     *   {    0   , 0, 0, 1}
+     * };
+     */
+    projectionMatrix[0][0] = s/aspect;
+    projectionMatrix[1][1] = s;
+    projectionMatrix[2][2] = A;
+    projectionMatrix[2][3] = B;
+    projectionMatrix[3][2] = 0;
+    projectionMatrix[3][3] = 1;
+    
+    VPMatrix = projectionMatrix * viewMatrix;
+}
+
+/**
+ * @brief Sets the parameters for orthographic projection
+ * 
+ * Sets the perspective matrix.
+ * 
+ * @param fov Viewing distance along Y-axis of the screen
+ * @param n Minimum clipping distance
+ * @param f Maximum clipping distance
+ */
+void Camera::setOrthographicProjection(float fov, float n, float f) {
+    projectionMode = ProjectionMode::Orthographic;
+    near = n;
+    far = f;
+    float s = 2/fov;
+    float A = -1/(far-near);
+    float B = -near/(far-near);
+    /**
+     * projectionMatrix = {
+     *   {s/aspect, 0, 0, 0},
+     *   {    0   , s, 0, 0},
+     *   {    0   , 0, A, B},
+     *   {    0   , 0, 0, 1}
+     * };
+     */
+    projectionMatrix[0][0] = s/aspect;
+    projectionMatrix[1][1] = s;
+    projectionMatrix[2][2] = A;
+    projectionMatrix[2][3] = B;
+    projectionMatrix[3][2] = 0;
+    projectionMatrix[3][3] = 1;
+    
+    VPMatrix = projectionMatrix * viewMatrix;
 }
 
 /**
@@ -212,30 +278,54 @@ void Camera::setAspectRatio(float a) {
 }
 
 /**
+ * @brief Sets angle of view for perspective projection
+ * 
+ * @param fov Field of view
+ */
+void Camera::setFieldOfView(float fov) {
+    float s;
+    if(projectionMode == ProjectionMode::Perspective)
+        s = 1/tan(fov/2);
+    else
+        s = 2/fov;
+    projectionMatrix[0][0] = s/aspect;
+    projectionMatrix[1][1] = s;
+    VPMatrix = projectionMatrix * viewMatrix;
+}
+
+/**
  * @brief Sets minimum distance for depth clipping
  * 
- * @param near Minimum clipping distance
+ * @param n Minimum clipping distance
  */
-void Camera::setMinimumDistance(float near) {
-    minDistance = near;
-    projectionMatrix[2][2] = (minDistance+maxDistance) /
-                             (maxDistance-minDistance);
-    projectionMatrix[2][3] = (2*minDistance*maxDistance) /
-                             (maxDistance-minDistance);
+void Camera::setMinimumDistance(float n) {
+    near = n;
+    if(projectionMode == ProjectionMode::Perspective) {
+        projectionMatrix[2][2] = -far/(far-near);
+        projectionMatrix[2][3] = -(near*far)/(far-near);
+    }
+    else {
+        projectionMatrix[2][2] = -1/(far-near);
+        projectionMatrix[2][3] = -near/(far-near);
+    }
     VPMatrix = projectionMatrix * viewMatrix;
 }
 
 /**
  * @brief Sets maximum distance for depth clipping
  * 
- * @param far Maximum clipping distance
+ * @param f Maximum clipping distance
  */
-void Camera::setMaximumDistance(float far) {
-    maxDistance = far;
-    projectionMatrix[2][2] = (minDistance+maxDistance) /
-                             (maxDistance-minDistance);
-    projectionMatrix[2][3] = (2*minDistance*maxDistance) /
-                             (maxDistance-minDistance);
+void Camera::setMaximumDistance(float f) {
+    far = f;
+    if(projectionMode == ProjectionMode::Perspective) {
+        projectionMatrix[2][2] = -far/(far-near);
+        projectionMatrix[2][3] = -(near*far)/(far-near);
+    }
+    else {
+        projectionMatrix[2][2] = -1/(far-near);
+        projectionMatrix[2][3] = -near/(far-near);
+    }
     VPMatrix = projectionMatrix * viewMatrix;
 }
 
@@ -247,18 +337,30 @@ void Camera::setMaximumDistance(float far) {
 float Camera::getAspectRatio() const { return aspect; }
 
 /**
+ * @brief Gets angle of view used in perspective projection
+ * 
+ * @return Field of view
+ */
+float Camera::getFieldOfView() const {
+    if(projectionMode == ProjectionMode::Perspective)
+        return 2*atan(1/projectionMatrix[1][1]);
+    else
+        return 2/projectionMatrix[1][1];
+}
+
+/**
  * @brief Gets minimum distance for depth clipping
  * 
  * @return Minimum clipping distance
  */
-float Camera::getMinimumDistance() const { return minDistance; }
+float Camera::getMinimumDistance() const { return near; }
 
 /**
  * @brief Gets maximum distance for depth clipping
  * 
  * @return Maximum clipping distance
  */
-float Camera::getMaximumDistance() const { return maxDistance; }
+float Camera::getMaximumDistance() const { return far; }
 
 /**
  * @brief Converts world space to OpenGL clip space
