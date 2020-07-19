@@ -18,10 +18,10 @@
 #include <stdexcept>
 #ifdef _WIN32
 #include <Windows.h>
-#define sleep(X) Sleep(X)
+#define sleep(X) Sleep((long)(X))
 #else
 #include <unistd.h>
-#define sleep(X) usleep((X)*1000)
+#define sleep(X) usleep((long)((X)*1000))
 #endif
 
 #include <GL/glew.h>
@@ -36,21 +36,6 @@ static bool glfwInitDone = false;
 
 
 namespace rmg {
-
-void window_mouse_button_callback(GLFWwindow* window, int button,
-                                  int action, int mods);
-
-void window_cursor_position_callback(GLFWwindow* window,
-                                     double xpos, double ypos);
-
-void window_cursor_enter_callback(GLFWwindow* window, int entered);
-
-void window_scroll_callback(GLFWwindow* window,
-                            double xoffset, double yoffset);
-
-void window_key_callback(GLFWwindow* window, int key, int scancode,
-                         int action, int mods);
-
 
 std::vector<Window*> Window::windowList;
 
@@ -95,7 +80,7 @@ Window::Window() {
     glfwSetWindowUserPointer(glfw_window, (void*)this);
     windowList.push_back(this);
     
-    setWindowIcon(RMG_RESOURCE_PATH "/icon.png");
+    setWindowIcon(RMG_RESOURCE_PATH "/icons/rmg-app.png");
 }
 
 /**
@@ -126,6 +111,12 @@ void Window::destroy() {
  * @return Running time in seconds
  */
 float Window::getTime() const {
+    static bool startTimeCounted = false;
+    static float startTime = 0.0f;
+    if(!startTimeCounted) {
+        startTime = (float)glfwGetTime();
+        startTimeCounted = true;
+    }
     return (float)glfwGetTime() - startTime;
 }
 
@@ -186,6 +177,7 @@ Rect Window::getWindowSize() const {
  * with multiple contexts.
  */
 void Window::setCurrent() {
+    Context::setCurrent();
     glfwMakeContextCurrent(glfw_window);
 }
 
@@ -201,6 +193,7 @@ void Window::flush() {
  */
 void Window::mainLoop() {
     while(windowList.size() > 0) {
+        double t1 = glfwGetTime();
         for(auto it=windowList.begin(); it!=windowList.end(); it++) {
             Window* window = *it;
             if(glfwWindowShouldClose(window->glfw_window)) {
@@ -231,7 +224,10 @@ void Window::mainLoop() {
             }
         }
         glfwPollEvents();
-        sleep(16);
+        double t2 = glfwGetTime();
+        double dt = t2 - t1;
+        if(dt < 0.0166667f)
+            sleep(16.6667f - dt*1000); // Limits to 60 fps
     }
     glfwTerminate();
     glfwInitDone = false;
@@ -264,12 +260,12 @@ void window_mouse_button_callback(GLFWwindow* window, int button,
         ctx->onMousePress(mouseEvent);
     }
     else {
-        mouseEvent.mouseStates ^= mouseEvent.mouseStates & mask;
-        ctx->onMouseRelease(mouseEvent);
         int16_t dx = mouseEvent.x - mouseEvent.xp;
         int16_t dy = mouseEvent.y - mouseEvent.yp;
         if(abs(dx) < 5 && abs(dy) < 5)
             ctx->onMouseClick(mouseEvent);
+        mouseEvent.mouseStates ^= mouseEvent.mouseStates & mask;
+        ctx->onMouseRelease(mouseEvent);
     }
     mouseEvent.button = rmg::MouseButton::None;
 }
@@ -319,19 +315,23 @@ void window_scroll_callback(GLFWwindow* window,
 }
 
 
+static int16_t GLFWKeycodeToRMGKeycode(int16_t keycode);
+
+
 void window_key_callback(GLFWwindow* window, int key, int scancode,
                          int action, int mods)
 {
     uint8_t mask = 0b0000;
-    if(key == GLFW_KEY_LEFT_CONTROL || key == GLFW_KEY_RIGHT_CONTROL)
+    int16_t rkey = GLFWKeycodeToRMGKeycode((int16_t)key);
+    if(rkey == RMG_KEY_CTRL)
         mask = RMG_KEY_STATE_CTRL;
-    else if(key == GLFW_KEY_LEFT_ALT || key == GLFW_KEY_RIGHT_ALT)
+    else if(rkey == RMG_KEY_ALT)
         mask = RMG_KEY_STATE_ALT;
-    else if(key == GLFW_KEY_LEFT_SHIFT || key == GLFW_KEY_RIGHT_SHIFT)
+    else if(rkey == RMG_KEY_SHIFT)
         mask = RMG_KEY_STATE_SHIFT;
     
     rmg::Context* ctx = (rmg::Context*) glfwGetWindowUserPointer(window);
-    mouseEvent.keycode = key;
+    mouseEvent.keycode = rkey;
     if(action == GLFW_PRESS) {
         mouseEvent.keyStates |= mask;
         ctx->onKeyPress(*((rmg::KeyboardEvent*)(&mouseEvent)));
@@ -340,6 +340,109 @@ void window_key_callback(GLFWwindow* window, int key, int scancode,
         mouseEvent.keyStates ^= mouseEvent.keyStates & mask;
         ctx->onKeyRelease(*((rmg::KeyboardEvent*)(&mouseEvent)));
     }
+}
+
+
+static int16_t GLFWKeycodeToRMGKeycode(int16_t keycode) {
+    if((keycode >= '0' && keycode <= '9') ||
+       (keycode >= 'A' && keycode <= 'Z'))
+    {
+        return keycode;
+    }
+    
+    static const int16_t table1[] = {
+        RMG_KEY_SPACE, // 32
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        -1,
+        RMG_KEY_QUOTE, // 39
+        -1,
+        -1,
+        -1,
+        -1,
+        RMG_KEY_COMMA, // 44
+        RMG_KEY_DASH,
+        RMG_KEY_DOT,
+        RMG_KEY_SLASH // 47
+    };
+    if(keycode >= 32 && keycode <= 47)
+        return table1[keycode-32];
+    
+    if(keycode == GLFW_KEY_SEMICOLON)
+        return RMG_KEY_COLON;
+    if(keycode == GLFW_KEY_EQUAL)
+        return RMG_KEY_EQUAL;
+    if(keycode == GLFW_KEY_LEFT_BRACKET)
+        return RMG_KEY_OPEN_BRACKET;
+    if(keycode == GLFW_KEY_BACKSLASH)
+        return RMG_KEY_BACKSLASH;
+    if(keycode == GLFW_KEY_RIGHT_BRACKET)
+        return RMG_KEY_CLOSE_BRACKET;
+    if(keycode == GLFW_KEY_GRAVE_ACCENT)
+        return RMG_KEY_BACKQUOTE;
+    
+    static const int16_t table2[] = {
+        RMG_KEY_ESCAPE, // 256
+        RMG_KEY_ENTER,
+        RMG_KEY_TAB,
+        RMG_KEY_BACKSPACE,
+        RMG_KEY_INSERT,
+        RMG_KEY_DELETE,
+        RMG_KEY_ARROW_RIGHT,
+        RMG_KEY_ARROW_LEFT,
+        RMG_KEY_ARROW_DOWN,
+        RMG_KEY_ARROW_UP,
+        RMG_KEY_PAGE_UP,
+        RMG_KEY_PAGE_DOWN,
+        RMG_KEY_HOME,
+        RMG_KEY_END, // 269
+    };
+    if(keycode >= 256 && keycode <= 269)
+        return table2[keycode-256];
+    
+    if(keycode == GLFW_KEY_CAPS_LOCK)
+        return RMG_KEY_CAPS_LOCK;
+    if(keycode == GLFW_KEY_NUM_LOCK)
+        return RMG_KEY_NUM_LOCK;
+    if(keycode >= GLFW_KEY_F1 && keycode <= GLFW_KEY_F12)
+        return keycode + RMG_KEY_F1 - GLFW_KEY_F1;
+    
+    static const int16_t table3[] = {
+        RMG_KEY_NUM_0, // 320
+        RMG_KEY_NUM_1,
+        RMG_KEY_NUM_2,
+        RMG_KEY_NUM_3,
+        RMG_KEY_NUM_4,
+        RMG_KEY_NUM_5,
+        RMG_KEY_NUM_6,
+        RMG_KEY_NUM_7,
+        RMG_KEY_NUM_8,
+        RMG_KEY_NUM_9,
+        RMG_KEY_NUM_DECIMAL,
+        RMG_KEY_NUM_DIVIDE,
+        RMG_KEY_NUM_MULTIPLY,
+        RMG_KEY_NUM_SUBTRACT,
+        RMG_KEY_NUM_ADD,
+        RMG_KEY_ENTER,
+        RMG_KEY_EQUAL,
+        -1,
+        -1,
+        -1,
+        RMG_KEY_SHIFT,
+        RMG_KEY_CTRL,
+        RMG_KEY_ALT,
+        -1,
+        RMG_KEY_SHIFT,
+        RMG_KEY_CTRL,
+        RMG_KEY_ALT // 346
+    };
+    if(keycode >= 320 && keycode <= 346)
+        return table3[keycode-320];
+    
+    return -1;
 }
 
 }

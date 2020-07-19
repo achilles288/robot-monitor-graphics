@@ -9,15 +9,7 @@ configure_file(
 # 
 # RMGraphics Base Library
 # 
-include_directories(
-    ${CMAKE_BINARY_DIR}/config
-    ${OPENGL_INCLUDE_DIR}
-    ${GLEW_INCLUDE_DIR}
-)
-
-set(RMGBASE_LIBRARY rmgbase)
-
-set(RMGBASE_SOURCES
+add_library(rmgbase SHARED
     camera.cpp
     color.cpp
     context_container.cpp
@@ -103,67 +95,88 @@ set(RMGBASE_SOURCES
     rmg/math/vec4.inc
 )
 
-add_library(${RMGBASE_LIBRARY}_s STATIC ${RMGBASE_SOURCES})
-
-target_link_libraries(${RMGBASE_LIBRARY}_s PUBLIC
-    ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
+target_include_directories(rmgbase PUBLIC
+    ${OPENGL_INCLUDE_DIR}
+    ${GLEW_INCLUDE_DIR}
 )
 
-set_target_properties(${RMGBASE_LIBRARY}_s
-    PROPERTIES FOLDER ${PROJECT_NAME}
+target_link_libraries(rmgbase PUBLIC
+    ${OPENGL_LIBRARIES}
+    ${GLEW_LIBRARIES}
 )
 
 
 # 
 # RMGraphics Image Library
 # 
-include_directories(
-    ${PNG_INCLUDE_DIR}
-    ${TIFF_INCLUDE_DIR}
-)
-
-set(RMGIMAGE_LIBRARY rmgimage)
-
-set(RMGIMAGE_SOURCES
+add_library(rmgimage SHARED
     bitmap.cpp
     bitmap_png.cpp
     bitmap_tiff.cpp
     rmg/bitmap.hpp
 )
 
-add_library(${RMGIMAGE_LIBRARY}_s STATIC ${RMGIMAGE_SOURCES})
+target_include_directories(rmgimage PUBLIC
+    ${PNG_INCLUDE_DIR}
+    ${TIFF_INCLUDE_DIR}
+)
 
-target_link_libraries(${RMGIMAGE_LIBRARY}_s PUBLIC
+target_link_libraries(rmgimage PUBLIC
     ${GLFW_LIBRARIES}
     ${PNG_LIBRARY}
     ${TIFF_LIBRARY}
-)
-
-set_target_properties(${RMGIMAGE_LIBRARY}_s
-    PROPERTIES FOLDER ${PROJECT_NAME}
 )
 
 
 # 
 # RMGraphics Window Framework Library
 # 
-include_directories(${GLFW_INCLUDE_DIRS})
-
-set(RMGWINDOW_LIBRARY rmgwindow)
-
-set(RMGWINDOW_SOURCES
+add_library(rmgwindow SHARED
     window.cpp
     rmg/window.hpp
 )
 
-add_library(${RMGWINDOW_LIBRARY}_s STATIC ${RMGWINDOW_SOURCES})
+target_include_directories(rmgwindow PUBLIC
+    ${GLEW_INCLUDE_DIR}
+    ${GLFW_INCLUDE_DIRS}
+)
 
-target_link_libraries(${RMGWINDOW_LIBRARY}_s PUBLIC
-    ${RMGIMAGE_LIBRARY}_s
+target_link_libraries(rmgwindow PUBLIC
+    rmgimage
     ${GLFW_LIBRARIES}
 )
 
-set_target_properties(${RMGWINDOW_LIBRARY}_s
-    PROPERTIES FOLDER ${PROJECT_NAME}
+
+# 
+# RMGraphics wxWidgets port
+# 
+if(${wxWidgets_FOUND})
+add_library(rmgwx SHARED
+    wxcanvas.cpp
+    rmg/wxcanvas.hpp
+)
+
+target_compile_definitions(rmgwx PUBLIC ${wxWidgets_DEFINITIONS})
+
+target_include_directories(rmgwx PUBLIC
+    ${GLEW_INCLUDE_DIRS}
+    ${wxWidgets_INCLUDE_DIRS}
+)
+
+target_link_libraries(rmgwx PUBLIC ${wxWidgets_LIBRARIES})
+
+set_target_properties(rmgwx PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
+    FOLDER ${PROJECT_NAME}
+)
+endif()
+
+
+
+
+set_target_properties(rmgbase rmgimage rmgwindow PROPERTIES
+    VERSION ${PROJECT_VERSION}
+    SOVERSION ${PROJECT_VERSION_MAJOR}
+    FOLDER ${PROJECT_NAME}
 )

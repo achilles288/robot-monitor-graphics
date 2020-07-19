@@ -95,8 +95,6 @@ class Context {
     static float t1;
     
   protected:
-    float startTime; /**< The time counted on context start up */
-    
     /**
      * @brief Sets the error code of the context
      * 
@@ -631,6 +629,11 @@ class Context {
      * return True if the context is destroyed
      */
     bool isDestroyed() const;
+    
+    /**
+     * @brief Gets the current working context
+     */
+    static Context* getCurrent();
     
     /**
      * @brief Searches context model by ID

@@ -36,7 +36,6 @@ Context::Context() {
     dlColor = Color(1, 1, 1, 1);
     destroyed = false;
     initDone = false;
-    startTime = 0;
     fps = 0;
     errorCode = 0;
 }
@@ -45,7 +44,6 @@ Context::Context() {
  * @brief Destructor
  */
 Context::~Context() {
-    cleanup();
     if(!destroyed)
         destroy();
 }

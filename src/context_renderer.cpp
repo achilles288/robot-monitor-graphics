@@ -68,8 +68,6 @@ void Context::render() {
         }
         generalShader.load();
         shadowMapShader.load();
-        startTime = 0;
-        startTime = getTime();
         initDone = true;
     }
     
@@ -102,6 +100,11 @@ void Context::render() {
     flush();
 }
 
+
+
+
+static Context *current = nullptr;
+
 /**
  * @brief Makes OpenGL rederer focuses on this context
  * 
@@ -109,7 +112,12 @@ void Context::render() {
  * called, the function needs to be called first especially when working
  * with multiple contexts.
  */
-void Context::setCurrent() {}
+void Context::setCurrent() { current = this; }
+
+/**
+ * @brief Gets the current working context
+ */
+Context *Context::getCurrent() { return current; }
 
 /**
  * @brief Flushes the drawn graphics by OpenGL onto the screen

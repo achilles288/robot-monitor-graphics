@@ -134,6 +134,8 @@ class TestWindow: public Window {
     }
     
     void onKeyPress(const KeyboardEvent& event) override {
+        printf("%d\n", event.getKeycode());
+        
         if(event.isShift())
             shift = true;
         

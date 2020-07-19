@@ -33,12 +33,16 @@ namespace rmg {
 void Context::destroy() {
     if(destroyed)
         return;
+    Context *current = getCurrent();
+    setCurrent();
     cleanup();
     generalShader = internal::GeneralShader();
     shadowMapShader = internal::ShadowMapShader();
     spriteShader = internal::SpriteShader();
     particleShader = internal::ParticleShader();
     line3dShader = internal::Line3DShader();
+    if(current != nullptr && current != this)
+        current->setCurrent();
     
     contextList.erase(std::find(
         contextList.begin(),

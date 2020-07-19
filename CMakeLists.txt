@@ -1,8 +1,6 @@
 cmake_minimum_required(VERSION 3.10)
 
-project("RMGraphics")
-
-set(RMGAPHICS_VERSION 0.1.0)
+project("RMGraphics" VERSION 1.0.0)
 
 
 set(CMAKE_CXX_STANDARD 17)
@@ -36,7 +34,6 @@ set(CMAKE_INSTALL_FULL_INCLUDEDIR ${CMAKE_INSTALL_PREFIX}/include)
 
 #
 # Preparing external dependencies.
-# GLEW, GLFW, PNG, TIFF, ZLIB
 #
 if(UNIX)
 find_package(GLEW REQUIRED)
@@ -93,6 +90,8 @@ set(TIFF_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/libtiff/libtiff)
 set(TIFF_LIBRARY tiff)
 endif()
 
+find_package(wxWidgets COMPONENTS std gl)
+
 
 
 
@@ -100,13 +99,32 @@ endif()
 add_subdirectory(src)
 
 
-set(RMGRAPHICS_LIBRARIES
-    rmgbase_s
-    rmgimage_s
-    rmgwindow_s
+# 
+# Compile definitions, include directories and libraries
+# 
+set(RMGRAPHICS_DEFINITIONS "")
+
+set(RMGRAPHICS_INCLUDE_DIRS
+    ${PROJECT_SOURCE_DIR}/src
+    ${GLEW_INCLUDE_DIR}
 )
 
+set(RMGRAPHICS_LIBRARIES
+    rmgbase
+    rmgimage
+    rmgwindow
+)
 
+if(${wxWidgets_FOUND})
+list(APPEND RMGRAPHICS_DEFINITIONS ${wxWidgets_DEFINITIONS})
+list(APPEND RMGRAPHICS_INCLUDE_DIRS ${wxWidgets_INCLUDE_DIRS})
+list(APPEND RMGRAPHICS_LIBRARIES rmgwx)
+endif()
+
+
+# 
+# Preparing Google Test framework
+# 
 set(BUILD_GMOCK OFF CACHE BOOL "" FORCE)
 set(gtest_force_shared_crt ON CACHE BOOL "compile gtest with MD" FORCE)
 

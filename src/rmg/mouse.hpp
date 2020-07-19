@@ -20,6 +20,8 @@
 
 namespace rmg {
 
+class wxCanvas;
+
 /**
  * @brief To check if the mouse button is left, middle or right
  */
@@ -56,10 +58,10 @@ class MouseEvent: public KeyboardEvent {
     
     friend void window_mouse_button_callback
                     (GLFWwindow* window, int button, int action, int mods);
-
+    
     friend void window_cursor_position_callback
                     (GLFWwindow* window, double xpos, double ypos);
-
+    
     friend void window_cursor_enter_callback
                     (GLFWwindow* window, int entered);
     
@@ -68,6 +70,8 @@ class MouseEvent: public KeyboardEvent {
     
     friend void window_key_callback(GLFWwindow* window, int key, int scancode,
                                     int action, int mods);
+    
+    friend class wxCanvas;
     
   public:
     /**
