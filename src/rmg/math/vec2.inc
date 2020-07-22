@@ -114,10 +114,6 @@ inline Vec2::operator Vec4() const {
 
 /**
  * @brief Adds 2 vectors
- * 
- * @param b Vector B
- * 
- * @return Sum of 2 vectors
  */
 inline Vec2 Vec2::operator + (const Vec2 &b) const {
     Vec2 c;
@@ -125,13 +121,9 @@ inline Vec2 Vec2::operator + (const Vec2 &b) const {
     c.y = y + b.y;
     return c;
 }
- 
+
 /**
  * @brief Subtract the vector by vector B
- * 
- * @param b Vector B
- * 
- * @return Answer vector C
  */
 inline Vec2 Vec2::operator - (const Vec2 &b) const {
     Vec2 c;
@@ -141,11 +133,14 @@ inline Vec2 Vec2::operator - (const Vec2 &b) const {
 }
 
 /**
+ * @brief Minus vector
+ */
+inline Vec2 Vec2::operator - () const {
+    return Vec2(-x, -y);
+}
+
+/**
  * @brief Multiply the vector by a number
- * 
- * @param f Multiplicant
- * 
- * @return Multiplied vector
  */
 inline Vec2 Vec2::operator * (float f) const {
     Vec2 v;
@@ -156,10 +151,6 @@ inline Vec2 Vec2::operator * (float f) const {
 
 /**
  * @brief Divide the vector by a number
- * 
- * @param f Divisor
- * 
- * @return Divided vector
  */
 inline Vec2 Vec2::operator / (float f) const {
     Vec2 v;
@@ -169,11 +160,43 @@ inline Vec2 Vec2::operator / (float f) const {
 }
 
 /**
+ * @brief Adds 2 vectors
+ */
+inline Vec2& Vec2::operator += (const Vec2 &b) {
+    x += b.x;
+    y += b.y;
+    return *this;
+}
+
+/**
+ * @brief Subtract the vector by vector B
+ */
+inline Vec2& Vec2::operator -= (const Vec2 &b) {
+    x -= b.x;
+    y -= b.y;
+    return *this;
+}
+
+/**
+ * @brief Multiply the vector by a number
+ */
+inline Vec2& Vec2::operator *= (float f) {
+    x *= f;
+    y *= f;
+    return *this;
+}
+
+/**
+ * @brief Divide the vector by a number
+ */
+inline Vec2& Vec2::operator /= (float f) {
+    x /= f;
+    y /= f;
+    return *this;
+}
+
+/**
  * @brief Vector cross product operation
- * 
- * @param b Vector B
- * 
- * @return Cross product
  */
 inline float Vec2::operator * (const Vec2 &b) const {
     return Vec2::cross(*this, b);
@@ -216,6 +239,17 @@ inline float& Vec2::operator [] (uint8_t i) {
 inline float const& Vec2::operator [] (uint8_t i) const {
      RMG_ASSERT(i < 2);
      return data[i];
+}
+
+/**
+ * @brief Equality operator
+ * 
+ * @param b Vector B
+ * 
+ * @return True if the members of the two vectors are equal
+ */
+inline bool Vec2::operator == (const Vec2 &b) const {
+    return (x == b.x) && (y == b.y);
 }
 
 

@@ -99,46 +99,51 @@ struct Vec2 {
     
     /**
      * @brief Adds 2 vectors
-     * 
-     * @param b Vector B
-     * 
-     * @return Sum of 2 vectors
      */
     Vec2 operator + (const Vec2 &b) const;
     
     /**
      * @brief Subtract the vector by vector B
-     * 
-     * @param b Vector B
-     * 
-     * @return Answer vector C
      */
     Vec2 operator - (const Vec2 &b) const;
     
     /**
+     * @brief Minus vector
+     */
+    Vec2 operator - () const;
+    
+    /**
      * @brief Multiply the vector by a number
-     * 
-     * @param f Multiplicant
-     * 
-     * @return Multiplied vector
      */
     Vec2 operator * (float f) const;
     
     /**
      * @brief Divide the vector by a number
-     * 
-     * @param f Divisor
-     * 
-     * @return Divided vector
      */
     Vec2 operator / (float f) const;
     
     /**
+     * @brief Adds 2 vectors
+     */
+    Vec2& operator += (const Vec2 &b);
+    
+    /**
+     * @brief Subtract the vector by vector B
+     */
+    Vec2& operator -= (const Vec2 &b);
+    
+    /**
+     * @brief Multiply the vector by a number
+     */
+    Vec2& operator *= (float f);
+    
+    /**
+     * @brief Divide the vector by a number
+     */
+    Vec2& operator /= (float f);
+    
+    /**
      * @brief Vector cross product operation
-     * 
-     * @param b Vector B
-     * 
-     * @return Cross product
      */
     float operator * (const Vec2 &b) const;
     
@@ -159,6 +164,11 @@ struct Vec2 {
      * @return Reference to vector member
      */
     float const& operator [] (uint8_t i) const;
+    
+    /**
+     * @brief Equality operator
+     */
+    bool operator == (const Vec2 &b) const;
 };
 
 /**
@@ -218,6 +228,24 @@ std::ostream& operator << (std::ostream& os, const Rect& rect);
 }
 
 
+
+
+#include <functional>
+
+
+namespace std {
+
+template<>
+struct hash<rmg::Vec2> {
+    size_t operator () (const rmg::Vec2& v) const noexcept {
+        size_t seed = 0;
+        seed ^= std::hash<float>{}(v.x) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        seed ^= std::hash<float>{}(v.y) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        return seed;
+    }
+};
+
+}
 
 
 #include "vec2.inc"

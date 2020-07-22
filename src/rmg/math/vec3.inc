@@ -101,10 +101,6 @@ inline float Vec3::dot(const Vec3 &a, const Vec3 &b) {
 
 /**
  * @brief Adds 2 vectors
- * 
- * @param b Vector B
- * 
- * @return Sum of 2 vectors
  */
 inline Vec3 Vec3::operator + (const Vec3 &b) const {
     Vec3 c;
@@ -116,10 +112,6 @@ inline Vec3 Vec3::operator + (const Vec3 &b) const {
  
 /**
  * @brief Subtract the vector by vector B
- * 
- * @param b Vector B
- * 
- * @return Answer vector C
  */
 inline Vec3 Vec3::operator - (const Vec3 &b) const {
     Vec3 c;
@@ -128,13 +120,16 @@ inline Vec3 Vec3::operator - (const Vec3 &b) const {
     c.z = z - b.z;
     return c;
 }
+ 
+/**
+ * @brief Subtract the vector by vector B
+ */
+inline Vec3 Vec3::operator - () const {
+    return Vec3(-x, -y, -z);
+}
 
 /**
  * @brief Multiply the vector by a number
- * 
- * @param f Multiplicant
- * 
- * @return Multiplied vector
  */
 inline Vec3 Vec3::operator * (float f) const {
     Vec3 v;
@@ -146,10 +141,6 @@ inline Vec3 Vec3::operator * (float f) const {
 
 /**
  * @brief Divide the vector by a number
- * 
- * @param f Divisor
- * 
- * @return Divided vector
  */
 inline Vec3 Vec3::operator / (float f) const {
     Vec3 v;
@@ -161,10 +152,6 @@ inline Vec3 Vec3::operator / (float f) const {
 
 /**
  * @brief Vector cross product operation
- * 
- * @param b Vector B
- * 
- * @return Cross product
  */
 inline Vec3 Vec3::operator * (const Vec3 &b) const {
     return Vec3::cross(*this, b);
@@ -172,11 +159,6 @@ inline Vec3 Vec3::operator * (const Vec3 &b) const {
 
 /**
  * @brief Multiply the vector by a number
- * 
- * @param f Multiplicant
- * @param v The Vector
- * 
- * @return Multiplied vector
  */
 inline Vec3 operator * (float f, const Vec3 &v) {
     Vec3 u;
@@ -184,6 +166,46 @@ inline Vec3 operator * (float f, const Vec3 &v) {
     u.y = f * v.y;
     u.z = f * v.z;
     return u;
+}
+
+/**
+ * @brief Adds 2 vectors
+ */
+inline Vec3& Vec3::operator += (const Vec3 &b) {
+    x += b.x;
+    y += b.y;
+    z += b.z;
+    return *this;
+}
+
+/**
+ * @brief Subtract the vector by vector B
+ */
+inline Vec3& Vec3::operator -= (const Vec3 &b) {
+    x -= b.x;
+    y -= b.y;
+    z -= b.z;
+    return *this;
+}
+
+/**
+ * @brief Multiply the vector by a number
+ */
+inline Vec3& Vec3::operator *= (float f) {
+    x *= f;
+    y *= f;
+    z *= f;
+    return *this;
+}
+
+/**
+ * @brief Divide the vector by a number
+ */
+inline Vec3& Vec3::operator /= (float f) {
+    x /= f;
+    y /= f;
+    z /= f;
+    return *this;
 }
 
 /**
@@ -205,9 +227,20 @@ inline float& Vec3::operator [] (uint8_t i) {
  * 
  * @return Reference to vector member
  */
-inline float const& Vec3::operator [] (uint8_t i) const{
+inline float const& Vec3::operator [] (uint8_t i) const {
      RMG_ASSERT(i < 3);
      return data[i];
+}
+
+/**
+ * @brief Equality operator
+ * 
+ * @param b Vector B
+ * 
+ * @return True if the members of the two vectors are equal
+ */
+inline bool Vec3::operator == (const Vec3 &b) const {
+    return (x == b.x) && (y == b.y) && (z == b.z);
 }
 
 }

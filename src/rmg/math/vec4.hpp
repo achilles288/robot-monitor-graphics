@@ -98,39 +98,48 @@ struct Vec4 {
     
     /**
      * @brief Adds 2 vectors
-     * 
-     * @param b Vector B
-     * 
-     * @return Sum of 2 vectors
      */
     Vec4 operator + (const Vec4 &b) const;
     
     /**
      * @brief Subtract the vector by vector B
-     * 
-     * @param b Vector B
-     * 
-     * @return Answer vector C
      */
     Vec4 operator - (const Vec4 &b) const;
     
     /**
+     * @brief Minus vector
+     */
+    Vec4 operator - () const;
+    
+    /**
      * @brief Multiply the vector by a number
-     * 
-     * @param f Multiplicant
-     * 
-     * @return Multiplied vector
      */
     Vec4 operator * (float f) const;
     
     /**
      * @brief Divide the vector by a number
-     * 
-     * @param f Divisor
-     * 
-     * @return Divided vector
      */
     Vec4 operator / (float f) const;
+    
+    /**
+     * @brief Adds 2 vectors
+     */
+    Vec4& operator += (const Vec4 &b);
+    
+    /**
+     * @brief Subtract the vector by vector B
+     */
+    Vec4& operator -= (const Vec4 &b);
+    
+    /**
+     * @brief Multiply the vector by a number
+     */
+    Vec4& operator *= (float f);
+    
+    /**
+     * @brief Divide the vector by a number
+     */
+    Vec4& operator /= (float f);
     
     /**
      * @brief Gets reference to vector data as array subscript
@@ -149,6 +158,15 @@ struct Vec4 {
      * @return Reference to vector member
      */
     float const& operator [] (uint8_t i) const;
+    
+    /**
+     * @brief Equality operator
+     * 
+     * @param b Vector B
+     * 
+     * @return True if the members of the two vectors are equal
+     */
+    bool operator == (const Vec4 &b) const;
 };
 
 /**
@@ -170,6 +188,26 @@ Vec4 operator * (float f, const Vec4 &v);
  * @return Reference of passed output stream
  */
 std::ostream& operator << (std::ostream& os, const Vec4& v);
+
+}
+
+
+#include <functional>
+
+
+namespace std {
+
+template<>
+struct hash<rmg::Vec4> {
+    size_t operator () (const rmg::Vec4& v) const noexcept {
+        size_t seed = 0;
+        seed ^= std::hash<float>{}(v.x) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        seed ^= std::hash<float>{}(v.y) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        seed ^= std::hash<float>{}(v.z) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        seed ^= std::hash<float>{}(v.w) + 0x9e3779b9 + (seed<<6) + (seed>>2);
+        return seed;
+    }
+};
 
 }
 

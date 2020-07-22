@@ -47,8 +47,11 @@ TEST(Vec2, add) {
     Vec2 a = {12.3458f, -9.0323f};
     Vec2 b = { 8.1663f,  3.9226f};
     Vec2 c = a + b;
-    EXPECT_NEAR(20.5121f, c.x, 0.0001f);
-    EXPECT_NEAR(-5.1097f, c.y, 0.0001f);
+    ASSERT_NEAR(20.5121f, c.x, 0.0001f);
+    ASSERT_NEAR(-5.1097f, c.y, 0.0001f);
+    a += b;
+    ASSERT_NEAR(20.5121f, a.x, 0.0001f);
+    ASSERT_NEAR(-5.1097f, a.y, 0.0001f);
 }
 
 
@@ -56,8 +59,11 @@ TEST(Vec2, subtract) {
     Vec2 a = {20.0019f, 14.4054f};
     Vec2 b = { 8.7503f, -6.446f};
     Vec2 c = a - b;
-    EXPECT_NEAR(11.2516f, c.x, 0.0001f);
-    EXPECT_NEAR(20.8514f, c.y, 0.0001f);
+    ASSERT_NEAR(11.2516f, c.x, 0.0001f);
+    ASSERT_NEAR(20.8514f, c.y, 0.0001f);
+    a -= b;
+    ASSERT_NEAR(11.2516f, a.x, 0.0001f);
+    ASSERT_NEAR(20.8514f, a.y, 0.0001f);
 }
 
 
@@ -65,11 +71,14 @@ TEST(Vec2, multiply) {
     Vec2 a = {13.3049f, 7.0522f};
     Vec2 b;
     b = a * 2.451f;
-    EXPECT_NEAR(32.6103f, b.x, 0.0001f);
-    EXPECT_NEAR(17.2849f, b.y, 0.0001f);
+    ASSERT_NEAR(32.6103f, b.x, 0.0001f);
+    ASSERT_NEAR(17.2849f, b.y, 0.0001f);
     b = 2.451f * a;
-    EXPECT_NEAR(32.6103f, b.x, 0.0001f);
-    EXPECT_NEAR(17.2849f, b.y, 0.0001f);
+    ASSERT_NEAR(32.6103f, b.x, 0.0001f);
+    ASSERT_NEAR(17.2849f, b.y, 0.0001f);
+    a *= 2.451f;
+    ASSERT_NEAR(32.6103f, a.x, 0.0001f);
+    ASSERT_NEAR(17.2849f, a.y, 0.0001f);
 }
 
 
@@ -77,8 +86,11 @@ TEST(Vec2, divide) {
     Vec2 a = {20.3954f, -37.3502f};
     Vec2 b;
     b = a / 3.3106f;
-    EXPECT_NEAR(  6.1606f, b.x, 0.0001f);
-    EXPECT_NEAR(-11.2820f, b.y, 0.0001f);
+    ASSERT_NEAR(  6.1606f, b.x, 0.0001f);
+    ASSERT_NEAR(-11.2820f, b.y, 0.0001f);
+    a /= 3.3106f;
+    ASSERT_NEAR(  6.1606f, a.x, 0.0001f);
+    ASSERT_NEAR(-11.2820f, a.y, 0.0001f);
 }
 
 

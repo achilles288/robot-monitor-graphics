@@ -104,10 +104,6 @@ inline float Vec4::magnitude() const {
 
 /**
  * @brief Adds 2 vectors
- * 
- * @param b Vector B
- * 
- * @return Sum of 2 vectors
  */
 inline Vec4 Vec4::operator + (const Vec4 &b) const {
     Vec4 c;
@@ -117,13 +113,9 @@ inline Vec4 Vec4::operator + (const Vec4 &b) const {
     c.w = w + b.w;
     return c;
 }
- 
+
 /**
  * @brief Subtract the vector by vector B
- * 
- * @param b Vector B
- * 
- * @return Answer vector C
  */
 inline Vec4 Vec4::operator - (const Vec4 &b) const {
     Vec4 c;
@@ -134,12 +126,16 @@ inline Vec4 Vec4::operator - (const Vec4 &b) const {
     return c;
 }
 
+
+/**
+ * @brief Minus vector
+ */
+inline Vec4 Vec4::operator - () const {
+    return Vec4(-x, -y, -z, -w);
+}
+
 /**
  * @brief Multiply the vector by a number
- * 
- * @param f Multiplicant
- * 
- * @return Multiplied vector
  */
 inline Vec4 Vec4::operator * (float f) const {
     Vec4 v;
@@ -152,10 +148,6 @@ inline Vec4 Vec4::operator * (float f) const {
 
 /**
  * @brief Divide the vector by a number
- * 
- * @param f Divisor
- * 
- * @return Divided vector
  */
 inline Vec4 Vec4::operator / (float f) const {
     Vec4 v;
@@ -168,11 +160,6 @@ inline Vec4 Vec4::operator / (float f) const {
 
 /**
  * @brief Multiply the vector by a number
- * 
- * @param f Multiplicant
- * @param v The Vector
- * 
- * @return Multiplied vector
  */
 inline Vec4 operator * (float f, const Vec4 &v) {
     Vec4 u;
@@ -181,6 +168,50 @@ inline Vec4 operator * (float f, const Vec4 &v) {
     u.z = f * v.z;
     u.w = f * v.w;
     return u;
+}
+
+/**
+ * @brief Adds 2 vectors
+ */
+inline Vec4& Vec4::operator += (const Vec4 &b) {
+    x += b.x;
+    y += b.y;
+    z += b.z;
+    w += b.w;
+    return *this;
+}
+
+/**
+ * @brief Subtract the vector by vector B
+ */
+inline Vec4& Vec4::operator -= (const Vec4 &b) {
+    x -= b.x;
+    y -= b.y;
+    z -= b.z;
+    w -= b.w;
+    return *this;
+}
+
+/**
+ * @brief Multiply the vector by a number
+ */
+inline Vec4& Vec4::operator *= (float f) {
+    x *= f;
+    y *= f;
+    z *= f;
+    w *= f;
+    return *this;
+}
+
+/**
+ * @brief Divide the vector by a number
+ */
+inline Vec4& Vec4::operator /= (float f) {
+    x /= f;
+    y /= f;
+    z /= f;
+    w /= f;
+    return *this;
 }
 
 /**
@@ -205,6 +236,17 @@ inline float& Vec4::operator [] (uint8_t i) {
 inline float const& Vec4::operator [] (uint8_t i) const {
      RMG_ASSERT(i < 4);
      return data[i];
+}
+
+/**
+ * @brief Equality operator
+ * 
+ * @param b Vector B
+ * 
+ * @return True if the members of the two vectors are equal
+ */
+inline bool Vec4::operator == (const Vec4 &b) const {
+    return (x == b.x) && (y == b.y) && (z == b.z) && (w == b.w);
 }
 
 }

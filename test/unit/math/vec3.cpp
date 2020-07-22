@@ -56,9 +56,13 @@ TEST(Vec3, add) {
     Vec3 a = { 3.245f,  22.5031f, -9.3249f};
     Vec3 b = {14.3375f, -7.523f,  10.9544f};
     Vec3 c = a + b;
-    EXPECT_NEAR(17.5825f, c.x, 0.0001f);
-    EXPECT_NEAR(14.9801f, c.y, 0.0001f);
-    EXPECT_NEAR( 1.6295f, c.z, 0.0001f);
+    ASSERT_NEAR(17.5825f, c.x, 0.0001f);
+    ASSERT_NEAR(14.9801f, c.y, 0.0001f);
+    ASSERT_NEAR( 1.6295f, c.z, 0.0001f);
+    a += b;
+    ASSERT_NEAR(17.5825f, a.x, 0.0001f);
+    ASSERT_NEAR(14.9801f, a.y, 0.0001f);
+    ASSERT_NEAR( 1.6295f, a.z, 0.0001f);
 }
 
 
@@ -66,9 +70,13 @@ TEST(Vec3, subtract) {
     Vec3 a = {16.3569f, -8.7431f, 12.435f};
     Vec3 b = { 7.0503f, -6.446f,  -3.2565f};
     Vec3 c = a - b;
-    EXPECT_NEAR( 9.3066f, c.x, 0.0001f);
-    EXPECT_NEAR(-2.2971f, c.y, 0.0001f);
-    EXPECT_NEAR(15.6915f, c.z, 0.0001f);
+    ASSERT_NEAR( 9.3066f, c.x, 0.0001f);
+    ASSERT_NEAR(-2.2971f, c.y, 0.0001f);
+    ASSERT_NEAR(15.6915f, c.z, 0.0001f);
+    a -= b;
+    ASSERT_NEAR( 9.3066f, a.x, 0.0001f);
+    ASSERT_NEAR(-2.2971f, a.y, 0.0001f);
+    ASSERT_NEAR(15.6915f, a.z, 0.0001f);
 }
 
 
@@ -76,13 +84,17 @@ TEST(Vec3, multiply) {
     Vec3 a = {16.1159f, 8.8122f, -4.5105f};
     Vec3 b;
     b = a * 6.3211f;
-    EXPECT_NEAR(101.8702f, b.x, 0.0001f);
-    EXPECT_NEAR( 55.7028f, b.y, 0.0001f);
-    EXPECT_NEAR(-28.5113f, b.z, 0.0001f);
+    ASSERT_NEAR(101.8702f, b.x, 0.0001f);
+    ASSERT_NEAR( 55.7028f, b.y, 0.0001f);
+    ASSERT_NEAR(-28.5113f, b.z, 0.0001f);
     b = 6.3211f * a;
-    EXPECT_NEAR(101.8702f, b.x, 0.0001f);
-    EXPECT_NEAR( 55.7028f, b.y, 0.0001f);
-    EXPECT_NEAR(-28.5113f, b.z, 0.0001f);
+    ASSERT_NEAR(101.8702f, b.x, 0.0001f);
+    ASSERT_NEAR( 55.7028f, b.y, 0.0001f);
+    ASSERT_NEAR(-28.5113f, b.z, 0.0001f);
+    a *= 6.3211f;
+    ASSERT_NEAR(101.8702f, a.x, 0.0001f);
+    ASSERT_NEAR( 55.7028f, a.y, 0.0001f);
+    ASSERT_NEAR(-28.5113f, a.z, 0.0001f);
 }
 
 
@@ -90,9 +102,13 @@ TEST(Vec3, divide) {
     Vec3 a = {-30.5651f, 117.3502f, 43.0063f};
     Vec3 b;
     b = a / 12.103f;
-    EXPECT_NEAR(-2.5254f, b.x, 0.0001f);
-    EXPECT_NEAR( 9.6960f, b.y, 0.0001f);
-    EXPECT_NEAR( 3.5534f, b.z, 0.0001f);
+    ASSERT_NEAR(-2.5254f, b.x, 0.0001f);
+    ASSERT_NEAR( 9.6960f, b.y, 0.0001f);
+    ASSERT_NEAR( 3.5534f, b.z, 0.0001f);
+    a /= 12.103f;
+    ASSERT_NEAR(-2.5254f, a.x, 0.0001f);
+    ASSERT_NEAR( 9.6960f, a.y, 0.0001f);
+    ASSERT_NEAR( 3.5534f, a.z, 0.0001f);
 }
 
 
