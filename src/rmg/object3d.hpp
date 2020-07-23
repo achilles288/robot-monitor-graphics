@@ -64,6 +64,8 @@ class Object3D: public Object {
     std::shared_ptr<internal::Texture> texture;
     internal::ContextLoader::Pending texLoad;
     
+    void loadOBJ(const std::string &file, bool smooth=true);
+    
   protected:
     /**
      * @brief The matrix composed of all the transformations done by the
@@ -107,8 +109,10 @@ class Object3D: public Object {
      * 
      * @param ctx Container context
      * @param file 3D model file (.obj)
+     * @param smooth Generate smooth surface normals if the 3D model does not
+     *               contain an option about vertex normals
      */
-    Object3D(Context* ctx, std::string file);
+    Object3D(Context* ctx, const std::string &file, bool smooth=true);
     
     /**
      * @brief The matrix composed of all the transformations done by the

@@ -14,29 +14,20 @@
 #include <cstring>
 #include <utility>
 
+#include "rmg/assert.hpp"
+
 
 namespace rmg {
-
-/**
- * @brief Default constructor
- */
-Mesh::Mesh() {
-    vertices = nullptr;
-    normals = nullptr;
-    texCoords = nullptr;
-    vertex_count = 0;
-    indecies = nullptr;
-    index_count = 0;
-}
 
 /**
  * @brief Constructor from pointers of arrays
  * 
  * @param vert Vertex array
  * @param vcount Number of vertices
+ * @param smooth Generate smooth surface normals
  */
-Mesh::Mesh(Vec3* vert, uint64_t vcount)
-     :Mesh(vert, nullptr, vcount)
+Mesh::Mesh(const Vec3* vert, uint32_t vcount, bool smooth)
+     :Mesh(vert, nullptr, vcount, smooth)
 {}
 
 /**
@@ -45,17 +36,19 @@ Mesh::Mesh(Vec3* vert, uint64_t vcount)
  * @param vert Vertex array
  * @param tex Textural coordinate array
  * @param vcount Number of vertices
+ * @param smooth Generate smooth surface normals
  */
-Mesh::Mesh(Vec3* vert, Vec2* tex, uint64_t vcount) {
+Mesh::Mesh(const Vec3* vert, const Vec2* tex, uint32_t vcount, bool smooth) {
+    RMG_EXPECT(vcount % 3 == 0);
+    #ifndef NDEBUG
+    if(vcount % 3 != 0) return;
+    #endif
+    
     vertices = (Vec3*) malloc(sizeof(Vec3)*vcount);
     memcpy(vertices, vert, sizeof(Vec3)*vcount);
     vertex_count = vcount;
-    
-    indecies = nullptr;
+    indices = nullptr;
     index_count = 0;
-    
-    normals = (Vec3*) malloc(sizeof(Vec3)*vcount);
-    buildNormals();
     
     if(tex != nullptr) {
         texCoords = (Vec2*) malloc(sizeof(Vec2)*vcount);
@@ -65,7 +58,38 @@ Mesh::Mesh(Vec3* vert, Vec2* tex, uint64_t vcount) {
         texCoords = nullptr;
     }
     
-    buildIndecies();
+    buildNormals(smooth);
+    buildIndices();
+}
+
+/**
+ * @brief Constructor from pointers of arrays
+ * 
+ * @param vert Vertex array
+ * @param norm Normal array
+ * @param tex Textural coordinate array
+ * @param vcount Number of vertices
+ */
+Mesh::Mesh(const Vec3* vert, const Vec3* norm, const Vec2* tex,
+           uint32_t vcount)
+{
+    RMG_EXPECT(vcount % 3 == 0);
+    #ifndef NDEBUG
+    if(vcount % 3 != 0) return;
+    #endif
+    
+    vertices = (Vec3*) malloc(sizeof(Vec3)*vcount);
+    memcpy(vertices, vert, sizeof(Vec3)*vcount);
+    normals = (Vec3*) malloc(sizeof(Vec3)*vcount);
+    memcpy(normals, norm, sizeof(Vec3)*vcount);
+    vertex_count = vcount;
+    
+    if(tex != nullptr) {
+        texCoords = (Vec2*) malloc(sizeof(Vec2)*vcount);
+        memcpy(texCoords, tex, sizeof(Vec2)*vcount);
+    }
+    
+    buildIndices();
 }
 
 /**
@@ -75,32 +99,37 @@ Mesh::Mesh(Vec3* vert, Vec2* tex, uint64_t vcount) {
  * @param norm Normal array
  * @param tex Textural coordinate array (optional)
  * @param vcount Number of vertices
- * @param in Indecies
- * @param icount Number of indecies
+ * @param in Indices
+ * @param icount Number of indices
  */
-Mesh::Mesh(Vec3* vert, Vec3* norm, Vec2* tex, uint64_t vcount,
-           uint16_t* in, uint64_t icount)
+Mesh::Mesh(const Vec3* vert, const Vec3* norm, const Vec2* tex,
+           uint32_t vcount, const uint32_t* in, uint32_t icount)
 {
+    RMG_EXPECT(icount % 3 == 0);
+    #ifndef NDEBUG
+    if(icount % 3 != 0) return;
+    #endif
+    
     vertices = (Vec3*) malloc(sizeof(Vec3)*vcount);
     memcpy(vertices, vert, sizeof(Vec3)*vcount);
     vertex_count = vcount;
-    
-    normals = (Vec3*) malloc(sizeof(Vec3)*vcount);
-    if(norm != nullptr)
-        memcpy(normals, norm, sizeof(Vec3)*vcount);
-    else
-        buildNormals();
+    indices = (uint32_t*) malloc(sizeof(uint32_t)*icount);
+    memcpy(indices, in, sizeof(uint32_t)*icount);
+    index_count = icount;
     
     if(tex != nullptr) {
         texCoords = (Vec2*) malloc(sizeof(Vec2)*vcount);
         memcpy(texCoords, tex, sizeof(Vec2)*vcount);
     }
-    else {
-        texCoords = nullptr;
+    
+    if(norm != nullptr) {
+        normals = (Vec3*) malloc(sizeof(Vec3)*vcount);
+        memcpy(normals, norm, sizeof(Vec3)*vcount);
     }
-    indecies = (uint16_t*) malloc(sizeof(uint16_t)*icount);
-    memcpy(indecies, in, sizeof(uint16_t)*icount);
-    index_count = icount;
+    else {
+        buildNormals();
+        buildIndices();
+    }
 }
 
 /**
@@ -110,7 +139,7 @@ Mesh::~Mesh() {
     free(vertices);
     free(normals);
     free(texCoords);
-    free(indecies);
+    free(indices);
 }
 
 /**
@@ -121,20 +150,26 @@ Mesh::~Mesh() {
 Mesh::Mesh(const Mesh& mesh) {
     vertex_count = mesh.vertex_count;
     index_count = mesh.index_count;
-    vertices = (Vec3*) malloc(sizeof(Vec3)*vertex_count);
-    normals = (Vec3*) malloc(sizeof(Vec3)*vertex_count);;
-    indecies = (uint16_t*) malloc(sizeof(uint16_t)*index_count);
     
-    memcpy(vertices, mesh.vertices, sizeof(Vec3)*vertex_count);
-    memcpy(normals, mesh.normals, sizeof(Vec3)*vertex_count);
-    memcpy(indecies, mesh.indecies, sizeof(uint16_t)*index_count);
+    if(mesh.vertices != nullptr) {
+        vertices = (Vec3*) malloc(sizeof(Vec3)*vertex_count);
+        memcpy(vertices, mesh.vertices, sizeof(Vec3)*vertex_count);
+    }
+    
+    if(mesh.normals != nullptr) {
+        normals = (Vec3*) malloc(sizeof(Vec3)*vertex_count);
+        memcpy(normals, mesh.normals, sizeof(Vec3)*vertex_count);
+    }
     
     if(mesh.texCoords != nullptr) {
         texCoords = (Vec2*) malloc(sizeof(Vec2)*vertex_count);
         memcpy(texCoords, mesh.texCoords, sizeof(Vec2)*vertex_count);
     }
-    else
-        texCoords = nullptr;
+    
+    if(mesh.indices != nullptr) {
+        indices = (uint32_t*) malloc(sizeof(uint32_t)*index_count);
+        memcpy(indices, mesh.indices, sizeof(uint32_t)*index_count);
+    }
 }
 
 /**
@@ -147,7 +182,7 @@ Mesh::Mesh(Mesh&& mesh) noexcept {
     normals = std::exchange(mesh.normals, nullptr);
     texCoords = std::exchange(mesh.texCoords, nullptr);
     vertex_count = std::exchange(mesh.vertex_count, 0);
-    indecies = std::exchange(mesh.indecies, nullptr);
+    indices = std::exchange(mesh.indices, nullptr);
     index_count = std::exchange(mesh.index_count, 0);
 }
 
@@ -179,21 +214,40 @@ void Mesh::swap(Mesh& mesh) noexcept {
     std::swap(vertices, mesh.vertices);
     std::swap(normals, mesh.normals);
     std::swap(texCoords, mesh.texCoords);
-    std::swap(indecies, mesh.indecies);
+    std::swap(indices, mesh.indices);
 }
 
 /**
- * @brief Calculate the normal vectors for every vertex in the array
+ * @brief Checks if the mesh is valid
+ * 
+ * @return True if the mesh is usable as VBO
  */
-void Mesh::buildNormals() {
-    
+bool Mesh::isValid() const {
+    if(vertices == nullptr)
+        return false;
+    if(normals == nullptr)
+        return false;
+    if(indices == nullptr)
+        return false;
+    if(index_count % 3 != 0)
+        return false;
+    return true;
 }
 
 /**
- * @brief Shuffles the arrays to reuse the duplicate vertices
+ * @brief Gets the number of vertices
+ * 
+ * @return Vertex count
  */
-void Mesh::buildIndecies() {
-    
+uint32_t Mesh::getVertexCount() const { return vertex_count; }
+
+/**
+ * @brief Gets the number of polygons
+ * 
+ * @return Number of triangles or quads constituting the model
+ */
+uint32_t Mesh::getPolygonCount() const {
+    return index_count / 3;
 }
 
 }

@@ -32,6 +32,11 @@ namespace internal {
 class ContextLoad {
   public:
     /**
+     * @brief Destructor
+     */
+    virtual ~ContextLoad() = default;
+    
+    /**
      * @brief Loads the data to the GPU
      */
     virtual void load();
@@ -67,8 +72,8 @@ class ContextLoader {
             bool added; /**< States if the instance is added to the list */
         };
         
-        ContextLoad* data;
-        Shared* shared;
+        ContextLoad* data = nullptr;
+        Shared* shared = nullptr;
         
         void swap(Pending& x) noexcept;
         
@@ -78,7 +83,7 @@ class ContextLoader {
         /**
          * @brief Default constructor
          */
-        Pending();
+        Pending() = default;
         
         /**
          * @brief Constructor assigning the load pointer
@@ -131,12 +136,7 @@ class ContextLoader {
     /**
      * @brief Default constructor
      */
-    ContextLoader();
-    
-    /**
-     * @brief Destructor
-     */
-    virtual ~ContextLoader();
+    ContextLoader() = default;
     
     /**
      * @brief Append load into the loading list

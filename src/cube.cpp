@@ -38,8 +38,6 @@ Cube3D::Cube3D(Context* ctx, float l, float b, float h): Object3D(ctx)
     length = l;
     breadth = b;
     height = h;
-    auto vbo = std::make_shared<internal::VBO>(internal::VBO());
-    setSharedVBO(vbo);
     setMesh(createMesh());
 }
 
@@ -47,7 +45,7 @@ Mesh Cube3D::createMesh() {
     Vec3 vertices[6][4];
     Vec3 normals[6][4];
     Vec2 texCoords[6][4];
-    uint16_t indecies[6][6];
+    uint32_t indecies[6][6];
     
     // Left and right faces
     for(int i=-1; i<=1; i+=2) {
@@ -162,11 +160,8 @@ Vec3 Cube3D::getDimension() const {
 void Cube3D::setMaterial(Material* mat) {
     Material *prev = getMaterial();
     Object3D::setMaterial(mat);
-    if(prev == nullptr) {
-        auto vbo = std::make_shared<internal::VBO>(internal::VBO());
-        setSharedVBO(vbo);
+    if(prev == nullptr)
         setMesh(createMesh());
-    }
 }
 
 }

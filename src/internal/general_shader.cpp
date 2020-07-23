@@ -74,15 +74,14 @@ void GeneralShader::render(
     glEnable(GL_DEPTH_TEST);
     glDepthFunc(GL_LESS);
     glFrontFace(GL_CCW);
-    glEnable(GL_CULL_FACE);
-    glCullFace(GL_BACK);
+    glDisable(GL_CULL_FACE);
     glUseProgram(id);
     glUniform3fv(idDLCamera, 1, &dlCam[0]);
     glUniform4fv(idDLColor, 1, &dlColor[0]);
     for(auto it=list.begin(); it!=list.end(); it++) {
         uint32_t flags = 0;
         Object3D *obj = it->second;
-        if(obj->isHidden())
+        if(obj->isHidden() || obj->getVBO() == nullptr)
             continue;
         Mat4 MV = V * obj->getModelMatrix();
         Mat4 MVP = P * MV;

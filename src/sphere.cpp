@@ -35,18 +35,16 @@ Sphere3D::Sphere3D() {
  */
 Sphere3D::Sphere3D(Context* ctx, float d): Object3D(ctx) {    
     diameter = d;
-    auto vbo = std::make_shared<internal::VBO>(internal::VBO());
-    setSharedVBO(vbo);
     setMesh(createMesh());
 }
 
 Mesh Sphere3D::createMesh() {
-    #define FRAGMENT_COUNT 6
+    #define FRAGMENT_COUNT 8
     
     Vec3 vertices[6][FRAGMENT_COUNT+1][FRAGMENT_COUNT+1];
     Vec3 normals[6][FRAGMENT_COUNT+1][FRAGMENT_COUNT+1];
     Vec2 texCoords[6][FRAGMENT_COUNT+1][FRAGMENT_COUNT+1];
-    uint16_t indecies[6][FRAGMENT_COUNT][FRAGMENT_COUNT][6];
+    uint32_t indecies[6][FRAGMENT_COUNT][FRAGMENT_COUNT][6];
     
     float radius = diameter/2.0f;
     
@@ -150,11 +148,8 @@ float Sphere3D::getDiameter() const { return diameter; }
 void Sphere3D::setMaterial(Material* mat) {
     Material *prev = getMaterial();
     Object3D::setMaterial(mat);
-    if(prev == nullptr) {
-        auto vbo = std::make_shared<internal::VBO>(internal::VBO());
-        setSharedVBO(vbo);
+    if(prev == nullptr)
         setMesh(createMesh());
-    }
 }
 
 }

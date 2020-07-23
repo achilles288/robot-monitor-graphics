@@ -24,37 +24,39 @@ class Mesh {
   private:
     void swap(Mesh& mesh) noexcept;
     
+    void buildNormals(bool smooth=true);
+    void buildNormals1();
+    void buildNormals2();
+    
+    void removeIndices();
+    
+    void buildIndices();
+    void buildIndices1();
+    void buildIndices2();
+    void buildIndices3();
+    
   protected:
-    Vec3* vertices; ///< Coordinate in 3D space
-    Vec3* normals; ///< Normal vector used in calculating reflections
-    Vec2* texCoords; ///< Coordinate representing a portion of textural image
-    uint64_t vertex_count; ///< Number of vertecies
-    uint16_t* indecies; ///< Array of vertex indecies forming polygons
-    uint64_t index_count; ///< Number of indecies
-    
-    /**
-     * @brief Calculate the normal vectors for every vertex in the array
-     */
-    void buildNormals();
-    
-    /**
-     * @brief Shuffles the arrays to reuse the duplicate vertecies
-     */
-    void buildIndecies();
+    Vec3* vertices = nullptr; ///< Coordinate in 3D space
+    Vec3* normals = nullptr; ///< Normal vector used in calculating reflections
+    Vec2* texCoords = nullptr; ///< Point of textural image to map
+    uint32_t vertex_count = 0; ///< Number of vertecies
+    uint32_t* indices = nullptr; ///< Array of vertex indecies forming polygons
+    uint32_t index_count = 0; ///< Number of indecies
     
   public:
     /**
      * @brief Default constructor
      */
-    Mesh();
+    Mesh() = default;
     
     /**
      * @brief Constructor from pointers of arrays
      * 
      * @param vert Vertex array
      * @param vcount Number of vertices
+     * @param smooth Generate smooth surface normals
      */
-    Mesh(Vec3* vert, uint64_t vcount);
+    Mesh(const Vec3* vert, uint32_t vcount, bool smooth=true);
     
     /**
      * @brief Constructor from pointers of arrays
@@ -62,8 +64,19 @@ class Mesh {
      * @param vert Vertex array
      * @param tex Textural coordinate array
      * @param vcount Number of vertices
+     * @param smooth Generate smooth surface normals
      */
-    Mesh(Vec3* vert, Vec2* tex, uint64_t vcount);
+    Mesh(const Vec3* vert, const Vec2* tex, uint32_t vcount, bool smooth=true);
+    
+    /**
+     * @brief Constructor from pointers of arrays
+     * 
+     * @param vert Vertex array
+     * @param norm Normal array
+     * @param tex Textural coordinate array
+     * @param vcount Number of vertices
+     */
+    Mesh(const Vec3* vert, const Vec3* norm, const Vec2* tex, uint32_t vcount);
     
     /**
      * @brief Constructor from pointers of arrays
@@ -75,8 +88,8 @@ class Mesh {
      * @param in Indecies
      * @param icount Number of indecies
      */
-    Mesh(Vec3* vert, Vec3* norm, Vec2* tex, uint64_t vcount,
-         uint16_t* in, uint64_t icount);
+    Mesh(const Vec3* vert, const Vec3* norm, const Vec2* tex, uint32_t vcount,
+         const uint32_t* in, uint32_t icount);
     
     /**
      * @brief Destructor
@@ -110,6 +123,27 @@ class Mesh {
      * @param mesh Source
      */
     Mesh& operator=(Mesh&& mesh) noexcept;
+    
+    /**
+     * @brief Checks if the mesh is valid
+     * 
+     * @return True if the mesh is usable as VBO
+     */
+    bool isValid() const;
+    
+    /**
+     * @brief Gets the number of vertices
+     * 
+     * @return Vertex count
+     */
+    uint32_t getVertexCount() const;
+    
+    /**
+     * @brief Gets the number of polygons
+     * 
+     * @return Number of triangles or quads constituting the model
+     */
+    uint32_t getPolygonCount() const;
 };
 
 }

@@ -78,10 +78,6 @@ void Context::render() {
     fps = 1.0f/(t2-t1);
     t1 = t2;
     
-    update();
-    if(destroyed)
-        throw std::domain_error("Exit on context destruction");
-    
     uint32_t shadow = shadowMapShader.createShadowMap(objects3d);
     
     glViewport(0, 0, width, height);
@@ -98,6 +94,8 @@ void Context::render() {
         objects3d
     );
     flush();
+    
+    update();
 }
 
 

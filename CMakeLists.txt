@@ -95,6 +95,17 @@ find_package(wxWidgets COMPONENTS std gl)
 
 
 
+# Compile flags
+if(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+add_definitions(
+    -Wall
+    -Wno-unused-function
+    -Wno-unused-label
+    -Wno-unused-value
+    -Wno-unused-variable
+)
+endif()
+
 # Compile RMGraphics
 add_subdirectory(src)
 

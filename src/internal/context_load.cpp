@@ -35,14 +35,6 @@ void ContextLoad::load() {}
 // Class: ContextLoader::Pending
 
 /**
- * @brief Default constructor
- */
-ContextLoader::Pending::Pending() {
-    data = nullptr;
-    shared = nullptr;
-}
-
-/**
  * @brief Constructor assigning the load pointer
  * 
  * @param load Instance containing data to be loaded into GPU
@@ -138,16 +130,6 @@ uint64_t ContextLoader::Pending::getUseCount() const {
 // Class: ContextLoader
 
 /**
- * @brief Default constructor
- */
-ContextLoader::ContextLoader() {}
-
-/**
- * @brief Destructor
- */
-ContextLoader::~ContextLoader() {}
-
-/**
  * @brief Append load into the loading list
  * 
  * If the function is called again for the same load, the shared data
@@ -173,8 +155,18 @@ void ContextLoader::push(const ContextLoader::Pending& elem)
 void ContextLoader::load() {
     while(pendingList.size() != 0) {
         ContextLoader::Pending& p = pendingList.front();
-        if(p.shared->use_count != 1)
-            p.data->load();
+        /*
+         * p.shared->use_count != 0
+         * 
+         * Reference count when no load is in the world is at least 1 because
+         * the load pushed in the pending list is counted.
+         */
+        if(p.shared != nullptr) {
+            if(p.shared->use_count != 1) {
+                if(p.data != nullptr)
+                    p.data->load();
+            }
+        }
         pendingList.pop();
     }
 }

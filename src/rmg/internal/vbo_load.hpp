@@ -60,11 +60,6 @@ class VBOLoad: public ContextLoad, public Mesh {
     VBOLoad(VBO* vbo, const Mesh& mesh);
     
     /**
-     * @brief Destructor
-     */
-    virtual ~VBOLoad();
-    
-    /**
      * @brief Loads the array of VBOs to the GPU
      * 
      * Loads the arrays of vertices, normals, texture coordinate and indecies
@@ -85,13 +80,13 @@ class VBOLoad: public ContextLoad, public Mesh {
  */
 class VBO {
   private:
-    uint32_t vertexArrayID;
-    uint32_t vertexbuffer;
-    uint32_t normalbuffer;
-    uint32_t texturebuffer;
-    uint32_t elementbuffer;
-    uint32_t indexCount;
-    VBOMode mode;
+    uint32_t vertexArrayID = 0;
+    uint32_t vertexbuffer = 0;
+    uint32_t normalbuffer = 0;
+    uint32_t texturebuffer = 0;
+    uint32_t elementbuffer = 0;
+    uint32_t indexCount = 0;
+    VBOMode mode = VBOMode::None;
     
     friend class VBOLoad;
     
@@ -99,7 +94,7 @@ class VBO {
     /**
      * @brief Constructor
      */
-    VBO();
+    VBO() = default;
     
     /**
      * @brief Destructor

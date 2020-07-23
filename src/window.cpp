@@ -18,10 +18,10 @@
 #include <stdexcept>
 #ifdef _WIN32
 #include <Windows.h>
-#define sleep(X) Sleep((long)(X))
+#define sleep(X) Sleep((DWORD)(X))
 #else
 #include <unistd.h>
-#define sleep(X) usleep((long)((X)*1000))
+#define sleep(X) usleep((__useconds_t)((X)*1000))
 #endif
 
 #include <GL/glew.h>
@@ -210,17 +210,16 @@ void Window::mainLoop() {
                 try {
                     window->render();
                 }
-                catch(std::runtime_error e) {
+                catch(std::runtime_error& e) {
                     if(window->getErrorCode() == 0)
                         window->setErrorCode(1);
                     printf("%s\n", e.what());
                     window->destroy();
                     break;
                 }
-                catch(std::domain_error e) {
-                    window->destroy();
+                
+                if(window->isDestroyed())
                     break;
-                }
             }
         }
         glfwPollEvents();

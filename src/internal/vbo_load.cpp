@@ -35,19 +35,16 @@ VBOLoad::VBOLoad(VBO* vbo, const Mesh& mesh): Mesh(mesh) {
 }
 
 /**
- * @brief Destructor
- */
-VBOLoad::~VBOLoad() {}
-
-/**
  * @brief Loads the array of VBOs to the GPU
  * 
- * Loads the arrays of vertices, normals, texture coordinate and indecies
+ * Loads the arrays of vertices, normals, texture coordinate and indices
  * which are created by model constructors (Cube3D, Model3D, .etc) into
  * GPU. Also this pending object's load function assigns the resource
  * addresses to the related VBO object.
  */
 void VBOLoad::load() {
+    if(!isValid())
+        return;
     vbo->mode = VBOMode::Default;
     glGenVertexArrays(1, &vbo->vertexArrayID);
     glBindVertexArray(vbo->vertexArrayID);
@@ -70,11 +67,11 @@ void VBOLoad::load() {
                      GL_STATIC_DRAW);
         vbo->mode = VBOMode::Textured;
     }
-    // Indecies
+    // Indices
     glGenBuffers(1, &vbo->elementbuffer);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, vbo->elementbuffer);
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count*sizeof(uint16_t),
-                 indecies, GL_STATIC_DRAW);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count*sizeof(uint32_t),
+                 indices, GL_STATIC_DRAW);
     vbo->indexCount = index_count;
 }
 
@@ -82,19 +79,6 @@ void VBOLoad::load() {
 
 
 // Class: VBO
-
-/**
- * @brief Constructor
- */
-VBO::VBO() {
-    vertexArrayID = 0;
-    vertexbuffer = 0;
-    normalbuffer = 0;
-    texturebuffer = 0;
-    elementbuffer = 0;
-    indexCount = 0;
-    mode = VBOMode::None;
-}
 
 /**
  * @brief Destructor
@@ -164,7 +148,7 @@ void VBO::draw() const {
     glDrawElements(
         GL_TRIANGLES,      // mode
         indexCount,        // count
-        GL_UNSIGNED_SHORT, // type
+        GL_UNSIGNED_INT,   // type
         (void*)0           // element array buffer offset
     );
     glDisableVertexAttribArray(0);

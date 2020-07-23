@@ -20,6 +20,7 @@
 #include <map>
 #include <memory>
 #include <queue>
+#include <stdexcept>
 
 #include "camera.hpp"
 #include "color.hpp"
@@ -101,6 +102,11 @@ class Context {
      * @param err Error code
      */
     void setErrorCode(int err);
+    
+    /**
+     * @brief Exception thrown at user exit
+     */
+    struct UserExitException: public std::exception {};
     
   public:
     /**

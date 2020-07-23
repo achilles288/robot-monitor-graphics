@@ -132,3 +132,17 @@ TEST(ContextLoader, load) {
     // Only load3 should be loaded since reference count to load4 is zero
     ASSERT_EQ(count+3, TestContextLoad::loadedCount);
 }
+
+TEST(ContextLoader, load_empty) {
+    ASSERT_EXIT(
+        {
+            ContextLoader::Pending empty;
+            ContextLoader loader;
+            loader.push(empty);
+            loader.load();
+            exit(0);
+        },
+        ::testing::ExitedWithCode(0),
+        ".*"
+    );
+}

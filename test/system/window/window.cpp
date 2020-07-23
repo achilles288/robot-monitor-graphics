@@ -5,6 +5,7 @@
 #include <cstring>
 #include <iostream>
 
+#include <rmg/config.h>
 #include <rmg/cube.hpp>
 #include <rmg/cylinder.hpp>
 #include <rmg/sphere.hpp>
@@ -14,10 +15,10 @@ using namespace rmg;
 
 class TestWindow: public Window {
   private:
-    Object3D *floor, *block1, *block2, *cylinder, *sphere;
+    Object3D *floor, *cube, *cylinder, *sphere, *teapot;
     Vec3 pos = Vec3(-13.3606f, 6.3603f, 9.8690f);
     Euler rot = Euler(0.0f, 0.5472f, -0.4640f);
-    Euler lightAngles = Euler(0.0f, 0.0f, 0.0f);
+    Euler lightAngles = Euler(0.0f, 0.87f, 0.52f);
     float fov = radian(45);
     bool keyW, keyA, keyS, keyD, keyF, keyG;
     bool shift = false;
@@ -37,27 +38,28 @@ class TestWindow: public Window {
         floor->setColor(0.3f, 0.3f, 0.4f);
         floor->setRoughness(0.7f);
         floor->setTranslation(0, 0, -0.5f);
-        block1 = new Cube3D(this, 2, 3, 2);
-        block1->setColor(1.0f, 0, 0);
-        block1->setRoughness(0.2f);
-        block1->setTranslation(-4, 0, 2);
-        block2 = new Cube3D(this, 2.5f, 2.2f, 4.1f);
-        block2->setColor(0, 1.0f, 0);
-        block2->setRoughness(0.3f);
-        block2->setTranslation(2, 3.464f, 3);
+        cube = new Cube3D(this, 2, 3, 2);
+        cube->setColor(1.0f, 0, 0);
+        cube->setRoughness(0.5f);
+        cube->setTranslation(-4, 0, 2);
         cylinder = new Cylinder3D(this, 2.4f, 3.0f);
-        cylinder->setColor(1.0f, 0, 1.0f);
-        cylinder->setRoughness(0.4f);
+        cylinder->setColor(1.0f, 0, 0.8f);
+        cylinder->setRoughness(0.35f);
         cylinder->setTranslation(2, -3.464f, 3);
         sphere = new Sphere3D(this, 2.2f);
         sphere->setColor(1.0f, 1.0f, 0);
-        sphere->setRoughness(0.6f);
+        sphere->setRoughness(0.7f);
         sphere->setTranslation(-0.5f, -0.5f, 3);
+        teapot = new Object3D(this, RMG_RESOURCE_PATH "/models/teapot.obj");
+        teapot->setColor(0, 1.0f, 0.3f);
+        teapot->setRoughness(0.25f);
+        teapot->setTranslation(2, 3.464f, 3);
+        teapot->setScale(2.5f);
         addObject(floor);
-        addObject(block1);
-        addObject(block2);
+        addObject(cube);
         addObject(cylinder);
         addObject(sphere);
+        addObject(teapot);
     }
     
     void update() override {
@@ -73,10 +75,11 @@ class TestWindow: public Window {
         float dt = t - t1;
         t1 = t;
         
-        block1->setRotation(0.3f*t, 0.7f*t, 1.5f*t);
-        block2->setRotation(0.6f*t, 1.7f*t, 0.8f*t);
-        cylinder->setRotation(0, 0.9f*t, 1.8f*t);
-        sphere->setTranslation(-0.5f, -0.5f, 3+1.5f*cos(3*t));
+        cube->setRotation(0.3f*t, -0.9f*t, -1.1f*t);
+        cylinder->setRotation(-0.5f, -0.9f*t, 1.8f*t);
+        sphere->setRotation(-1.0f, 0.8f*t, -1.2f*t);
+        sphere->setTranslation(-0.5f, -0.5f, 3.1f+2*cos(3*t));
+        teapot->setRotation(0, 0, 0.4f*t);
         
         bool move = false;
         if(keyW || keyA || keyS || keyD || keyF || keyG)
@@ -134,8 +137,6 @@ class TestWindow: public Window {
     }
     
     void onKeyPress(const KeyboardEvent& event) override {
-        printf("%d\n", event.getKeycode());
-        
         if(event.isShift())
             shift = true;
         

@@ -16,6 +16,8 @@
 
 #include "rmg/object3d.hpp"
 
+#include <cstdio>
+
 #include "rmg/internal/texture_load.hpp"
 
 
@@ -49,6 +51,36 @@ Object3D::Object3D(Context* ctx): Object(ctx) {
 }
 
 /**
+ * @brief Constructor loads 3D model from file.
+ * 
+ * @param ctx Container context
+ * @param file 3D model file (.obj)
+ * @param smooth Generate smooth surface normals if the 3D model does not
+ *               contain preprocessed vertex normals
+ */
+Object3D::Object3D(Context* ctx, const std::string &file, bool smooth)
+         :Object3D(ctx)
+{
+    auto i = file.find_last_of(".");
+    std::string ext = "";
+    if(i != std::string::npos)
+        ext = file.substr(i+1);
+    
+    if(ext == "obj")
+        loadOBJ(file, smooth);
+    else {
+        #ifdef WIN32
+        printf("error: Attempted to load unsupported 3D model file '%s'\n",
+               file.c_str());
+        #else
+        printf("\033[0;1;31merror: \033[0m"
+               "Attempted to load unsupported 3D model file "
+               "\033[1m'%s'\033[0m\n", file.c_str());
+        #endif
+    }
+}
+
+/**
  * @brief Sets the shared VBO of the object
  * 
  * Usually used to shared existing VBOs of basic geometries,
@@ -67,6 +99,8 @@ void Object3D::setSharedVBO(std::shared_ptr<internal::VBO> vbo)
  * @param mesh 3D Mesh containing vertex coordinates
  */
 void Object3D::setMesh(const Mesh& mesh) {
+    auto vbo = std::make_shared<internal::VBO>(internal::VBO());
+    this->vbo = vbo;
     internal::VBOLoad *load = new internal::VBOLoad(vbo.get(), mesh);
     vboLoad = internal::ContextLoader::Pending(load);
 }
@@ -128,13 +162,13 @@ Vec3 Object3D::getTranslation() const {
 void Object3D::setRotation(const Euler &rot) {
     Mat3 R = rot.toRotationMatrix();
     modelMatrix[0][0] = R[0][0] * scale.x;
-    modelMatrix[0][1] = R[0][1];
-    modelMatrix[0][2] = R[0][2];
-    modelMatrix[1][0] = R[1][0];
+    modelMatrix[0][1] = R[0][1] * scale.x;
+    modelMatrix[0][2] = R[0][2] * scale.x;
+    modelMatrix[1][0] = R[1][0] * scale.y;
     modelMatrix[1][1] = R[1][1] * scale.y;
-    modelMatrix[1][2] = R[1][2];
-    modelMatrix[2][0] = R[2][0];
-    modelMatrix[2][1] = R[2][1];
+    modelMatrix[1][2] = R[1][2] * scale.y;
+    modelMatrix[2][0] = R[2][0] * scale.z;
+    modelMatrix[2][1] = R[2][1] * scale.z;
     modelMatrix[2][2] = R[2][2] * scale.z;
 }
 
@@ -148,7 +182,13 @@ void Object3D::setRotation(const Euler &rot) {
 Euler Object3D::getRotation() const {
     Mat3 R = (Mat3) modelMatrix;
     R[0][0] /= scale.x;
+    R[0][1] /= scale.x;
+    R[0][2] /= scale.x;
+    R[1][0] /= scale.y;
     R[1][1] /= scale.y;
+    R[1][2] /= scale.y;
+    R[2][0] /= scale.z;
+    R[2][1] /= scale.z;
     R[2][2] /= scale.z;
     return Euler(R);
 }
@@ -166,7 +206,13 @@ Euler Object3D::getRotation() const {
  */
 void Object3D::setScale(float x, float y, float z) {
     modelMatrix[0][0] *= x/scale.x;
+    modelMatrix[0][1] *= x/scale.x;
+    modelMatrix[0][2] *= x/scale.x;
+    modelMatrix[1][0] *= y/scale.y;
     modelMatrix[1][1] *= y/scale.y;
+    modelMatrix[1][2] *= y/scale.y;
+    modelMatrix[2][0] *= z/scale.z;
+    modelMatrix[2][1] *= z/scale.z;
     modelMatrix[2][2] *= z/scale.z;
     scale.x = x;
     scale.y = y;
@@ -184,7 +230,13 @@ void Object3D::setScale(float x, float y, float z) {
  */
 void Object3D::setScale(float f) {
     modelMatrix[0][0] *= f/scale.x;
+    modelMatrix[0][1] *= f/scale.x;
+    modelMatrix[0][2] *= f/scale.x;
+    modelMatrix[1][0] *= f/scale.y;
     modelMatrix[1][1] *= f/scale.y;
+    modelMatrix[1][2] *= f/scale.y;
+    modelMatrix[2][0] *= f/scale.z;
+    modelMatrix[2][1] *= f/scale.z;
     modelMatrix[2][2] *= f/scale.z;
     scale.x = f;
     scale.y = f;

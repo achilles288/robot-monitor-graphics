@@ -118,38 +118,37 @@ TEST(Object3D, scale) {
 /**
  * @brief Object3D model transform matrix test
  */
-TEST(Object3D, modelMatrix_1) {
+TEST(Object3D, transform) {
     Context ctx = Context();
-    Object3D obj = Object3D(&ctx);
-    obj.setRotation(0.99f, 0.73f, 2.75f);
-    obj.setScale(1.05f, 1.8f, 0.71f);
-    Mat4 M = obj.getModelMatrix();
-    ASSERT_NEAR(-0.7232f, M[0][0], 0.0001f);
-    ASSERT_NEAR(-0.7247f, M[0][1], 0.0001f);
-    ASSERT_NEAR(-0.0191f, M[0][2], 0.0001f);
-    ASSERT_NEAR( 0.2844f, M[1][0], 0.0001f);
-    ASSERT_NEAR(-0.5299f, M[1][1], 0.0001f);
-    ASSERT_NEAR( 0.9124f, M[1][2], 0.0001f);
-    ASSERT_NEAR(-0.6669f, M[2][0], 0.0001f);
-    ASSERT_NEAR( 0.6230f, M[2][1], 0.0001f);
-    ASSERT_NEAR( 0.2903f, M[2][2], 0.0001f);
-}
-
-TEST(Object3D, modelMatrix_2) {
-    Context ctx = Context();
-    Object3D obj = Object3D(&ctx);
-    obj.setScale(2.04f, 1.32f, 1.82f);
-    obj.setRotation(-1.27f, -1.33f, 0.75f);
-    Mat4 M = obj.getModelMatrix();
-    ASSERT_NEAR( 0.3560f, M[0][0], 0.0001f);
-    ASSERT_NEAR( 0.4767f, M[0][1], 0.0001f);
-    ASSERT_NEAR(-0.8616f, M[0][2], 0.0001f);
-    ASSERT_NEAR( 0.1626f, M[1][0], 0.0001f);
-    ASSERT_NEAR( 1.1207f, M[1][1], 0.0001f);
-    ASSERT_NEAR( 0.5027f, M[1][2], 0.0001f);
-    ASSERT_NEAR( 0.9711f, M[2][0], 0.0001f);
-    ASSERT_NEAR(-0.2278f, M[2][1], 0.0001f);
-    ASSERT_NEAR( 0.1286f, M[2][2], 0.0001f);
+    Object3D obj1 = Object3D(&ctx);
+    obj1.setRotation(0.99f, 0.73f, 2.75f);
+    obj1.setScale(1.71f, 0.79f, 0.5f);
+    
+    Mat4 M = obj1.getModelMatrix();
+    ASSERT_NEAR(-1.1778f, M[0][0], 0.0001f);
+    ASSERT_NEAR(-1.2393f, M[0][1], 0.0001f);
+    ASSERT_NEAR(-0.0327f, M[0][2], 0.0001f);
+    ASSERT_NEAR( 0.2247f, M[1][0], 0.0001f);
+    ASSERT_NEAR(-0.2326f, M[1][1], 0.0001f);
+    ASSERT_NEAR( 0.7208f, M[1][2], 0.0001f);
+    ASSERT_NEAR(-0.3334f, M[2][0], 0.0001f);
+    ASSERT_NEAR( 0.3115f, M[2][1], 0.0001f);
+    ASSERT_NEAR( 0.2044f, M[2][2], 0.0001f);
+    
+    Object3D obj2 = Object3D(&ctx);
+    obj2.setScale(1.88f, 1.19f, 2.5f);
+    obj2.setRotation(1.99f, -1.13f, -1.75f);
+    
+    M = obj2.getModelMatrix();
+    ASSERT_NEAR(-0.1430f, M[0][0], 0.0001f);
+    ASSERT_NEAR(-0.4761f, M[0][1], 0.0001f);
+    ASSERT_NEAR(-1.8131f, M[0][2], 0.0001f);
+    ASSERT_NEAR(-0.4996f, M[1][0], 0.0001f);
+    ASSERT_NEAR( 1.0537f, M[1][1], 0.0001f);
+    ASSERT_NEAR(-0.2373f, M[1][2], 0.0001f);
+    ASSERT_NEAR( 2.2610f, M[2][0], 0.0001f);
+    ASSERT_NEAR( 0.9743f, M[2][1], 0.0001f);
+    ASSERT_NEAR(-0.4342f, M[2][2], 0.0001f);
 }
 
 

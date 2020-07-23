@@ -43,6 +43,8 @@ void Context::destroy() {
     line3dShader = internal::Line3DShader();
     if(current != nullptr && current != this)
         current->setCurrent();
+    else
+        current = nullptr;
     
     contextList.erase(std::find(
         contextList.begin(),
@@ -65,7 +67,11 @@ bool Context::isDestroyed() const { return destroyed; }
  * @param obj 2D/3D object
  */
 void Context::addObject(Object* obj) {
-    RMG_ASSERT(obj->getContext() == this);
+    RMG_EXPECT(obj->getContext() == this);
+    #ifndef NDEBUG
+    if(obj->getContext() != this)
+        return;
+    #endif
     
     if(obj->getObjectType() == ObjectType::Object2D)
     {

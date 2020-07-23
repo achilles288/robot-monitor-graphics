@@ -21,11 +21,14 @@ add_library(rmgbase SHARED
     keyboard.cpp
     material.cpp
     mesh.cpp
+    mesh_indices.cpp
+    mesh_normals.cpp
     mouse.cpp
     line3d.cpp
     object.cpp
     object2d.cpp
     object3d.cpp
+    object3d_obj.cpp
     particle.cpp
     sphere.cpp
     sprite.cpp
@@ -58,6 +61,7 @@ add_library(rmgbase SHARED
     rmg/line3d.hpp
     rmg/material.hpp
     rmg/math.hpp
+    rmg/mesh.hpp
     rmg/mouse.hpp
     rmg/object.hpp
     rmg/object2d.hpp

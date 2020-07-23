@@ -118,11 +118,11 @@ Bitmap Bitmap::loadFromFile(const std::string& file) {
         return loadTIFF(file);
     else {
         #ifdef WIN32
-        printf("error: Attempted to load unsupported file format '%s'\n",
+        printf("error: Attempted to load unsupported image file '%s'\n",
                file.c_str());
         #else
         printf("\033[0;1;31merror: \033[0m"
-               "Attempted to load unsupported file format "
+               "Attempted to load unsupported image file "
                "\033[1m'%s'\033[0m\n", file.c_str());
         #endif
         return Bitmap();

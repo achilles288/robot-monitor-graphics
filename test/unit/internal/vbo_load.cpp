@@ -17,9 +17,10 @@ class VBO: public ::testing::Test {
     Mesh mesh1;
     Mesh mesh2;
     
-    static Vec3 vertices[16];
-    static Vec3 normals[16];
-    static Vec2 texCoords[16];
+    static const Vec3 vertices[16];
+    static const Vec3 normals[16];
+    static const Vec2 texCoords[16];
+    static const uint32_t indices[24];
     
     virtual void SetUp() {
         if(!glfwInit())
@@ -34,17 +35,8 @@ class VBO: public ::testing::Test {
             glfwDestroyWindow(window);
             return;
         }
-        uint16_t indecies[24];
-        for(int i=0; i<4; i++) {
-            indecies[i*6+0] = i*4 + 0;
-            indecies[i*6+1] = i*4 + 1;
-            indecies[i*6+2] = i*4 + 2;
-            indecies[i*6+3] = i*4 + 2;
-            indecies[i*6+4] = i*4 + 3;
-            indecies[i*6+5] = i*4 + 0;
-        }
-        mesh1 = rmg::Mesh(vertices, normals, nullptr, 16, indecies, 32);
-        mesh2 = rmg::Mesh(vertices, normals, texCoords, 16, indecies, 32);
+        mesh1 = rmg::Mesh(vertices, normals, nullptr, 16, indices, 24);
+        mesh2 = rmg::Mesh(vertices, normals, texCoords, 16, indices, 24);
     }
     
     virtual void TearDown() {
@@ -52,7 +44,7 @@ class VBO: public ::testing::Test {
     }
 };
 
-Vec3 VBO::vertices[16] = {
+const Vec3 VBO::vertices[16] = {
     {-0.5f, -0.5f, -0.5f},
     { 0.5f, -0.5f, -0.5f},
     { 0.5f, -0.5f,  0.5f},
@@ -71,7 +63,7 @@ Vec3 VBO::vertices[16] = {
     {-0.5f,  0.5f,  0.5f}
 };
     
-Vec3 VBO::normals[16] = {
+const Vec3 VBO::normals[16] = {
     { 0, -1, 0},
     { 0, -1, 0},
     { 0, -1, 0},
@@ -90,11 +82,22 @@ Vec3 VBO::normals[16] = {
     {-1,  0, 0}
 };
 
-Vec2 VBO::texCoords[16] = {
+const Vec2 VBO::texCoords[16] = {
     {0, 0}, {1, 0}, {1, 1}, {0, 1},
     {0, 0}, {1, 0}, {1, 1}, {0, 1},
     {0, 0}, {1, 0}, {1, 1}, {0, 1},
     {0, 0}, {1, 0}, {1, 1}, {0, 1}
+};
+
+const uint32_t VBO::indices[24] = {
+     0,  1,  2,
+     2,  3,  0,
+     4,  5,  6,
+     6,  7,  4,
+     8,  9, 10,
+    10, 11,  8,
+    12, 13, 14,
+    14, 15, 12
 };
 
 

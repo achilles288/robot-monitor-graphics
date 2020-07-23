@@ -241,7 +241,7 @@ uint32_t ShadowMapShader::createShadowMap(
     glUseProgram(id);
     for(auto it=list.begin(); it!=list.end(); it++) {
         Object3D *obj = it->second;
-        if(obj->isHidden())
+        if(obj->isHidden() || obj->getVBO() == nullptr)
             continue;
         Mat4 MVP = shadowMapper.getVPMatrix() * obj->getModelMatrix();
         glUniformMatrix4fv(idMVP, 1, GL_TRUE, &MVP[0][0]);

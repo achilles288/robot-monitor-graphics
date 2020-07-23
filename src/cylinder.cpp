@@ -35,18 +35,16 @@ Cylinder3D::Cylinder3D(Context* ctx, float d, float l): Object3D(ctx)
 {
     diameter = d;
     length = l;
-    auto vbo = std::make_shared<internal::VBO>(internal::VBO());
-    setSharedVBO(vbo);
     setMesh(createMesh());
 }
 
 Mesh Cylinder3D::createMesh() {
-    #define FRAGMENT_COUNT 24
+    #define FRAGMENT_COUNT 32
     
     Vec3 vertices[FRAGMENT_COUNT+1][4];
     Vec3 normals[FRAGMENT_COUNT+1][4];
     Vec2 texCoords[FRAGMENT_COUNT+1][4];
-    uint16_t indecies[FRAGMENT_COUNT][12];
+    uint32_t indecies[FRAGMENT_COUNT][12];
     
     float radius = diameter/2.0f;
     Vec2 c1 = Vec2(radius, radius);
@@ -55,8 +53,8 @@ Mesh Cylinder3D::createMesh() {
     float imageHeight = 2*diameter + length;
     
     // Pole vertices
-    vertices[FRAGMENT_COUNT][0] = Vec3(0, 0, -1);
-    vertices[FRAGMENT_COUNT][1] = Vec3(0, 0, 1);
+    vertices[FRAGMENT_COUNT][0] = Vec3(0, 0, -length/2);
+    vertices[FRAGMENT_COUNT][1] = Vec3(0, 0, length/2);
     normals[FRAGMENT_COUNT][0] = Vec3(0, 0, -1);
     normals[FRAGMENT_COUNT][1] = Vec3(0, 0, 1);
     texCoords[FRAGMENT_COUNT][0].x = c1.x / imageWidth;
@@ -166,11 +164,8 @@ float Cylinder3D::getLength() const { return length; }
 void Cylinder3D::setMaterial(Material* mat) {
     Material *prev = getMaterial();
     Object3D::setMaterial(mat);
-    if(prev == nullptr) {
-        auto vbo = std::make_shared<internal::VBO>(internal::VBO());
-        setSharedVBO(vbo);
+    if(prev == nullptr)
         setMesh(createMesh());
-    }
 }
 
 }
