@@ -27,8 +27,8 @@ out vec3 fragColor;
 
 float calculateShadow() {
     vec3 projCoord = 0.5f*shadowMapProj + vec3(0.5f);
-    if(projCoord.x < 0.0f || projCoord.x > 1.0f ||
-       projCoord.y < 0.0f || projCoord.y > 1.0f ||
+    if(projCoord.x < 0.005f || projCoord.x > 0.995f ||
+       projCoord.y < 0.005f || projCoord.y > 0.995f ||
        projCoord.z >= 1.0f)
     {
         return 0;
@@ -36,15 +36,15 @@ float calculateShadow() {
     
     float shadow = 0;
     vec2 texelSize = 1.0f/textureSize(shadowMap, 0);
-    for(int i=-1; i<=1; i++) {
-        for(int j=-1; j<=1; j++) {
+    for(int i=-2; i<=2; i++) {
+        for(int j=-2; j<=2; j++) {
             vec2 dr = texelSize * vec2(i, j);
             float pcfDepth = texture(shadowMap, projCoord.xy + dr).r;
-            if(projCoord.z > pcfDepth)
+            if(projCoord.z + 0.001f > pcfDepth)
                 shadow += 0.8f;
         }
     }
-    return shadow / 9;
+    return shadow / 25;
 }
 
 
