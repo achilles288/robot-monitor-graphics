@@ -7,10 +7,6 @@ target_compile_definitions(systest_window PUBLIC
     ${RMGRAPHICS_DEFINITIONS}
 )
 
-set_target_properties(systest_window
-    PROPERTIES FOLDER ${PROJECT_NAME}/system_test
-)
-
 
 # 
 # wxCanvas system
@@ -25,9 +21,5 @@ add_executable(systest_wxcanvas
 
 target_compile_definitions(systest_wxcanvas PUBLIC
     ${RMGRAPHICS_DEFINITIONS}
-)
-
-set_target_properties(systest_wxcanvas
-    PROPERTIES FOLDER ${PROJECT_NAME}/system_test
 )
 endif()

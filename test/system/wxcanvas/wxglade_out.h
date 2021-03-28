@@ -12,10 +12,10 @@
 #ifndef WXGLADE_OUT_H
 #define WXGLADE_OUT_H
 
+#include "myglcanvas.h"
+
 #include <wx/wx.h>
 #include <wx/image.h>
-
-#include "myglcanvas.h"
 
 // begin wxGlade: ::dependencies
 // end wxGlade

@@ -18,7 +18,7 @@ target_compile_definitions(rmg_test PUBLIC
 
 target_include_directories(rmg_test PUBLIC
     ${OPENGL_INCLUDE_DIR}
-    external/googletest/googletest/include
+    ${PROJECT_SOURCE_DIR}/external/include
 )
 
 target_link_libraries(rmg_test PUBLIC
@@ -27,7 +27,5 @@ target_link_libraries(rmg_test PUBLIC
     gtest
     gtest_main
 )
-
-set_target_properties(rmg_test PROPERTIES FOLDER ${PROJECT_NAME})
 
 add_subdirectory(system)

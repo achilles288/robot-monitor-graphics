@@ -20,7 +20,7 @@ set(DOXYGEN_QUIET YES)
 set(DOXYGEN_IMAGE_PATH images)
 set(DOXYGEN_EXAMPLE_PATH example)
 set(DOXYGEN_EXAMPLE_RECURSIVE YES)
-set(DOXYGEN_STRIP_FROM_PATH ${PROJECT_SOURCE_DIR}/src)
+set(DOXYGEN_STRIP_FROM_PATH ${CMAKE_BINARY_DIR}/include)
 
 set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR})
 set(DOXYGEN_HTML_OUTPUT api)
@@ -46,7 +46,7 @@ file(MAKE_DIRECTORY ${CMAKE_BINARY_DIR}/docs)
 
 doxygen_add_docs(
     doxygen
-    ${PROJECT_SOURCE_DIR}/src/rmg
+    ${CMAKE_BINARY_DIR}/include
     ${PROJECT_SOURCE_DIR}/docs/pages/api/main.dox
     ${PROJECT_SOURCE_DIR}/docs/pages/api/install.dox
     ${PROJECT_SOURCE_DIR}/docs/pages/api/getting_started.dox
