@@ -18,7 +18,7 @@ target_compile_definitions(rmg_test PUBLIC
 
 target_include_directories(rmg_test PUBLIC
     ${OPENGL_INCLUDE_DIR}
-    ${PROJECT_SOURCE_DIR}/external/include
+    ${PROJECT_SOURCE_DIR}/external/googletest/googletest/include
 )
 
 target_link_libraries(rmg_test PUBLIC
