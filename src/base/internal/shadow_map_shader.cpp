@@ -11,13 +11,13 @@
 #define RMG_EXPORT
 
 
-#include "../internal/shadow_map_shader.hpp"
+#include "../rmg/internal/shadow_map_shader.hpp"
 
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "../../config/config.h"
-#include "../object3d.hpp"
+#include "../../config/rmg/config.h"
+#include "../rmg/object3d.hpp"
 
 #define SHADOW_COVERAGE 0.8f
 #define SHADOW_MAP_WIDTH 512

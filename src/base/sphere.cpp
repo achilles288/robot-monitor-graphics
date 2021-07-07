@@ -14,11 +14,11 @@
 #define RMG_EXPORT
 
 
-#include "sphere.hpp"
+#include "rmg/sphere.hpp"
 
 #include <iostream>
 
-#include "context.hpp"
+#include "rmg/context.hpp"
 
 
 namespace rmg {

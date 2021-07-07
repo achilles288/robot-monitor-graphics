@@ -23,6 +23,7 @@ set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/lib/$<0:>)
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY ${CMAKE_BINARY_DIR}/bin/$<0:>)
 
 link_directories(${CMAKE_BINARY_DIR}/lib)
+link_directories(${PROJECT_SOURCE_DIR}/external/lib)
 
 set(CMAKE_INSTALL_FULL_BINDIR ${CMAKE_INSTALL_PREFIX}/bin)
 set(CMAKE_INSTALL_FULL_LIBDIR ${CMAKE_INSTALL_PREFIX}/lib)
@@ -42,10 +43,6 @@ find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLFW REQUIRED glfw3)
 
 else()
-file(COPY
-    ${PROJECT_SOURCE_DIR}/external/lib
-    DESTINATION ${CMAKE_BINARY_DIR}
-)
 set(GLEW_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/include)
 set(GLEW_LIBRARIES glew32s)
 add_definitions(-DGLEW_STATIC)
@@ -98,7 +95,10 @@ add_subdirectory(src)
 set(RMGRAPHICS_DEFINITIONS "")
 
 set(RMGRAPHICS_INCLUDE_DIRS
-    ${CMAKE_BINARY_DIR}/include
+    ${PROJECT_SOURCE_DIR}/src/config
+    ${PROJECT_SOURCE_DIR}/src/base
+    ${PROJECT_SOURCE_DIR}/src/window
+    ${PROJECT_SOURCE_DIR}/src/wx
     ${GLEW_INCLUDE_DIR}
 )
 

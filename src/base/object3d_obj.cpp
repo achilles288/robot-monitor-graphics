@@ -11,7 +11,7 @@
 #define RMG_EXPORT
 
 
-#include "object3d.hpp"
+#include "rmg/object3d.hpp"
 
 #include <algorithm>
 #include <cstdio>

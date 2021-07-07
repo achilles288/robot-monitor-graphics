@@ -17,11 +17,11 @@
 #define RMG_EXPORT
 
 
-#include "object3d.hpp"
+#include "rmg/object3d.hpp"
 
 #include <cstdio>
 
-#include "internal/texture_load.hpp"
+#include "rmg/internal/texture_load.hpp"
 
 
 namespace rmg {

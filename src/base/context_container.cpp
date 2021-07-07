@@ -14,18 +14,18 @@
 #define RMG_EXPORT
 
 
-#include "context.hpp"
+#include "rmg/context.hpp"
 
 #include <algorithm>
 
-#include "assert.hpp"
-#include "font.hpp"
-#include "line3d.hpp"
-#include "material.hpp"
-#include "object.hpp"
-#include "object2d.hpp"
-#include "object3d.hpp"
-#include "particle.hpp"
+#include "rmg/assert.hpp"
+#include "rmg/font.hpp"
+#include "rmg/line3d.hpp"
+#include "rmg/material.hpp"
+#include "rmg/object.hpp"
+#include "rmg/object2d.hpp"
+#include "rmg/object3d.hpp"
+#include "rmg/particle.hpp"
 
 
 namespace rmg {

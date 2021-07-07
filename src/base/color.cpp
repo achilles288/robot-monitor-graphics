@@ -11,14 +11,14 @@
 #define RMG_EXPORT
 
 
-#include "color.hpp"
+#include "rmg/color.hpp"
 
 #include <algorithm>
 #define _USE_MATH_DEFINES
 #include <cmath>
 #include <cstdint>
 
-#include "assert.hpp"
+#include "rmg/assert.hpp"
 
 
 namespace rmg {

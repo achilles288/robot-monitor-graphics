@@ -11,7 +11,7 @@
 #define RMG_EXPORT
 
 
-#include "../internal/texture_load.hpp"
+#include "../rmg/internal/texture_load.hpp"
 
 namespace rmg {
 namespace internal {

@@ -14,7 +14,7 @@
 #define RMG_WINDOW_EXPORT
 
 
-#include "window.hpp"
+#include "rmg/window.hpp"
 
 #include <algorithm>
 #include <cstdio>
@@ -30,9 +30,9 @@
 #include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
-#include "../base/assert.hpp"
-#include "../base/bitmap.hpp"
-#include "../config/config.h"
+#include "../base/rmg/assert.hpp"
+#include "../base/rmg/bitmap.hpp"
+#include "../config/rmg/config.h"
 
 
 static bool glfwInitDone = false;

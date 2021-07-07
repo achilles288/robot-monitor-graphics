@@ -16,13 +16,13 @@
 #define RMG_EXPORT
 
 
-#include "../internal/general_shader.hpp"
+#include "../rmg/internal/general_shader.hpp"
 
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "../../config/config.h"
-#include "../object3d.hpp"
+#include "../../config/rmg/config.h"
+#include "../rmg/object3d.hpp"
 
 
 namespace rmg {

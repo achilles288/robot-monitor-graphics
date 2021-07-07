@@ -11,7 +11,7 @@
 #define RMG_EXPORT
 
 
-#include "../internal/sprite_shader.hpp"
+#include "../rmg/internal/sprite_shader.hpp"
 
 #include <GL/glew.h>
 #include <GL/gl.h>

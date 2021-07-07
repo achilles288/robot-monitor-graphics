@@ -14,9 +14,9 @@
 #define RMG_EXPORT
 
 
-#include "sprite.hpp"
+#include "rmg/sprite.hpp"
 
-#include "bitmap.hpp"
+#include "rmg/bitmap.hpp"
 
 
 namespace rmg {

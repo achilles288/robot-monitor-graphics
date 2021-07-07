@@ -11,10 +11,10 @@
  */
 
 
-#define RMG_IMAGE_EXPORT
+#define RMG_EXPORT
 
 
-#include "bitmap.hpp"
+#include "rmg/bitmap.hpp"
 
 #include <cstdio>
 #include <cstdlib>
@@ -27,7 +27,7 @@
 
 #include <tiffio.h>
 
-#include "../config/config.h"
+#include "../config/rmg/config.h"
 
 
 namespace rmg {

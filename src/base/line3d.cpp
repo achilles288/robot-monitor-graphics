@@ -15,7 +15,7 @@
 #define RMG_EXPORT
 
 
-#include "line3d.hpp"
+#include "rmg/line3d.hpp"
 
 
 namespace rmg {

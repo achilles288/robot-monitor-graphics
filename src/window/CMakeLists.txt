@@ -1,18 +1,8 @@
 
 add_library(rmgwindow SHARED
     window.cpp
-    window.hpp
-    internal/window_callback.hpp
-)
-
-file(COPY
-    window.hpp
-    DESTINATION ${CMAKE_BINARY_DIR}/include/rmg
-)
-
-file(COPY
-    internal/window_callback.hpp
-    DESTINATION ${CMAKE_BINARY_DIR}/include/rmg/internal
+    rmg/window.hpp
+    rmg/internal/window_callback.hpp
 )
 
 
@@ -21,7 +11,6 @@ file(COPY
 target_include_directories(rmgwindow PUBLIC
     ${GLEW_INCLUDE_DIR}
     ${GLFW_INCLUDE_DIRS}
-    ${CMAKE_BINARY_DIR}/include
 )
 
 target_link_libraries(rmgwindow PUBLIC

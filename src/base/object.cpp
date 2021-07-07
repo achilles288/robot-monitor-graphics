@@ -15,7 +15,7 @@
 #define RMG_EXPORT
 
 
-#include "object.hpp"
+#include "rmg/object.hpp"
 
 #include <utility>
 

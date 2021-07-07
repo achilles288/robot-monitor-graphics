@@ -14,7 +14,7 @@
 #define RMG_EXPORT
 
 
-#include "mouse.hpp"
+#include "rmg/mouse.hpp"
 
 
 namespace rmg {

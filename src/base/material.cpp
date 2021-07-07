@@ -11,7 +11,7 @@
 #define RMG_EXPORT
 
 
-#include "material.hpp"
+#include "rmg/material.hpp"
 
 
 namespace rmg {

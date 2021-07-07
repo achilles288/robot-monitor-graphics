@@ -15,7 +15,7 @@
 #define RMG_EXPORT
 
 
-#include "object2d.hpp"
+#include "rmg/object2d.hpp"
 
 
 namespace rmg {

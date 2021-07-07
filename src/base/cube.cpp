@@ -14,7 +14,7 @@
 #define RMG_EXPORT
 
 
-#include "cube.hpp"
+#include "rmg/cube.hpp"
 
 
 namespace rmg {

@@ -21,11 +21,10 @@
 #define __RM_GRAPHICS_H__
 
 #include "context.hpp"
-#include "cube3d.hpp"
-#include "cylinder3d.hpp"
-#include "sphere3d.hpp"
-#include "sprite2d.hpp"
-#include "texture.hpp"
-#include "window.hpp"
+#include "cube.hpp"
+#include "cylinder.hpp"
+#include "sphere.hpp"
+#include "sprite.hpp"
+#include <rmg/window.hpp>
 
 #endif

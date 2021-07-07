@@ -17,7 +17,7 @@
 #define RMG_EXPORT
 
 
-#include "../internal/context_load.hpp"
+#include "../rmg/internal/context_load.hpp"
 
 #include <utility>
 

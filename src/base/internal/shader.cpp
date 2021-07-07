@@ -14,7 +14,7 @@
 #define RMG_EXPORT
 
 
-#include "../internal/shader.hpp"
+#include "../rmg/internal/shader.hpp"
 
 #include <cstdio>
 #include <cstdlib>
@@ -22,7 +22,7 @@
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "../assert.hpp"
+#include "../rmg/assert.hpp"
 
 
 namespace rmg {

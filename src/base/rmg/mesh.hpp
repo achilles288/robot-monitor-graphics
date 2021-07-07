@@ -46,7 +46,6 @@ class RMG_API Mesh {
     void buildIndices();
     void buildIndices1();
     void buildIndices2();
-    void buildIndices3();
     
   protected:
     Vec3* vertices = nullptr; ///< Coordinate in 3D space

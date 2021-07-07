@@ -19,7 +19,7 @@
 #endif
 
 
-#include "wxcanvas.hpp"
+#include "rmg/wxcanvas.hpp"
 
 #include <wx/dcclient.h>
 #include <wx/time.h>

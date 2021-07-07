@@ -11,7 +11,7 @@
 #define RMG_EXPORT
 
 
-#include "../internal/line3d_shader.hpp"
+#include "../rmg/internal/line3d_shader.hpp"
 
 #include <GL/glew.h>
 #include <GL/gl.h>

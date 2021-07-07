@@ -14,10 +14,10 @@
 #define RMG_EXPORT
 
 
-#include "context.hpp"
+#include "rmg/context.hpp"
 
-#include "color.hpp"
-#include "math/line_equation.hpp"
+#include "rmg/color.hpp"
+#include "rmg/math/line_equation.hpp"
 
 
 namespace rmg {

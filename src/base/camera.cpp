@@ -15,7 +15,7 @@
 #define RMG_EXPORT
 
 
-#include "camera.hpp"
+#include "rmg/camera.hpp"
 
 
 namespace rmg {

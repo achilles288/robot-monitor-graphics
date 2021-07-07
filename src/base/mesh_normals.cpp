@@ -11,7 +11,7 @@
 #define RMG_EXPORT
 
 
-#include "mesh.hpp"
+#include "rmg/mesh.hpp"
 
 #include <algorithm>
 #include <cstdlib>

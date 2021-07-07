@@ -13,10 +13,10 @@
 #define RMG_EXPORT
 
 
-#include "../math/mat3.hpp"
+#include "../rmg/math/mat3.hpp"
 
-#include "../math/mat4.hpp"
-#include "../math/vec.hpp"
+#include "../rmg/math/mat4.hpp"
+#include "../rmg/math/vec.hpp"
 
 
 namespace rmg {

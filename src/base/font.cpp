@@ -11,7 +11,7 @@
 #define RMG_EXPORT
 
 
-#include "font.hpp"
+#include "rmg/font.hpp"
 
 
 namespace rmg {

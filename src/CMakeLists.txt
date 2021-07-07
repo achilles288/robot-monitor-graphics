@@ -2,12 +2,14 @@ set(RMGCONFIG_RESOURCE_PATH ${PROJECT_SOURCE_DIR}/share)
 
 configure_file(
     ${CMAKE_CURRENT_SOURCE_DIR}/config/config.h.in
-    ${CMAKE_CURRENT_SOURCE_DIR}/config/config.h
+    ${CMAKE_CURRENT_SOURCE_DIR}/config/rmg/config.h
 )
 
-FILE(COPY
-    ${CMAKE_CURRENT_SOURCE_DIR}/config/config.h
-    DESTINATION ${CMAKE_BINARY_DIR}/include/rmg
+include_directories(
+    ${CMAKE_CURRENT_SOURCE_DIR}/base
+    ${CMAKE_CURRENT_SOURCE_DIR}/config
+    ${CMAKE_CURRENT_SOURCE_DIR}/window
+    ${CMAKE_CURRENT_SOURCE_DIR}/wx
 )
 
 add_subdirectory(base)

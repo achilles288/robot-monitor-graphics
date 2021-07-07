@@ -11,13 +11,13 @@
 #define RMG_EXPORT
 
 
-#include "mesh.hpp"
+#include "rmg/mesh.hpp"
 
 #include <cstdlib>
 #include <cstring>
 #include <utility>
 
-#include "assert.hpp"
+#include "rmg/assert.hpp"
 
 
 namespace rmg {

@@ -24,14 +24,6 @@
 #endif
 #endif
 
-#ifndef RMG_EXTERN
-#ifdef RMG_EXPORT
-#define RMG_EXTERN
-#else
-#define RMG_EXTERN extern
-#endif
-#endif
-
 
 #include <memory>
 
@@ -168,8 +160,6 @@ class RMG_API VBO {
      */
     void draw() const;
 };
-
-RMG_EXTERN template class RMG_API std::shared_ptr<VBO>;
 
 }}
 

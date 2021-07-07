@@ -14,7 +14,7 @@
 #define RMG_EXPORT
 
 
-#include "bitmap.hpp"
+#include "rmg/bitmap.hpp"
 
 #include <cstdio>
 #include <cstdlib>
@@ -22,7 +22,7 @@
 #define PNG_DEBUG 3
 #include <png.h>
 
-#include "assert.hpp"
+#include "rmg/assert.hpp"
 
 
 namespace rmg {

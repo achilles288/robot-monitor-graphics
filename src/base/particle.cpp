@@ -14,9 +14,9 @@
 #define RMG_EXPORT
 
 
-#include "particle.hpp"
+#include "rmg/particle.hpp"
 
-#include "bitmap.hpp"
+#include "rmg/bitmap.hpp"
 
 
 namespace rmg {

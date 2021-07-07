@@ -14,16 +14,16 @@
 #define RMG_EXPORT
 
 
-#include "context.hpp"
+#include "rmg/context.hpp"
 
 #include <stdexcept>
 
 #include <GL/glew.h>
 #include <GL/gl.h>
 
-#include "font.hpp"
-#include "object.hpp"
-#include "material.hpp"
+#include "rmg/font.hpp"
+#include "rmg/object.hpp"
+#include "rmg/material.hpp"
 
 
 namespace rmg {

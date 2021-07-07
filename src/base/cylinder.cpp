@@ -14,7 +14,7 @@
 #define RMG_EXPORT
 
 
-#include "cylinder.hpp"
+#include "rmg/cylinder.hpp"
 
 
 namespace rmg {

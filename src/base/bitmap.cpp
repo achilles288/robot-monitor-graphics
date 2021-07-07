@@ -14,13 +14,13 @@
 #define RMG_EXPORT
 
 
-#include "bitmap.hpp"
+#include "rmg/bitmap.hpp"
 
 #include <cstdlib>
 #include <cstring>
 #include <utility>
 
-#include "assert.hpp"
+#include "rmg/assert.hpp"
 
 
 namespace rmg {

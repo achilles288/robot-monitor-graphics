@@ -13,7 +13,7 @@
 #define RMG_EXPORT
 
 
-#include "keyboard.hpp"
+#include "rmg/keyboard.hpp"
 
 
 namespace rmg {

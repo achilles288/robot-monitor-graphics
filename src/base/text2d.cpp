@@ -14,9 +14,9 @@
 #define RMG_EXPORT
 
 
-#include "text2d.hpp"
+#include "rmg/text2d.hpp"
 
-#include "assert.hpp"
+#include "rmg/assert.hpp"
 
 
 namespace rmg {

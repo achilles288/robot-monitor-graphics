@@ -14,12 +14,12 @@
 #define RMG_EXPORT
 
 
-#include "../math/euler.hpp"
+#include "../rmg/math/euler.hpp"
 
 #define _USE_MATH_DEFINES
 #include <cmath>
 
-#include "../math/mat3.hpp"
+#include "../rmg/math/mat3.hpp"
 
 
 namespace rmg {
