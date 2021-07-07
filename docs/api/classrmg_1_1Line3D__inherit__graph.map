@@ -1,4 +1,0 @@
-<map id="rmg::Line3D" name="rmg::Line3D">
-<area shape="rect" id="node1" title="Draws a line in 3D space." alt="" coords="5,80,107,107"/>
-<area shape="rect" id="node2" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures." alt="" coords="7,5,105,32"/>
-</map>

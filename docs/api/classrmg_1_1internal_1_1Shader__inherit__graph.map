@@ -1,8 +1,0 @@
-<map id="rmg::internal::Shader" name="rmg::internal::Shader">
-<area shape="rect" id="node1" title="The shader program taking main backend role in drawing." alt="" coords="5,107,164,133"/>
-<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1GeneralShader.html" title="Peforms general tasks like positioning and lighting." alt="" coords="212,5,423,32"/>
-<area shape="rect" id="node3" href="$classrmg_1_1internal_1_1Line3DShader.html" title="Displays non&#45;polygon objects like lines in 3D space." alt="" coords="215,56,419,83"/>
-<area shape="rect" id="node4" href="$classrmg_1_1internal_1_1ParticleShader.html" title="Calculates the location of particle and displays as a 2D sprite." alt="" coords="213,107,421,133"/>
-<area shape="rect" id="node5" href="$classrmg_1_1internal_1_1ShadowMapShader.html" title="Generates an image representing the distance from sun at every pixel." alt="" coords="221,158,414,199"/>
-<area shape="rect" id="node6" href="$classrmg_1_1internal_1_1SpriteShader.html" title="Displays 2D objects like sprites and texts." alt="" coords="219,224,416,251"/>
-</map>

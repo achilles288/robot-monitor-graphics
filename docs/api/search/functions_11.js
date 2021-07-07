@@ -1,7 +1,0 @@
-var searchData=
-[
-  ['text2d_637',['Text2D',['../classrmg_1_1Text2D.html#af291385b63b7256a3d58a8d25cd8be66',1,'rmg::Text2D::Text2D()'],['../classrmg_1_1Text2D.html#a2b2d2b696b3c87e7e2e0fa9d15f2f010',1,'rmg::Text2D::Text2D(Context *ctx, Font *ft, float s=16, const std::string &amp;txt=&quot;Text&quot;)']]],
-  ['texture_638',['Texture',['../classrmg_1_1internal_1_1Texture.html#ac4d61652a9d561d42dd1e94be919e9e0',1,'rmg::internal::Texture::Texture()'],['../classrmg_1_1internal_1_1Texture.html#a07461f4d961aafbda866612caaf2a493',1,'rmg::internal::Texture::Texture(const Texture &amp;tex)=delete'],['../classrmg_1_1internal_1_1Texture.html#a1c196a9ead9fc8567980086d7e98a82f',1,'rmg::internal::Texture::Texture(Texture &amp;&amp;tex) noexcept=default']]],
-  ['textureload_639',['TextureLoad',['../classrmg_1_1internal_1_1TextureLoad.html#ae1ba05c9798f7060cbe6a8587f1abd69',1,'rmg::internal::TextureLoad::TextureLoad(Texture *tex, const std::string &amp;f)'],['../classrmg_1_1internal_1_1TextureLoad.html#a54e048d12a7e6851049acf63d3f6bef3',1,'rmg::internal::TextureLoad::TextureLoad(Texture *tex, const Bitmap &amp;bmp)'],['../classrmg_1_1internal_1_1TextureLoad.html#a2e93b4ad2f079592247a19b03ba8f5fd',1,'rmg::internal::TextureLoad::TextureLoad(Texture *tex, const Bitmap &amp;base, const Bitmap &amp;h, const Bitmap &amp;norm, const Bitmap &amp;m, const Bitmap &amp;e)']]],
-  ['torotationmatrix_640',['toRotationMatrix',['../structrmg_1_1Euler.html#a62b2b55df60afab370aa06ec604654af',1,'rmg::Euler']]]
-];

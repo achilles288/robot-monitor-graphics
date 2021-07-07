@@ -1,6 +1,0 @@
-<map id="Graphical Class Hierarchy" name="Graphical Class Hierarchy">
-<area shape="rect" id="node1" href="$classrmg_1_1internal_1_1ContextLoad.html" title="Maintains the data to be loaded into OpenGL context before startup." alt="" coords="5,5,201,32"/>
-<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1TextureLoad.html" title="Maintains the image data before context startup." alt="" coords="249,5,443,32"/>
-<area shape="rect" id="node3" href="$classrmg_1_1internal_1_1VBOLoad.html" title="Maintains the array of VBOs before context startup." alt="" coords="259,56,433,83"/>
-<area shape="rect" id="node4" href="$classrmg_1_1Mesh.html" title="Structural build of a 3D model consisting of polygons." alt="" coords="58,56,149,83"/>
-</map>

@@ -1,4 +1,0 @@
-<map id="rmg::internal::ShadowMapShader" name="rmg::internal::ShadowMapShader">
-<area shape="rect" id="node1" title="Generates an image representing the distance from sun at every pixel." alt="" coords="5,80,199,121"/>
-<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1Shader.html" title="The shader program taking main backend role in drawing." alt="" coords="23,5,181,32"/>
-</map>

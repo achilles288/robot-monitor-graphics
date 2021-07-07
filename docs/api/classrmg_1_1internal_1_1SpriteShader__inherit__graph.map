@@ -1,4 +1,0 @@
-<map id="rmg::internal::SpriteShader" name="rmg::internal::SpriteShader">
-<area shape="rect" id="node1" title="Displays 2D objects like sprites and texts." alt="" coords="5,80,203,107"/>
-<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1Shader.html" title="The shader program taking main backend role in drawing." alt="" coords="25,5,183,32"/>
-</map>

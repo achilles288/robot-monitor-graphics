@@ -1,4 +1,0 @@
-<map id="rmg::internal::GeneralShader" name="rmg::internal::GeneralShader">
-<area shape="rect" id="node1" title="Peforms general tasks like positioning and lighting." alt="" coords="5,80,216,107"/>
-<area shape="rect" id="node2" href="$classrmg_1_1internal_1_1Shader.html" title="The shader program taking main backend role in drawing." alt="" coords="31,5,190,32"/>
-</map>

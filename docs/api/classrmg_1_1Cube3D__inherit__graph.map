@@ -1,5 +1,0 @@
-<map id="rmg::Cube3D" name="rmg::Cube3D">
-<area shape="rect" id="node1" title="Visual 3D cube model." alt="" coords="10,155,117,181"/>
-<area shape="rect" id="node2" href="$classrmg_1_1Object3D.html" title="3D object whose model and appearance can be controlled quickly" alt="" coords="5,80,121,107"/>
-<area shape="rect" id="node3" href="$classrmg_1_1Object.html" title="A foundation of all RMG graphical object data structures." alt="" coords="14,5,113,32"/>
-</map>
