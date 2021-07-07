@@ -107,4 +107,5 @@ TEST_F(ShadowMapShader, runtime) {
     delete obj1;
     delete obj2;
     delete obj3;
+    glfwDestroyWindow(window);
 }

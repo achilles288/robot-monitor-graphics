@@ -13,6 +13,12 @@
 using namespace rmg;
 
 
+static float clip(float n, float lower, float upper) {
+    n = (n > lower) * n + !(n > lower) * lower;
+    return (n < upper) * n + !(n < upper) * upper;
+}
+
+
 class TestWindow: public Window {
   private:
     Object3D *floor, *cube, *cylinder, *sphere, *teapot;
@@ -95,7 +101,7 @@ class TestWindow: public Window {
                 lightAngles.pitch -= rotSpeed*dt;
             if(keyD)
                 lightAngles.yaw += rotSpeed*dt;
-            lightAngles.pitch = std::clamp(lightAngles.pitch, -1.571f, 1.571f);
+            lightAngles.pitch = clip(lightAngles.pitch, -1.571f, 1.571f);
             setDirectionalLightAngles(lightAngles);
         }
         else if(move) {
@@ -130,7 +136,7 @@ class TestWindow: public Window {
                     rot.pitch += rotSpeed*dt;
                 if(keyD)
                     rot.yaw -= rotSpeed*dt;
-                rot.pitch = std::clamp(rot.pitch, -1.571f, 1.571f);
+                rot.pitch = clip(rot.pitch, -1.571f, 1.571f);
                 setCameraRotation(rot);
             }
         }

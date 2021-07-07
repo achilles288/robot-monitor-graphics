@@ -22,4 +22,10 @@ add_executable(systest_wxcanvas
 target_compile_definitions(systest_wxcanvas PUBLIC
     ${RMGRAPHICS_DEFINITIONS}
 )
+
+if(MSVC)
+set_target_properties(systest_wxcanvas PROPERTIES
+    LINK_FLAGS /SUBSYSTEM:WINDOWS
+)
+endif()
 endif()

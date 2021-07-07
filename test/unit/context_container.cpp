@@ -45,4 +45,6 @@ TEST(ContextContainer, removeObject) {
     ASSERT_EQ(1, ctx.getObjectCount());
     ctx.cleanup();
     ASSERT_EQ(0, ctx.getObjectCount());
+    delete cylinder;
+    delete sphere;
 }
