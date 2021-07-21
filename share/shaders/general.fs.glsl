@@ -31,7 +31,7 @@ float calculateShadow() {
        projCoord.y < 0.005f || projCoord.y > 0.995f ||
        projCoord.z >= 1.0f)
     {
-        return 0;
+        return 0.0f;
     }
     
     float shadow = 0;
