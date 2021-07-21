@@ -31,7 +31,6 @@
 
 #include <rmg/context.hpp>
 
-#include <GL/glew.h>
 #include <wx/glcanvas.h>
 #include <wx/timer.h>
 
@@ -72,12 +71,6 @@ class RMG_WX_API wxCanvas: public wxGLCanvas, public Context {
     void onWxMouseWheel(wxMouseEvent& event);
     void onWxKeyPress(wxKeyEvent& event);
     void onWxKeyRelease(wxKeyEvent& event);
-    
-  protected:
-    /**
-     * @brief Cleans up GPU resources
-     */
-    virtual void destroy();
     
   public:
     /**
@@ -128,6 +121,11 @@ class RMG_WX_API wxCanvas: public wxGLCanvas, public Context {
      * @brief Flushes the drawn graphics by OpenGL onto the screen
      */
     void flush() override;
+    
+    /**
+     * @brief Cleans up GPU resources
+     */
+    void destroy() override;
 };
 
 }

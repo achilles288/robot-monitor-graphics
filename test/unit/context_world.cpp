@@ -24,8 +24,8 @@ TEST(Context, find) {
     Context *ctx2 = new Context();
     uint32_t id1 = ctx1->getID();
     ASSERT_EQ(ctx1, Context::getContextByID(id1));
-    delete ctx1;
     delete ctx2;
+    delete ctx1;
 }
 
 

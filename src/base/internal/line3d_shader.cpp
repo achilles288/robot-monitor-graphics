@@ -13,9 +13,6 @@
 
 #include "../rmg/internal/line3d_shader.hpp"
 
-#include <GL/glew.h>
-#include <GL/gl.h>
-
 
 namespace rmg {
 namespace internal {

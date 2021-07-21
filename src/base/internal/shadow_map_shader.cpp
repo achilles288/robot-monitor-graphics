@@ -13,9 +13,6 @@
 
 #include "../rmg/internal/shadow_map_shader.hpp"
 
-#include <GL/glew.h>
-#include <GL/gl.h>
-
 #include "../../config/rmg/config.h"
 #include "../rmg/object3d.hpp"
 
@@ -241,6 +238,7 @@ uint32_t ShadowMapShader::createShadowMap(
     glFrontFace(GL_CCW);
     glEnable(GL_CULL_FACE);
     glCullFace(GL_FRONT);
+    glDisable(GL_BLEND);
     glUseProgram(id);
     for(auto it=list.begin(); it!=list.end(); it++) {
         Object3D *obj = it->second;

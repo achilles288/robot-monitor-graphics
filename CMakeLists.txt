@@ -2,6 +2,7 @@ cmake_minimum_required(VERSION 3.10)
 
 project("RMGraphics" VERSION 1.0.0)
 
+set(RMGAPHICS_VERSION 1.0.0)
 set(CMAKE_CXX_STANDARD 14)
 
 
@@ -36,16 +37,12 @@ set(CMAKE_INSTALL_FULL_INCLUDEDIR ${CMAKE_INSTALL_PREFIX}/include)
 # Preparing external dependencies.
 #
 if(UNIX)
-find_package(GLEW REQUIRED)
 find_package(PNG REQUIRED)
 find_package(TIFF REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLFW REQUIRED glfw3)
 
 else()
-set(GLEW_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/include)
-set(GLEW_LIBRARIES glew32s)
-add_definitions(-DGLEW_STATIC)
 set(GLFW_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/external/include)
 set(GLFW_LIBRARIES glfw3)
 set(PNG_INCLUDE_DIR ${PROJECT_SOURCE_DIR}/external/include/libpng)
@@ -99,7 +96,6 @@ set(RMGRAPHICS_INCLUDE_DIRS
     ${PROJECT_SOURCE_DIR}/src/base
     ${PROJECT_SOURCE_DIR}/src/window
     ${PROJECT_SOURCE_DIR}/src/wx
-    ${GLEW_INCLUDE_DIR}
 )
 
 set(RMGRAPHICS_LIBRARIES
@@ -108,11 +104,9 @@ set(RMGRAPHICS_LIBRARIES
 )
 
 if(wxWidgets_FOUND)
-list(APPEND RMGRAPHICS_DEFINITIONS ${wxWidgets_DEFINITIONS})
+list(APPEND RMGRAPHICS_DEFINITIONS ${wxWidgets_DEFINITIONS} USE_OPENGL=1)
 list(APPEND RMGRAPHICS_INCLUDE_DIRS ${wxWidgets_INCLUDE_DIRS})
 list(APPEND RMGRAPHICS_LIBRARIES rmgwx)
-
-message(STATUS ${wxWidgets_DEFINITIONS})
 endif()
 
 

@@ -18,9 +18,6 @@
 
 #include "../rmg/internal/general_shader.hpp"
 
-#include <GL/glew.h>
-#include <GL/gl.h>
-
 #include "../../config/rmg/config.h"
 #include "../rmg/object3d.hpp"
 
@@ -78,6 +75,7 @@ void GeneralShader::render(
     glDepthFunc(GL_LESS);
     glFrontFace(GL_CCW);
     glDisable(GL_CULL_FACE);
+    glDisable(GL_BLEND);
     glUseProgram(id);
     glUniform3fv(idDLCamera, 1, &dlCam[0]);
     glUniform4fv(idDLColor, 1, &dlColor[0]);

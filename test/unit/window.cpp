@@ -3,8 +3,6 @@
 #include <cstdio>
 #include <stdexcept>
 
-#include <GL/glew.h>
-#include <GL/gl.h>
 #include <gtest/gtest.h>
 
 #include <rmg/assert.hpp>

@@ -18,17 +18,16 @@
 
 #include <stdexcept>
 
-#include <GL/glew.h>
-#include <GL/gl.h>
-
 #include "rmg/font.hpp"
 #include "rmg/object.hpp"
 #include "rmg/material.hpp"
 
 
+static float t1 = 0.0f;
+
+
 namespace rmg {
 
-float Context::t1 = 0;
 RMG_API MouseEvent mouseEvent;
 
 /**
@@ -40,14 +39,15 @@ RMG_API MouseEvent mouseEvent;
 void Context::render() {
     setCurrent();
     if(!initDone) {
-        glewExperimental = true;
-        if(glewInit() != GLEW_OK) {
-            destroy();
+        int status = glContext.init();
+        if(status != 0) {
+            setErrorCode(503);
             #ifdef _WIN32
-            throw std::runtime_error("error: Failed to initialize GLEW");
+            throw std::runtime_error("error: Failed to initialize GL "
+                                     "extensions");
             #else
             throw std::runtime_error("\033[0;1;31merror: \033[0m"
-                                     "Failed to initialize GLEW");
+                                     "Failed to initialize GL extensions");
             #endif
         }
         int major, minor;
@@ -71,6 +71,7 @@ void Context::render() {
         }
         generalShader.load();
         shadowMapShader.load();
+        object2dShader.load();
         initDone = true;
     }
     
@@ -96,9 +97,14 @@ void Context::render() {
         shadow,
         objects3d
     );
-    flush();
+    object2dShader.render(objects2d);
+    internal::glUseProgram(0);
     
     update();
+    if(destroyed)
+        throw UserExitException();
+    
+    flush();
 }
 
 
@@ -113,7 +119,10 @@ static Context *current = nullptr;
  * called, the function needs to be called first especially when working
  * with multiple contexts.
  */
-void Context::setCurrent() { current = this; }
+void Context::setCurrent() {
+    current = this;
+    glContext.setCurrent();
+}
 
 /**
  * @brief Gets the current working context

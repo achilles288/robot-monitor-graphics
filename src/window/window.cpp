@@ -27,7 +27,6 @@
 #define sleep(X) usleep((__useconds_t)((X)*1000))
 #endif
 
-#include <GL/glew.h>
 #include <GLFW/glfw3.h>
 
 #include "../base/rmg/assert.hpp"
@@ -220,9 +219,9 @@ void Window::mainLoop() {
                     window->destroy();
                     break;
                 }
-                
-                if(window->isDestroyed())
+                catch(UserExitException& e2) {
                     break;
+                }
             }
         }
         glfwPollEvents();

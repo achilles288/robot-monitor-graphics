@@ -24,19 +24,12 @@
 #endif
 #endif
 
-#ifndef RMG_EXTERN
-#ifdef RMG_EXPORT
-#define RMG_EXTERN
-#else
-#define RMG_EXTERN extern
-#endif
-#endif
-
 
 #include <memory>
 
 #include "../bitmap.hpp"
 #include "../color.hpp"
+#include "../math/vec2.hpp"
 #include "context_load.hpp"
 
 
@@ -66,6 +59,10 @@ class RMG_API TextureLoad: public ContextLoad {
     Bitmap normalmap;
     Bitmap mrao;
     Bitmap emissivity;
+    bool optimize2d;
+    
+    void loadDefault();
+    void loadOptimize2D();
     
   public:
     /**
@@ -106,6 +103,16 @@ class RMG_API TextureLoad: public ContextLoad {
     ~TextureLoad();
     
     /**
+     * @brief Sets whether to optimize the texture for 2D graphics
+     * 
+     * In drawing 2D sprites, no concept about object distance from the camera
+     * is included and hence, mipmap generation is to be skipped.
+     * 
+     * @param b True to optimize the texture for 2D graphics
+     */
+    void setOptimize2D(bool b);
+    
+    /**
      * @brief Loads the texture data to the GPU
      * 
      * Loads a chunk of image data into GPU for shader processing.
@@ -128,8 +135,8 @@ class RMG_API Texture {
     uint32_t opacity;
     uint32_t emissivity;
     
-    uint16_t width;
-    uint16_t height;
+    float width;
+    float height;
     
     Color color;
     float metalness;
@@ -183,6 +190,42 @@ class RMG_API Texture {
      * @param tex Source texture
      */
     Texture& operator=(Texture&& tex) noexcept = default;
+    
+    /**
+     * @brief Gets the physical dimensions of the texture
+     * 
+     * @param s Texture length
+     */
+    void setSize(float s);
+    
+    /**
+     * @brief Gets the physical dimensions of the texture
+     * 
+     * @param w Texture width
+     * @param h Texture height
+     */
+    void setSize(float w, float h);
+    
+    /**
+     * @brief Gets the physical dimensions of the texture
+     * 
+     * @param size Texture size
+     */
+    inline void setSize(const Vec2 &size) { setSize(size.x, size.y); }
+    
+    /**
+     * @brief Gets the physical dimension of the texture
+     * 
+     * @return Texture width
+     */
+    float getWidth() const;
+    
+    /**
+     * @brief Gets the physical dimension of the texture
+     * 
+     * @return Texture height
+     */
+    float getHeight() const;
     
     /**
      * @brief Sets material color
@@ -269,8 +312,6 @@ class RMG_API Texture {
      */
     float getDepth() const;
 };
-
-RMG_EXTERN template class RMG_API std::shared_ptr<Texture>;
 
 }}
 

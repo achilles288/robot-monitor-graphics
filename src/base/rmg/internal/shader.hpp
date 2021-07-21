@@ -31,10 +31,10 @@
 #include <cstdint>
 #include <string>
 
+#include "glcontext.hpp"
+
 
 namespace rmg {
-
-class Context;
 
 namespace internal {
 

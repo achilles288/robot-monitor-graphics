@@ -13,9 +13,6 @@
 
 #include "../rmg/internal/particle_shader.hpp"
 
-#include <GL/glew.h>
-#include <GL/gl.h>
-
 
 namespace rmg {
 namespace internal {

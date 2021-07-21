@@ -9,7 +9,6 @@ add_library(rmgwindow SHARED
 
 
 target_include_directories(rmgwindow PUBLIC
-    ${GLEW_INCLUDE_DIR}
     ${GLFW_INCLUDE_DIRS}
 )
 
