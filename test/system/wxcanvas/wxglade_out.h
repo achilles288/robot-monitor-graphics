@@ -61,7 +61,7 @@ protected:
     wxBitmapButton* btnScale;
     wxBitmapButton* btnTexture;
     wxBitmapButton* btnLighting;
-    MyGLCanvas* canvas;
+    wxGLCanvas* canvas;
     wxBoxSizer* sizerEditorWidgets;
     // end wxGlade
 

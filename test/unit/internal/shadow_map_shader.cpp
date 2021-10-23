@@ -3,8 +3,6 @@
 #include <map>
 #include <utility>
 
-#include <GL/glew.h>
-#include <GL/gl.h>
 #include <GLFW/glfw3.h>
 #include <gtest/gtest.h>
 
@@ -13,13 +11,17 @@
 #include <rmg/cube.hpp>
 
 using namespace rmg;
+using rmg::internal::glDeleteProgram;
+using rmg::internal::glDeleteShader;
 using rmg::internal::ContextLoader;
+using rmg::internal::GLContext;
 using rmg::internal::Shader;
 
 
 class ShadowMapShader: public ::testing::Test {
   protected:
     GLFWwindow* window;
+    GLContext glContext;
     
     virtual void SetUp() {
         if(!glfwInit())
@@ -29,8 +31,7 @@ class ShadowMapShader: public ::testing::Test {
         if(!window)
             return;
         glfwMakeContextCurrent(window);
-        glewExperimental = true;
-        if(glewInit() != GLEW_OK) {
+        if(glContext.init() != 0) {
             glfwDestroyWindow(window);
             return;
         }

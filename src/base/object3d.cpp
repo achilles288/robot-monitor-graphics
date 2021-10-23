@@ -102,9 +102,8 @@ void Object3D::setSharedVBO(std::shared_ptr<internal::VBO> vbo)
  * @param mesh 3D Mesh containing vertex coordinates
  */
 void Object3D::setMesh(const Mesh& mesh) {
-    auto vbo = std::make_shared<internal::VBO>(internal::VBO());
-    this->vbo = vbo;
-    internal::VBOLoad *load = new internal::VBOLoad(vbo.get(), mesh);
+    vbo = std::make_shared<internal::VBO>(internal::VBO());
+    auto load = new internal::VBOLoad(vbo.get(), mesh);
     vboLoad = internal::ContextLoader::Pending(load);
 }
 

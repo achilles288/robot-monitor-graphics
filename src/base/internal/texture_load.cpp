@@ -13,6 +13,9 @@
 
 #include "../rmg/internal/texture_load.hpp"
 
+#include "../rmg/internal/glcontext.hpp"
+
+
 namespace rmg {
 namespace internal {
 
@@ -25,7 +28,15 @@ namespace internal {
  *            responses after loading.
  * @param f Path to texture file, folder or zip
  */
-TextureLoad::TextureLoad(Texture* tex, const std::string &f) {}
+TextureLoad::TextureLoad(Texture* tex, const std::string &f) {
+    texture = tex;
+    basecolor = Bitmap::loadFromFile(f);
+    heightmap = Bitmap();
+    normalmap = Bitmap();
+    mrao = Bitmap();
+    emissivity = Bitmap();
+    optimize2d = false;
+}
 
 /**
  * @brief Constructs a pending object
@@ -34,7 +45,15 @@ TextureLoad::TextureLoad(Texture* tex, const std::string &f) {}
  *            responses after loading.
  * @param bmp Image data
  */
-TextureLoad::TextureLoad(Texture* tex, const Bitmap& bmp) {}
+TextureLoad::TextureLoad(Texture* tex, const Bitmap& bmp) {
+    texture = tex;
+    basecolor = bmp;
+    heightmap = Bitmap();
+    normalmap = Bitmap();
+    mrao = Bitmap();
+    emissivity = Bitmap();
+    optimize2d = false;
+}
 
 /**
  * @brief Constructs a pending object
@@ -50,6 +69,13 @@ TextureLoad::TextureLoad(Texture* tex, const Bitmap& bmp) {}
 TextureLoad::TextureLoad(Texture* tex, const Bitmap& base, const Bitmap& h,
                          const Bitmap& norm, const Bitmap& m, const Bitmap& e)
 {
+    texture = tex;
+    basecolor = base;
+    heightmap = h;
+    normalmap = norm;
+    mrao = m;
+    emissivity = e;
+    optimize2d = false;
 }
     
 /**
@@ -58,13 +84,89 @@ TextureLoad::TextureLoad(Texture* tex, const Bitmap& base, const Bitmap& h,
 TextureLoad::~TextureLoad() {}
 
 /**
+ * @brief Sets whether to optimize the texture for 2D graphics
+ * 
+ * In drawing 2D sprites, no concept about object distance from the camera is
+ * included and hence, mipmap generation is to be skipped.
+ * 
+ * @param b True to optimize the texture for 2D graphics
+ */
+void TextureLoad::setOptimize2D(bool b) { optimize2d = true; }
+
+/**
  * @brief Loads the texture data to the GPU
  * 
  * Loads a chunk of image data into GPU for shader processing.
  * Also this pending object's load function assigns the resource
  * addresses to the related Texture instance.
  */
-void TextureLoad::load() {}
+void TextureLoad::load() {
+    if(optimize2d)
+        loadOptimize2D();
+    else
+        loadDefault();
+}
+
+void TextureLoad::loadDefault() {
+    uint16_t width = 0;
+    uint16_t height = 0;
+    if(basecolor.getPointer() != NULL) {
+        width = basecolor.getWidth();
+        height = basecolor.getHeight();
+        glGenTextures(1, &texture->basecolor);
+        glBindTexture(GL_TEXTURE_2D, texture->basecolor);
+        glTexImage2D(
+            GL_TEXTURE_2D,
+            0,
+            GL_RGB,
+            width,
+            height,
+            0,
+            GL_RGB,
+            GL_UNSIGNED_BYTE,
+            basecolor.getPointer()
+        );
+        glGenerateMipmap(GL_TEXTURE_2D);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
+        glBindTexture(GL_TEXTURE_2D, 0);
+    } 
+}
+
+void TextureLoad::loadOptimize2D() {
+    if(basecolor.getPointer() == NULL)
+        return;
+    
+    glGenTextures(1, &texture->basecolor);
+    glBindTexture(GL_TEXTURE_2D, texture->basecolor);
+    
+    int channel = 0;
+    if(basecolor.getChannel() == 3)
+        channel = GL_RGB;
+    else if(basecolor.getChannel() == 4)
+        channel = GL_RGBA;
+    else
+        return;
+    
+    glTexImage2D(
+        GL_TEXTURE_2D,
+        0,
+        channel,
+        basecolor.getWidth(),
+        basecolor.getHeight(),
+        0,
+        channel,
+        GL_UNSIGNED_BYTE,
+        basecolor.getPointer()
+    );
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
+    glBindTexture(GL_TEXTURE_2D, 0);
+}
 
 
 
@@ -74,13 +176,75 @@ void TextureLoad::load() {}
 /**
  * @brief Default constructor
  */
-Texture::Texture() {}
+Texture::Texture() {
+    basecolor = 0;
+    heightMap = 0;
+    normalMap = 0;
+    mraoMap = 0;
+    opacity = 0;
+    emissivity = 0;
+    width = 1.0f;
+    height = 1.0f;
+    color = Color(1.0f, 1.0f, 1.0f);
+    metalness = 0.0f;
+    roughness = 0.6f;
+    ambientOcculation = 0.6f;
+    depth = 0.0f;
+}
 
 /**
  * @brief Destructor
  */
-Texture::~Texture() {}
-    
+Texture::~Texture() {
+    if(basecolor)
+        glDeleteTextures(1, &basecolor);
+    if(heightMap)
+        glDeleteTextures(1, &heightMap);
+    if(normalMap)
+        glDeleteTextures(1, &normalMap);
+    if(mraoMap)
+        glDeleteTextures(1, &mraoMap);
+    if(opacity)
+        glDeleteTextures(1, &opacity);
+    if(emissivity)
+        glDeleteTextures(1, &emissivity);
+}
+
+/**
+ * @brief Gets the physical dimensions of the texture
+ * 
+ * @param s Texture length
+ */
+void Texture::setSize(float s) {
+    width = s;
+    height = s;
+}
+
+/**
+ * @brief Gets the physical dimensions of the texture
+ * 
+ * @param w Texture width
+ * @param h Texture height
+ */
+void Texture::setSize(float w, float h) {
+    width = w;
+    height = h;
+}
+
+/**
+ * @brief Gets the physical dimension of the texture
+ * 
+ * @return Texture width
+ */
+float Texture::getWidth() const { return width; }
+
+/**
+ * @brief Gets the physical dimension of the texture
+ * 
+ * @return Texture height
+ */
+float Texture::getHeight() const { return height; }
+
 /**
  * @brief Sets material color
  * 

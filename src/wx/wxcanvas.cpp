@@ -171,26 +171,25 @@ wxCanvas::wxCanvas(wxWindow *parent, const wxGLAttributes &dispAttrs,
     );
 }
 
-/**
- * @brief Cleans up context resources
- */
-void wxCanvas::destroy() {
-    if(isDestroyed())
-        return;
-    Context::destroy();
-    Context *current = getCurrent();
-    setCurrent();
-    if(context != nullptr)
-        delete context;
-    current->setCurrent();
-}
-
 
 
 
 void wxCanvas::onWxPaint(wxPaintEvent& event) {
-    if(!isDestroyed())
-        render();
+    if(!IsShown()) {
+        return;
+    }
+    if(!isDestroyed()) {
+        try {
+            render();
+        }
+        catch(std::runtime_error& e) {
+            if(getErrorCode() == 0)
+                setErrorCode(1);
+            printf("%s\n", e.what());
+            destroy();
+        }
+        catch(UserExitException& e2) {}
+    }
 }
 
 void wxCanvas::onWxResize(wxSizeEvent& event) {
@@ -353,6 +352,18 @@ void wxCanvas::setCurrent() {
 void wxCanvas::flush() {
     glFlush();
     SwapBuffers();
+}
+
+/**
+ * @brief Cleans up context resources
+ */
+void wxCanvas::destroy() {
+    if(isDestroyed())
+        return;
+    Context::destroy();
+    setCurrent();
+    if(context != nullptr)
+        delete context;
 }
 
 

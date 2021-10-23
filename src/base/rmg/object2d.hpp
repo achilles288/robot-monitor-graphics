@@ -55,6 +55,7 @@ enum class Object2DType {
     Text
 };
 
+
 /**
  * @brief 2D graphics displayed on top of the 3D graphics context
  *

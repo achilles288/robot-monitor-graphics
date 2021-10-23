@@ -1,6 +1,7 @@
 #include <rmg/internal/vbo_load.hpp>
 
-#include <GL/glew.h>
+#include <rmg/internal/glcontext.hpp>
+
 #include <GLFW/glfw3.h>
 
 #include <gtest/gtest.h>
@@ -9,11 +10,13 @@
 using rmg::Mesh;
 using rmg::Vec3;
 using rmg::Vec2;
+using rmg::internal::GLContext;
 
 
 class VBO: public ::testing::Test {
   protected:
     GLFWwindow* window;
+    GLContext glContext;
     Mesh mesh1;
     Mesh mesh2;
     
@@ -30,8 +33,7 @@ class VBO: public ::testing::Test {
         if(!window)
             return;
         glfwMakeContextCurrent(window);
-        glewExperimental = true;
-        if(glewInit() != GLEW_OK) {
+        if(glContext.init() != 0) {
             glfwDestroyWindow(window);
             return;
         }

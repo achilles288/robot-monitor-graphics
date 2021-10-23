@@ -16,8 +16,7 @@
 #include <cstdlib>
 #include <utility>
 
-#include <GL/glew.h>
-#include <GL/gl.h>
+#include "../rmg/internal/glcontext.hpp"
 
 
 namespace rmg {

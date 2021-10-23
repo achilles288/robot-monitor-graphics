@@ -34,13 +34,15 @@ add_library(rmgbase SHARED
     math/vec4.cpp
     internal/context_load.cpp
     internal/general_shader.cpp
+    internal/glcontext.cpp
     internal/line3d_shader.cpp
+    internal/object2d_shader.cpp
     internal/particle_shader.cpp
     internal/shader.cpp
     internal/shadow_map_shader.cpp
-    internal/sprite_shader.cpp
     internal/texture_load.cpp
     internal/vbo_load.cpp
+    
     rmg/assert.hpp
     rmg/assert.inc
     rmg/bitmap.hpp
@@ -78,11 +80,12 @@ add_library(rmgbase SHARED
     rmg/math/vec4.inc
     rmg/internal/context_load.hpp
     rmg/internal/general_shader.hpp
+    rmg/internal/glcontext.hpp
     rmg/internal/line3d_shader.hpp
+    rmg/internal/object2d_shader.hpp
     rmg/internal/particle_shader.hpp
     rmg/internal/shader.hpp
     rmg/internal/shadow_map_shader.hpp
-    rmg/internal/sprite_shader.hpp
     rmg/internal/texture_load.hpp
     rmg/internal/vbo_load.hpp
 )
@@ -92,14 +95,12 @@ add_library(rmgbase SHARED
 
 target_include_directories(rmgbase PUBLIC
     ${OPENGL_INCLUDE_DIR}
-    ${GLEW_INCLUDE_DIR}
     ${PNG_INCLUDE_DIR}
     ${TIFF_INCLUDE_DIR}
 )
 
 target_link_libraries(rmgbase PUBLIC
     ${OPENGL_LIBRARIES}
-    ${GLEW_LIBRARIES}
     ${PNG_LIBRARY}
     ${TIFF_LIBRARY}
 )

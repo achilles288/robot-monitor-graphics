@@ -43,7 +43,7 @@
 #include "internal/line3d_shader.hpp"
 #include "internal/particle_shader.hpp"
 #include "internal/shadow_map_shader.hpp"
-#include "internal/sprite_shader.hpp"
+#include "internal/object2d_shader.hpp"
 #include "internal/context_load.hpp"
 
 
@@ -94,10 +94,11 @@ class RMG_API Context {
     
     internal::GeneralShader generalShader;
     internal::ShadowMapShader shadowMapShader;
-    internal::SpriteShader spriteShader;
+    internal::Object2DShader object2dShader;
     internal::ParticleShader particleShader;
     internal::Line3DShader line3dShader;
     internal::ContextLoader loader;
+    internal::GLContext glContext;
     
     bool initDone;
     float fps;
@@ -106,7 +107,6 @@ class RMG_API Context {
     
     static uint32_t lastContextID;
     static std::vector<Context*> contextList;
-    static float t1;
     
   protected:
     /**
