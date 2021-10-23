@@ -13,6 +13,7 @@ target_compile_definitions(systest_window PUBLIC
 # 
 if(${wxWidgets_FOUND})
 add_executable(systest_wxcanvas
+    wxcanvas/app.rc
     wxcanvas/myglcanvas.cpp
     wxcanvas/myglcanvas.h
     wxcanvas/wxglade_out.cpp
