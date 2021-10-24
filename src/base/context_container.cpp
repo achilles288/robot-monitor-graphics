@@ -36,8 +36,8 @@ namespace rmg {
 void Context::destroy() {
     if(destroyed)
         return;
-    // setCurrent();
-    /*cleanup();
+    setCurrent();
+    cleanup();
     generalShader = internal::GeneralShader();
     shadowMapShader = internal::ShadowMapShader();
     object2dShader = internal::Object2DShader();
@@ -48,7 +48,7 @@ void Context::destroy() {
         contextList.begin(),
         contextList.end(),
         this
-    ));*/
+    ));
     destroyed = true;
 }
 
@@ -76,6 +76,10 @@ void Context::addObject(Object* obj) {
         Object2D* obj2d = (Object2D*) obj;
         auto elem = std::pair<uint64_t,Object2D*>(obj->getID(),obj2d);
         objects2d.insert(elem);
+        if(obj2d->getObject2DType() == Object2DType::Sprite) {
+            Sprite2D* sprite = (Sprite2D*) obj;
+            loader.push(sprite->getTextureLoad());
+        }
     }
     else if(obj->getObjectType() == ObjectType::Object3D) {
         Object3D* obj3d = (Object3D*) obj;

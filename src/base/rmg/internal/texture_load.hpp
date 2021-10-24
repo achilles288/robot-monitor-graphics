@@ -60,6 +60,8 @@ class RMG_API TextureLoad: public ContextLoad {
     Bitmap mrao;
     Bitmap emissivity;
     bool optimize2d;
+    uint16_t width;
+    uint16_t height;
     
     void loadDefault();
     void loadOptimize2D();
@@ -120,6 +122,20 @@ class RMG_API TextureLoad: public ContextLoad {
      * addresses to the related Texture instance.
      */
     void load() override;
+    
+    /**
+     * @brief Gets the width of the image
+     * 
+     * @return Image width in pixels
+     */
+    uint16_t getWidth() const;
+    
+    /**
+     * @brief Gets the height of the image
+     * 
+     * @return Image height in pixels
+     */
+    uint16_t getHeight() const;
 };
 
 
@@ -135,8 +151,7 @@ class RMG_API Texture {
     uint32_t opacity;
     uint32_t emissivity;
     
-    float width;
-    float height;
+    Vec2 size;
     
     Color color;
     float metalness;
@@ -216,16 +231,9 @@ class RMG_API Texture {
     /**
      * @brief Gets the physical dimension of the texture
      * 
-     * @return Texture width
+     * @return Texture width and height
      */
-    float getWidth() const;
-    
-    /**
-     * @brief Gets the physical dimension of the texture
-     * 
-     * @return Texture height
-     */
-    float getHeight() const;
+    Vec2 getSize() const;
     
     /**
      * @brief Sets material color
@@ -311,6 +319,11 @@ class RMG_API Texture {
      * @brief Gets the maximum unit for height mapping
      */
     float getDepth() const;
+    
+    /**
+     * @brief Binds the texture to process
+     */
+    void bind() const;
 };
 
 }}

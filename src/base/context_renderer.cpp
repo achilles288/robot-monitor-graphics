@@ -120,8 +120,10 @@ static Context *current = nullptr;
  * with multiple contexts.
  */
 void Context::setCurrent() {
-    current = this;
-    glContext.setCurrent();
+    if(initDone) {
+      current = this;
+      glContext.setCurrent();
+    }
 }
 
 /**

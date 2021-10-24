@@ -53,6 +53,8 @@ TextureLoad::TextureLoad(Texture* tex, const Bitmap& bmp) {
     mrao = Bitmap();
     emissivity = Bitmap();
     optimize2d = false;
+    width = bmp.getWidth();
+    height = bmp.getHeight();
 }
 
 /**
@@ -76,6 +78,8 @@ TextureLoad::TextureLoad(Texture* tex, const Bitmap& base, const Bitmap& h,
     mrao = m;
     emissivity = e;
     optimize2d = false;
+    width = base.getWidth();
+    height = base.getHeight();
 }
     
 /**
@@ -168,6 +172,20 @@ void TextureLoad::loadOptimize2D() {
     glBindTexture(GL_TEXTURE_2D, 0);
 }
 
+/**
+ * @brief Gets the width of the image
+ * 
+ * @return Image width in pixels
+ */
+uint16_t TextureLoad::getWidth() const { return width; }
+
+/**
+ * @brief Gets the height of the image
+ * 
+ * @return Image height in pixels
+ */
+uint16_t TextureLoad::getHeight() const { return height; }
+
 
 
 
@@ -183,8 +201,8 @@ Texture::Texture() {
     mraoMap = 0;
     opacity = 0;
     emissivity = 0;
-    width = 1.0f;
-    height = 1.0f;
+    size.x = 1.0f;
+    size.y = 1.0f;
     color = Color(1.0f, 1.0f, 1.0f);
     metalness = 0.0f;
     roughness = 0.6f;
@@ -216,8 +234,8 @@ Texture::~Texture() {
  * @param s Texture length
  */
 void Texture::setSize(float s) {
-    width = s;
-    height = s;
+    size.x = s;
+    size.y = s;
 }
 
 /**
@@ -227,23 +245,16 @@ void Texture::setSize(float s) {
  * @param h Texture height
  */
 void Texture::setSize(float w, float h) {
-    width = w;
-    height = h;
+    size.x = w;
+    size.y = h;
 }
 
 /**
  * @brief Gets the physical dimension of the texture
  * 
- * @return Texture width
+ * @return Texture width and height
  */
-float Texture::getWidth() const { return width; }
-
-/**
- * @brief Gets the physical dimension of the texture
- * 
- * @return Texture height
- */
-float Texture::getHeight() const { return height; }
+Vec2 Texture::getSize() const { return size; }
 
 /**
  * @brief Sets material color
@@ -339,5 +350,15 @@ void Texture::setDepth(float d) { depth = d; }
  * @brief Gets the maximum unit for height mapping
  */
 float Texture::getDepth() const { return depth; }
+
+/**
+ * @brief Binds the texture to process
+ */
+void Texture::bind() const {
+    if(basecolor) {
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, basecolor);
+    }
+}
 
 }}

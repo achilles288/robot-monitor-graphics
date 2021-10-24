@@ -144,6 +144,13 @@ class RMG_API ContextLoader {
          * @return Reference count
          */
         uint64_t getUseCount() const;
+        
+        /**
+         * @brief Gets the reference to the data
+         * 
+         * @return The reference to the data for read only
+         */
+        const ContextLoad *getData() const;
     };
     
     /**

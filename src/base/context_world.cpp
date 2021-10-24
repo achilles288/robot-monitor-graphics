@@ -67,6 +67,7 @@ void Context::setContextSize(uint16_t w, uint16_t h) {
     width = w;
     height = h;
     camera.setAspectRatio((float)w/h);
+    object2dShader.setContextSize(w, h);
 }
 
 /**

@@ -43,6 +43,7 @@ add_library(rmgbase SHARED
     internal/texture_load.cpp
     internal/vbo_load.cpp
     
+    rmg/alignment.hpp
     rmg/assert.hpp
     rmg/assert.inc
     rmg/bitmap.hpp
@@ -64,7 +65,6 @@ add_library(rmgbase SHARED
     rmg/rmg.hpp
     rmg/sphere.hpp
     rmg/sprite.hpp
-    rmg/text_alignment.hpp
     rmg/text2d.hpp
     rmg/math/euler.hpp
     rmg/math/mat3.hpp

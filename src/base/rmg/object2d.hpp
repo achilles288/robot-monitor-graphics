@@ -29,6 +29,7 @@
 #endif
 
 
+#include "alignment.hpp"
 #include "object.hpp"
 #include "math/angle_unit.hpp"
 #include "math/vec.hpp"
@@ -36,13 +37,6 @@
 
 
 namespace rmg {
-
-class Text2D;
-
-namespace internal {
-    class SpriteShader;
-}
-
 
 /**
  * @brief Type of 2D object (Sprite or Text)
@@ -65,16 +59,20 @@ enum class Object2DType {
  */
 class RMG_API Object2D: public Object {
   private:
-    Mat3 modelMatrix;
     int8_t zOrder;
-    float rotation;
-    Vec2 size;
-    
-    friend class Text2D;
-    friend class internal::SpriteShader;
+    Alignment alignment;
     
   protected:
     Object2DType type2D; ///< Sprite or Text
+    
+    /**
+     * @brief The matrix composed of all the transformations done by the
+     *        object
+     */
+    Mat3 modelMatrix;
+    
+    float rotation; ///< Rotation of the object
+    Vec2 size; ///< Size of the object in terms of pixels
     
   public:
     /**
@@ -95,6 +93,20 @@ class RMG_API Object2D: public Object {
      * @return Object type
      */
     Object2DType getObject2DType() const;
+    
+    /**
+     * @brief Sets the reference position or alignment
+     * 
+     * @param a The position with respect to screen width and height
+     */
+    void setAlignment(Alignment a);
+    
+    /**
+     * @brief Gets the reference position or alignment
+     * 
+     * @return The position with respect to screen width and height
+     */
+    Alignment getAlignment() const;
     
     /**
      * @brief The matrix composed of all the transformations done by the object

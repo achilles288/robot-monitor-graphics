@@ -127,6 +127,13 @@ uint64_t ContextLoader::Pending::getUseCount() const {
     return shared->use_count;
 }
 
+/**
+ * @brief Gets the reference to the data
+ * 
+ * @return The reference to the data for read only
+ */
+const ContextLoad *ContextLoader::Pending::getData() const { return data; }
+
 
 
 
@@ -182,5 +189,5 @@ void ContextLoader::load() {
 uint64_t ContextLoader::getLoadCount() const {
     return pendingList.size();
 }
-    
+
 }}

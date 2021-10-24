@@ -41,7 +41,6 @@ class Bitmap;
 
 namespace internal {
 
-class SpriteShader;
 class Texture;
 
 }
@@ -58,8 +57,6 @@ class RMG_API Sprite2D: public Object2D {
     std::shared_ptr<internal::Texture> texture;
     internal::ContextLoader::Pending texLoad;
     
-    friend class internal::SpriteShader;
-    
   public:
     /**
      * @brief Default constructor
@@ -71,9 +68,25 @@ class RMG_API Sprite2D: public Object2D {
      * 
      * @param ctx Container context
      * @param img Image file (supports the same format Texture class does)
+     */
+    Sprite2D(Context* ctx, const std::string &img);
+    
+    /**
+     * @brief Constructs a sprite object from bitmap
+     * 
+     * @param ctx Conatiner context
+     * @param bmp Sprite image
+     */
+    Sprite2D(Context* ctx, const Bitmap &bmp);
+    
+    /**
+     * @brief Constructs a sprite object loading a sprite image
+     * 
+     * @param ctx Container context
+     * @param img Image file (supports the same format Texture class does)
      * @param size Image size
      */
-    Sprite2D(Context* ctx, const std::string &img, const Vec2 &size=Vec2());
+    Sprite2D(Context* ctx, const std::string &img, const Vec2 &size);
     
     /**
      * @brief Constructs a sprite object from bitmap
@@ -82,7 +95,21 @@ class RMG_API Sprite2D: public Object2D {
      * @param bmp Sprite image
      * @param size Image size
      */
-    Sprite2D(Context* ctx, const Bitmap &bmp, const Vec2 &size=Vec2());
+    Sprite2D(Context* ctx, const Bitmap &bmp, const Vec2 &size);
+    
+    /**
+     * @brief Gets the pointer to the texture
+     * 
+     * @return Pointer to the texture
+     */
+    const internal::Texture *getTexture() const;
+    
+    /**
+     * @brief Gets the texture loader
+     * 
+     * @return Texture loader
+     */
+    const internal::ContextLoader::Pending& getTextureLoad() const;
 };
 
 }

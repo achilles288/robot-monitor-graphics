@@ -30,7 +30,6 @@
 
 #include "font.hpp"
 #include "object2d.hpp"
-#include "text_alignment.hpp"
 
 
 namespace rmg {

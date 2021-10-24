@@ -42,13 +42,6 @@ Object2D::Object2D(Context* ctx): Object(ctx) {
     size = Vec2();
     type = ObjectType::Object2D;
 }
-
-/**
- * @brief The matrix composed of all the transformations done by the object
- * 
- * @return Model matrix
- */
-const Mat3& Object2D::getModelMatrix() const { return modelMatrix; }
     
 /**
  * @brief Gets 2D object type
@@ -56,6 +49,27 @@ const Mat3& Object2D::getModelMatrix() const { return modelMatrix; }
  * @return Object type
  */
 Object2DType Object2D::getObject2DType() const { return type2D; }
+
+/**
+ * @brief Sets the reference position or alignment
+ * 
+ * @param a The position with respect to screen width and height
+ */
+void Object2D::setAlignment(Alignment a) { alignment = a; }
+
+/**
+ * @brief Gets the reference position or alignment
+ * 
+ * @return The position with respect to screen width and height
+ */
+Alignment Object2D::getAlignment() const { return alignment; }
+
+/**
+ * @brief The matrix composed of all the transformations done by the object
+ * 
+ * @return Model matrix
+ */
+const Mat3& Object2D::getModelMatrix() const { return modelMatrix; }
 
 /**
  * @brief Sets the location which the object appears

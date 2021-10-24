@@ -28,7 +28,8 @@
 #include <map>
 
 #include "shader.hpp"
-#include "../object2d.hpp"
+#include "../sprite.hpp"
+#include "../text2d.hpp"
 
 
 namespace rmg {
@@ -39,14 +40,22 @@ namespace internal {
  */
 class RMG_API SpriteShader: public Shader {
   private:
-    uint32_t idModel;
+    uint32_t idMVP;
     uint32_t idColor;
+    
+    uint32_t quadVertexArrayID = 0;
+    uint32_t quadVertexBuffer = 0;
     
   public:
     /**
      * @brief Default constructor
      */
     SpriteShader() = default;
+    
+    /**
+     * @brief Destructor
+     */
+    virtual ~SpriteShader();
     
     /**
      * @brief Compile, link and assign program parameters
@@ -57,8 +66,10 @@ class RMG_API SpriteShader: public Shader {
      * @brief Renders a sprite image on 2D panel
      * 
      * @param sprite The sprite image to render
+     * @param V The transform matrix according to object alignment
+     * @param VP The combination of view matrix and projection matrix
      */
-    void render(Object2D* sprite);
+    void render(Sprite2D* sprite, const Mat3 &V, const Mat3 &VP);
 };
 
 /**
@@ -84,8 +95,10 @@ class RMG_API Text2DShader: public Shader {
      * @brief Renders a 2D text on 2D panel
      * 
      * @param txt The 2D text object to render
+     * @param V The transform matrix according to object alignment
+     * @param VP The combination of view matrix and projection matrix
      */
-    void render(Object2D* txt);
+    void render(Text2D* txt, const Mat3 &V, const Mat3 &VP);
 };
 
 /**
@@ -95,14 +108,15 @@ class RMG_API Object2DShader {
   private:
     SpriteShader spriteShader;
     Text2DShader text2dShader;
-    uint16_t width = 0;
-    uint16_t height = 0;
+    Mat3 projectionMatrix;
+    uint16_t width;
+    uint16_t height;
     
   public:
     /**
      * @brief Default constructor
      */
-    Object2DShader() = default;
+    Object2DShader();
     
     /**
      * @brief Compile, link and assign program parameters
