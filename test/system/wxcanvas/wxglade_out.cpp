@@ -23,6 +23,10 @@ MyFrame::MyFrame(wxWindow* parent, wxWindowID id, const wxString& title, const w
 {
     // begin wxGlade: MyFrame::MyFrame
     SetSize(wxSize(800, 450));
+    SetTitle(wxT("wxCanvas Test"));
+    wxIcon _icon;
+    _icon.CopyFromBitmap(wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/rmg-app.png")));
+    SetIcon(_icon);
     frame_menubar = new wxMenuBar();
     menuFile = new wxMenu();
     itemOpenModel = menuFile->Append(1, wxT("Open Model"), wxEmptyString);
@@ -66,64 +70,44 @@ MyFrame::MyFrame(wxWindow* parent, wxWindowID id, const wxString& title, const w
     Bind(wxEVT_MENU, &MyFrame::onAbout, this, 14);
     frame_menubar->Append(menuHelp, wxT("Help"));
     SetMenuBar(frame_menubar);
-    btnPan = new wxBitmapButton(this, 101, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/hand.svg"), wxBITMAP_TYPE_ANY));
-    btnMove = new wxBitmapButton(this, 102, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/move.svg"), wxBITMAP_TYPE_ANY));
-    btnRotate = new wxBitmapButton(this, 103, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/rotate.svg"), wxBITMAP_TYPE_ANY));
-    btnScale = new wxBitmapButton(this, 104, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/resize.svg"), wxBITMAP_TYPE_ANY));
-    btnTexture = new wxBitmapButton(this, 105, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/photo.svg"), wxBITMAP_TYPE_ANY));
-    btnLighting = new wxBitmapButton(this, 106, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/sun.svg"), wxBITMAP_TYPE_ANY));
-    canvas = new MyGLCanvas(this);
-
-    set_properties();
-    do_layout();
-    // end wxGlade
-}
-
-
-void MyFrame::set_properties()
-{
-    // begin wxGlade: MyFrame::set_properties
-    SetTitle(wxT("wxCanvas Test"));
-    wxIcon _icon;
-    _icon.CopyFromBitmap(wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/rmg-app.png"), wxBITMAP_TYPE_ANY));
-    SetIcon(_icon);
-    btnPan->SetMinSize(wxSize(38, 38));
-    btnPan->SetToolTip(wxT("Pan"));
-    btnMove->SetMinSize(wxSize(38, 38));
-    btnMove->SetToolTip(wxT("Translates the model"));
-    btnRotate->SetMinSize(wxSize(38, 38));
-    btnRotate->SetToolTip(wxT("Rotates the model"));
-    btnScale->SetMinSize(wxSize(38, 38));
-    btnScale->SetToolTip(wxT("Scales the model"));
-    btnTexture->SetMinSize(wxSize(38, 38));
-    btnTexture->SetToolTip(wxT("Edits the textural parameters and color"));
-    btnLighting->SetMinSize(wxSize(38, 38));
-    btnLighting->SetToolTip(wxT("Adjusts the lighting environment"));
-    // end wxGlade
-}
-
-
-void MyFrame::do_layout()
-{
-    // begin wxGlade: MyFrame::do_layout
     wxBoxSizer* sizer_1 = new wxBoxSizer(wxHORIZONTAL);
-    wxBoxSizer* sizer_3 = new wxBoxSizer(wxVERTICAL);
-    sizerEditorWidgets = new wxBoxSizer(wxVERTICAL);
     wxBoxSizer* sizer_2 = new wxBoxSizer(wxVERTICAL);
-    sizer_2->Add(btnPan, 0, wxALL, 2);
-    sizer_2->Add(btnMove, 0, wxALL, 2);
-    sizer_2->Add(btnRotate, 0, wxALL, 2);
-    sizer_2->Add(btnScale, 0, wxALL, 2);
-    sizer_2->Add(btnTexture, 0, wxALL, 2);
-    sizer_2->Add(btnLighting, 0, wxALL, 2);
     sizer_1->Add(sizer_2, 0, wxALL|wxEXPAND, 6);
+    btnPan = new wxBitmapButton(this, 101, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/24/hand.png")), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBU_EXACTFIT|wxBU_NOTEXT);
+    btnPan->SetMinSize(wxSize(42, 42));
+    btnPan->SetToolTip(wxT("Pan"));
+    sizer_2->Add(btnPan, 0, wxALL, 2);
+    btnMove = new wxBitmapButton(this, 102, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/24/move.png")), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBU_EXACTFIT|wxBU_NOTEXT);
+    btnMove->SetMinSize(wxSize(42, 42));
+    btnMove->SetToolTip(wxT("Translates the model"));
+    sizer_2->Add(btnMove, 0, wxALL, 2);
+    btnRotate = new wxBitmapButton(this, 103, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/24/rotate.png")), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBU_EXACTFIT|wxBU_NOTEXT);
+    btnRotate->SetMinSize(wxSize(42, 42));
+    btnRotate->SetToolTip(wxT("Rotates the model"));
+    sizer_2->Add(btnRotate, 0, wxALL, 2);
+    btnScale = new wxBitmapButton(this, 104, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/24/resize.png")), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBU_EXACTFIT|wxBU_NOTEXT);
+    btnScale->SetMinSize(wxSize(42, 42));
+    btnScale->SetToolTip(wxT("Scales the model"));
+    sizer_2->Add(btnScale, 0, wxALL, 2);
+    btnTexture = new wxBitmapButton(this, 105, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/24/photo.png")), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBU_EXACTFIT|wxBU_NOTEXT);
+    btnTexture->SetMinSize(wxSize(42, 42));
+    btnTexture->SetToolTip(wxT("Edits the textural parameters and color"));
+    sizer_2->Add(btnTexture, 0, wxALL, 2);
+    btnLighting = new wxBitmapButton(this, 106, wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/flat/24/teapot.png")), wxDefaultPosition, wxDefaultSize, wxBU_AUTODRAW|wxBU_EXACTFIT|wxBU_NOTEXT);
+    btnLighting->SetMinSize(wxSize(42, 42));
+    btnLighting->SetToolTip(wxT("Adjusts the lighting environment"));
+    sizer_2->Add(btnLighting, 0, wxALL, 2);
+    canvas = new MyGLCanvas(this);
     sizer_1->Add(canvas, 1, wxEXPAND, 0);
+    wxBoxSizer* sizer_3 = new wxBoxSizer(wxVERTICAL);
+    sizer_1->Add(sizer_3, 0, wxALL|wxEXPAND, 6);
     wxStaticText* lblEditorPanel = new wxStaticText(this, wxID_ANY, wxT("Editor Panel"));
     sizer_3->Add(lblEditorPanel, 0, 0, 0);
-    sizerEditorWidgets->Add(0, 0, 0, 0, 0);
+    sizerEditorWidgets = new wxBoxSizer(wxVERTICAL);
     sizer_3->Add(sizerEditorWidgets, 0, wxEXPAND, 0);
+    sizerEditorWidgets->Add(0, 0, 0, 0, 0);
     sizer_3->Add(240, 20, 0, 0, 0);
-    sizer_1->Add(sizer_3, 0, wxALL|wxEXPAND, 6);
+    
     SetSizer(sizer_1);
     Layout();
     // end wxGlade
