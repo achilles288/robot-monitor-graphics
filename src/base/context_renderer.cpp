@@ -97,6 +97,7 @@ void Context::render() {
         shadow,
         objects3d
     );
+    
     object2dShader.render(objects2d);
     internal::glUseProgram(0);
     

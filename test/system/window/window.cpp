@@ -9,6 +9,9 @@
 #include <rmg/cube.hpp>
 #include <rmg/cylinder.hpp>
 #include <rmg/sphere.hpp>
+#include <rmg/sprite.hpp>
+
+#include "../../testconf.h"
 
 using namespace rmg;
 
@@ -22,6 +25,7 @@ static float clip(float n, float lower, float upper) {
 class TestWindow: public Window {
   private:
     Object3D *floor, *cube, *cylinder, *sphere, *teapot;
+    Object2D *sprite1, *sprite2;
     Vec3 pos = Vec3(-13.3606f, 6.3603f, 9.8690f);
     Euler rot = Euler(0.0f, 0.5472f, -0.4640f);
     Euler lightAngles = Euler(0.0f, 0.87f, 0.52f);
@@ -40,6 +44,8 @@ class TestWindow: public Window {
         // setOrthographicProjection(8.0f, 1.0f, 30.0f);
         setPerspectiveProjection(fov, 1.0f, 30.0f);
         setDirectionalLightColor(1, 1, 1, 2);
+        
+        // 3D solid objects
         floor = new Cube3D(this, 15, 15, 1);
         floor->setColor(0.3f, 0.3f, 0.4f);
         floor->setRoughness(0.7f);
@@ -66,6 +72,16 @@ class TestWindow: public Window {
         addObject(cylinder);
         addObject(sphere);
         addObject(teapot);
+        
+        // 2D overlay objects
+        sprite1 = new Sprite2D(this, RMG_RESOURCE_PATH "/icons/rmg-app.png");
+        sprite1->setAlignment(Alignment::BottomLeft);
+        sprite1->setTranslation(48, -48);
+        sprite2 = new Sprite2D(this, RMGTEST_RESOURCE_PATH "/wine.png");
+        sprite2->setAlignment(Alignment::BottomRight);
+        sprite2->setTranslation(-32, -48);
+        addObject(sprite1);
+        addObject(sprite2);
     }
     
     void update() override {

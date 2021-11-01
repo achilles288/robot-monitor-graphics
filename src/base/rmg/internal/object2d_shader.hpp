@@ -66,10 +66,9 @@ class RMG_API SpriteShader: public Shader {
      * @brief Renders a sprite image on 2D panel
      * 
      * @param sprite The sprite image to render
-     * @param V The transform matrix according to object alignment
      * @param VP The combination of view matrix and projection matrix
      */
-    void render(Sprite2D* sprite, const Mat3 &V, const Mat3 &VP);
+    void render(Sprite2D* sprite, const Mat3 &VP);
 };
 
 /**
@@ -95,10 +94,9 @@ class RMG_API Text2DShader: public Shader {
      * @brief Renders a 2D text on 2D panel
      * 
      * @param txt The 2D text object to render
-     * @param V The transform matrix according to object alignment
      * @param VP The combination of view matrix and projection matrix
      */
-    void render(Text2D* txt, const Mat3 &V, const Mat3 &VP);
+    void render(Text2D* txt, const Mat3 &VP);
 };
 
 /**

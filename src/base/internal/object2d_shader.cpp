@@ -15,6 +15,8 @@
 
 #include "../../config/rmg/config.h"
 
+#include <iostream>
+
 
 namespace rmg {
 namespace internal {
@@ -53,23 +55,22 @@ void SpriteShader::load() {
     glGenBuffers(1, &quadVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, quadVertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
-    glBindVertexArray(quadVertexArrayID);
 }
 
 /**
  * @brief Renders a sprite image on 2D panel
  * 
  * @param sprite The sprite image to render
- * @param V The transform matrix according to object alignment
  * @param VP The combination of view matrix and projection matrix
  */
-void SpriteShader::render(Sprite2D* sprite, const Mat3 &V, const Mat3 &VP) {
+void SpriteShader::render(Sprite2D* sprite, const Mat3 &VP) {
     if(id == 0)
         return;
     if(prevShader != id) {
         glUseProgram(id);
         glBindBuffer(GL_ARRAY_BUFFER, quadVertexBuffer);
         glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), (void*)0);
+        glEnableVertexAttribArray(0);
         glBindVertexArray(quadVertexArrayID);
     }
     Mat3 MVP = VP * sprite->getModelMatrix();
@@ -99,10 +100,9 @@ void Text2DShader::load() {
  * @brief Renders a 2D text on 2D panel
  * 
  * @param txt The 2D text object to render
- * @param V The transform matrix according to object alignment
  * @param VP The combination of view matrix and projection matrix
  */
-void Text2DShader::render(Text2D* txt, const Mat3 &V, const Mat3 &VP) {
+void Text2DShader::render(Text2D* txt, const Mat3 &VP) {
     if(id == 0)
         return;
     if(prevShader != id)
@@ -136,12 +136,8 @@ void Object2DShader::load() {
  * @param h Viewport height
  */
 void Object2DShader::setContextSize(uint16_t w, uint16_t h) {
-    if(w > h)
-        projectionMatrix[1][1] = 1.0f/(2*h);
-    else
-        projectionMatrix[1][1] = 1.0f/(2*w);
-    
-    projectionMatrix[0][0] = projectionMatrix[1][1] * ((float)w/h);
+    projectionMatrix[0][0] = 2.0f / w;
+    projectionMatrix[1][1] = -2.0f / h;
     width = w;
     height = h;
 }
@@ -155,7 +151,7 @@ void Object2DShader::render(const std::map<uint64_t, Object2D*> &list) {
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
-    std::map<int16_t, Object2D*> sorted;
+    std::multimap<int16_t, Object2D*> sorted;
     
     for(auto it=list.begin(); it!=list.end(); it++) {
         Object2D* obj = it->second;
@@ -205,10 +201,10 @@ void Object2DShader::render(const std::map<uint64_t, Object2D*> &list) {
         
         switch(obj->getObject2DType()) {
           case Object2DType::Sprite:
-            spriteShader.render((Sprite2D*) obj, V, VP);
+            spriteShader.render((Sprite2D*) obj, VP);
             break;
           case Object2DType::Text:
-            text2dShader.render((Text2D*) obj, V, VP);
+            text2dShader.render((Text2D*) obj, VP);
             break;
           case Object2DType::Default:
             break;

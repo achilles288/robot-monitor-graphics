@@ -104,6 +104,20 @@ class RMG_API Text2D: public Object2D {
      * @return Font size
      */
     float getFontSize() const;
+    
+    /**
+     * @brief Sets the horizontal text alignment
+     * 
+     * @param a Left, center or right text alignment
+     */
+    void setTextAlignment(HorizontalAlign a);
+    
+    /**
+     * @brief Gets the horizontal text alignment
+     * 
+     * @return Left, center or right text alignment
+     */
+    HorizontalAlign getTextAlignment() const;
 };
 
 }

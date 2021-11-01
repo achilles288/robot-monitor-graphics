@@ -107,5 +107,4 @@ TEST_F(GeneralShader, runtime) {
     delete obj1;
     delete obj2;
     delete obj3;
-    glfwDestroyWindow(window);
 }

@@ -36,6 +36,8 @@ TextureLoad::TextureLoad(Texture* tex, const std::string &f) {
     mrao = Bitmap();
     emissivity = Bitmap();
     optimize2d = false;
+    width = basecolor.getWidth();
+    height = basecolor.getHeight();
 }
 
 /**
@@ -112,11 +114,7 @@ void TextureLoad::load() {
 }
 
 void TextureLoad::loadDefault() {
-    uint16_t width = 0;
-    uint16_t height = 0;
     if(basecolor.getPointer() != NULL) {
-        width = basecolor.getWidth();
-        height = basecolor.getHeight();
         glGenTextures(1, &texture->basecolor);
         glBindTexture(GL_TEXTURE_2D, texture->basecolor);
         glTexImage2D(
@@ -158,8 +156,8 @@ void TextureLoad::loadOptimize2D() {
         GL_TEXTURE_2D,
         0,
         channel,
-        basecolor.getWidth(),
-        basecolor.getHeight(),
+        width,
+        height,
         0,
         channel,
         GL_UNSIGNED_BYTE,
