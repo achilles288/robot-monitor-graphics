@@ -28,16 +28,11 @@
 #endif
 
 
+#include "GL/gl.h"
+
 #include <cstddef>
 
-#if defined(__gl_h_) || defined(__GL_H__) || defined(_GL_H) || defined(__X_GL_H)
-#error gl.h included before glew.hpp
-#endif
 
-#include <GL/gl.h>
-
-
-// Typedefs for functions for OpenGL > 1.1
 typedef void (GLAPIENTRY* PFNGLACTIVETEXTUREPROC) (GLenum texture); ///< GL typedef
 typedef void (GLAPIENTRY* PFNGLATTACHSHADERPROC) (GLuint program, GLuint shader); ///< GL typedef
 typedef void (GLAPIENTRY* PFNGLBINDATTRIBLOCATIONPROC) (GLuint program, GLuint index, const GLchar *name); ///< GL typedef
@@ -83,43 +78,43 @@ typedef void (GLAPIENTRY* PFNGLVERTEXATTRIBPOINTERPROC) (GLuint index, GLint siz
 namespace rmg {
 namespace internal {
 
-extern PFNGLACTIVETEXTUREPROC glActiveTexture; ///< GL function
-extern PFNGLATTACHSHADERPROC glAttachShader; ///< GL function
-extern PFNGLBINDBUFFERPROC glBindBuffer; ///< GL function
-extern PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer; ///< GL function
-extern PFNGLBINDVERTEXARRAYPROC glBindVertexArray; ///< GL function
-extern PFNGLBUFFERDATAPROC glBufferData; ///< GL function
-extern PFNGLCOMPILESHADERPROC glCompileShader; ///< GL function
-extern PFNGLCREATEPROGRAMPROC glCreateProgram; ///< GL function
-extern PFNGLCREATESHADERPROC glCreateShader; ///< GL function
-extern PFNGLDELETEBUFFERSPROC glDeleteBuffers; ///< GL function
-extern PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers; ///< GL function
-extern PFNGLDELETEPROGRAMPROC glDeleteProgram; ///< GL function
-extern PFNGLDELETESHADERPROC glDeleteShader; ///< GL function
-extern PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays; ///< GL function
-extern PFNGLDETACHSHADERPROC glDetachShader; ///< GL function
-extern PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray; ///< GL function
-extern PFNGLENABLEVERTEXATTRIBARRAYPROC glEnableVertexAttribArray; ///< GL function
-extern PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D; ///< GL function
-extern PFNGLGENBUFFERSPROC glGenBuffers; ///< GL function
-extern PFNGLGENERATEMIPMAPEXTPROC glGenerateMipmap; ///< GL funtion
-extern PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers; ///< GL function
-extern PFNGLGENVERTEXARRAYSPROC glGenVertexArrays; ///< GL function
-extern PFNGLGETPROGRAMINFOLOGPROC glGetProgramInfoLog; ///< GL function
-extern PFNGLGETPROGRAMIVPROC glGetProgramiv; ///< GL function
-extern PFNGLGETSHADERINFOLOGPROC glGetShaderInfoLog; ///< GL function
-extern PFNGLGETSHADERIVPROC glGetShaderiv; ///< GL function
-extern PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation; ///< GL function
-extern PFNGLLINKPROGRAMPROC glLinkProgram; ///< GL function
-extern PFNGLSHADERSOURCEPROC glShaderSource; ///< GL function
-extern PFNGLUNIFORM1FPROC glUniform1f; ///< GL function
-extern PFNGLUNIFORM1IPROC glUniform1i; ///< GL function
-extern PFNGLUNIFORM3FVPROC glUniform3fv; ///< GL function
-extern PFNGLUNIFORM4FVPROC glUniform4fv; ///< GL function
-extern PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix3fv; ///< GL function
-extern PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv; ///< GL function
-extern PFNGLUSEPROGRAMPROC glUseProgram; ///< GL function
-extern PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer; ///< GL function
+RMG_API extern PFNGLACTIVETEXTUREPROC glActiveTexture; ///< GL function
+RMG_API extern PFNGLATTACHSHADERPROC glAttachShader; ///< GL function
+RMG_API extern PFNGLBINDBUFFERPROC glBindBuffer; ///< GL function
+RMG_API extern PFNGLBINDFRAMEBUFFERPROC glBindFramebuffer; ///< GL function
+RMG_API extern PFNGLBINDVERTEXARRAYPROC glBindVertexArray; ///< GL function
+RMG_API extern PFNGLBUFFERDATAPROC glBufferData; ///< GL function
+RMG_API extern PFNGLCOMPILESHADERPROC glCompileShader; ///< GL function
+RMG_API extern PFNGLCREATEPROGRAMPROC glCreateProgram; ///< GL function
+RMG_API extern PFNGLCREATESHADERPROC glCreateShader; ///< GL function
+RMG_API extern PFNGLDELETEBUFFERSPROC glDeleteBuffers; ///< GL function
+RMG_API extern PFNGLDELETEFRAMEBUFFERSPROC glDeleteFramebuffers; ///< GL function
+RMG_API extern PFNGLDELETEPROGRAMPROC glDeleteProgram; ///< GL function
+RMG_API extern PFNGLDELETESHADERPROC glDeleteShader; ///< GL function
+RMG_API extern PFNGLDELETEVERTEXARRAYSPROC glDeleteVertexArrays; ///< GL function
+RMG_API extern PFNGLDETACHSHADERPROC glDetachShader; ///< GL function
+RMG_API extern PFNGLDISABLEVERTEXATTRIBARRAYPROC glDisableVertexAttribArray; ///< GL function
+RMG_API extern PFNGLENABLEVERTEXATTRIBARRAYPROC glEnableVertexAttribArray; ///< GL function
+RMG_API extern PFNGLFRAMEBUFFERTEXTURE2DPROC glFramebufferTexture2D; ///< GL function
+RMG_API extern PFNGLGENBUFFERSPROC glGenBuffers; ///< GL function
+RMG_API extern PFNGLGENERATEMIPMAPEXTPROC glGenerateMipmap; ///< GL funtion
+RMG_API extern PFNGLGENFRAMEBUFFERSPROC glGenFramebuffers; ///< GL function
+RMG_API extern PFNGLGENVERTEXARRAYSPROC glGenVertexArrays; ///< GL function
+RMG_API extern PFNGLGETPROGRAMINFOLOGPROC glGetProgramInfoLog; ///< GL function
+RMG_API extern PFNGLGETPROGRAMIVPROC glGetProgramiv; ///< GL function
+RMG_API extern PFNGLGETSHADERINFOLOGPROC glGetShaderInfoLog; ///< GL function
+RMG_API extern PFNGLGETSHADERIVPROC glGetShaderiv; ///< GL function
+RMG_API extern PFNGLGETUNIFORMLOCATIONPROC glGetUniformLocation; ///< GL function
+RMG_API extern PFNGLLINKPROGRAMPROC glLinkProgram; ///< GL function
+RMG_API extern PFNGLSHADERSOURCEPROC glShaderSource; ///< GL function
+RMG_API extern PFNGLUNIFORM1FPROC glUniform1f; ///< GL function
+RMG_API extern PFNGLUNIFORM1IPROC glUniform1i; ///< GL function
+RMG_API extern PFNGLUNIFORM3FVPROC glUniform3fv; ///< GL function
+RMG_API extern PFNGLUNIFORM4FVPROC glUniform4fv; ///< GL function
+RMG_API extern PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix3fv; ///< GL function
+RMG_API extern PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix4fv; ///< GL function
+RMG_API extern PFNGLUSEPROGRAMPROC glUseProgram; ///< GL function
+RMG_API extern PFNGLVERTEXATTRIBPOINTERPROC glVertexAttribPointer; ///< GL function
 
 
 /**

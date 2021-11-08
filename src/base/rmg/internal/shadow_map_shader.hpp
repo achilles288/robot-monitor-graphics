@@ -46,8 +46,8 @@ class RMG_API ShadowMapShader: public Shader {
     Vec3 cameraPosition;
     Vec3 cameraDirection;
     Vec3 lightDirection;
-    float near;
-    float far;
+    float nearDist;
+    float farDist;
     float mapCenterDist;
     
     uint32_t depthMapFBO = 0;

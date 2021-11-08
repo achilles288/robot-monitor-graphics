@@ -33,8 +33,8 @@ static const Mat4 adjust1 = {
 Camera::Camera() {
     viewMatrix = adjust1;
     aspect = 1.0f;
-    near = 1.0f;
-    far = 10.0f;
+    nearDist = 1.0f;
+    farDist = 10.0f;
     projectionMode = ProjectionMode::Orthographic;
     setPerspectiveProjection();
 }
@@ -153,8 +153,8 @@ void Camera::setPerspectiveProjection() {
         return;
     projectionMode = ProjectionMode::Perspective;
     float d = 2.414f;
-    float A = -far/(far-near);
-    float B = -(near*far)/(far-near);
+    float A = -farDist/(farDist-nearDist);
+    float B = -(nearDist*farDist)/(farDist-nearDist);
     /**
      * projectionMatrix = {
      *   {d/aspect, 0,  0, 0},
@@ -184,11 +184,11 @@ void Camera::setPerspectiveProjection() {
  */
 void Camera::setPerspectiveProjection(float fov, float n, float f) {
     projectionMode = ProjectionMode::Perspective;
-    near = n;
-    far = f;
+    nearDist = n;
+    farDist = f;
     float d = 1/tan(fov/2);
-    float A = -far/(far-near);
-    float B = -(near*far)/(far-near);
+    float A = -farDist/(farDist-nearDist);
+    float B = -(nearDist*farDist)/(farDist-nearDist);
     /**
      * projectionMatrix = {
      *   {d/aspect, 0,  0, 0},
@@ -215,8 +215,8 @@ void Camera::setOrthographicProjection() {
         return;
     projectionMode = ProjectionMode::Orthographic;
     float s = 0.2f;
-    float A = -1/(far-near);
-    float B = -near/(far-near);
+    float A = -1/(farDist-nearDist);
+    float B = -nearDist/(farDist-nearDist);
     /**
      * projectionMatrix = {
      *   {s/aspect, 0, 0, 0},
@@ -246,11 +246,11 @@ void Camera::setOrthographicProjection() {
  */
 void Camera::setOrthographicProjection(float fov, float n, float f) {
     projectionMode = ProjectionMode::Orthographic;
-    near = n;
-    far = f;
+    nearDist = n;
+    farDist = f;
     float s = 2/fov;
-    float A = -1/(far-near);
-    float B = -near/(far-near);
+    float A = -1/(farDist-nearDist);
+    float B = -nearDist/(farDist-nearDist);
     /**
      * projectionMatrix = {
      *   {s/aspect, 0, 0, 0},
@@ -302,14 +302,14 @@ void Camera::setFieldOfView(float fov) {
  * @param n Minimum clipping distance
  */
 void Camera::setMinimumDistance(float n) {
-    near = n;
+    nearDist = n;
     if(projectionMode == ProjectionMode::Perspective) {
-        projectionMatrix[2][2] = -far/(far-near);
-        projectionMatrix[2][3] = -(near*far)/(far-near);
+        projectionMatrix[2][2] = -farDist/(farDist-nearDist);
+        projectionMatrix[2][3] = -(nearDist*farDist)/(farDist-nearDist);
     }
     else {
-        projectionMatrix[2][2] = -1/(far-near);
-        projectionMatrix[2][3] = -near/(far-near);
+        projectionMatrix[2][2] = -1/(farDist-nearDist);
+        projectionMatrix[2][3] = -nearDist/(farDist-nearDist);
     }
     VPMatrix = projectionMatrix * viewMatrix;
 }
@@ -320,14 +320,14 @@ void Camera::setMinimumDistance(float n) {
  * @param f Maximum clipping distance
  */
 void Camera::setMaximumDistance(float f) {
-    far = f;
+    farDist = f;
     if(projectionMode == ProjectionMode::Perspective) {
-        projectionMatrix[2][2] = -far/(far-near);
-        projectionMatrix[2][3] = -(near*far)/(far-near);
+        projectionMatrix[2][2] = -farDist/(farDist-nearDist);
+        projectionMatrix[2][3] = -(nearDist*farDist)/(farDist-nearDist);
     }
     else {
-        projectionMatrix[2][2] = -1/(far-near);
-        projectionMatrix[2][3] = -near/(far-near);
+        projectionMatrix[2][2] = -1/(farDist-nearDist);
+        projectionMatrix[2][3] = -nearDist/(farDist-nearDist);
     }
     VPMatrix = projectionMatrix * viewMatrix;
 }
@@ -356,14 +356,14 @@ float Camera::getFieldOfView() const {
  * 
  * @return Minimum clipping distance
  */
-float Camera::getMinimumDistance() const { return near; }
+float Camera::getMinimumDistance() const { return nearDist; }
 
 /**
  * @brief Gets maximum distance for depth clipping
  * 
  * @return Maximum clipping distance
  */
-float Camera::getMaximumDistance() const { return far; }
+float Camera::getMaximumDistance() const { return farDist; }
 
 /**
  * @brief Converts world space to OpenGL clip space

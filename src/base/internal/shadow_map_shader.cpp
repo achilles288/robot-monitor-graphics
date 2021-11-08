@@ -35,12 +35,12 @@ ShadowMapShader::ShadowMapShader() {
     cameraPosition = Vec3(0, 0, 0);
     cameraDirection = Vec3(1, 0, 0);
     lightDirection = Vec3(1, 0, 0);
-    near = 1.0f;
-    far = 10.0f;
-    mapCenterDist = near + SHADOW_COVERAGE * (far-near)/2;
+    nearDist = 1.0f;
+    farDist = 10.0f;
+    mapCenterDist = nearDist + SHADOW_COVERAGE * (farDist-nearDist)/2;
     calculateShadowMapperTranslation();
     shadowMapper.setFieldOfView(
-        SHADOW_MAP_ASPECT * SHADOW_COVERAGE * (far-near)
+        SHADOW_MAP_ASPECT * SHADOW_COVERAGE * (farDist-nearDist)
     );
 }
 
@@ -61,7 +61,7 @@ void ShadowMapShader::calculateShadowMapperTranslation() {
     Vec3 pos =
         cameraPosition + 
         mapCenterDist * cameraDirection -
-        SHADOW_COVERAGE * (far-near) * lightDirection;
+        SHADOW_COVERAGE * (farDist-nearDist) * lightDirection;
     
     shadowMapper.setTranslation(pos);
 }
@@ -115,13 +115,13 @@ void ShadowMapShader::setCameraRotation(Euler rot) {
  * @param n Minimum clipping distance
  */
 void ShadowMapShader::setMinimumDistance(float n) {
-    near = n;
-    mapCenterDist = n + SHADOW_COVERAGE * (far-n)/2;
+    nearDist = n;
+    mapCenterDist = n + SHADOW_COVERAGE * (farDist-n)/2;
     calculateShadowMapperTranslation();
     shadowMapper.setFieldOfView(
-        SHADOW_MAP_ASPECT * SHADOW_COVERAGE * (far-n)
+        SHADOW_MAP_ASPECT * SHADOW_COVERAGE * (farDist-n)
     );
-    shadowMapper.setMaximumDistance(2 * SHADOW_COVERAGE * (far-n));
+    shadowMapper.setMaximumDistance(2 * SHADOW_COVERAGE * (farDist-n));
 }
 
 /**
@@ -130,13 +130,13 @@ void ShadowMapShader::setMinimumDistance(float n) {
  * @param f Maximum clipping distance
  */
 void ShadowMapShader::setMaximumDistance(float f) {
-    far = f;
-    mapCenterDist = near + SHADOW_COVERAGE * (f-near)/2;
+    farDist = f;
+    mapCenterDist = nearDist + SHADOW_COVERAGE * (f-nearDist)/2;
     calculateShadowMapperTranslation();
     shadowMapper.setFieldOfView(
-        SHADOW_MAP_ASPECT * SHADOW_COVERAGE * (f-near)
+        SHADOW_MAP_ASPECT * SHADOW_COVERAGE * (f-nearDist)
     );
-    shadowMapper.setMaximumDistance(2 * SHADOW_COVERAGE * (f-near));
+    shadowMapper.setMaximumDistance(2 * SHADOW_COVERAGE * (f-nearDist));
 }
 
 /**

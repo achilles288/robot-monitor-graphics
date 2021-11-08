@@ -62,8 +62,8 @@ class RMG_API Camera {
     Mat4 projectionMatrix;
     Mat4 VPMatrix;
     float aspect;
-    float near;
-    float far;
+    float nearDist;
+    float farDist;
     ProjectionMode projectionMode;
     
   public:
