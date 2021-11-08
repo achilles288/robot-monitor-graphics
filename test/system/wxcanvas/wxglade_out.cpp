@@ -25,7 +25,7 @@ MyFrame::MyFrame(wxWindow* parent, wxWindowID id, const wxString& title, const w
     SetSize(wxSize(800, 450));
     SetTitle(wxT("wxCanvas Test"));
     wxIcon _icon;
-    _icon.CopyFromBitmap(wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/rmg-app.png")));
+    _icon.CopyFromBitmap(wxBitmap(wxT(RMG_RESOURCE_PATH "/icons/rmg-app.png"), wxBITMAP_TYPE_PNG));
     SetIcon(_icon);
     frame_menubar = new wxMenuBar();
     menuFile = new wxMenu();
@@ -109,7 +109,7 @@ MyFrame::MyFrame(wxWindow* parent, wxWindowID id, const wxString& title, const w
     sizerEditorWidgets->Add(sizer_4, 1, wxEXPAND, 0);
     wxStaticText* label_1 = new wxStaticText(this, wxID_ANY, wxT("x"));
     sizer_4->Add(label_1, 0, 0, 0);
-    spin_ctrl_double_1 = new wxSpinCtrlDouble(this, wxID_ANY, wxT("0"), wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0.0, 100.0);
+    spin_ctrl_double_1 = new wxSpinCtrlDouble(this, wxID_ANY, wxT("0.0"), wxDefaultPosition, wxDefaultSize, wxSP_ARROW_KEYS, 0.0, 100.0);
     spin_ctrl_double_1->SetDigits(2);
     sizer_4->Add(spin_ctrl_double_1, 0, 0, 0);
     wxBoxSizer* sizer_5 = new wxBoxSizer(wxHORIZONTAL);
