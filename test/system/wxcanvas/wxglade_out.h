@@ -18,6 +18,7 @@
 #include <wx/image.h>
 
 // begin wxGlade: ::dependencies
+#include <wx/spinctrl.h>
 // end wxGlade
 
 // begin wxGlade: ::extracode
@@ -59,6 +60,9 @@ protected:
     wxBitmapButton* btnLighting;
     MyGLCanvas* canvas;
     wxBoxSizer* sizerEditorWidgets;
+    wxSpinCtrlDouble* spin_ctrl_double_1;
+    wxSpinCtrlDouble* spin_ctrl_double_2;
+    wxSpinCtrlDouble* spin_ctrl_double_3;
     // end wxGlade
 
     DECLARE_EVENT_TABLE();
