@@ -126,13 +126,13 @@ TEST(Object3D, transform) {
     
     Mat4 M = obj1.getModelMatrix();
     ASSERT_NEAR(-1.1778f, M[0][0], 0.0001f);
-    ASSERT_NEAR(-1.2393f, M[0][1], 0.0001f);
-    ASSERT_NEAR(-0.0327f, M[0][2], 0.0001f);
-    ASSERT_NEAR( 0.2247f, M[1][0], 0.0001f);
+    ASSERT_NEAR(-0.5725f, M[0][1], 0.0001f);
+    ASSERT_NEAR(-0.0096f, M[0][2], 0.0001f);
+    ASSERT_NEAR( 0.4863f, M[1][0], 0.0001f);
     ASSERT_NEAR(-0.2326f, M[1][1], 0.0001f);
-    ASSERT_NEAR( 0.7208f, M[1][2], 0.0001f);
-    ASSERT_NEAR(-0.3334f, M[2][0], 0.0001f);
-    ASSERT_NEAR( 0.3115f, M[2][1], 0.0001f);
+    ASSERT_NEAR( 0.4562f, M[1][2], 0.0001f);
+    ASSERT_NEAR(-1.1403f, M[2][0], 0.0001f);
+    ASSERT_NEAR( 0.4922f, M[2][1], 0.0001f);
     ASSERT_NEAR( 0.2044f, M[2][2], 0.0001f);
     
     Object3D obj2 = Object3D(&ctx);
@@ -141,13 +141,13 @@ TEST(Object3D, transform) {
     
     M = obj2.getModelMatrix();
     ASSERT_NEAR(-0.1430f, M[0][0], 0.0001f);
-    ASSERT_NEAR(-0.4761f, M[0][1], 0.0001f);
-    ASSERT_NEAR(-1.8131f, M[0][2], 0.0001f);
-    ASSERT_NEAR(-0.4996f, M[1][0], 0.0001f);
+    ASSERT_NEAR(-0.3014f, M[0][1], 0.0001f);
+    ASSERT_NEAR(-2.4110f, M[0][2], 0.0001f);
+    ASSERT_NEAR(-0.7893f, M[1][0], 0.0001f);
     ASSERT_NEAR( 1.0537f, M[1][1], 0.0001f);
-    ASSERT_NEAR(-0.2373f, M[1][2], 0.0001f);
-    ASSERT_NEAR( 2.2610f, M[2][0], 0.0001f);
-    ASSERT_NEAR( 0.9743f, M[2][1], 0.0001f);
+    ASSERT_NEAR(-0.4985f, M[1][2], 0.0001f);
+    ASSERT_NEAR( 1.7003f, M[2][0], 0.0001f);
+    ASSERT_NEAR( 0.4638f, M[2][1], 0.0001f);
     ASSERT_NEAR(-0.4342f, M[2][2], 0.0001f);
 }
 

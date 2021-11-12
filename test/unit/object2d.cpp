@@ -85,15 +85,25 @@ TEST(Object2D, size) {
  */
 TEST(Object2D, transform) {
     Context ctx = Context();
-    Object2D obj = Object2D(&ctx);
-    obj.setRotation(0.99f);
-    obj.setSize(64.3f, 200.1f);
+    Object2D obj1 = Object2D(&ctx);
+    obj1.setRotation(0.99f);
+    obj1.setSize(64.3f, 200.1f);
     
-    Mat3 M = obj.getModelMatrix();
-    ASSERT_NEAR( 35.2808f, M[0][0], 0.0001f);
-    ASSERT_NEAR( -0.8360f, M[0][1], 0.0001f);
-    ASSERT_NEAR(  0.8360f, M[1][0], 0.0001f);
-    ASSERT_NEAR(109.7928f, M[1][1], 0.0001f);
+    Mat3 M = obj1.getModelMatrix();
+    ASSERT_NEAR(  35.2808f, M[0][0], 0.0001f);
+    ASSERT_NEAR(-167.2888f, M[0][1], 0.0001f);
+    ASSERT_NEAR(  53.7565f, M[1][0], 0.0001f);
+    ASSERT_NEAR( 109.7928f, M[1][1], 0.0001f);
+    
+    Object2D obj2 = Object2D(&ctx);
+    obj2.setSize(85.5f, 60.2f);
+    obj2.setRotation(-0.74f);
+    
+    M = obj2.getModelMatrix();
+    ASSERT_NEAR( 63.1391f, M[0][0], 0.0001f);
+    ASSERT_NEAR( 40.5921f, M[0][1], 0.0001f);
+    ASSERT_NEAR(-57.6516f, M[1][0], 0.0001f);
+    ASSERT_NEAR( 44.4558f, M[1][1], 0.0001f);
 }
 
 

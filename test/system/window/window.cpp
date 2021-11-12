@@ -66,7 +66,7 @@ class TestWindow: public Window {
         teapot->setColor(0, 1.0f, 0.3f);
         teapot->setRoughness(0.25f);
         teapot->setTranslation(2, 3.464f, 3);
-        teapot->setScale(2.5f);
+        teapot->setScale(2.5f, 2, 2.5f);
         addObject(floor);
         addObject(cube);
         addObject(cylinder);
@@ -77,9 +77,9 @@ class TestWindow: public Window {
         sprite1 = new Sprite2D(this, RMG_RESOURCE_PATH "/icons/rmg-app.png");
         sprite1->setAlignment(Alignment::BottomLeft);
         sprite1->setTranslation(48, -48);
-        sprite2 = new Sprite2D(this, RMGTEST_RESOURCE_PATH "/wine.png");
+        sprite2 = new Sprite2D(this, RMG_RESOURCE_PATH "/test/wine.png");
         sprite2->setAlignment(Alignment::BottomRight);
-        sprite2->setTranslation(-32, -48);
+        sprite2->setTranslation(-48, -48);
         addObject(sprite1);
         addObject(sprite2);
     }
@@ -102,6 +102,7 @@ class TestWindow: public Window {
         sphere->setRotation(-1.0f, 0.8f*t, -1.2f*t);
         sphere->setTranslation(-0.5f, -0.5f, 3.1f+2*cos(3*t));
         teapot->setRotation(0, 0, 0.4f*t);
+        sprite2->setRotation(0.45f*t);
         
         bool move = false;
         if(keyW || keyA || keyS || keyD || keyF || keyG)

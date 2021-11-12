@@ -76,7 +76,6 @@ add_definitions(
     /wd4098
     /wd4217
     /wd4244
-    /wd4251
     /wd4267
     /wd4273
 )
