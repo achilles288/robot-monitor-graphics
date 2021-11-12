@@ -155,9 +155,9 @@ void Object2DShader::render(const std::map<uint64_t, Object2D*> &list) {
     
     for(auto it=list.begin(); it!=list.end(); it++) {
         Object2D* obj = it->second;
-        int16_t zOrder = -2 * obj->getZOrder();
+        int16_t zOrder = 2 * obj->getZOrder();
         if(obj->getObject2DType() == Object2DType::Text)
-            zOrder += 1;;
+            zOrder += 1;
         auto elem = std::pair<int16_t,Object2D*>(zOrder,obj);
         sorted.insert(elem);
     }

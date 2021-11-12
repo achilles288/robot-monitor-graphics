@@ -121,8 +121,8 @@ Vec2 Object2D::getTranslation() const {
 void Object2D::setRotation(float t) {
     rotation = t;
     modelMatrix[0][0] = cos(t) * size.x;
-    modelMatrix[0][1] = -sin(t);
-    modelMatrix[1][0] = sin(t);
+    modelMatrix[0][1] = -sin(t) * size.y;
+    modelMatrix[1][0] = sin(t) * size.x;
     modelMatrix[1][1] = cos(t) * size.y;
 }
 
@@ -143,6 +143,8 @@ void Object2D::setSize(float w, float h) {
     size.x = w;
     size.y = h;
     modelMatrix[0][0] = cos(rotation) * w;
+    modelMatrix[0][1] = -sin(rotation) * h;
+    modelMatrix[1][0] = sin(rotation) * w;
     modelMatrix[1][1] = cos(rotation) * h;
 }
 
