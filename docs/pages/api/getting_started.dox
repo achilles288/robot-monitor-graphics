@@ -1,37 +1,18 @@
 /*! \page getting_started Getting Started
  * 
  * <h1>Contents</h1>
+ * - \subpage install
  * - \ref tutorial0
  * - \subpage tutorial1
  * - \subpage tutorial2
- * - \subpage tutorial3
  * 
  * <h1>Installation</h1>
  * 
  * \par
- * This shows how you get the RMGraphics library and its dependencies.
- * 
- * <h2>Prequisties</h2>
- * 
- * \par
- * You will need the following setup and dependencies for installation.
- * 
- * - Any GPU that supports OpenGL 3.2
- * - OpenGL Extension Wrangler (GLEW)
- * - GLFW library
- * - wxWidgets 3.1 for GUI (optional)
- * 
- * \par
- * If you are contributing the source code and documentation, you need the
- * following additional components
- * 
- * - CMake
- * - Doxygen, Dot and Dia for documentation
- * 
- * <h2>Installation</h2>
- * 
- * \par
- * Here are guidelines for your specific OS.
+ * RMGraphics headers, libraries and resource must be available in order to
+ * build the applications using it, so the first step when starting to user
+ * RMGraphics is to install it. This can be done by building it from source or
+ * pre-built binary packages.
  * 
  * - \ref install_windows
  * - \ref install_ubuntu

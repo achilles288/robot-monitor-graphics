@@ -1,29 +1,35 @@
 /*! \page install Installation
  * 
  * \par
- * This shows how you get the RMGraphics library and its dependencies.
+ * RMGraphics headers, libraries and resource must be available in order to
+ * build the applications using it, so the first step when starting to user
+ * RMGraphics is to install it. This can be done by building it from source or
+ * pre-built binary packages.
  * 
- * <h2>Prequisties</h2>
- * 
- * \par
- * You will need the following setup and dependencies for installation.
- * 
- * - Any GPU that supports OpenGL 3.2
- * - OpenGL Extension Wrangler (GLEW)
- * - GLFW library
- * - wxWidgets 3.1 for GUI (optional)
+ * <h1>Building from Source</h1>
  * 
  * \par
- * If you are contributing the source code and documentation, you need the
- * following additional components
+ * To build the library, the users have to get the source code first.
  * 
- * - CMake
- * - Doxygen, Dot and Dia for documentation
+ * <blockquote>
+ * git clone \-\-recurse-submodules
+ * https://github.com/khantkyawkhaung/robot-monitor-graphics.git
+ * </blockquote>
  * 
- * <h2>Installation</h2>
+ * <h2>Dependency</h2>
  * 
  * \par
- * Here are guidelines for your specific OS.
+ * In order to build the library, the following packages are needed.
+ * 
+ * - GLFW
+ * - wxWidgets 3.1
+ * - libpng
+ * - libtiff
+ * 
+ * <h1>Binary Packages</h1>
+ * 
+ * There are packages of RMGraphics developement files already built for
+ * different platforms.
  * 
  * - \subpage install_windows
  * - \subpage install_ubuntu

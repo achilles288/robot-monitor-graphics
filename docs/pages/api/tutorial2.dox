@@ -1,3 +1,59 @@
 /*! \page tutorial2 Rendering And Manipulating 3D Shapes
- *  
+ * 
+ * \image html component.svg
+ * \image latex pdf/component.pdf "Component diagram" width=3.59in
+ * 
+ * \par
+ * Inside the Context class there are only two main parts, the object and
+ * texture list and the world model which includes the conditions of the world
+ * like background color, lighting models, window size and camera settings.
+ * Everything else is what stays inside the world and they are said to be parts
+ * of the object and texture list. 
+ * 
+ * <h1>The World Model</h1>
+ * 
+ * \par
+ * In the previous tutorial, there is almost nothing about the world model.
+ * First, copy the code and try to run it.
+ * 
+ * \include tutorial2.cpp
+ * 
+ * \image html tutorial_2a.png
+ * \image latex pdf/tutorial_2a.pdf "Default camera view" width=2.094in
+ * 
+ * \par
+ * The 3D objects are located at a position of x=10. There is no transformation
+ * in the world model in the code. As we see in the image, both lighting and
+ * camera are directed along the x-axis by default. We can change those camera
+ * and lighting angles to get a better image of the objects. Camera rotations,
+ * object rotations and lighting angles are all in Euler angles.
+ * 
+ * \par
+ * Try these transformations and see the result.
+ * 
+ * \code
+ * setCameraTranslation(4, -6, 6);
+ * setCameraRotation(0, radian(30), radian(45));
+ * setDirectionalLightAngles(radian(45), radian(30));
+ * \endcode
+ * 
+ * \image html tutorial_2b.png
+ * \image latex pdf/tutorial_2b.pdf "Orthographic view" width=2.094in
+ * 
+ * \par
+ * The camera projection is orthographic by default. There is another option
+ * which is the perspective projection.
+ * 
+ * \code
+ * setPerspectiveProjection(radian(40), 1.0f, 40.0f);
+ * \endcode
+ * 
+ * \image html tutorial_2c.png
+ * \image latex pdf/tutorial_2c.pdf "Perspective view" width=2.094in
+ * 
+ * <h1>Animating the 3D Objects</h1>
+ * 
+ * \par
+ * You can try the transformation of 3D objects in a similar way you did in
+ * the previous tutorial.
  */

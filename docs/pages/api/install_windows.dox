@@ -1,3 +1,77 @@
 /*! \page install_windows Installation On Windows
- *  
+ * 
+ * <h1>Download</h1>
+ * 
+ * \par
+ * The package of RMGraphics developement files for Microsoft Windows can be
+ * downloaded from the following link.
+ * 
+ * - https://sourceforge.net/projects/robot-monitor-graphics
+ * 
+ * <h1>Configuration on Visual Studio</h1>
+ * 
+ * \par
+ * The downloaded contents can be kept anywhere the users wishes. Here, these
+ * contents are copied to the path
+ * <b>C:/developement/robot-monitor-graphics</b>.
+ * Whenever a project using RMGraphics is created, the external header files
+ * and libraries are needed to be set up.
+ * 
+ * \par
+ * After creating a blank project, create a new C++ file and go to project
+ * properties and set the directory where the RMGraphics headers are installed.
+ * 
+ * <blockquote>
+ * Project > Properties > C/C++ > General
+ * </blockquote>
+ * 
+ * \image html tutorial_msvc_1.png
+ * \image latex pdf/tutorial_msvc_1.pdf "Include directory" width=4.062in
+ * 
+ * \par
+ * Next, the additional link directory and libraries are added and the project
+ * can be compiled.
+ * 
+ * <blockquote>
+ * Project > Properties > Link > General
+ * </blockquote>
+ * 
+ * \image html tutorial_msvc_2.png
+ * \image latex pdf/tutorial_msvc_2.pdf "Link directory" width=4.062in
+ * 
+ * \par
+ * For additional libraries to link. (rmgwindows can be replaced with rmgwx for
+ * projects that integrate with wxWidgets)
+ * 
+ * <blockquote>
+ * Project > Properties > Link > Input
+ * </blockquote>
+ * 
+ * \image html tutorial_msvc_3.png
+ * \image latex pdf/tutorial_msvc_3.pdf "Link libraries" width=4.062in
+ * 
+ * \par
+ * Copy the source code shown below to the C++ file and try to compile it.
+ * 
+ * \include tutorial0.cpp
+ * 
+ * \par
+ * Before running the compiled code, copy some of the contents from the
+ * <b>bin</b> folder of the installed package to the same directory as the
+ * executable file.
+ * 
+ * \image html tutorial_msvc_4.png
+ * \image latex pdf/tutorial_msvc_4.pdf "Copying files" width=4.167in
+ * 
+ * \par
+ * Now, the code can be successfully executed.
+ * 
+ * \image html tutorial_0.png
+ * \image latex pdf/tutorial_0.pdf "Rendering a teapot" width=2.094in
+ * 
+ * \htmlonly
+ * <a class="next-article-link" href="tutorial1.html">
+ * Next: Rendering And Manipulating 2D Sprites
+ * </a>
+ * \endhtmlonly
  */

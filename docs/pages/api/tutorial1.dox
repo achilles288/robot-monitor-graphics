@@ -1,3 +1,148 @@
 /*! \page tutorial1 Rendering And Manipulating 2D Sprites
- *  
+ * 
+ * <h1>Creating a Window</h1>
+ * 
+ * \par
+ * The graphical contexts in RMGraphics use object-oriented programming
+ * approach. Hence, a custom Context class is required for the work.
+ * 
+ * \code
+ * #include <rmg/window.hpp>
+ * 
+ * using namespace rmg;
+ * 
+ * class MyWindow : public Window {
+ *   public:
+ *     MyWindow() {
+ *         setBackgroundColor(0.847f, 0.949f, 1.0f);
+ *     }
+ *     
+ *     void update() override {}
+ * };
+ * 
+ * 
+ * int main() {
+ *     Window *window = new MyWindow();
+ *     window->setWindowSize(400, 240);
+ *     Window::mainLoop();
+ *     int err = 0;
+ *     if(window->getErrorCode() != 0)
+ *         err = 1;
+ *     delete window;
+ *     exit(err);
+ * }
+ * \endcode
+ * 
+ * \par
+ * When the compiled code is executed, the output can be seen as follow.
+ * 
+ * \image html tutorial_1a.png
+ * \image latex pdf/tutorial_1a.pdf "Basic window" width=2.094in
+ * 
+ * <h1>Adding a Sprite</h1>
+ * 
+ * \code
+ * #include <rmg/config.hpp>
+ * #include <rmg/sprite.hpp>
+ * \endcode
+ * 
+ * \par
+ * To start using 2D sprite images, the header file for the sprites is to be
+ * used. The other header file is to access to the library's built-in images.
+ * The sprite to be used is declared under MyWindow class.
+ * 
+ * \code
+ * private:
+ *   Sprite2D *robot;
+ * \endcode
+ * 
+ * \par
+ * Inside MyWindow constructor, the sprite object is constructed.
+ *
+ * \code
+ * robot = new Sprite2D(this, RMG_RESOURCE_PATH "/icons/rmg-app.png");
+ * \endcode
+ * 
+ * \par
+ * The second parameter of Sprite2D constructor is a string which is the path
+ * of the image file. The macro RMG_RESOURCE_PATH leads to the library'same
+ * built-in resource.
+ * 
+ * \par
+ * Different types of transformation, translation, size and rotation can be
+ * done before being display. The unit of translation and size are in pixels
+ * and the rotation is in radian.
+ * 
+ * \code
+ * robot->setTranslation(-20, 0);
+ * robot->setSize(100, 100);
+ * robot->setRotation(-0.57f);
+ * \endcode
+ * 
+ * \par
+ * To display the sprite, this one more line is added.
+ * 
+ * \code
+ * addObject(robot);
+ * \endcode
+ * 
+ * \image html tutorial_1b.png
+ * \image latex pdf/tutorial_1b.pdf "Tilted robot head" width=2.094in
+ * 
+ * <h1>Object Alignment</h1>
+ * 
+ * \par
+ * 2D objects are displayed at the center by default. Instead of the objects
+ * being displayed at the center, they can be set to be displayed at the top,
+ * left, right or bottom by setting the alignment attribute of Object2D.
+ * 
+ * \code
+ * private:
+ *   Sprite2D *robot, *wine;
+ * \endcode
+ * 
+ * \code
+ * wine = new Sprite2D(this, RMG_RESOURCE_PATH "/test/wine.png");
+ * wine->setAlignment(Alignment::BottomLeft);
+ * wine->setTranslation(60, -50);
+ * addObject(wine);
+ * \endcode
+ * 
+ * \image html tutorial_1c.png
+ * \image latex pdf/tutorial_1c.pdf "Tilted robot head and wine" width=2.094in
+ * 
+ * <h1>Animating the 2D Objects</h1>
+ * 
+ * \par
+ * After initializing the graphical objects, responses to user actions or time
+ * is to be done. Animation means the object transforms with respect to the
+ * time elasped. In the RMGraphics Context class, there are event functions
+ * such as update, onMouseClick, onKeyPress defined as virtual functions which
+ * means users have to override these functions in their derived classes in
+ * order to use such event functions. Here, we will be focusing on the update
+ * one which runs for every frame refresh. Inside the function, the time
+ * elasped running the application can be extracted and use the value in
+ * transformations.
+ * 
+ * \code
+ * void update() override {
+ *     float t = getTime();
+ *     robot->setRotation(0.4f*t);
+ *     wine->setTranslation(60, -96+32*cos(t));
+ * }
+ * \endcode
+ * 
+ * \par
+ * Try running the code and you will see the wine and robot head animating.
+ * 
+ * \par
+ * This is the full source code for this tutorial.
+ * 
+ * \include tutorial1.cpp
+ * 
+ * \htmlonly
+ * <a class="next-article-link" href="tutorial2.html">
+ * Next: Rendering And Manipulating 3D Shapes
+ * </a>
+ * \endhtmlonly
  */

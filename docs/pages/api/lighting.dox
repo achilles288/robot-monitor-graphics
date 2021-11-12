@@ -1,2 +1,19 @@
 /*! \page lighting Lighting Model
+ * 
+ * <h1>Diffuse Lighting</h1>
+ * 
+ * \par
+ * Diffuse lighting gives the object more brightness the closer its fragments
+ * are aligned to the light rays from a light source.
+ * 
+ * <h1>Specular Lighting</h1>
+ * 
+ * \par
+ * Similar to diffuse lighting, specular lighting is based on the light's
+ * direction vector and the object's normal vectors, but this time it is also
+ * based on the view direction e.g. from what direction the player is looking
+ * at the fragment. Specular lighting is based on the reflective properties of
+ * surfaces. If we think of the object's surface as a mirror, the specular
+ * lighting is the strongest wherever we would see the light reflected on the
+ * surface.
  */

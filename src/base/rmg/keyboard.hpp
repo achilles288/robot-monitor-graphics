@@ -17,12 +17,12 @@
 #ifndef RMG_API
 #ifdef _WIN32
 #ifdef RMG_EXPORT
-#define RMG_API __declspec(dllexport)
+#define RMG_API __declspec(dllexport) ///< RMG API
 #else
-#define RMG_API __declspec(dllimport)
+#define RMG_API __declspec(dllimport) ///< RMG API
 #endif
 #else
-#define RMG_API
+#define RMG_API ///< RMG API
 #endif
 #endif
 

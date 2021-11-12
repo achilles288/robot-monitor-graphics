@@ -1,3 +1,49 @@
 /*! \page install_ubuntu Installation On Ubuntu
- *  
+ * 
+ * <h1>Adding PPA to System</h1>
+ * 
+ * \par
+ * Adding the RMGraphics' PPA to the your system, you can keep the
+ * development files updated.
+ * 
+ * <blockquote>
+ * sudo add-apt-repository ppa:achilles288/robot-monitor
+ * </blockquote>
+ * <blockquote>
+ * sudo apt-get update
+ * </blockquote>
+ * 
+ * \par
+ * After that, the RMGraphics package can be installed
+ * 
+ * <blockquote>
+ * sudo apt-get install rmg1-dev
+ * </blockquote>
+ * 
+ * <h1>Trying the Library Package</h1>
+ * 
+ * \par
+ * Save this code with some name in some directory. (demo.cpp)
+ * 
+ * \include tutorial0.cpp
+ * 
+ * \par
+ * The above code can be compiled with the following command in which the
+ * include directory and library name are given by <b>pkg-config</b>.
+ * 
+ * <blockquote>
+ * g++ demo.cpp \`pkg-config --libs rmg\` \`pkg-config --cxxflags rmg\` -o demo
+ * </blockquote>
+ * 
+ * \par
+ * Now, the code can be successfully executed.
+ * 
+ * \image html tutorial_0.png
+ * \image latex pdf/tutorial_0.pdf "Rendering a teapot" width=2.094in
+ * 
+ * \htmlonly
+ * <a class="next-article-link" href="tutorial1.html">
+ * Next: Rendering And Manipulating 2D Sprites
+ * </a>
+ * \endhtmlonly
  */
