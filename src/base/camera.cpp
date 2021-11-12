@@ -33,10 +33,12 @@ static const Mat4 adjust1 = {
 Camera::Camera() {
     viewMatrix = adjust1;
     aspect = 1.0f;
+    fov1 = 0.785398f;
+    fov2 = 10.0f;
     nearDist = 1.0f;
-    farDist = 10.0f;
-    projectionMode = ProjectionMode::Orthographic;
-    setPerspectiveProjection();
+    farDist = 100.0f;
+    projectionMode = ProjectionMode::Null;
+    setOrthographicProjection();
 }
 
 /**
@@ -152,7 +154,7 @@ void Camera::setPerspectiveProjection() {
     if(projectionMode == ProjectionMode::Perspective)
         return;
     projectionMode = ProjectionMode::Perspective;
-    float d = 2.414f;
+    float d = 1/tan(fov1/2);
     float A = -farDist/(farDist-nearDist);
     float B = -(nearDist*farDist)/(farDist-nearDist);
     /**
@@ -184,6 +186,7 @@ void Camera::setPerspectiveProjection() {
  */
 void Camera::setPerspectiveProjection(float fov, float n, float f) {
     projectionMode = ProjectionMode::Perspective;
+    fov1 = fov;
     nearDist = n;
     farDist = f;
     float d = 1/tan(fov/2);
@@ -214,7 +217,7 @@ void Camera::setOrthographicProjection() {
     if(projectionMode == ProjectionMode::Orthographic)
         return;
     projectionMode = ProjectionMode::Orthographic;
-    float s = 0.2f;
+    float s = 2/fov2;
     float A = -1/(farDist-nearDist);
     float B = -nearDist/(farDist-nearDist);
     /**
@@ -246,6 +249,7 @@ void Camera::setOrthographicProjection() {
  */
 void Camera::setOrthographicProjection(float fov, float n, float f) {
     projectionMode = ProjectionMode::Orthographic;
+    fov2 = fov;
     nearDist = n;
     farDist = f;
     float s = 2/fov;

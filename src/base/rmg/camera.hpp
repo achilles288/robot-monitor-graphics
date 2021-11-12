@@ -44,7 +44,8 @@ namespace rmg {
  */
 enum class ProjectionMode {
     Perspective,
-    Orthographic
+    Orthographic,
+    Null
 };
 
 /**
@@ -62,6 +63,8 @@ class RMG_API Camera {
     Mat4 projectionMatrix;
     Mat4 VPMatrix;
     float aspect;
+    float fov1;
+    float fov2;
     float nearDist;
     float farDist;
     ProjectionMode projectionMode;
