@@ -38,7 +38,7 @@ struct Vec4;
 /**
  * @brief 4D vector
  */
-struct Vec4 {
+struct RMG_API Vec4 {
     /**
      * @brief To access data as xyzw or array
      */
@@ -99,7 +99,7 @@ struct Vec4 {
      * 
      * @return Unit vector
      */
-    RMG_API Vec4 normalize() const;
+    Vec4 normalize() const;
     
     /**
      * @brief Gets the magnitude or length of the vector
@@ -189,7 +189,7 @@ struct Vec4 {
  * 
  * @return Multiplied vector
  */
-Vec4 operator * (float f, const Vec4 &v);
+RMG_API Vec4 operator * (float f, const Vec4 &v);
 
 /**
  * @brief Prints a vector
@@ -209,8 +209,14 @@ RMG_API std::ostream& operator << (std::ostream& os, const Vec4& v);
 
 namespace std {
 
+/**
+ * @brief Hash code for 4D vector values
+ */
 template<>
 struct RMG_API hash<rmg::Vec4> {
+    /**
+     * @brief Hashes the 4D vector values
+     */
     size_t operator () (const rmg::Vec4& v) const noexcept {
         size_t seed = 0;
         seed ^= std::hash<float>{}(v.x) + 0x9e3779b9 + (seed<<6) + (seed>>2);

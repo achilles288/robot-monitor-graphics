@@ -36,7 +36,7 @@ namespace rmg {
  * 
  * @return Reference of passed output stream
  */
-std::ostream& operator << (std::ostream& os, const Rect& rect) {
+RMG_API std::ostream& operator << (std::ostream& os, const Rect& rect) {
     return os << '(' << rect.x << ", " << rect.y << ')';
 }
 
@@ -48,7 +48,7 @@ std::ostream& operator << (std::ostream& os, const Rect& rect) {
  * 
  * @return Reference of passed output stream
  */
-std::ostream& operator << (std::ostream& os, const Vec2& v) {
+RMG_API std::ostream& operator << (std::ostream& os, const Vec2& v) {
     os << '(';
     char buff[11];
     
@@ -75,7 +75,7 @@ std::ostream& operator << (std::ostream& os, const Vec2& v) {
  * 
  * @return Reference of passed output stream
  */
-std::ostream& operator << (std::ostream& os, const Vec3& v) {
+RMG_API std::ostream& operator << (std::ostream& os, const Vec3& v) {
     os << '(';
     for(int i=0; ; i++) {
         char buff[11];
@@ -101,7 +101,7 @@ std::ostream& operator << (std::ostream& os, const Vec3& v) {
  * 
  * @return Reference of passed output stream
  */
-std::ostream& operator << (std::ostream& os, const Vec4& v) {
+RMG_API std::ostream& operator << (std::ostream& os, const Vec4& v) {
     os << '(';
     for(int i=0; ; i++) {
         char buff[11];
@@ -130,7 +130,7 @@ std::ostream& operator << (std::ostream& os, const Vec4& v) {
  * 
  * @return Reference of passed output stream
  */
-std::ostream& operator << (std::ostream& os, const Euler& euler) {
+RMG_API std::ostream& operator << (std::ostream& os, const Euler& euler) {
     const float *data = &euler.roll;
     os << '(';
     for(int i=0; ; i++) {
@@ -167,7 +167,7 @@ namespace rmg {
  * 
  * @return Reference of passed output stream
  */
-std::ostream& operator << (std::ostream& os, const Mat3& M) {
+RMG_API std::ostream& operator << (std::ostream& os, const Mat3& M) {
     printMatrix(os, &M.data[0][0], 3, 3);
     return os;
 }
@@ -180,7 +180,7 @@ std::ostream& operator << (std::ostream& os, const Mat3& M) {
  * 
  * @return Reference of passed output stream
  */
-std::ostream& operator << (std::ostream& os, const Mat4& M) {
+RMG_API std::ostream& operator << (std::ostream& os, const Mat4& M) {
     printMatrix(os, &M.data[0][0], 4, 4);
     return os;
 }

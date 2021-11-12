@@ -40,7 +40,7 @@ struct Vec4;
 /**
  * @brief 2D vector to represent a 2D-point or a rectangular dimension
  */
-struct Vec2 {
+struct RMG_API Vec2 {
     /**
      * @brief To access data as xy or array
      */
@@ -191,7 +191,7 @@ struct Vec2 {
  * 
  * @return Multiplied vector
  */
-Vec2 operator * (float f, const Vec2 &v);
+RMG_API Vec2 operator * (float f, const Vec2 &v);
 
 /**
  * @brief Prints a vector
@@ -209,7 +209,7 @@ RMG_API std::ostream& operator << (std::ostream& os, const Vec2& v);
 /**
  * @brief A rectangular dimension or 2D point of screen coordinates
  */
-struct Rect {
+struct RMG_API Rect {
     uint16_t x; ///< X-coordinate
     uint16_t y; ///< Y-coordinate
     
@@ -247,8 +247,14 @@ RMG_API std::ostream& operator << (std::ostream& os, const Rect& rect);
 
 namespace std {
 
+/**
+ * @brief Hash code for 2D vector values
+ */
 template<>
 struct hash<rmg::Vec2> {
+    /**
+     * @brief Hashes the 2D vector values
+     */
     size_t operator () (const rmg::Vec2& v) const noexcept {
         size_t seed = 0;
         seed ^= std::hash<float>{}(v.x) + 0x9e3779b9 + (seed<<6) + (seed>>2);

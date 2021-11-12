@@ -38,7 +38,7 @@ namespace rmg {
  * 
  * Takes part in subscript operator and handles assertion.
  */
-struct Mat4Row {
+struct RMG_API Mat4Row {
     float data[4]; ///< Matrix cells
     
     /**

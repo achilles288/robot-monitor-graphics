@@ -40,7 +40,7 @@ struct Vec4;
 /**
  * @brief 3D vector to represent a 3D-point or a cubic dimension
  */
-struct Vec3 {
+struct RMG_API Vec3 {
     /**
      * @brief To access data as xyz or array
      */
@@ -90,7 +90,7 @@ struct Vec3 {
      * 
      * @return Unit vector
      */
-    RMG_API Vec3 normalize() const;
+    Vec3 normalize() const;
     
     /**
      * @brief Gets the magnitude or length of the vector
@@ -117,7 +117,7 @@ struct Vec3 {
      * 
      * @return Cross product
      */
-    RMG_API static Vec3 cross(const Vec3 &a, const Vec3 &b);
+    static Vec3 cross(const Vec3 &a, const Vec3 &b);
     
     /**
      * @brief Adds 2 vectors
@@ -205,7 +205,7 @@ struct Vec3 {
  * 
  * @return Multiplied vector
  */
-Vec3 operator * (float f, const Vec3 &v);
+RMG_API Vec3 operator * (float f, const Vec3 &v);
 
 /**
  * @brief Prints a vector
@@ -225,8 +225,14 @@ RMG_API std::ostream& operator << (std::ostream& os, const Vec3& v);
 
 namespace std {
 
+/**
+ * @brief Hash code for 3D vector values
+ */
 template<>
-struct hash<rmg::Vec3> {
+struct RMG_API hash<rmg::Vec3> {
+    /**
+     * @brief Hashes the 3D vector values
+     */
     size_t operator () (const rmg::Vec3& v) const noexcept {
         size_t seed = 0;
         seed ^= std::hash<float>{}(v.x) + 0x9e3779b9 + (seed<<6) + (seed>>2);
