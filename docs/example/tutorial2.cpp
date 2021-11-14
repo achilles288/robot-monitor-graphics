@@ -7,7 +7,7 @@
 using namespace rmg;
 
 
-class MyWindow : public Window {
+class MyWindow: public Window {
   private:
     Object3D *floor, *cube, *teapot;
 

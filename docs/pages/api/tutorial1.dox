@@ -11,7 +11,7 @@
  * 
  * using namespace rmg;
  * 
- * class MyWindow : public Window {
+ * class MyWindow: public Window {
  *   public:
  *     MyWindow() {
  *         setBackgroundColor(0.847f, 0.949f, 1.0f);

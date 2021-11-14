@@ -6,7 +6,7 @@
 using namespace rmg;
 
 
-class MyWindow : public Window {
+class MyWindow: public Window {
   private:
     Sprite2D *robot, *wine;
 

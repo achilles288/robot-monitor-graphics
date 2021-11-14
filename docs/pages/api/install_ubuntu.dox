@@ -32,7 +32,7 @@
  * include directory and library name are given by <b>pkg-config</b>.
  * 
  * <blockquote>
- * g++ demo.cpp \`pkg-config \-\-libs rmg\` \`pkg-config \-\-cxxflags rmg\` -o
+ * g++ demo.cpp \`pkg-config \-\-libs rmg\` \`pkg-config \-\-cflags rmg\` -o
  * demo
  * </blockquote>
  * 
