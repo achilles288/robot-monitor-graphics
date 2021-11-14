@@ -1,0 +1,31 @@
+Source: librmg
+Section: libs
+Priority: optional
+Maintainer: Khant Kyaw Khaung <khantkyawkhaung288@gmail.com>
+Build-Depends: debhelper (>=11~), g++ (>=8~), libglfw3-dev, libpng-dev, libtiff-dev, libwxgtk3.1unofficial-dev, pkg-config
+Standards-Version: 4.1.4
+
+Package: librmgbase1
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}
+Description: RMG base library
+ The base runtime library required to run RMG applications.
+
+Package: librmgwindow1
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, librmgbase1 (= ${binary:Version}), libglfw3
+Description: RMG GLFW window
+ The runtime library that allows RMG to be used within GLFW.
+
+Package: librmgwx1
+Architecture: any
+Depends: ${misc:Depends}, ${shlibs:Depends}, librmgbase1 (= ${binary:Version}), libwxgtk3.1-0-unofficial
+Description: RMG wxWidgets port
+ The runtime library that allows RMG to be used within wxWidgets.
+
+Package: librmg1-dev
+Architecture: any
+Section: devel
+Depends: ${misc:Depends}, librmgwindow1 (= ${binary:Version}), librmgwx1 (= ${binary:Version}), libglfw3-dev, libpng-dev, libtiff-dev, libwxgtk3.1unofficial-dev
+Description: RMG development files
+ Simple and quick 2D/3D graphics rendering engine with the aim for making robotic simulations.

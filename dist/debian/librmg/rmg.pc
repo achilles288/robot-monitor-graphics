@@ -1,0 +1,11 @@
+prefix=/usr
+exec_prefix=${prefix}
+libdir=${prefix}/lib/x86_64-linux-gnu
+includedir=${prefix}/include
+
+Name: rmg
+Description: Simple and quick 2D/3D graphics rendering engine
+Version: 1.0.0
+Requires:
+Libs: -L${libdir} -lrmgbase -lrmgwindow -lrmgwx
+Cflags: -I${includedir}
