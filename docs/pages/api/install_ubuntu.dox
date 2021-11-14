@@ -17,7 +17,7 @@
  * After that, the RMGraphics package can be installed
  * 
  * <blockquote>
- * sudo apt-get install rmg1-dev
+ * sudo apt-get install librmg1-dev
  * </blockquote>
  * 
  * <h1>Trying the Library Package</h1>
