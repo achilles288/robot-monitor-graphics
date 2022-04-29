@@ -5,6 +5,8 @@ all:
 	@ cp -r librmg build/deb
 	@ cp -r ../../src build/deb/librmg
 	@ cp -r ../../share build/deb/librmg
-	@ cp -r librmg/src build/deb/librmg
 	@ cp -r build/deb/librmg build/focal
 	@ cp -r build/deb/librmg build/bionic
+	@ cp -r changelog build/deb/librmg/debian/changelog
+	@ cp -r changelog.bionic build/bionic/librmg/debian/changelog
+	@ cp -r changelog.focal build/focal/librmg/debian/changelog
