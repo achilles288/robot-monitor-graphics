@@ -56,10 +56,10 @@ Mesh Cylinder3D::createMesh() {
     float imageHeight = 2*diameter + length;
     
     // Pole vertices
-    vertices[FRAGMENT_COUNT][0] = Vec3(0, 0, -length/2);
-    vertices[FRAGMENT_COUNT][1] = Vec3(0, 0, length/2);
-    normals[FRAGMENT_COUNT][0] = Vec3(0, 0, -1);
-    normals[FRAGMENT_COUNT][1] = Vec3(0, 0, 1);
+    vertices[FRAGMENT_COUNT][0] = Vec3(-length/2, 0, 0);
+    vertices[FRAGMENT_COUNT][1] = Vec3(length/2, 0, 0);
+    normals[FRAGMENT_COUNT][0] = Vec3(-1, 0, 0);
+    normals[FRAGMENT_COUNT][1] = Vec3(1, 0, 0);
     texCoords[FRAGMENT_COUNT][0].x = c1.x / imageWidth;
     texCoords[FRAGMENT_COUNT][0].y = c1.y / imageHeight;
     texCoords[FRAGMENT_COUNT][1].x = c2.x / imageWidth;
@@ -71,14 +71,14 @@ Mesh Cylinder3D::createMesh() {
         float c = cos(t);
         float s = sin(t);
         
-        vertices[i][0] = Vec3(radius*c, radius*s, -length/2);
-        vertices[i][1] = Vec3(radius*c, radius*s, -length/2);
-        vertices[i][2] = Vec3(radius*c, radius*s, length/2);
-        vertices[i][3] = Vec3(radius*c, radius*s, length/2);
-        normals[i][0] = Vec3(0, 0, -1);
-        normals[i][1] = Vec3(c, s, 0);
-        normals[i][2] = Vec3(c, s, 0);
-        normals[i][3] = Vec3(0, 0, 1);
+        vertices[i][0] = Vec3(-length/2, radius*c, radius*s);
+        vertices[i][1] = Vec3(-length/2, radius*c, radius*s);
+        vertices[i][2] = Vec3(length/2, radius*c, radius*s);
+        vertices[i][3] = Vec3(length/2, radius*c, radius*s);
+        normals[i][0] = Vec3(-1, 0, 0);
+        normals[i][1] = Vec3(0, c, s);
+        normals[i][2] = Vec3(0, c, s);
+        normals[i][3] = Vec3(1, 0, 0);
         
         texCoords[i][0] = c1 + Vec2(radius*c, radius*s);
         texCoords[i][1] = Vec2(radius*t, radius);
