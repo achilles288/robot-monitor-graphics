@@ -278,7 +278,7 @@ void wxCanvas::onWxMouseMove(wxMouseEvent& event) {
 
 void wxCanvas::onWxMouseWheel(wxMouseEvent& event) {
     if(event.GetWheelAxis() == wxMOUSE_WHEEL_VERTICAL) {
-        mouseEvent.scroll = (int8_t) event.GetWheelDelta();
+        mouseEvent.scroll = (int8_t) event.GetWheelRotation();
         onMouseWheel(mouseEvent);
     }
 }
