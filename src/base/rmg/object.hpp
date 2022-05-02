@@ -63,13 +63,11 @@ enum class ObjectType {
 class RMG_API Object {
   private:
     uint64_t id;
-    Context* context;
+    Context* context = nullptr;
     Color color;
-    bool hidden;
+    bool hidden = false;
     
     static uint64_t lastID;
-    
-    void swap(Object& x) noexcept;
     
   protected:
     /**
@@ -78,7 +76,14 @@ class RMG_API Object {
      * Determines which object list to append by the Context and which
      * method of operations by Shader(s) (internal operations).
      */
-    ObjectType type;
+    ObjectType type = ObjectType::Default;
+    
+    /**
+     * @brief Swaps the values of member variables between two objects
+     * 
+     * @param x The other object
+     */
+    void swap(Object& x) noexcept;
     
   public:
     /**

@@ -74,6 +74,13 @@ class RMG_API Object2D: public Object {
     float rotation; ///< Rotation of the object
     Vec2 size; ///< Size of the object in terms of pixels
     
+    /**
+     * @brief Swaps the values of member variables between two objects
+     * 
+     * @param x The other object
+     */
+    void swap(Object2D& x) noexcept;
+    
   public:
     /**
      * @brief Default constructor

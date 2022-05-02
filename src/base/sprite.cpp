@@ -58,8 +58,10 @@ Sprite2D::Sprite2D(Context* ctx, const Bitmap &bmp)
 Sprite2D::Sprite2D(Context* ctx, const std::string &img, const Vec2 &size)
          :Object2D(ctx)
 {
-    texture = std::make_shared<internal::Texture>(internal::Texture());
-    auto load = new internal::TextureLoad(texture.get(), img);
+    texture = new internal::Texture();
+    texShareCount = new uint8_t;
+    *texShareCount = 1;
+    auto load = new internal::TextureLoad(texture, img);
     load->setOptimize2D(true);
     texLoad = internal::ContextLoader::Pending(load);
     setSize(size);
@@ -76,8 +78,10 @@ Sprite2D::Sprite2D(Context* ctx, const std::string &img, const Vec2 &size)
 Sprite2D::Sprite2D(Context* ctx, const Bitmap &bmp, const Vec2 &size)
          :Object2D(ctx)
 {
-    texture = std::make_shared<internal::Texture>(internal::Texture());
-    auto load = new internal::TextureLoad(texture.get(), bmp);
+    texture = new internal::Texture();
+    texShareCount = new uint8_t;
+    *texShareCount = 1;
+    auto load = new internal::TextureLoad(texture, bmp);
     load->setOptimize2D(true);
     texLoad = internal::ContextLoader::Pending(load);
     setSize(size);
@@ -85,11 +89,87 @@ Sprite2D::Sprite2D(Context* ctx, const Bitmap &bmp, const Vec2 &size)
 }
 
 /**
+ * @brief Destructor
+ */
+Sprite2D::~Sprite2D() {
+    if(texture != nullptr) {
+        (*texShareCount)--;
+        if(*texShareCount == 0) {
+            delete texture;
+            delete texShareCount;
+        }
+    }
+}
+
+/**
+ * @brief Copy constructor
+ * 
+ * @param obj Source object
+ */
+Sprite2D::Sprite2D(const Sprite2D& obj)
+         :Object2D(obj)
+{
+    texture = obj.texture;
+    texShareCount = obj.texShareCount;
+    if(texShareCount != nullptr)
+        (*texShareCount)++;
+    texLoad = obj.texLoad;
+}
+
+/**
+ * @brief Move constructor
+ * 
+ * @param obj Source object
+ */
+Sprite2D::Sprite2D(Sprite2D&& obj) noexcept
+         :Object2D(obj)
+{
+    texture = std::exchange(obj.texture, nullptr);
+    texShareCount = std::exchange(obj.texShareCount, nullptr);
+    internal::ContextLoader::Pending load;
+    texLoad = std::exchange(obj.texLoad, load);
+}
+    
+/**
+ * @brief Copy assignment
+ * 
+ * @param obj Source object
+ */
+Sprite2D& Sprite2D::operator=(const Sprite2D& obj) {
+    Sprite2D tmp = Sprite2D(obj);
+    swap(tmp);
+    return *this;
+}
+
+/**
+ * @brief Move assignment
+ * 
+ * @param obj Source object
+ */
+Sprite2D& Sprite2D::operator=(Sprite2D&& obj) noexcept {
+    Sprite2D tmp = std::move(obj);
+    swap(tmp);
+    return *this;
+}
+
+/**
+ * @brief Swaps the values of member variables between two objects
+ * 
+ * @param x The other object
+ */
+void Sprite2D::swap(Sprite2D& x) noexcept {
+    std::swap(texture, x.texture);
+    std::swap(texShareCount, x.texShareCount);
+    std::swap(texLoad, x.texLoad);
+    Object2D::swap(x);
+}
+
+/**
  * @brief Gets the pointer to the texture
  * 
  * @return Pointer to the texture
  */
-const internal::Texture *Sprite2D::getTexture() const {return texture.get(); }
+const internal::Texture *Sprite2D::getTexture() const {return texture; }
 
 
 using Pending = internal::ContextLoader::Pending;

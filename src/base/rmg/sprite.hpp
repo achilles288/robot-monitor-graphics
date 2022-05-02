@@ -54,8 +54,17 @@ class Texture;
  */
 class RMG_API Sprite2D: public Object2D {
   private:
-    std::shared_ptr<internal::Texture> texture;
+    internal::Texture* texture = nullptr;
+    uint8_t* texShareCount = 0;
     internal::ContextLoader::Pending texLoad;
+    
+  protected:
+    /**
+     * @brief Swaps the values of member variables between two objects
+     * 
+     * @param x The other object
+     */
+    void swap(Sprite2D& x) noexcept;
     
   public:
     /**
@@ -96,6 +105,39 @@ class RMG_API Sprite2D: public Object2D {
      * @param size Image size
      */
     Sprite2D(Context* ctx, const Bitmap &bmp, const Vec2 &size);
+    
+    /**
+     * @brief Destructor
+     */
+    virtual ~Sprite2D();
+    
+    /**
+     * @brief Copy constructor
+     * 
+     * @param obj Source object
+     */
+    Sprite2D(const Sprite2D& obj);
+    
+    /**
+     * @brief Move constructor
+     * 
+     * @param obj Source object
+     */
+    Sprite2D(Sprite2D&& obj) noexcept;
+    
+    /**
+     * @brief Copy assignment
+     * 
+     * @param obj Source object
+     */
+    Sprite2D& operator=(const Sprite2D& obj);
+    
+    /**
+     * @brief Move assignment
+     * 
+     * @param obj Source object
+     */
+    Sprite2D& operator=(Sprite2D&& obj) noexcept;
     
     /**
      * @brief Gets the pointer to the texture

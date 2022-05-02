@@ -64,18 +64,24 @@ class VBO;
  */
 class RMG_API Object3D: public Object {
   private:
-    Material* material;
+    Material* material = nullptr;
     float metalness;
     float roughness;
     float ambientOcculation;
     
-    std::shared_ptr<internal::VBO> vbo;
+    internal::VBO* vbo = nullptr;
+    uint8_t* vboShareCount = nullptr;
     internal::ContextLoader::Pending vboLoad;
     
-    std::shared_ptr<internal::Texture> texture;
+    internal::Texture* texture = nullptr;
+    uint8_t* texShareCount = nullptr;
     internal::ContextLoader::Pending texLoad;
     
     void loadOBJ(const std::string &file, bool smooth=true);
+    
+    void dereferenceVBO();
+    
+    void dereferenceTexture();
     
   protected:
     /**
@@ -86,21 +92,18 @@ class RMG_API Object3D: public Object {
     Vec3 scale; ///< Scaling factors as a vector
     
     /**
-     * @brief Sets the shared VBO of the object
-     * 
-     * Usually used to share existing VBOs of basic geometries like
-     * cubes, cylinders and spheres.
-     * 
-     * @param vbo Shared pointer
-     */
-    void setSharedVBO(std::shared_ptr<internal::VBO> vbo);
-    
-    /**
      * @brief Sets the mesh of the 3D object
      * 
      * @param mesh 3D Mesh containing vertex coordinates
      */
     void setMesh(const Mesh& mesh);
+    
+    /**
+     * @brief Swaps the values of member variables between two objects
+     * 
+     * @param x The other object
+     */
+    void swap(Object3D& x) noexcept;
     
   public:
     /**
@@ -124,6 +127,39 @@ class RMG_API Object3D: public Object {
      *               contain an option about vertex normals
      */
     Object3D(Context* ctx, const std::string &file, bool smooth=true);
+    
+    /**
+     * @brief Destructor
+     */
+    virtual ~Object3D();
+    
+    /**
+     * @brief Copy constructor
+     * 
+     * @param obj Source object
+     */
+    Object3D(const Object3D& obj);
+    
+    /**
+     * @brief Move constructor
+     * 
+     * @param obj Source object
+     */
+    Object3D(Object3D&& obj) noexcept;
+    
+    /**
+     * @brief Copy assignment
+     * 
+     * @param obj Source object
+     */
+    Object3D& operator=(const Object3D& obj);
+    
+    /**
+     * @brief Move assignment
+     * 
+     * @param obj Source object
+     */
+    Object3D& operator=(Object3D&& obj) noexcept;
     
     /**
      * @brief The matrix composed of all the transformations done by the

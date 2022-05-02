@@ -59,7 +59,6 @@ ContextLoader::Pending::~Pending() {
     if(shared->use_count == 0) {
         delete data;
         delete shared;
-        shared = nullptr;
     }
 }
 

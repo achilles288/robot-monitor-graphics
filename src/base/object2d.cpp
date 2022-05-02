@@ -44,7 +44,22 @@ Object2D::Object2D(Context* ctx): Object(ctx) {
     alignment = Alignment::MiddleCenter;
     type = ObjectType::Object2D;
 }
-    
+
+/**
+ * @brief Swaps the values of member variables between two objects
+ * 
+ * @param x The other object
+ */
+void Object2D::swap(Object2D& x) noexcept {
+    std::swap(modelMatrix, x.modelMatrix);
+    std::swap(rotation, x.rotation);
+    std::swap(size, x.size);
+    std::swap(zOrder, x.zOrder);
+    std::swap(alignment, x.alignment);
+    std::swap(type2D, x.type2D);
+    Object::swap(x);
+}
+
 /**
  * @brief Gets 2D object type
  * 

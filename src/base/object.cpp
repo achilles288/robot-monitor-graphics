@@ -20,6 +20,9 @@
 #include <utility>
 
 
+#define DEFAULT_COLOR Color(1, 1, 1, 1)
+
+
 namespace rmg {
 
 uint64_t Object::lastID = 0;
@@ -29,10 +32,7 @@ uint64_t Object::lastID = 0;
  */
 Object::Object() {
     id = 0;
-    context = nullptr;
-    color = Color(1, 1, 1, 1);
-    hidden = false;
-    type = ObjectType::Default;
+    color = DEFAULT_COLOR;
 }
 
 /**
@@ -44,9 +44,7 @@ Object::Object(Context* ctx) {
     
     id = ++lastID;
     context = ctx;
-    color = Color(1, 1, 1, 1);
-    hidden = false;
-    type = ObjectType::Default;
+    color = DEFAULT_COLOR;
 }
 
 /**
@@ -70,7 +68,7 @@ Object::Object(const Object& obj) {
 Object::Object(Object&& obj) noexcept {
     id = std::exchange(obj.id, 0);
     context = std::exchange(obj.context, nullptr);
-    color = std::exchange(obj.color, Color(1,1,1,1));
+    color = std::exchange(obj.color, DEFAULT_COLOR);
     hidden = std::exchange(obj.hidden, false);
     type = std::exchange(obj.type, ObjectType::Default);
 }
@@ -97,6 +95,11 @@ Object& Object::operator=(Object&& obj) noexcept {
     return *this;
 }
 
+/**
+ * @brief Swaps the values of member variables between two objects
+ * 
+ * @param x The other object
+ */
 void Object::swap(Object& x) noexcept {
     std::swap(id, x.id);
     std::swap(context, x.context);

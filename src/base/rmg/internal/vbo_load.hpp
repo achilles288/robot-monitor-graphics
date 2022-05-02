@@ -25,8 +25,6 @@
 #endif
 
 
-#include <memory>
-
 #include "../mesh.hpp"
 #include "context_load.hpp"
 

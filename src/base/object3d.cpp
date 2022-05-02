@@ -24,6 +24,11 @@
 #include "rmg/internal/texture_load.hpp"
 
 
+#define DEFAULT_METALNESS 0.0f
+#define DEFAULT_ROUGHNESS 0.6f
+#define DEFAULT_AO 0.6f
+
+
 namespace rmg {
 
 /**
@@ -32,10 +37,10 @@ namespace rmg {
 Object3D::Object3D() {
     modelMatrix = Mat4();
     scale = Vec3(1, 1, 1);
-    material = NULL;
-    metalness = 0.0f;
-    roughness = 0.6f;
-    ambientOcculation = 0.6f;
+    metalness = DEFAULT_METALNESS;
+    roughness = DEFAULT_ROUGHNESS;
+    ambientOcculation = DEFAULT_AO;
+    type = ObjectType::Object3D;
 }
 
 /**
@@ -46,10 +51,9 @@ Object3D::Object3D() {
 Object3D::Object3D(Context* ctx): Object(ctx) {
     modelMatrix = Mat4();
     scale = Vec3(1, 1, 1);
-    material = NULL;
-    metalness = 0.0f;
-    roughness = 0.6f;
-    ambientOcculation = 0.6f;
+    metalness = DEFAULT_METALNESS;
+    roughness = DEFAULT_ROUGHNESS;
+    ambientOcculation = DEFAULT_AO;
     type = ObjectType::Object3D;
 }
 
@@ -84,16 +88,103 @@ Object3D::Object3D(Context* ctx, const std::string &file, bool smooth)
 }
 
 /**
- * @brief Sets the shared VBO of the object
- * 
- * Usually used to shared existing VBOs of basic geometries,
- * cubes, spheres and cylinders.
- * 
- * @param vbo Shared pointer
+ * @brief Destructor
  */
-void Object3D::setSharedVBO(std::shared_ptr<internal::VBO> vbo)
+Object3D::~Object3D() {
+    dereferenceVBO();
+    dereferenceTexture();
+}
+
+/**
+ * @brief Copy constructor
+ * 
+ * @param obj Source object
+ */
+Object3D::Object3D(const Object3D& obj)
+         :Object(obj)
 {
-    this->vbo = vbo;
+    modelMatrix = obj.modelMatrix;
+    scale = obj.scale;
+    material = obj.material;
+    metalness = obj.metalness;
+    roughness = obj.roughness;
+    ambientOcculation = obj.ambientOcculation;
+    vbo = obj.vbo;
+    vboShareCount = obj.vboShareCount;
+    if(vboShareCount != nullptr)
+        (*vboShareCount)++;
+    vboLoad = obj.vboLoad;
+    texture = obj.texture;
+    texShareCount = obj.texShareCount;
+    if(texShareCount != nullptr)
+        (*texShareCount)++;
+    texLoad = obj.texLoad;
+}
+
+/**
+ * @brief Move constructor
+ * 
+ * @param obj Source object
+ */
+Object3D::Object3D(Object3D&& obj) noexcept
+         :Object(obj)
+{
+    modelMatrix = std::exchange(obj.modelMatrix, Mat4());
+    scale = std::exchange(obj.scale, Vec3(1, 1, 1));
+    material = std::exchange(obj.material, nullptr);
+    metalness = std::exchange(obj.metalness, DEFAULT_METALNESS);
+    roughness = std::exchange(obj.roughness, DEFAULT_ROUGHNESS);
+    ambientOcculation = std::exchange(obj.ambientOcculation, DEFAULT_AO);
+    vbo = std::exchange(obj.vbo, nullptr);
+    vboShareCount = std::exchange(obj.vboShareCount, nullptr);
+    texture = std::exchange(obj.texture, nullptr);
+    texShareCount = std::exchange(obj.texShareCount, nullptr);
+    internal::ContextLoader::Pending load;
+    vboLoad = std::exchange(obj.vboLoad, load);
+    texLoad = std::exchange(obj.texLoad, load);
+}
+    
+/**
+ * @brief Copy assignment
+ * 
+ * @param obj Source object
+ */
+Object3D& Object3D::operator=(const Object3D& obj) {
+    Object3D tmp = Object3D(obj);
+    swap(tmp);
+    return *this;
+}
+
+/**
+ * @brief Move assignment
+ * 
+ * @param obj Source object
+ */
+Object3D& Object3D::operator=(Object3D&& obj) noexcept {
+    Object3D tmp = std::move(obj);
+    swap(tmp);
+    return *this;
+}
+
+/**
+ * @brief Swaps the values of member variables between two objects
+ * 
+ * @param x The other object
+ */
+void Object3D::swap(Object3D& x) noexcept {
+    std::swap(modelMatrix, x.modelMatrix);
+    std::swap(scale, x.scale);
+    std::swap(material, x.material);
+    std::swap(metalness, x.metalness);
+    std::swap(roughness, x.roughness);
+    std::swap(ambientOcculation, x.ambientOcculation);
+    std::swap(vbo, x.vbo);
+    std::swap(vboShareCount, x.vboShareCount);
+    std::swap(vboLoad, x.vboLoad);
+    std::swap(texture, x.texture);
+    std::swap(texShareCount, x.texShareCount);
+    std::swap(texLoad, x.texLoad);
+    Object::swap(x);
 }
 
 /**
@@ -102,8 +193,11 @@ void Object3D::setSharedVBO(std::shared_ptr<internal::VBO> vbo)
  * @param mesh 3D Mesh containing vertex coordinates
  */
 void Object3D::setMesh(const Mesh& mesh) {
-    vbo = std::make_shared<internal::VBO>(internal::VBO());
-    auto load = new internal::VBOLoad(vbo.get(), mesh);
+    dereferenceVBO();
+    vbo = new internal::VBO();
+    vboShareCount = new uint8_t;
+    *vboShareCount = 1;
+    auto load = new internal::VBOLoad(vbo, mesh);
     vboLoad = internal::ContextLoader::Pending(load);
 }
 
@@ -278,9 +372,12 @@ Material *Object3D::getMaterial() const { return material; }
  * @param f Path to material textures (file, folder or zip)
  */
 void Object3D::loadTexture(const std::string &f) {
-    auto texture = std::make_shared<internal::Texture>(internal::Texture());
-    auto load = new internal::TextureLoad(texture.get(), f);
-    vboLoad = internal::ContextLoader::Pending(load);
+    dereferenceTexture();
+    texture = new internal::Texture();
+    texShareCount = new uint8_t;
+    *texShareCount = 1;
+    auto load = new internal::TextureLoad(texture, f);
+    texLoad = internal::ContextLoader::Pending(load);
 }
 
 /**
@@ -289,9 +386,12 @@ void Object3D::loadTexture(const std::string &f) {
  * @param bmp Base image
  */
 void Object3D::loadTexture(const Bitmap &bmp) {
-    auto texture = std::make_shared<internal::Texture>(internal::Texture());
-    auto load = new internal::TextureLoad(texture.get(), bmp);
-    vboLoad = internal::ContextLoader::Pending(load);
+    dereferenceTexture();
+    texture = new internal::Texture();
+    texShareCount = new uint8_t;
+    *texShareCount = 1;
+    auto load = new internal::TextureLoad(texture, bmp);
+    texLoad = internal::ContextLoader::Pending(load);
 }
 
 /**
@@ -307,9 +407,12 @@ void Object3D::loadTexture(const Bitmap& base, const Bitmap& h,
                            const Bitmap& norm, const Bitmap& m,
                            const Bitmap& e)
 {
-    auto texture = std::make_shared<internal::Texture>(internal::Texture());
-    auto load = new internal::TextureLoad(texture.get(), base, h, norm, m, e);
-    vboLoad = internal::ContextLoader::Pending(load);
+    dereferenceTexture();
+    texture = new internal::Texture();
+    texShareCount = new uint8_t;
+    *texShareCount = 1;
+    auto load = new internal::TextureLoad(texture, base, h, norm, m, e);
+    texLoad = internal::ContextLoader::Pending(load);
 }
 
 /**
@@ -374,16 +477,15 @@ float Object3D::getAmbientOcculation() const { return ambientOcculation; }
  * 
  * @return Pointer to VBO
  */
-const internal::VBO *Object3D::getVBO() const { return vbo.get(); }
+const internal::VBO *Object3D::getVBO() const { return vbo; }
 
 /**
  * @brief Gets the pointer to the texture
  * 
  * @return Pointer to the texture
  */
-const internal::Texture *Object3D::getTexture() const {
-    return texture.get();
-}
+const internal::Texture *Object3D::getTexture() const { return texture; }
+
 
 using Pending = internal::ContextLoader::Pending;
 
@@ -400,5 +502,31 @@ const Pending& Object3D::getVBOLoad() const { return vboLoad; }
  * @return Texture loader
  */
 const Pending& Object3D::getTextureLoad() const { return texLoad; }
+
+
+void Object3D::dereferenceVBO() {
+    if(vbo != nullptr) {
+        (*vboShareCount)--;
+        if(*vboShareCount == 0) {
+            delete vbo;
+            delete vboShareCount;
+            vbo = nullptr;
+            vboShareCount = nullptr;
+        }
+    }
+}
+
+
+void Object3D::dereferenceTexture() {
+    if(texture != nullptr) {
+        (*texShareCount)--;
+        if(*texShareCount == 0) {
+            delete texture;
+            delete texShareCount;
+            texture = nullptr;
+            texShareCount = nullptr;
+        }
+    }
+}
 
 }
