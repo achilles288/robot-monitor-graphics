@@ -53,6 +53,7 @@ enum class ObjectType {
     Line3D
 };
 
+
 /**
  * @brief A foundation of all RMG graphical object data structures
  * 
@@ -201,6 +202,194 @@ class RMG_API Object {
      * @return True if the object is hidden
      */
     bool isHidden() const;
+};
+
+
+/**
+ * @brief A list to store a bunch of drawing objects
+ */
+class RMG_API ObjectList {
+    /**
+     * @brief Node of the forward link list
+     */
+    struct Node {
+        Node* next = nullptr; ///< Next node
+        Object* data = nullptr; ///< The object to be stored
+        
+        /**
+         * @brief Destructor
+         */
+        ~Node();
+    };
+    
+  private:
+    Node* next = nullptr;
+    Object* data = nullptr;
+    uint32_t count = 0;
+    
+  public:
+    /**
+     * @brief Default constructor
+     */
+    ObjectList() = default;
+    
+    /**
+     * @brief Destructor
+     */
+    ~ObjectList();
+    
+    /**
+     * @brief Copy constructor
+     * 
+     * @param list Source
+     */
+    ObjectList(const ObjectList& obj);
+    
+    /**
+     * @brief Move constructor
+     * 
+     * @param list Source
+     */
+    ObjectList(ObjectList&& obj) noexcept;
+    
+    /**
+     * @brief Copy assignment
+     * 
+     * @param list Source
+     */
+    ObjectList& operator = (const ObjectList& obj);
+    
+    /**
+     * @brief Move assignment
+     * 
+     * @param list Source
+     */
+    ObjectList& operator = (ObjectList&& obj);
+    
+    /**
+     * @brief Appends an element to the list beginning
+     * 
+     * @param elem New element to the list beginning
+     */
+    void push_front(Object* elem);
+    
+    /**
+     * @brief Retrives an element from the beginning of the list
+     * 
+     * @return The retrived element
+     */
+    Object* front() const;
+    
+    /**
+     * @breif Removes an element from the beginning of the list
+     */
+    void pop_front();
+    
+    /**
+     * @brief Removes an element from the list
+     * 
+     * @param elem The element to be removed
+     */
+    void remove(Object* elem);
+    
+    /**
+     * @brief Clears the contents
+     */
+    void clear();
+    
+    /**
+     * @brief Cleans up the list including the drawing objects
+     * 
+     * In the process of clearing the list contents, it also deletes the
+     * drawing objects through the stored data pointers. Usually called at the
+     * end of an application.
+     */
+    void cleanup();
+    
+    /**
+     * @brief Gets the number of elements in the stack
+     * 
+     * @return The number of elements
+     */
+    uint32_t size() const;
+    
+    /**
+     * @brief Iterator class for the list of serial ports
+     */
+    class RMG_API iterator {
+      private:
+        Node* next = nullptr;
+        Object* data = nullptr;
+        
+      public:
+        /**
+         * @brief Constructs from node and object
+         * 
+         * @param n The list node
+         * @param d The object data
+         */
+        iterator(Node* n, Object* d);
+        
+        /**
+         * @brief Pointer dereferencing
+         * 
+         * @return The reference
+         */
+        Object& operator * ();
+        
+        /**
+         * @brief Pointer dereferencing
+         * 
+         * @return The pointer
+         */
+        Object* operator -> ();
+        
+        /**
+         * @brief The prefix increment operator
+         * 
+         * @return Iterator to the next element
+         */
+        iterator& operator ++ ();
+        
+        /**
+         * @brief The postfix increment operator
+         * 
+         * @return Iterator to the next element
+         */
+        iterator operator ++ (int);
+        
+        /**
+         * @brief Compares the values
+         * 
+         * @param it Iterator 2
+         * 
+         * @return True if the pointers of the two are equal
+         */
+        bool operator == (const iterator& it);
+        
+        /**
+         * @brief Compares the values
+         * 
+         * @param it Iterator 2
+         * 
+         * @return True if the pointers of the two are not equal
+         */
+        bool operator != (const iterator& it);
+    };
+    
+    /**
+     * @brief Gets the beginning iterator
+     * 
+     * @return The iterator pointing to the first element of the list
+     */
+    iterator begin() const;
+    
+    /**
+     * @brief Gets the ending iterator
+     * 
+     * @return The iterator with the value that indicates the end of the list
+     */
+    iterator end() const;
 };
 
 }

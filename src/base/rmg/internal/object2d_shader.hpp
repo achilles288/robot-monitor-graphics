@@ -25,8 +25,6 @@
 #endif
 
 
-#include <map>
-
 #include "shader.hpp"
 #include "../sprite.hpp"
 #include "../text2d.hpp"
@@ -134,7 +132,7 @@ class RMG_API Object2DShader {
      * 
      * @param list List of 2D objects
      */
-    void render(const std::map<uint64_t, Object2D*> &list);
+    void render(const ObjectList &list);
 };
 
 }}

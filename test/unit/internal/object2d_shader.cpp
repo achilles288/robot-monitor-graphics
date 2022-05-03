@@ -1,8 +1,5 @@
 #include <rmg/internal/object2d_shader.hpp>
 
-#include <map>
-#include <utility>
-
 #include <GLFW/glfw3.h>
 #include <gtest/gtest.h>
 
@@ -113,7 +110,6 @@ TEST_F(Object2DShader, runtime) {
     auto shader = rmg::internal::Object2DShader();
     shader.load();
     
-    std::map<uint64_t, Object2D*> list;
     Context ctx;
     ContextLoader loader;
     Sprite2D *sprite1 = new Sprite2D(&ctx, RMG_RESOURCE_PATH "/icons/rmg-app.png");
@@ -125,8 +121,9 @@ TEST_F(Object2DShader, runtime) {
     loader.push(sprite1->getTextureLoad());
     loader.push(sprite2->getTextureLoad());
     loader.load();
-    list.insert(std::pair<uint64_t,Object2D*>(1, sprite1));
-    list.insert(std::pair<uint64_t,Object2D*>(2, sprite2));
+    ObjectList list;
+    list.push_front(sprite1);
+    list.push_front(sprite2);
     
     shader.render(list);
     glfwSwapBuffers(window);

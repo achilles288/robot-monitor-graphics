@@ -153,6 +153,11 @@ class RMG_API PendingStack {
     struct Node {
         Node* next = nullptr; ///< Next node
         Pending data; ///< The stored data
+        
+        /**
+         * @brief Destructor
+         */
+        ~Node();
     };
     
   private:

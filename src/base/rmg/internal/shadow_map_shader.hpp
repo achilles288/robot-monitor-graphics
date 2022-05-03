@@ -25,15 +25,12 @@
 #endif
 
 
-#include <map>
-
 #include "shader.hpp"
 #include "../camera.hpp"
+#include "../object.hpp"
 #include "../math/vec.hpp"
 
 namespace rmg {
-
-class Object3D;
 
 namespace internal {
 
@@ -177,7 +174,7 @@ class RMG_API ShadowMapShader: public Shader {
      * 
      * @return Shadow map
      */
-    uint32_t createShadowMap(const std::map<uint64_t, Object3D*> &list);
+    uint32_t createShadowMap(const ObjectList &list);
 };
 
 }}

@@ -29,11 +29,8 @@
 
 
 #include <cstdint>
-#include <list>
-#include <map>
-#include <memory>
-#include <queue>
 #include <stdexcept>
+#include <map>
 
 #include "camera.hpp"
 #include "color.hpp"
@@ -52,10 +49,11 @@ namespace rmg {
 struct LineEq;
 
 class Object;
-class Object2D;
 class Object3D;
 class Particle3D;
 class Line3D;
+class Sprite2D;
+class Text2D;
 class Material;
 class Font;
 
@@ -85,10 +83,11 @@ class RMG_API Context {
     Vec3 dlWorldSpace;
     Vec3 dlCameraSpace;
     Color dlColor;
-    std::map<uint64_t, Object2D*> objects2d;
-    std::map<uint64_t, Object3D*> objects3d;
-    std::map<uint64_t, Particle3D*> particles;
-    std::map<uint64_t, Line3D*> lines3d;
+    ObjectList object3d_list;
+    ObjectList object2d_list;
+    ObjectList particle3d_list;
+    ObjectList line3d_list;
+    ObjectList text2d_list;
     std::map<uint32_t, Material*> materials;
     std::map<uint32_t, Font*> fonts;
     

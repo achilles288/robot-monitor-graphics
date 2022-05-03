@@ -1,8 +1,5 @@
 #include <rmg/internal/general_shader.hpp>
 
-#include <map>
-#include <utility>
-
 #include <GLFW/glfw3.h>
 #include <gtest/gtest.h>
 
@@ -87,7 +84,6 @@ TEST_F(GeneralShader, runtime) {
     auto shader = rmg::internal::GeneralShader();
     shader.load();
     
-    std::map<uint64_t, Object3D*> list;
     Context ctx;
     ContextLoader loader;
     Object3D *obj1 = new Cube3D(&ctx, 1, 1, 1);
@@ -97,9 +93,10 @@ TEST_F(GeneralShader, runtime) {
     loader.push(obj2->getVBOLoad());
     loader.push(obj3->getVBOLoad());
     loader.load();
-    list.insert(std::pair<uint64_t,Object3D*>(1, obj1));
-    list.insert(std::pair<uint64_t,Object3D*>(2, obj2));
-    list.insert(std::pair<uint64_t,Object3D*>(3, obj3));
+    ObjectList list;
+    list.push_front(obj1);
+    list.push_front(obj2);
+    list.push_front(obj3);
     
     shader.render(Mat4(), Mat4(), Mat4(), Vec3(), Color(), 0, list);
     glfwSwapBuffers(window);

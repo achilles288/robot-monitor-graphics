@@ -59,15 +59,9 @@ void GeneralShader::load() {
  * @param shadow Shadow map
  * @param list List of 3D objects
  */
-void GeneralShader::render(
-    const Mat4 &V,
-    const Mat4 &P,
-    const Mat4 &S,
-    const Vec3 &dlCam,
-    const Color &dlColor,
-    uint32_t shadow,
-    const std::map<uint64_t, Object3D*> &list
-)
+void GeneralShader::render(const Mat4 &V, const Mat4 &P, const Mat4 &S,
+                           const Vec3 &dlCam, const Color &dlColor,
+                           uint32_t shadow, const ObjectList &list)
 {
     if(id == 0)
         return;
@@ -81,7 +75,7 @@ void GeneralShader::render(
     glUniform4fv(idDLColor, 1, &dlColor[0]);
     for(auto it=list.begin(); it!=list.end(); it++) {
         uint32_t flags = 0;
-        Object3D *obj = it->second;
+        Object3D *obj = (Object3D*) &(*it);
         if(obj->isHidden() || obj->getVBO() == nullptr)
             continue;
         Mat4 MV = V * obj->getModelMatrix();

@@ -16,6 +16,7 @@
 #include "../../config/rmg/config.h"
 
 #include <iostream>
+#include <map>
 
 
 namespace rmg {
@@ -147,14 +148,14 @@ void Object2DShader::setContextSize(uint16_t w, uint16_t h) {
  * 
  * @param list List of 2D objects
  */
-void Object2DShader::render(const std::map<uint64_t, Object2D*> &list) {
+void Object2DShader::render(const ObjectList &list) {
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
     std::multimap<int16_t, Object2D*> sorted;
     
     for(auto it=list.begin(); it!=list.end(); it++) {
-        Object2D* obj = it->second;
+        Object2D* obj = (Object2D*) &(*it);
         int16_t zOrder = 2 * obj->getZOrder();
         if(obj->getObject2DType() == Object2DType::Text)
             zOrder += 1;
@@ -163,7 +164,7 @@ void Object2DShader::render(const std::map<uint64_t, Object2D*> &list) {
     }
     
     for(auto it=sorted.begin(); it!=sorted.end(); it++) {
-        Object2D* obj = it->second;
+        Object2D* obj = (Object2D*) &(*it);
         Mat3 V = Mat3();
         switch(obj->getAlignment()) {
           case Alignment::TopLeft:

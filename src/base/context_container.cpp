@@ -71,31 +71,26 @@ void Context::addObject(Object* obj) {
         return;
     #endif
     
-    if(obj->getObjectType() == ObjectType::Object2D)
-    {
+    ObjectType type = obj->getObjectType();
+    
+    if(type == ObjectType::Object2D) {
         Object2D* obj2d = (Object2D*) obj;
-        auto elem = std::pair<uint64_t,Object2D*>(obj->getID(),obj2d);
-        objects2d.insert(elem);
         if(obj2d->getObject2DType() == Object2DType::Sprite) {
             Sprite2D* sprite = (Sprite2D*) obj;
             loader.push(sprite->getTextureLoad());
         }
+        object2d_list.push_front(obj);
     }
-    else if(obj->getObjectType() == ObjectType::Object3D) {
+    else if(type == ObjectType::Object3D) {
         Object3D* obj3d = (Object3D*) obj;
-        auto elem = std::pair<uint64_t,Object3D*>(obj->getID(),obj3d);
-        objects3d.insert(elem);
         loader.push(obj3d->getVBOLoad());
+        object3d_list.push_front(obj);
     }
-    else if(obj->getObjectType() == ObjectType::Particle3D) {
-        Particle3D* part = (Particle3D*) obj;
-        auto elem = std::pair<uint64_t,Particle3D*>(obj->getID(),part);
-        particles.insert(elem);
+    else if(type == ObjectType::Particle3D) {
+        particle3d_list.push_front(obj);
     }
-    else if(obj->getObjectType() == ObjectType::Line3D) {
-        Line3D* line3d = (Line3D*) obj;
-        auto elem = std::pair<uint64_t,Line3D*>(obj->getID(),line3d);
-        lines3d.insert(elem);
+    else if(type == ObjectType::Line3D) {
+        line3d_list.push_front(obj);
     }
 }
 
@@ -132,27 +127,15 @@ void Context::addFont(Font* font) {
  * @param obj 2D/3D object
  */
 void Context::removeObject(Object* obj) {
-    if(obj->getObjectType() == ObjectType::Object2D)
-    {
-        auto it = objects2d.find(obj->getID());
-        if(it != objects2d.end())
-            objects2d.erase(it);
-    }
-    else if(obj->getObjectType() == ObjectType::Object3D) {
-        auto it = objects3d.find(obj->getID());
-        if(it != objects3d.end())
-            objects3d.erase(it);
-    }
-    else if(obj->getObjectType() == ObjectType::Particle3D) {
-        auto it = particles.find(obj->getID());
-        if(it != particles.end())
-            particles.erase(it);
-    }
-    else if(obj->getObjectType() == ObjectType::Line3D) {
-        auto it = lines3d.find(obj->getID());
-        if(it != lines3d.end())
-            lines3d.erase(it);
-    }
+    ObjectType type = obj->getObjectType();
+    if(type == ObjectType::Object2D)
+        object2d_list.remove(obj);
+    else if(type == ObjectType::Object3D)
+        object3d_list.remove(obj);
+    else if(type == ObjectType::Particle3D)
+        particle3d_list.remove(obj);
+    else if(type == ObjectType::Line3D)
+        line3d_list.remove(obj);
 }
 
 /**
@@ -189,10 +172,8 @@ void Context::removeFont(Font* font) {
  * @return Total number of objects from lists of every type
  */
 uint64_t Context::getObjectCount() const {
-    return objects2d.size() +
-           objects3d.size() +
-           particles.size() +
-           lines3d.size();
+    return object2d_list.size() + object3d_list.size() +
+           particle3d_list.size() + line3d_list.size();
 }
 
 /**
@@ -215,19 +196,10 @@ uint64_t Context::getFontCount() const { return fonts.size(); }
  * Clears the lists of objects, materials, fonts and their GPU resources.
  */
 void Context::cleanup() {
-    for(auto it=objects2d.begin(); it!=objects2d.end(); it++)
-        delete it->second;
-    for(auto it=objects3d.begin(); it!=objects3d.end(); it++)
-        delete it->second;
-    for(auto it=particles.begin(); it!=particles.end(); it++)
-        delete it->second;
-    for(auto it=lines3d.begin(); it!=lines3d.end(); it++)
-        delete it->second;
-    objects2d.clear();
-    objects3d.clear();
-    particles.clear();
-    lines3d.clear();
-    
+    object2d_list.cleanup();
+    object3d_list.cleanup();
+    particle3d_list.cleanup();
+    line3d_list.cleanup();
     for(auto it=materials.begin(); it!=materials.end(); it++)
         delete it->second;
     for(auto it=fonts.begin(); it!=fonts.end(); it++)

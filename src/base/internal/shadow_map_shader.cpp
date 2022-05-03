@@ -223,10 +223,7 @@ void ShadowMapShader::load() {
  * 
  * @return Shadow map
  */
-uint32_t ShadowMapShader::createShadowMap(
-    const std::map<uint64_t, Object3D*> &list
-)
-{
+uint32_t ShadowMapShader::createShadowMap(const ObjectList &list) {
     if(id == 0)
         return 0;
     glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);
@@ -241,7 +238,7 @@ uint32_t ShadowMapShader::createShadowMap(
     glDisable(GL_BLEND);
     glUseProgram(id);
     for(auto it=list.begin(); it!=list.end(); it++) {
-        Object3D *obj = it->second;
+        Object3D *obj = (Object3D*) &(*it);
         if(obj->isHidden() || obj->getVBO() == nullptr)
             continue;
         Mat4 MVP = shadowMapper.getVPMatrix() * obj->getModelMatrix();

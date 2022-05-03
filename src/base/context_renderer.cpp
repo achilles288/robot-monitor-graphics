@@ -82,7 +82,7 @@ void Context::render() {
     fps = 1.0f/(t2-t1);
     t1 = t2;
     
-    uint32_t shadow = shadowMapShader.createShadowMap(objects3d);
+    uint32_t shadow = shadowMapShader.createShadowMap(object3d_list);
     
     glViewport(0, 0, width, height);
     glClearColor(bgColor.red, bgColor.green, bgColor.blue, 1);
@@ -95,10 +95,10 @@ void Context::render() {
         dlCameraSpace,
         dlColor,
         shadow,
-        objects3d
+        object3d_list
     );
     
-    object2dShader.render(objects2d);
+    object2dShader.render(object2d_list);
     internal::glUseProgram(0);
     
     update();

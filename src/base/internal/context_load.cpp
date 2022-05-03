@@ -143,6 +143,14 @@ PendingStack::~PendingStack() {
 }
 
 /**
+ * @brief Destructor
+ */
+PendingStack::Node::~Node() {
+    if(next != nullptr)
+        delete next;
+}
+
+/**
  * @brief Appends an element to the top of the stack
  * 
  * @param elem New element to the stack
