@@ -44,7 +44,7 @@ class RMG_API Material: public internal::Texture {
   private:
     uint32_t id;
     Context* context;
-    internal::ContextLoader::Pending textureLoad;
+    internal::Pending textureLoad;
     
     static uint32_t lastID;
     

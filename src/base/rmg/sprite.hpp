@@ -56,7 +56,7 @@ class RMG_API Sprite2D: public Object2D {
   private:
     internal::Texture* texture = nullptr;
     uint8_t* texShareCount = 0;
-    internal::ContextLoader::Pending texLoad;
+    internal::Pending texLoad;
     
   protected:
     /**
@@ -151,7 +151,7 @@ class RMG_API Sprite2D: public Object2D {
      * 
      * @return Texture loader
      */
-    const internal::ContextLoader::Pending& getTextureLoad() const;
+    const internal::Pending& getTextureLoad() const;
 };
 
 }

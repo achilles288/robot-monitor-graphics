@@ -46,7 +46,7 @@ class RMG_API Font {
     uint32_t id;
     Context* context;
     internal::Texture texture;
-    internal::ContextLoader::Pending textureLoad;
+    internal::Pending textureLoad;
     
     static uint32_t lastID;
     

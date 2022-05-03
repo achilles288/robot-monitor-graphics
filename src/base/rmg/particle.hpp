@@ -56,7 +56,7 @@ class Texture;
 class RMG_API Particle3D: public Object {
   private:
     std::shared_ptr<internal::Texture> texture;
-    internal::ContextLoader::Pending texLoad;
+    internal::Pending texLoad;
     
     Vec3 position;
     Vec2 size;

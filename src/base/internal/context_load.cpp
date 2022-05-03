@@ -35,14 +35,14 @@ void ContextLoad::load() {}
 
 
 
-// Class: ContextLoader::Pending
+// Class: Pending
 
 /**
  * @brief Constructor assigning the load pointer
  * 
  * @param load Instance containing data to be loaded into GPU
  */
-ContextLoader::Pending::Pending(ContextLoad* load) {
+Pending::Pending(ContextLoad* load) {
     data = load;
     shared = new Shared();
     shared->use_count = 1;
@@ -52,7 +52,7 @@ ContextLoader::Pending::Pending(ContextLoad* load) {
 /**
  * @brief Destructor
  */
-ContextLoader::Pending::~Pending() {
+Pending::~Pending() {
     if(shared == nullptr)
         return;
     shared->use_count--;
@@ -67,7 +67,7 @@ ContextLoader::Pending::~Pending() {
  * 
  * @param p Source instance
  */
-ContextLoader::Pending::Pending(const ContextLoader::Pending& p)
+Pending::Pending(const Pending& p)
 {
     data = p.data;
     shared = p.shared;
@@ -80,7 +80,7 @@ ContextLoader::Pending::Pending(const ContextLoader::Pending& p)
  * 
  * @param p Source instance
  */
-ContextLoader::Pending::Pending(ContextLoader::Pending&& p) noexcept
+Pending::Pending(Pending&& p) noexcept
 {
     data = std::exchange(p.data, nullptr);
     shared = std::exchange(p.shared, nullptr);
@@ -91,8 +91,8 @@ ContextLoader::Pending::Pending(ContextLoader::Pending&& p) noexcept
  * 
  * @param p Source instance
  */
-ContextLoader::Pending&
-ContextLoader::Pending::operator=(const Pending& p) {
+Pending&
+Pending::operator=(const Pending& p) {
     Pending tmp = Pending(p);
     swap(tmp);
     return *this;
@@ -103,14 +103,14 @@ ContextLoader::Pending::operator=(const Pending& p) {
  * 
  * @param p Source instance
  */
-ContextLoader::Pending&
-ContextLoader::Pending::operator=(Pending&& p) noexcept {
+Pending&
+Pending::operator=(Pending&& p) noexcept {
     Pending tmp = std::move(p);
     swap(tmp);
     return *this;
 }
 
-void ContextLoader::Pending::swap(Pending& x) noexcept {
+void Pending::swap(Pending& x) noexcept {
     std::swap(data, x.data);
     std::swap(shared, x.shared);
 }
@@ -120,7 +120,7 @@ void ContextLoader::Pending::swap(Pending& x) noexcept {
  * 
  * @return Reference count
  */
-uint64_t ContextLoader::Pending::getUseCount() const {
+uint64_t Pending::getUseCount() const {
     if(shared == nullptr)
         return 0;
     return shared->use_count;
@@ -131,7 +131,7 @@ uint64_t ContextLoader::Pending::getUseCount() const {
  * 
  * @return The reference to the data for read only
  */
-const ContextLoad *ContextLoader::Pending::getData() const { return data; }
+const ContextLoad *Pending::getData() const { return data; }
 
 
 
@@ -146,7 +146,7 @@ const ContextLoad *ContextLoader::Pending::getData() const { return data; }
  * 
  * @param elem Instance containing data to be loaded into GPU
  */
-void ContextLoader::push(const ContextLoader::Pending& elem)
+void ContextLoader::push(const Pending& elem)
 {
     if(elem.shared == nullptr || elem.shared->added)
         return;
@@ -163,7 +163,7 @@ void ContextLoader::push(const ContextLoader::Pending& elem)
  */
 void ContextLoader::load() {
     while(pendingList.size() != 0) {
-        ContextLoader::Pending& p = pendingList.front();
+        Pending& p = pendingList.front();
         /*
          * p.shared->use_count != 0
          * 

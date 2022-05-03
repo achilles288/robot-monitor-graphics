@@ -71,11 +71,11 @@ class RMG_API Object3D: public Object {
     
     internal::VBO* vbo = nullptr;
     uint8_t* vboShareCount = nullptr;
-    internal::ContextLoader::Pending vboLoad;
+    internal::Pending vboLoad;
     
     internal::Texture* texture = nullptr;
     uint8_t* texShareCount = nullptr;
-    internal::ContextLoader::Pending texLoad;
+    internal::Pending texLoad;
     
     void loadOBJ(const std::string &file, bool smooth=true);
     
@@ -404,14 +404,14 @@ class RMG_API Object3D: public Object {
      * 
      * @return VBO loader
      */
-    const internal::ContextLoader::Pending& getVBOLoad() const;
+    const internal::Pending& getVBOLoad() const;
     
     /**
      * @brief Gets the texture loader
      * 
      * @return Texture loader
      */
-    const internal::ContextLoader::Pending& getTextureLoad() const;
+    const internal::Pending& getTextureLoad() const;
 };
 
 }

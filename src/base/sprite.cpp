@@ -63,7 +63,7 @@ Sprite2D::Sprite2D(Context* ctx, const std::string &img, const Vec2 &size)
     *texShareCount = 1;
     auto load = new internal::TextureLoad(texture, img);
     load->setOptimize2D(true);
-    texLoad = internal::ContextLoader::Pending(load);
+    texLoad = internal::Pending(load);
     setSize(size);
     type2D = Object2DType::Sprite;
 }
@@ -83,7 +83,7 @@ Sprite2D::Sprite2D(Context* ctx, const Bitmap &bmp, const Vec2 &size)
     *texShareCount = 1;
     auto load = new internal::TextureLoad(texture, bmp);
     load->setOptimize2D(true);
-    texLoad = internal::ContextLoader::Pending(load);
+    texLoad = internal::Pending(load);
     setSize(size);
     type2D = Object2DType::Sprite;
 }
@@ -126,7 +126,7 @@ Sprite2D::Sprite2D(Sprite2D&& obj) noexcept
 {
     texture = std::exchange(obj.texture, nullptr);
     texShareCount = std::exchange(obj.texShareCount, nullptr);
-    internal::ContextLoader::Pending load;
+    internal::Pending load;
     texLoad = std::exchange(obj.texLoad, load);
 }
     
@@ -172,13 +172,11 @@ void Sprite2D::swap(Sprite2D& x) noexcept {
 const internal::Texture *Sprite2D::getTexture() const {return texture; }
 
 
-using Pending = internal::ContextLoader::Pending;
-
 /**
  * @brief Gets the texture loader
  * 
  * @return Texture loader
  */
-const Pending& Sprite2D::getTextureLoad() const { return texLoad; }
+const internal::Pending& Sprite2D::getTextureLoad() const { return texLoad; }
 
 }

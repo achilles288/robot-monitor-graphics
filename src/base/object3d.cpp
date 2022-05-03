@@ -139,7 +139,7 @@ Object3D::Object3D(Object3D&& obj) noexcept
     vboShareCount = std::exchange(obj.vboShareCount, nullptr);
     texture = std::exchange(obj.texture, nullptr);
     texShareCount = std::exchange(obj.texShareCount, nullptr);
-    internal::ContextLoader::Pending load;
+    internal::Pending load;
     vboLoad = std::exchange(obj.vboLoad, load);
     texLoad = std::exchange(obj.texLoad, load);
 }
@@ -198,7 +198,7 @@ void Object3D::setMesh(const Mesh& mesh) {
     vboShareCount = new uint8_t;
     *vboShareCount = 1;
     auto load = new internal::VBOLoad(vbo, mesh);
-    vboLoad = internal::ContextLoader::Pending(load);
+    vboLoad = internal::Pending(load);
 }
 
 /**
@@ -377,7 +377,7 @@ void Object3D::loadTexture(const std::string &f) {
     texShareCount = new uint8_t;
     *texShareCount = 1;
     auto load = new internal::TextureLoad(texture, f);
-    texLoad = internal::ContextLoader::Pending(load);
+    texLoad = internal::Pending(load);
 }
 
 /**
@@ -391,7 +391,7 @@ void Object3D::loadTexture(const Bitmap &bmp) {
     texShareCount = new uint8_t;
     *texShareCount = 1;
     auto load = new internal::TextureLoad(texture, bmp);
-    texLoad = internal::ContextLoader::Pending(load);
+    texLoad = internal::Pending(load);
 }
 
 /**
@@ -412,7 +412,7 @@ void Object3D::loadTexture(const Bitmap& base, const Bitmap& h,
     texShareCount = new uint8_t;
     *texShareCount = 1;
     auto load = new internal::TextureLoad(texture, base, h, norm, m, e);
-    texLoad = internal::ContextLoader::Pending(load);
+    texLoad = internal::Pending(load);
 }
 
 /**
@@ -487,7 +487,7 @@ const internal::VBO *Object3D::getVBO() const { return vbo; }
 const internal::Texture *Object3D::getTexture() const { return texture; }
 
 
-using Pending = internal::ContextLoader::Pending;
+using Pending = internal::Pending;
 
 /**
  * @brief Gets the VBO loader
