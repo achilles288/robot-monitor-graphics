@@ -144,6 +144,62 @@ class RMG_API Pending {
 
 
 /**
+ * @brief Stack data structure made from singly-linked list
+ */
+class RMG_API PendingStack {
+    /**
+     * @brief Node of the stack data structure
+     */
+    struct Node {
+        Node* next = nullptr; ///< Next node
+        Pending data; ///< The stored data
+    };
+    
+  private:
+    Node* next = nullptr;
+    Pending data;
+    uint32_t count = 0;
+    
+  public:
+    /**
+     * @brief Default constructor
+     */
+    PendingStack() = default;
+    
+    /**
+     * @brief Destructor
+     */
+    ~PendingStack();
+    
+    /**
+     * @brief Appends an element to the top of the stack
+     * 
+     * @param elem New element to the stack
+     */
+    void push(Pending elem);
+    
+    /**
+     * @brief Retrives an element from the top of the stack
+     * 
+     * @return The retrived element
+     */
+    Pending& front();
+    
+    /**
+     * @brief Removes an element from the top of the stack
+     */
+    void pop();
+    
+    /**
+     * @brief Gets the number of elements in the stack
+     * 
+     * @return The number of elements
+     */
+    uint32_t size() const;
+};
+
+
+/**
  * @brief Loads data in memory into GPU
  * 
  * After preprocessing of 3D data like model reading, texture reading,
@@ -186,7 +242,7 @@ class RMG_API ContextLoader {
     uint64_t getLoadCount() const;
     
   private:
-    std::queue<Pending> pendingList;
+    PendingStack pendingList;
 };
 
 }}

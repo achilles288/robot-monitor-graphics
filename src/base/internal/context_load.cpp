@@ -67,8 +67,7 @@ Pending::~Pending() {
  * 
  * @param p Source instance
  */
-Pending::Pending(const Pending& p)
-{
+Pending::Pending(const Pending& p) {
     data = p.data;
     shared = p.shared;
     if(shared)
@@ -80,8 +79,7 @@ Pending::Pending(const Pending& p)
  * 
  * @param p Source instance
  */
-Pending::Pending(Pending&& p) noexcept
-{
+Pending::Pending(Pending&& p) noexcept {
     data = std::exchange(p.data, nullptr);
     shared = std::exchange(p.shared, nullptr);
 }
@@ -91,8 +89,7 @@ Pending::Pending(Pending&& p) noexcept
  * 
  * @param p Source instance
  */
-Pending&
-Pending::operator=(const Pending& p) {
+Pending& Pending::operator=(const Pending& p) {
     Pending tmp = Pending(p);
     swap(tmp);
     return *this;
@@ -103,8 +100,7 @@ Pending::operator=(const Pending& p) {
  * 
  * @param p Source instance
  */
-Pending&
-Pending::operator=(Pending&& p) noexcept {
+Pending& Pending::operator=(Pending&& p) noexcept {
     Pending tmp = std::move(p);
     swap(tmp);
     return *this;
@@ -132,6 +128,67 @@ uint64_t Pending::getUseCount() const {
  * @return The reference to the data for read only
  */
 const ContextLoad *Pending::getData() const { return data; }
+
+
+
+
+// Class: PendingStack
+
+/**
+ * @brief Destructor
+ */
+PendingStack::~PendingStack() {
+    if(next != nullptr)
+        delete next;
+}
+
+/**
+ * @brief Appends an element to the top of the stack
+ * 
+ * @param elem New element to the stack
+ */
+void PendingStack::push(Pending elem) {
+    Node* tmp = next;
+    next = new Node();
+    next->next = tmp;
+    next->data = data;
+    data = elem;
+    count++;
+}
+
+/**
+ * @brief Retrives an element from the top of the stack
+ * 
+ * @return The retrived element
+ */
+Pending& PendingStack::front() { return data; }
+
+/**
+ * @brief Removes an element from the top of the stack
+ */
+void PendingStack::pop() {
+    if(count == 0)
+        return;
+    
+    if(next != nullptr) {
+        Node* tmp = next->next;
+        next->next = nullptr;
+        data = next->data;
+        delete next;
+        next = tmp;
+    }
+    else {
+        data = Pending();
+    }
+    count--;
+}
+
+/**
+ * @brief Gets the number of elements in the stack
+ * 
+ * @return The number of elements
+ */
+uint32_t PendingStack::size() const { return count; }
 
 
 
