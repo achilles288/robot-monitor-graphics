@@ -171,6 +171,8 @@ void Object2D::setSize(float w, float h) {
 void Object2D::setSize(const Vec2 &s) {
     size = s;
     modelMatrix[0][0] = cos(rotation) * s.x;
+    modelMatrix[0][1] = -sin(rotation) * s.y;
+    modelMatrix[1][0] = sin(rotation) * s.x;
     modelMatrix[1][1] = cos(rotation) * s.y;
 }
 

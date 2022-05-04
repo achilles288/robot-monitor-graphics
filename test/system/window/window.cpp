@@ -8,6 +8,7 @@
 #include <rmg/config.h>
 #include <rmg/cube.hpp>
 #include <rmg/cylinder.hpp>
+#include <rmg/particle.hpp>
 #include <rmg/sphere.hpp>
 #include <rmg/sprite.hpp>
 
@@ -24,8 +25,9 @@ static float clip(float n, float lower, float upper) {
 
 class TestWindow: public Window {
   private:
-    Object3D *floor, *cube, *cylinder, *sphere, *teapot;
-    Object2D *sprite1, *sprite2;
+    Object3D *floor, *cube1, *cube2, *cylinder, *sphere, *teapot;
+    Sprite2D *sprite1, *sprite2, *sprite3;
+    Particle3D *fire1, *fire2, *fire3;
     Vec3 pos = Vec3(-13.3606f, 6.3603f, 9.8690f);
     Euler rot = Euler(0.0f, 0.5472f, -0.4640f);
     Euler lightAngles = Euler(0.0f, 0.87f, 0.52f);
@@ -50,10 +52,13 @@ class TestWindow: public Window {
         floor->setColor(0.3f, 0.3f, 0.4f);
         floor->setRoughness(0.7f);
         floor->setTranslation(0, 0, -0.5f);
-        cube = new Cube3D(this, 2, 3, 2);
-        cube->setColor(1.0f, 0, 0);
-        cube->setRoughness(0.5f);
-        cube->setTranslation(-4, 0, 2);
+        cube1 = new Cube3D(this, 2, 3, 2);
+        cube1->setColor(1.0f, 0, 0);
+        cube1->setRoughness(0.5f);
+        cube1->setTranslation(-4, 0, 2);
+        cube2 = new Object3D(*cube1);
+        cube2->setColor(0, 0, 1.0f);
+        cube2->setTranslation(-5, 5, 2);
         cylinder = new Cylinder3D(this, 2.4f, 3.0f);
         cylinder->setColor(1.0f, 0, 0.8f);
         cylinder->setRoughness(0.35f);
@@ -68,7 +73,8 @@ class TestWindow: public Window {
         teapot->setTranslation(2, 3.464f, 3);
         teapot->setScale(2.5f, 2, 2.5f);
         addObject(floor);
-        addObject(cube);
+        addObject(cube1);
+        addObject(cube2);
         addObject(cylinder);
         addObject(sphere);
         addObject(teapot);
@@ -80,8 +86,24 @@ class TestWindow: public Window {
         sprite2 = new Sprite2D(this, RMG_RESOURCE_PATH "/test/wine.png");
         sprite2->setAlignment(Alignment::BottomRight);
         sprite2->setTranslation(-48, -48);
+        sprite3 = new Sprite2D(*sprite2);
+        sprite3->setTranslation(-64, -32);
         addObject(sprite1);
+        addObject(sprite3);
         addObject(sprite2);
+        
+        // Particles
+        fire1 = new Particle3D(this, RMG_RESOURCE_PATH "/test/fire.tif");
+        fire1->setSize(0.4f, 0.6f);
+        fire1->setTranslation(-5, -3, 1);
+        fire2 = new Particle3D(*fire1);
+        fire2->setTranslation(-4, -5, 2);
+        fire3 = new Particle3D(*fire1);
+        fire3->setSize(0.5f, 0.8f);
+        fire3->setTranslation(-3, -4, 1.5f);
+        addObject(fire1);
+        addObject(fire2);
+        addObject(fire3);
     }
     
     void update() override {
@@ -97,7 +119,7 @@ class TestWindow: public Window {
         float dt = t - t1;
         t1 = t;
         
-        cube->setRotation(0.3f*t, -0.9f*t, -1.1f*t);
+        cube1->setRotation(0.3f*t, -0.9f*t, -1.1f*t);
         cylinder->setRotation(-0.5f, -0.9f*t, 1.8f*t);
         sphere->setRotation(-1.0f, 0.8f*t, -1.2f*t);
         sphere->setTranslation(-0.5f, -0.5f, 3.1f+2*cos(3*t));
@@ -213,8 +235,6 @@ class TestWindow: public Window {
 int main() {
     Window *window1 = new TestWindow();
     // Window *window2 = new TestWindow();
-    printf("You can test mouse and keyboard events\n"
-           "Press 'Q' to exit the program\n");
     Window::mainLoop();
     int err = 0;
     if(window1->getErrorCode() != 0)// || window2->getErrorCode() != 0)

@@ -40,6 +40,7 @@ class RMG_API SpriteShader: public Shader {
   private:
     uint32_t idMVP;
     uint32_t idColor;
+    uint32_t idTexture;
     
     uint32_t quadVertexArrayID = 0;
     uint32_t quadVertexBuffer = 0;

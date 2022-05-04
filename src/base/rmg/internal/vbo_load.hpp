@@ -55,12 +55,14 @@ enum class VBOMode {
  * OpenGL context shows up. So, this temporary storage class is made to
  * maintain the data for a while before the context startup.
  * 
- * @see TextureLoadPending
- * @see FontLoadPending
+ * @see TextureLoad
+ * @see SpriteLoad
  */
 class RMG_API VBOLoad: public ContextLoad, public Mesh {
   private:
     VBO* vbo;
+    
+    void setAttributePointers();
     
   public:
     /**

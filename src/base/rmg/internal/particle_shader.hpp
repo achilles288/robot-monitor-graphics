@@ -26,6 +26,8 @@
 
 
 #include "shader.hpp"
+#include "../object.hpp"
+#include "../math/mat4.hpp"
 
 namespace rmg {
 namespace internal {
@@ -35,7 +37,14 @@ namespace internal {
  */
 class RMG_API ParticleShader: public Shader {
   private:
-    uint32_t idMVP;
+    uint32_t idTV;
+    uint32_t idModel;
+    uint32_t idProjection;
+    uint32_t idColor;
+    uint32_t idTexture;
+    
+    uint32_t quadVertexArrayID = 0;
+    uint32_t quadVertexBuffer = 0;
     
   public:
     /**
@@ -44,9 +53,23 @@ class RMG_API ParticleShader: public Shader {
     ParticleShader() = default;
     
     /**
+     * @brief Destructor
+     */
+    virtual ~ParticleShader();
+    
+    /**
      * @brief Compile, link and assign program parameters
      */
     void load() override;
+    
+    /**
+     * @brief Renders the given list of particles
+     * 
+     * @param V View matrix
+     * @param P Projection matrix
+     * @param list List of particles
+     */
+    void render(const Mat4 &V, const Mat4 &MP, const ObjectList &list);
 };
 
 }}

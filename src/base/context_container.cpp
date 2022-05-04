@@ -87,6 +87,8 @@ void Context::addObject(Object* obj) {
         object3d_list.push_front(obj);
     }
     else if(type == ObjectType::Particle3D) {
+        Particle3D* particle = (Particle3D*) obj;
+        loader.push(particle->getTextureLoad());
         particle3d_list.push_front(obj);
     }
     else if(type == ObjectType::Line3D) {

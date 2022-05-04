@@ -195,7 +195,7 @@ void Object3D::swap(Object3D& x) noexcept {
 void Object3D::setMesh(const Mesh& mesh) {
     dereferenceVBO();
     vbo = new internal::VBO();
-    vboShareCount = new uint8_t;
+    vboShareCount = new uint32_t;
     *vboShareCount = 1;
     auto load = new internal::VBOLoad(vbo, mesh);
     vboLoad = internal::Pending(load);
@@ -374,7 +374,7 @@ Material *Object3D::getMaterial() const { return material; }
 void Object3D::loadTexture(const std::string &f) {
     dereferenceTexture();
     texture = new internal::Texture();
-    texShareCount = new uint8_t;
+    texShareCount = new uint32_t;
     *texShareCount = 1;
     auto load = new internal::TextureLoad(texture, f);
     texLoad = internal::Pending(load);
@@ -388,7 +388,7 @@ void Object3D::loadTexture(const std::string &f) {
 void Object3D::loadTexture(const Bitmap &bmp) {
     dereferenceTexture();
     texture = new internal::Texture();
-    texShareCount = new uint8_t;
+    texShareCount = new uint32_t;
     *texShareCount = 1;
     auto load = new internal::TextureLoad(texture, bmp);
     texLoad = internal::Pending(load);
@@ -409,7 +409,7 @@ void Object3D::loadTexture(const Bitmap& base, const Bitmap& h,
 {
     dereferenceTexture();
     texture = new internal::Texture();
-    texShareCount = new uint8_t;
+    texShareCount = new uint32_t;
     *texShareCount = 1;
     auto load = new internal::TextureLoad(texture, base, h, norm, m, e);
     texLoad = internal::Pending(load);

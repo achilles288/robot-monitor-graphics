@@ -71,6 +71,7 @@ void Context::render() {
         }
         generalShader.load();
         shadowMapShader.load();
+        particleShader.load();
         object2dShader.load();
         initDone = true;
     }
@@ -96,6 +97,12 @@ void Context::render() {
         dlColor,
         shadow,
         object3d_list
+    );
+    
+    particleShader.render(
+        camera.getViewMatrix(),
+        camera.getProjectionMatrix(),
+        particle3d_list
     );
     
     object2dShader.render(object2d_list);

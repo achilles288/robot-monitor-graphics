@@ -28,7 +28,6 @@
 #endif
 
 
-#include <memory>
 #include <string>
 
 #include "object2d.hpp"
@@ -41,21 +40,21 @@ class Bitmap;
 
 namespace internal {
 
-class Texture;
+class SpriteTexture;
 
 }
 
 
 /**
  * @brief 2D sprite images for 2D games
- *
+ * 
  * Easily manipulatable model. Display 2D graphics at lowest cost.
  * Make 2D games like Mario.
  */
 class RMG_API Sprite2D: public Object2D {
   private:
-    internal::Texture* texture = nullptr;
-    uint8_t* texShareCount = 0;
+    internal::SpriteTexture* texture = nullptr;
+    uint32_t* texShareCount = nullptr;
     internal::Pending texLoad;
     
   protected:
@@ -144,7 +143,7 @@ class RMG_API Sprite2D: public Object2D {
      * 
      * @return Pointer to the texture
      */
-    const internal::Texture *getTexture() const;
+    const internal::SpriteTexture *getTexture() const;
     
     /**
      * @brief Gets the texture loader

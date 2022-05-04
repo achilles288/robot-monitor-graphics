@@ -17,7 +17,8 @@
 #include "rmg/sprite.hpp"
 
 #include "rmg/bitmap.hpp"
-#include "rmg/internal/texture_load.hpp"
+#include "rmg/internal/sprite_load.hpp"
+#include <cstdio>
 
 
 namespace rmg {
@@ -31,7 +32,7 @@ namespace rmg {
 Sprite2D::Sprite2D(Context* ctx, const std::string &img)
          :Sprite2D(ctx, img, Vec2())
 {
-    internal::TextureLoad *load = (internal::TextureLoad*) texLoad.getData();
+    internal::SpriteLoad *load = (internal::SpriteLoad*) texLoad.getData();
     setSize(load->getWidth(), load->getHeight());
 }
 
@@ -58,11 +59,10 @@ Sprite2D::Sprite2D(Context* ctx, const Bitmap &bmp)
 Sprite2D::Sprite2D(Context* ctx, const std::string &img, const Vec2 &size)
          :Object2D(ctx)
 {
-    texture = new internal::Texture();
-    texShareCount = new uint8_t;
+    texture = new internal::SpriteTexture();
+    texShareCount = new uint32_t;
     *texShareCount = 1;
-    auto load = new internal::TextureLoad(texture, img);
-    load->setOptimize2D(true);
+    auto load = new internal::SpriteLoad(texture, img);
     texLoad = internal::Pending(load);
     setSize(size);
     type2D = Object2DType::Sprite;
@@ -78,11 +78,10 @@ Sprite2D::Sprite2D(Context* ctx, const std::string &img, const Vec2 &size)
 Sprite2D::Sprite2D(Context* ctx, const Bitmap &bmp, const Vec2 &size)
          :Object2D(ctx)
 {
-    texture = new internal::Texture();
-    texShareCount = new uint8_t;
+    texture = new internal::SpriteTexture();
+    texShareCount = new uint32_t;
     *texShareCount = 1;
-    auto load = new internal::TextureLoad(texture, bmp);
-    load->setOptimize2D(true);
+    auto load = new internal::SpriteLoad(texture, bmp);
     texLoad = internal::Pending(load);
     setSize(size);
     type2D = Object2DType::Sprite;
@@ -169,7 +168,7 @@ void Sprite2D::swap(Sprite2D& x) noexcept {
  * 
  * @return Pointer to the texture
  */
-const internal::Texture *Sprite2D::getTexture() const {return texture; }
+const internal::SpriteTexture *Sprite2D::getTexture() const {return texture; }
 
 
 /**

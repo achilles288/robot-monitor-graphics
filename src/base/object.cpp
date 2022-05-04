@@ -43,7 +43,6 @@ Object::Object() {
  * @param ctx Container context
  */
 Object::Object(Context* ctx) {
-    
     id = ++lastID;
     context = ctx;
     color = DEFAULT_COLOR;

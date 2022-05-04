@@ -63,7 +63,7 @@ class RMG_API Object2D: public Object {
     Alignment alignment;
     
   protected:
-    Object2DType type2D; ///< Sprite or Text
+    Object2DType type2D = Object2DType::Default; ///< Sprite or Text
     
     /**
      * @brief The matrix composed of all the transformations done by the
@@ -174,7 +174,7 @@ class RMG_API Object2D: public Object {
     /**
      * @brief Gets the rotation of the 2D object
      * 
-     * @return Rotation in degrees
+     * @return Rotation in radian
      */
     float getRotation() const;
     

@@ -28,9 +28,9 @@
 #endif
 
 
-#include <memory>
-
 #include "object.hpp"
+#include "math/angle_unit.hpp"
+#include "math/mat3.hpp"
 #include "math/vec.hpp"
 #include "internal/context_load.hpp"
 
@@ -41,8 +41,7 @@ class Bitmap;
 
 namespace internal {
 
-class ParticleShader;
-class Texture;
+class SpriteTexture;
 
 }
 
@@ -55,19 +54,28 @@ class Texture;
  */
 class RMG_API Particle3D: public Object {
   private:
-    std::shared_ptr<internal::Texture> texture;
+    internal::SpriteTexture* texture = nullptr;
+    uint32_t* texShareCount = nullptr;
     internal::Pending texLoad;
     
     Vec3 position;
     Vec2 size;
+    float rotation;
+    Mat3 modelMatrix;
     
-    friend class internal::ParticleShader;
+  protected:
+    /**
+     * @brief Swaps the values of member variables between two objects
+     * 
+     * @param x The other object
+     */
+    void swap(Particle3D& x) noexcept;
     
   public:
     /**
      * @brief Default constructor
      */
-    Particle3D() = default;
+    Particle3D();
     
     /**
      * @brief Constructs a particle object loading a particle image
@@ -76,7 +84,7 @@ class RMG_API Particle3D: public Object {
      * @param img Image file (supports the same format Texture class does)
      * @param s Particle size
      */
-    Particle3D(Context* ctx, const std::string &img, const Vec2 &s=Vec2());
+    Particle3D(Context* ctx, const std::string &img, const Vec2 &s=Vec2(1,1));
     
     /**
      * @brief Constructs a particle object loading a particle image
@@ -85,7 +93,47 @@ class RMG_API Particle3D: public Object {
      * @param bmp Particle image
      * @param s Particle size
      */
-    Particle3D(Context* ctx, const Bitmap &bmp, const Vec2 &s=Vec2());
+    Particle3D(Context* ctx, const Bitmap &bmp, const Vec2 &s=Vec2(1,1));
+    
+    /**
+     * @brief Destructor
+     */
+    virtual ~Particle3D();
+    
+    /**
+     * @brief Copy constructor
+     * 
+     * @param obj Source object
+     */
+    Particle3D(const Particle3D& obj);
+    
+    /**
+     * @brief Move constructor
+     * 
+     * @param obj Source object
+     */
+    Particle3D(Particle3D&& obj) noexcept;
+    
+    /**
+     * @brief Copy assignment
+     * 
+     * @param obj Source object
+     */
+    Particle3D& operator=(const Particle3D& obj);
+    
+    /**
+     * @brief Move assignment
+     * 
+     * @param obj Source object
+     */
+    Particle3D& operator=(Particle3D&& obj) noexcept;
+    
+    /**
+     * @brief The matrix composed of all the transformations done by the object
+     * 
+     * @return Model matrix
+     */
+    const Mat3& getModelMatrix() const;
     
     /**
      * @brief Sets the location which the particle appears
@@ -111,6 +159,30 @@ class RMG_API Particle3D: public Object {
     Vec3 getTranslation() const;
     
     /**
+     * @brief Sets the rotation of the particle
+     * 
+     * @param t Rotation in radian
+     */
+    void setRotation(float t);
+    
+    /**
+     * @brief Sets the rotation of the particle
+     * 
+     * @param t Rotation
+     * @param unit If the rotation value is degree or radian
+     */
+    inline void setRotation(float t, AngleUnit unit) {
+        setRotation((unit == AngleUnit::Radian) ? t : radian(t));
+    }
+    
+    /**
+     * @brief Gets the rotation of the particle
+     * 
+     * @return Rotation in radian
+     */
+    float getRotation() const;
+    
+    /**
      * @brief Sets the size of the particle
      * 
      * @param w Width
@@ -131,6 +203,20 @@ class RMG_API Particle3D: public Object {
      * @return Width and height as a rectangular dimension
      */
     Vec2 getSize() const;
+    
+    /**
+     * @brief Gets the pointer to the texture
+     * 
+     * @return Pointer to the texture
+     */
+    const internal::SpriteTexture *getTexture() const;
+    
+    /**
+     * @brief Gets the texture loader
+     * 
+     * @return Texture loader
+     */
+    const internal::Pending& getTextureLoad() const;
 };
 
 }

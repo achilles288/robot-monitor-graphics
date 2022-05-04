@@ -13,6 +13,7 @@
 
 #include "../rmg/internal/texture_load.hpp"
 
+#include "shader_def.h"
 #include "../rmg/internal/glcontext.hpp"
 
 
@@ -35,7 +36,6 @@ TextureLoad::TextureLoad(Texture* tex, const std::string &f) {
     normalmap = Bitmap();
     mrao = Bitmap();
     emissivity = Bitmap();
-    optimize2d = false;
     width = basecolor.getWidth();
     height = basecolor.getHeight();
 }
@@ -54,7 +54,6 @@ TextureLoad::TextureLoad(Texture* tex, const Bitmap& bmp) {
     normalmap = Bitmap();
     mrao = Bitmap();
     emissivity = Bitmap();
-    optimize2d = false;
     width = bmp.getWidth();
     height = bmp.getHeight();
 }
@@ -79,7 +78,6 @@ TextureLoad::TextureLoad(Texture* tex, const Bitmap& base, const Bitmap& h,
     normalmap = norm;
     mrao = m;
     emissivity = e;
-    optimize2d = false;
     width = base.getWidth();
     height = base.getHeight();
 }
@@ -90,16 +88,6 @@ TextureLoad::TextureLoad(Texture* tex, const Bitmap& base, const Bitmap& h,
 TextureLoad::~TextureLoad() {}
 
 /**
- * @brief Sets whether to optimize the texture for 2D graphics
- * 
- * In drawing 2D sprites, no concept about object distance from the camera is
- * included and hence, mipmap generation is to be skipped.
- * 
- * @param b True to optimize the texture for 2D graphics
- */
-void TextureLoad::setOptimize2D(bool b) { optimize2d = true; }
-
-/**
  * @brief Loads the texture data to the GPU
  * 
  * Loads a chunk of image data into GPU for shader processing.
@@ -107,13 +95,6 @@ void TextureLoad::setOptimize2D(bool b) { optimize2d = true; }
  * addresses to the related Texture instance.
  */
 void TextureLoad::load() {
-    if(optimize2d)
-        loadOptimize2D();
-    else
-        loadDefault();
-}
-
-void TextureLoad::loadDefault() {
     if(basecolor.getPointer() != NULL) {
         glGenTextures(1, &texture->basecolor);
         glBindTexture(GL_TEXTURE_2D, texture->basecolor);
@@ -134,40 +115,7 @@ void TextureLoad::loadDefault() {
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
         glBindTexture(GL_TEXTURE_2D, 0);
-    } 
-}
-
-void TextureLoad::loadOptimize2D() {
-    if(basecolor.getPointer() == NULL)
-        return;
-    
-    glGenTextures(1, &texture->basecolor);
-    glBindTexture(GL_TEXTURE_2D, texture->basecolor);
-    
-    int channel = 0;
-    if(basecolor.getChannel() == 3)
-        channel = GL_RGB;
-    else if(basecolor.getChannel() == 4)
-        channel = GL_RGBA;
-    else
-        return;
-    
-    glTexImage2D(
-        GL_TEXTURE_2D,
-        0,
-        channel,
-        width,
-        height,
-        0,
-        channel,
-        GL_UNSIGNED_BYTE,
-        basecolor.getPointer()
-    );
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_BORDER);
-    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_BORDER);
-    glBindTexture(GL_TEXTURE_2D, 0);
+    }
 }
 
 /**
@@ -354,7 +302,7 @@ float Texture::getDepth() const { return depth; }
  */
 void Texture::bind() const {
     if(basecolor) {
-        glActiveTexture(GL_TEXTURE0);
+        glActiveTexture(_GL_TEXTURE_BASE);
         glBindTexture(GL_TEXTURE_2D, basecolor);
     }
 }

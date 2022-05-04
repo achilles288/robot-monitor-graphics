@@ -40,6 +40,7 @@ add_library(rmgbase SHARED
     internal/particle_shader.cpp
     internal/shader.cpp
     internal/shadow_map_shader.cpp
+    internal/sprite_load.cpp
     internal/texture_load.cpp
     internal/vbo_load.cpp
     
@@ -86,6 +87,7 @@ add_library(rmgbase SHARED
     rmg/internal/particle_shader.hpp
     rmg/internal/shader.hpp
     rmg/internal/shadow_map_shader.hpp
+    rmg/internal/sprite_load.hpp
     rmg/internal/texture_load.hpp
     rmg/internal/vbo_load.hpp
 )

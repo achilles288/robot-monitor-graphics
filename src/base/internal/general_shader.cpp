@@ -18,6 +18,7 @@
 
 #include "../rmg/internal/general_shader.hpp"
 
+#include "shader_def.h"
 #include "../../config/rmg/config.h"
 #include "../rmg/object3d.hpp"
 
@@ -73,6 +74,8 @@ void GeneralShader::render(const Mat4 &V, const Mat4 &P, const Mat4 &S,
     glUseProgram(id);
     glUniform3fv(idDLCamera, 1, &dlCam[0]);
     glUniform4fv(idDLColor, 1, &dlColor[0]);
+    glUniform1i(idShadow, TEXTURE_SHADOW);
+    
     for(auto it=list.begin(); it!=list.end(); it++) {
         uint32_t flags = 0;
         Object3D *obj = (Object3D*) &(*it);
@@ -88,9 +91,8 @@ void GeneralShader::render(const Mat4 &V, const Mat4 &P, const Mat4 &S,
             flags |= (1 << 0);
             Mat4 shadowMVP = S * obj->getModelMatrix();
             glUniformMatrix4fv(idShadowMVP, 1, GL_TRUE, &shadowMVP[0][0]);
-            glActiveTexture(GL_TEXTURE0);
+            glActiveTexture(_GL_TEXTURE_SHADOW);
             glBindTexture(GL_TEXTURE_2D, shadow);
-            glUniform1i(idShadow, 0);
         }
         
         glUniform4fv(idMatColor, 1, &obj->getColor()[0]);

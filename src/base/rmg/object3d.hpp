@@ -70,11 +70,11 @@ class RMG_API Object3D: public Object {
     float ambientOcculation;
     
     internal::VBO* vbo = nullptr;
-    uint8_t* vboShareCount = nullptr;
+    uint32_t* vboShareCount = nullptr;
     internal::Pending vboLoad;
     
     internal::Texture* texture = nullptr;
-    uint8_t* texShareCount = nullptr;
+    uint32_t* texShareCount = nullptr;
     internal::Pending texLoad;
     
     void loadOBJ(const std::string &file, bool smooth=true);

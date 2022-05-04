@@ -75,6 +75,47 @@ void VBOLoad::load() {
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, index_count*sizeof(uint32_t),
                  indices, GL_STATIC_DRAW);
     vbo->indexCount = index_count;
+    
+    setAttributePointers();
+}
+
+
+void VBOLoad::setAttributePointers() {
+    // 1st attribute buffer : vertices
+    glEnableVertexAttribArray(0);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo->vertexbuffer);
+    glVertexAttribPointer(
+        0,              // attribute
+        3,              // size
+        GL_FLOAT,       // type
+        GL_FALSE,       // normalized?
+        0,              // stride
+        (void*)0        // array buffer offset
+    );
+    // 2nd attribute buffer : normals
+    glEnableVertexAttribArray(1);
+    glBindBuffer(GL_ARRAY_BUFFER, vbo->normalbuffer);
+    glVertexAttribPointer(
+        1,
+        3,
+        GL_FLOAT,
+        GL_FALSE,
+        0,
+        (void*)0
+    );
+    // 3nd attribute buffer : textures
+    if(vbo->mode == VBOMode::Textured) {
+        glEnableVertexAttribArray(2);
+        glBindBuffer(GL_ARRAY_BUFFER, vbo->texturebuffer);
+        glVertexAttribPointer(
+            2,
+            2,
+            GL_FLOAT,
+            GL_FALSE,
+            0,
+            (void*)0
+        );
+    }
 }
 
 
@@ -108,42 +149,7 @@ void VBO::draw() const {
     if(mode == VBOMode::None)
         return;
     
-    // 1st attribute buffer : vertices
-    glEnableVertexAttribArray(0);
-    glBindBuffer(GL_ARRAY_BUFFER, vertexbuffer);
-    glVertexAttribPointer(
-        0,              // attribute
-        3,              // size
-        GL_FLOAT,       // type
-        GL_FALSE,       // normalized?
-        0,              // stride
-        (void*)0        // array buffer offset
-    );
-    // 2nd attribute buffer : normals
-    glEnableVertexAttribArray(1);
-    glBindBuffer(GL_ARRAY_BUFFER, normalbuffer);
-    glVertexAttribPointer(
-        1,
-        3,
-        GL_FLOAT,
-        GL_FALSE,
-        0,
-        (void*)0
-    );
-    // 3nd attribute buffer : textures
-    if(mode == VBOMode::Textured) {
-        glEnableVertexAttribArray(2);
-        glBindBuffer(GL_ARRAY_BUFFER, texturebuffer);
-        glVertexAttribPointer(
-            2,
-            2,
-            GL_FLOAT,
-            GL_FALSE,
-            0,
-            (void*)0
-        );
-    }
-    // Index buffer
+    glBindVertexArray(vertexArrayID);
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, elementbuffer);
     
     // Draw the triangles !
@@ -153,10 +159,6 @@ void VBO::draw() const {
         GL_UNSIGNED_INT,   // type
         (void*)0           // element array buffer offset
     );
-    glDisableVertexAttribArray(0);
-    glDisableVertexAttribArray(1);
-    if(mode == VBOMode::Textured)
-        glDisableVertexAttribArray(2);
 }
 
 }}

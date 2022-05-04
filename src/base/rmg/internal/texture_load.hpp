@@ -25,8 +25,6 @@
 #endif
 
 
-#include <memory>
-
 #include "../bitmap.hpp"
 #include "../color.hpp"
 #include "../math/vec2.hpp"
@@ -48,8 +46,8 @@ class Texture;
  * So, this temporary storage class is made to maintain the data for a while.
  * before the context startup.
  * 
- * @see VBOLoadPending
- * @see FontLoadPending
+ * @see VBOLoad
+ * @see SpriteLoad
  */
 class RMG_API TextureLoad: public ContextLoad {
   private:
@@ -59,12 +57,8 @@ class RMG_API TextureLoad: public ContextLoad {
     Bitmap normalmap;
     Bitmap mrao;
     Bitmap emissivity;
-    bool optimize2d;
     uint16_t width;
     uint16_t height;
-    
-    void loadDefault();
-    void loadOptimize2D();
     
   public:
     /**
@@ -103,16 +97,6 @@ class RMG_API TextureLoad: public ContextLoad {
      * @brief Destructor
      */
     ~TextureLoad();
-    
-    /**
-     * @brief Sets whether to optimize the texture for 2D graphics
-     * 
-     * In drawing 2D sprites, no concept about object distance from the camera
-     * is included and hence, mipmap generation is to be skipped.
-     * 
-     * @param b True to optimize the texture for 2D graphics
-     */
-    void setOptimize2D(bool b);
     
     /**
      * @brief Loads the texture data to the GPU

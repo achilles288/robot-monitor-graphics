@@ -13,9 +13,10 @@
 
 #include "../rmg/internal/object2d_shader.hpp"
 
+#include "shader_def.h"
+#include "../rmg/internal/sprite_load.hpp"
 #include "../../config/rmg/config.h"
 
-#include <iostream>
 #include <map>
 
 
@@ -45,6 +46,7 @@ void SpriteShader::load() {
     );
     idMVP = glGetUniformLocation(id, "MVP");
     idColor = glGetUniformLocation(id, "color");
+    idTexture = glGetUniformLocation(id, "image");
     
     const float vertices[] = {
          0.5f,  0.5f, 1.0f, 1.0f,
@@ -53,9 +55,12 @@ void SpriteShader::load() {
          0.5f, -0.5f, 1.0f, 0.0f
     };
     glGenVertexArrays(1, &quadVertexArrayID);
+    glBindVertexArray(quadVertexArrayID);
     glGenBuffers(1, &quadVertexBuffer);
     glBindBuffer(GL_ARRAY_BUFFER, quadVertexBuffer);
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 }
 
 /**
@@ -69,10 +74,8 @@ void SpriteShader::render(Sprite2D* sprite, const Mat3 &VP) {
         return;
     if(prevShader != id) {
         glUseProgram(id);
-        glBindBuffer(GL_ARRAY_BUFFER, quadVertexBuffer);
-        glVertexAttribPointer(0, 4, GL_FLOAT, GL_FALSE, 4*sizeof(float), (void*)0);
-        glEnableVertexAttribArray(0);
         glBindVertexArray(quadVertexArrayID);
+        glUniform1i(idTexture, TEXTURE_SPRITE);
     }
     Mat3 MVP = VP * sprite->getModelMatrix();
     Color color = sprite->getColor();
@@ -152,6 +155,7 @@ void Object2DShader::render(const ObjectList &list) {
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);
+    prevShader = 0;
     std::multimap<int16_t, Object2D*> sorted;
     
     for(auto it=list.begin(); it!=list.end(); it++) {
@@ -164,7 +168,7 @@ void Object2DShader::render(const ObjectList &list) {
     }
     
     for(auto it=sorted.begin(); it!=sorted.end(); it++) {
-        Object2D* obj = (Object2D*) &(*it);
+        Object2D* obj = (Object2D*) it->second;
         Mat3 V = Mat3();
         switch(obj->getAlignment()) {
           case Alignment::TopLeft:
