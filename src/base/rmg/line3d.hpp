@@ -30,6 +30,7 @@
 
 
 #include "object.hpp"
+#include "math/mat4.hpp"
 #include "math/vec3.hpp"
 
 
@@ -44,15 +45,27 @@ namespace rmg {
  */
 class RMG_API Line3D: public Object {
   private:
-    Vec3 point1;
-    Vec3 point2;
-    float thickness;
+    Vec3 point1 = Vec3();
+    Vec3 point2 = Vec3();
+    float thickness = 0.0;
+    Mat4 modelMatrix = Mat4(0);
+    
+    void calculateMatrix();
     
   public:
     /**
      * @brief Default constructor
      */
     Line3D() = default;
+    
+    /**
+     * @brief Constructor with thickness and color
+     * 
+     * @param ctx Container context
+     * @param t Line thickness
+     * @param col RGBA color
+     */
+    Line3D(Context* ctx, float t, const Color &col=Color(1,1,1));
     
     /**
      * @brief Constructor with thickness, color and 2 initial end-points
@@ -63,8 +76,16 @@ class RMG_API Line3D: public Object {
      * @param p1 Position vector of point-1
      * @param p2 Position vector of point-2
      */
-    Line3D(Context* ctx, float t, const Color &col=Color(1,1,1),
-           const Vec3 &p1=Vec3(), const Vec3 &p2=Vec3());
+    Line3D(Context* ctx, float t, const Color &col, const Vec3 &p1,
+           const Vec3 &p2);
+    
+    /**
+     * @brief The matrix composed of all the transformations done by the
+     *        object
+     * 
+     * @return Model matrix
+     */
+    const Mat4& getModelMatrix() const;
     
     /**
      * @brief Sets the location of point-1
@@ -97,6 +118,14 @@ class RMG_API Line3D: public Object {
      * @param p Position vector
      */
     void setPoint2(const Vec3 &p);
+    
+    /**
+     * @brief Sets the location of the end points
+     * 
+     * @param p1 Position vector of point-1
+     * @param p2 Position vector of point-2
+     */
+    void setPoints(const Vec3 &p1, const Vec3 &p2);
     
     /**
      * @brief Gets the location of point-1

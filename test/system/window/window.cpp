@@ -8,6 +8,7 @@
 #include <rmg/config.h>
 #include <rmg/cube.hpp>
 #include <rmg/cylinder.hpp>
+#include <rmg/line3d.hpp>
 #include <rmg/particle.hpp>
 #include <rmg/sphere.hpp>
 #include <rmg/sprite.hpp>
@@ -28,6 +29,7 @@ class TestWindow: public Window {
     Object3D *floor, *cube1, *cube2, *cylinder, *sphere, *teapot;
     Sprite2D *sprite1, *sprite2, *sprite3;
     Particle3D *fire1, *fire2, *fire3;
+    Line3D *lines[8];
     Vec3 pos = Vec3(-13.3606f, 6.3603f, 9.8690f);
     Euler rot = Euler(0.0f, 0.5472f, -0.4640f);
     Euler lightAngles = Euler(0.0f, 0.87f, 0.52f);
@@ -104,6 +106,29 @@ class TestWindow: public Window {
         addObject(fire1);
         addObject(fire2);
         addObject(fire3);
+        
+        // 3D lines
+        for(int i=0; i<8; i++) {
+            lines[i] = new Line3D(this, 0.1f, Color(0,0,0));
+            addObject(lines[i]);
+        }
+        lines[0]->setPoint1(-7.5f, -7.5f, 0);
+        lines[1]->setPoint1( 7.5f, -7.5f, 0);
+        lines[2]->setPoint1( 7.5f,  7.5f, 0);
+        lines[3]->setPoint1(-7.5f,  7.5f, 0);
+        lines[0]->setPoint2(-7.5f, -7.5f, 7.5f);
+        lines[1]->setPoint2( 7.5f, -7.5f, 7.5f);
+        lines[2]->setPoint2( 7.5f,  7.5f, 7.5f);
+        lines[3]->setPoint2(-7.5f,  7.5f, 7.5f);
+        
+        lines[4]->setPoint1(-7.5f, -7.5f, 7.5f);
+        lines[5]->setPoint1( 7.5f, -7.5f, 7.5f);
+        lines[6]->setPoint1( 7.5f,  7.5f, 7.5f);
+        lines[7]->setPoint1(-7.5f,  7.5f, 7.5f);
+        lines[7]->setPoint2(-7.5f, -7.5f, 7.5f);
+        lines[4]->setPoint2( 7.5f, -7.5f, 7.5f);
+        lines[5]->setPoint2( 7.5f,  7.5f, 7.5f);
+        lines[6]->setPoint2(-7.5f,  7.5f, 7.5f);
     }
     
     void update() override {

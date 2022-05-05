@@ -64,6 +64,9 @@ class VBO;
  */
 class RMG_API Object3D: public Object {
   private:
+    Mat4 modelMatrix;
+    Vec3 scale;
+    
     Material* material = nullptr;
     float metalness;
     float roughness;
@@ -84,13 +87,6 @@ class RMG_API Object3D: public Object {
     void dereferenceTexture();
     
   protected:
-    /**
-     * @brief The matrix composed of all the transformations done by the
-     *        object
-     */
-    Mat4 modelMatrix;
-    Vec3 scale; ///< Scaling factors as a vector
-    
     /**
      * @brief Sets the mesh of the 3D object
      * 

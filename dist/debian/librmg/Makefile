@@ -203,6 +203,10 @@ install:
 		$(DESTDIR)$(prefix)/share/rmg/shaders/general.vs.glsl
 	install -Dm 644 share/shaders/particle.fs.glsl \
 		$(DESTDIR)$(prefix)/share/rmg/shaders/particle.fs.glsl
+	install -Dm 644 share/shaders/line3d.fs.glsl \
+		$(DESTDIR)$(prefix)/share/rmg/shaders/line3d.fs.glsl
+	install -Dm 644 share/shaders/line3d.vs.glsl \
+		$(DESTDIR)$(prefix)/share/rmg/shaders/line3d.vs.glsl
 	install -Dm 644 share/shaders/particle.vs.glsl \
 		$(DESTDIR)$(prefix)/share/rmg/shaders/particle.vs.glsl
 	install -Dm 644 share/shaders/shadow_map.fs.glsl \

@@ -71,8 +71,9 @@ void Context::render() {
         }
         generalShader.load();
         shadowMapShader.load();
-        particleShader.load();
         object2dShader.load();
+        particleShader.load();
+        line3dShader.load();
         initDone = true;
     }
     
@@ -89,6 +90,9 @@ void Context::render() {
     glClearColor(bgColor.red, bgColor.green, bgColor.blue, 1);
     glClearDepth(1.0);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+    
+    line3dShader.render(camera.getVPMatrix(), line3d_list);
+    
     generalShader.render(
         camera.getViewMatrix(),
         camera.getProjectionMatrix(),
