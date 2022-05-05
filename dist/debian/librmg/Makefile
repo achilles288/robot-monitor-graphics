@@ -79,6 +79,7 @@ RMG_BASE_SRCS = \
 	src/base/internal/particle_shader.cpp \
 	src/base/internal/shader.cpp \
 	src/base/internal/shadow_map_shader.cpp \
+	src/base/internal/sprite_load.cpp \
 	src/base/internal/texture_load.cpp \
 	src/base/internal/vbo_load.cpp
 
@@ -200,6 +201,10 @@ install:
 		$(DESTDIR)$(prefix)/share/rmg/shaders/general.fs.glsl
 	install -Dm 644 share/shaders/general.vs.glsl \
 		$(DESTDIR)$(prefix)/share/rmg/shaders/general.vs.glsl
+	install -Dm 644 share/shaders/particle.fs.glsl \
+		$(DESTDIR)$(prefix)/share/rmg/shaders/particle.fs.glsl
+	install -Dm 644 share/shaders/particle.vs.glsl \
+		$(DESTDIR)$(prefix)/share/rmg/shaders/particle.vs.glsl
 	install -Dm 644 share/shaders/shadow_map.fs.glsl \
 		$(DESTDIR)$(prefix)/share/rmg/shaders/shadow_map.fs.glsl
 	install -Dm 644 share/shaders/shadow_map.vs.glsl \
@@ -304,6 +309,8 @@ install:
 		$(DESTDIR)$(prefix)/include/rmg/internal/shader.hpp
 	install -Dm 644 src/base/rmg/internal/shadow_map_shader.hpp \
 		$(DESTDIR)$(prefix)/include/rmg/internal/shadow_map_shader.hpp
+	install -Dm 644 src/base/rmg/internal/sprite_load.hpp \
+		$(DESTDIR)$(prefix)/include/rmg/internal/sprite_load.hpp
 	install -Dm 644 src/base/rmg/internal/texture_load.hpp \
 		$(DESTDIR)$(prefix)/include/rmg/internal/texture_load.hpp
 	install -Dm 644 src/base/rmg/internal/vbo_load.hpp \
