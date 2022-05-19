@@ -112,7 +112,7 @@ TEST_F(Object2DShader, runtime) {
     
     Context ctx;
     ContextLoader loader;
-    Sprite2D *sprite1 = new Sprite2D(&ctx, RMG_RESOURCE_PATH "/icons/rmg-app.png");
+    Sprite2D *sprite1 = new Sprite2D(&ctx, RMG_RESOURCE_PATH "/icon64.png");
     sprite1->setAlignment(Alignment::BottomLeft);
     sprite1->setTranslation(48, -48);
     Sprite2D *sprite2 = new Sprite2D(&ctx, RMGTEST_RESOURCE_PATH "/wine.png");

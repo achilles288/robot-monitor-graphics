@@ -3,6 +3,8 @@
 #include <gtest/gtest.h>
 
 #include <rmg/context.hpp>
+#include <rmg/config.h>
+#include <rmg/internal/context_load.hpp>
 
 using namespace rmg;
 
@@ -35,6 +37,98 @@ TEST(Object3D, constructor) {
     ASSERT_EQ(0.6f, obj.getAmbientOcculation());
     
     ASSERT_EQ(ObjectType::Object3D, obj.getObjectType());
+}
+
+
+/**
+ * @brief Object3D OBJ file loading test
+ */
+TEST(Object3D, load_obj) {
+    Context ctx = Context();
+    Object3D obj = Object3D(&ctx, RMG_RESOURCE_PATH "/models/teapot.obj");
+    
+    Vec3 pos = obj.getTranslation();
+    ASSERT_EQ(0, pos.x);
+    ASSERT_EQ(0, pos.y);
+    ASSERT_EQ(0, pos.z);
+    
+    Euler rot = obj.getRotation();
+    ASSERT_EQ(0, rot.roll);
+    ASSERT_EQ(0, rot.pitch);
+    ASSERT_EQ(0, rot.yaw);
+    
+    Vec3 scale = obj.getScale();
+    ASSERT_EQ(1, scale.x);
+    ASSERT_EQ(1, scale.y);
+    ASSERT_EQ(1, scale.z);
+    
+    ASSERT_EQ(NULL, obj.getMaterial());
+    ASSERT_EQ(0.0f, obj.getMetalness());
+    ASSERT_EQ(0.6f, obj.getRoughness());
+    ASSERT_EQ(0.6f, obj.getAmbientOcculation());
+    
+    ASSERT_EQ(ObjectType::Object3D, obj.getObjectType());
+}
+
+
+/**
+ * @brief Object3D copy test
+ */
+TEST(Object3D, copy) {
+    Context ctx = Context();
+    Object3D obj1 = Object3D(&ctx, RMG_RESOURCE_PATH "/models/teapot.obj");
+    obj1.setTranslation(3.34f, -7.85f, 6.05f);
+    obj1.setRotation(0.99f, 0.73f, 2.75f);
+    obj1.setScale(1.05f, 1.4f, 2.19f);
+    Object3D obj2 = Object3D(obj1);
+    
+    Mat4 A = obj1.getModelMatrix();
+    Mat4 B = obj2.getModelMatrix();
+    ASSERT_EQ(A[0][0], B[0][0]);
+    ASSERT_EQ(A[0][1], B[0][1]);
+    ASSERT_EQ(A[0][2], B[0][2]);
+    ASSERT_EQ(A[0][3], B[0][3]);
+    ASSERT_EQ(A[1][0], B[1][0]);
+    ASSERT_EQ(A[1][1], B[1][1]);
+    ASSERT_EQ(A[1][2], B[1][2]);
+    ASSERT_EQ(A[1][3], B[1][3]);
+    ASSERT_EQ(A[2][0], B[2][0]);
+    ASSERT_EQ(A[2][1], B[2][1]);
+    ASSERT_EQ(A[2][2], B[2][2]);
+    ASSERT_EQ(A[2][3], B[2][3]);
+    
+    Vec3 pos = obj2.getTranslation();
+    ASSERT_EQ( 3.34f, pos.x);
+    ASSERT_EQ(-7.85f, pos.y);
+    ASSERT_EQ( 6.05f, pos.z);
+    
+    Euler rot = obj2.getRotation();
+    ASSERT_EQ(0.99f, rot.roll);
+    ASSERT_EQ(0.73f, rot.pitch);
+    ASSERT_EQ(2.75f, rot.yaw);
+    
+    Vec3 scale = obj2.getScale();
+    ASSERT_EQ(1.05f, scale.x);
+    ASSERT_EQ(1.40f, scale.y);
+    ASSERT_EQ(2.19f, scale.z);
+    
+    ASSERT_EQ(obj1.getMaterial(), obj2.getMaterial());
+    ASSERT_EQ(obj1.getMetalness(), obj2.getMetalness());
+    ASSERT_EQ(obj1.getRoughness(), obj2.getRoughness());
+    ASSERT_EQ(obj1.getAmbientOcculation(), obj2.getAmbientOcculation());
+    
+    ASSERT_EQ(ObjectType::Object3D, obj2.getObjectType());
+    
+    ASSERT_EQ(obj1.getVBO(), obj2.getVBO());
+    ASSERT_EQ(obj1.getTexture(), obj2.getTexture());;
+    
+    internal::ContextLoader loader;
+    ASSERT_EQ(0, loader.getLoadCount());
+    loader.push(obj1.getVBOLoad());
+    ASSERT_EQ(1, loader.getLoadCount());
+    loader.push(obj2.getVBOLoad());
+    ASSERT_EQ(1, loader.getLoadCount());
+    loader.push(obj1.getTextureLoad());
 }
 
 

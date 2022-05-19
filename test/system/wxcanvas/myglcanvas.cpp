@@ -2,16 +2,21 @@
 
 #include <cstdio>
 
+#include <rmg/config.h>
 #include <rmg/cube.hpp>
 #include <rmg/cylinder.hpp>
 #include <rmg/sphere.hpp>
+#include <rmg/sprite.hpp>
 
+using rmg::Alignment;
 using rmg::radian;
 using rmg::Vec3;
 using rmg::Euler;
 using rmg::Cube3D;
 using rmg::Cylinder3D;
+using rmg::Particle3D;
 using rmg::Sphere3D;
+using rmg::Sprite2D;
 
 
 MyGLCanvas::MyGLCanvas(wxWindow *parent)
@@ -28,6 +33,8 @@ MyGLCanvas::MyGLCanvas(wxWindow *parent)
     // setOrthographicProjection(8.0f, 1.0f, 30.0f);
     setPerspectiveProjection(fov, 1.0f, 30.0f);
     setDirectionalLightColor(1, 1, 1, 2);
+    
+    // 3D objects
     floor = new Cube3D(this, 15, 15, 1);
     floor->setColor(0.3f, 0.3f, 0.4f);
     floor->setRoughness(0.7f);
@@ -53,6 +60,29 @@ MyGLCanvas::MyGLCanvas(wxWindow *parent)
     addObject(block2);
     addObject(cylinder);
     addObject(sphere);
+        
+    // 2D overlay objects
+    sprite1 = new Sprite2D(this, RMG_RESOURCE_PATH "/icon64.png");
+    sprite1->setAlignment(Alignment::BottomLeft);
+    sprite1->setTranslation(48, -48);
+    sprite2 = new Sprite2D(this, RMG_RESOURCE_PATH "/sprites/wine.png");
+    sprite2->setAlignment(Alignment::BottomRight);
+    sprite2->setTranslation(-48, -48);
+    addObject(sprite1);
+    addObject(sprite2);
+    
+    // Particles
+    fire1 = new Particle3D(this, RMG_RESOURCE_PATH "/sprites/fire.tif");
+    fire1->setSize(0.4f, 0.6f);
+    fire1->setTranslation(-5, -3, 1);
+    fire2 = new Particle3D(*fire1);
+    fire2->setTranslation(-4, -5, 2);
+    fire3 = new Particle3D(*fire1);
+    fire3->setSize(0.5f, 0.8f);
+    fire3->setTranslation(-3, -4, 1.5f);
+    addObject(fire1);
+    addObject(fire2);
+    addObject(fire3);
 }
 
 
