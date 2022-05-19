@@ -45,7 +45,6 @@ namespace rmg {
  */
 class RMG_API Line3D: public Object {
   private:
-    Vec3 point1 = Vec3();
     Vec3 point2 = Vec3();
     float thickness = 0.0;
     Mat4 modelMatrix = Mat4(0);

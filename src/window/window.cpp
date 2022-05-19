@@ -82,7 +82,7 @@ Window::Window() {
     glfwSetWindowUserPointer(glfw_window, (void*)this);
     windowList.push_back(this);
     
-    setWindowIcon(RMG_RESOURCE_PATH "/icons/rmg-app.png");
+    setWindowIcon(RMG_RESOURCE_PATH "/icon64.png");
 }
 
 /**

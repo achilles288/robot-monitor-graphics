@@ -69,7 +69,7 @@ class RMG_API ParticleShader: public Shader {
      * @param P Projection matrix
      * @param list List of particles
      */
-    void render(const Mat4 &V, const Mat4 &MP, const ObjectList &list);
+    void render(const Mat4 &V, const Mat4 &P, const ObjectList &list);
 };
 
 }}

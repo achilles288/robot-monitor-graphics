@@ -9,8 +9,6 @@
 /**
  * @brief Path to shared static resources that comes together with RMGraphics
  */
-#ifndef RMG_RESOURCE_PATH
 #define RMG_RESOURCE_PATH "${RMGCONFIG_RESOURCE_PATH}"
-#endif
 
 #endif

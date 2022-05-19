@@ -54,9 +54,11 @@ Line3D::Line3D(Context* ctx, float t, const Color &col,
 {
     thickness = t;
     setColor(col);
-    point1 = p1;
-    point2 = p2;
+    modelMatrix[0][3] = p1.x;
+    modelMatrix[1][3] = p1.y;
+    modelMatrix[2][3] = p1.z;
     modelMatrix[3][3] = 1;
+    point2 = p2;
     calculateMatrix();
     type = ObjectType::Line3D;
 }
@@ -69,9 +71,9 @@ Line3D::Line3D(Context* ctx, float t, const Color &col,
  * @param z Z-coordinate
  */
 void Line3D::setPoint1(float x, float y, float z) {
-    point1.x = x;
-    point1.y = y;
-    point1.z = z;
+    modelMatrix[0][3] = x;
+    modelMatrix[1][3] = y;
+    modelMatrix[2][3] = z;
     calculateMatrix();
 }
 
@@ -95,7 +97,9 @@ void Line3D::setPoint2(float x, float y, float z) {
  * @param p Position vector
  */
 void Line3D::setPoint1(const Vec3 &p) {
-    point1 = p;
+    modelMatrix[0][3] = p.x;
+    modelMatrix[1][3] = p.y;
+    modelMatrix[2][3] = p.z;
     calculateMatrix();
 }
 
@@ -116,7 +120,9 @@ void Line3D::setPoint2(const Vec3 &p) {
  * @param p2 Position vector of point-2
  */
 void Line3D::setPoints(const Vec3 &p1, const Vec3 &p2) {
-    point1 = p1;
+    modelMatrix[0][3] = p1.x;
+    modelMatrix[1][3] = p1.y;
+    modelMatrix[2][3] = p1.z;
     point2 = p2;
     calculateMatrix();
 }
@@ -126,7 +132,9 @@ void Line3D::setPoints(const Vec3 &p1, const Vec3 &p2) {
  * 
  * @return Position vector
  */
-Vec3 Line3D::getPoint1() const { return point1; }
+Vec3 Line3D::getPoint1() const {
+    return Vec3(modelMatrix[0][3], modelMatrix[1][3], modelMatrix[2][3]);
+}
 
 /**
  * @brief Gets the location of point-1
@@ -161,7 +169,8 @@ const Mat4& Line3D::getModelMatrix() const { return modelMatrix; }
 
 
 void Line3D::calculateMatrix() {
-    Vec3 v = point2 - point1;
+    Vec3 p1 = Vec3(modelMatrix[0][3], modelMatrix[1][3], modelMatrix[2][3]);
+    Vec3 v = point2 - p1;
     float l = v.magnitude();
     float a = Vec2(v).magnitude();
     float yaw = atan2(v.y, v.x);
@@ -176,9 +185,6 @@ void Line3D::calculateMatrix() {
     modelMatrix[2][0] = R[2][0] * l;
     modelMatrix[2][1] = R[2][1] * thickness;
     modelMatrix[2][2] = R[2][2] * thickness;
-    modelMatrix[0][3] = point1.x;
-    modelMatrix[1][3] = point1.y;
-    modelMatrix[2][3] = point1.z;
 }
 
 }
