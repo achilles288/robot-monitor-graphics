@@ -52,7 +52,9 @@ void ParticleShader::load() {
          0.5f,  0.5f, 1.0f, 0.0f,
         -0.5f,  0.5f, 0.0f, 0.0f,
         -0.5f, -0.5f, 0.0f, 1.0f,
-         0.5f, -0.5f, 1.0f, 1.0f
+        -0.5f, -0.5f, 0.0f, 1.0f,
+         0.5f, -0.5f, 1.0f, 1.0f,
+         0.5f,  0.5f, 1.0f, 0.0f
     };
     glGenVertexArrays(1, &quadVertexArrayID);
     glBindVertexArray(quadVertexArrayID);
@@ -90,6 +92,8 @@ void ParticleShader::render(const Mat4 &V, const Mat4 &P,
     
     for(auto it=list.begin(); it!=list.end(); it++) {
         Particle3D* obj = (Particle3D*) &(*it);
+        if(obj->isHidden())
+            continue;
         Vec3 TV = Vec3(V * Vec4(obj->getTranslation(), 1));
         auto elem = std::pair<float,Particle3D*>(TV.z,obj);
         sorted.insert(elem);
@@ -97,12 +101,14 @@ void ParticleShader::render(const Mat4 &V, const Mat4 &P,
     
     for(auto it=sorted.begin(); it!=sorted.end(); it++) {
         Particle3D* obj = it->second;
+        if(obj->getTexture() == nullptr)
+            continue;
         Vec3 TV = Vec3(V * Vec4(obj->getTranslation(), 1));
         glUniform3fv(idTV, 1, &TV[0]);
         glUniformMatrix3fv(idModel, 1, GL_TRUE, &obj->getModelMatrix()[0][0]);
         glUniform4fv(idColor, 1, &obj->getColor()[0]);
         obj->getTexture()->bind();
-        glDrawArrays(GL_QUADS, 0, 4);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
     }
 }
 

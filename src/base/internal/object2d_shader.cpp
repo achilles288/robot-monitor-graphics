@@ -52,7 +52,9 @@ void SpriteShader::load() {
          0.5f,  0.5f, 1.0f, 1.0f,
         -0.5f,  0.5f, 0.0f, 1.0f,
         -0.5f, -0.5f, 0.0f, 0.0f,
-         0.5f, -0.5f, 1.0f, 0.0f
+        -0.5f, -0.5f, 0.0f, 0.0f,
+         0.5f, -0.5f, 1.0f, 0.0f,
+         0.5f,  0.5f, 1.0f, 1.0f
     };
     glGenVertexArrays(1, &quadVertexArrayID);
     glBindVertexArray(quadVertexArrayID);
@@ -70,7 +72,7 @@ void SpriteShader::load() {
  * @param VP The combination of view matrix and projection matrix
  */
 void SpriteShader::render(Sprite2D* sprite, const Mat3 &VP) {
-    if(id == 0)
+    if(id == 0 || sprite->getTexture() == nullptr)
         return;
     if(prevShader != id) {
         glUseProgram(id);
@@ -82,7 +84,7 @@ void SpriteShader::render(Sprite2D* sprite, const Mat3 &VP) {
     glUniformMatrix3fv(idMVP, 1, GL_TRUE, &MVP[0][0]);
     glUniform4fv(idColor, 1, &color[0]);
     sprite->getTexture()->bind();
-    glDrawArrays(GL_QUADS, 0, 4);
+    glDrawArrays(GL_TRIANGLES, 0, 6);
 }
 
 
@@ -160,6 +162,8 @@ void Object2DShader::render(const ObjectList &list) {
     
     for(auto it=list.begin(); it!=list.end(); it++) {
         Object2D* obj = (Object2D*) &(*it);
+        if(obj->isHidden())
+            continue;
         int16_t zOrder = 2 * obj->getZOrder();
         if(obj->getObject2DType() == Object2DType::Text)
             zOrder += 1;

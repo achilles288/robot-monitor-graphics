@@ -135,6 +135,8 @@ void Line3DShader::render(const Mat4 &VP, const ObjectList &list) {
     
     for(auto it=list.begin(); it!=list.end(); it++) {
         Line3D* line = (Line3D*) &(*it);
+        if(line->isHidden())
+            continue;
         Mat4 MVP = VP * line->getModelMatrix();
         glUniformMatrix4fv(idMVP, 1, GL_TRUE, &MVP[0][0]);
         glUniform3fv(idColor, 1, &line->getColor()[0]);
