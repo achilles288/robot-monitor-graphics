@@ -6,11 +6,12 @@ Files:
  Makefile
  rmg.pc
  debian/*
- share/icons/*
+ share/dot.png
+ share/icon64.png
  share/shaders/*
- share/test/*
+ share/sprites/*
  src/*
-Copyright:  2021 Khant Kyaw Khaung <khantkyawkhaung288@gmail.com>
+Copyright: 2022 Khant Kyaw Khaung <khantkyawkhaung288@gmail.com>
 License: MIT
 
 Files:

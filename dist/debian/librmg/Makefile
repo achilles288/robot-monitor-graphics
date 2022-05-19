@@ -11,8 +11,7 @@ MACROS = \
 	-DNDEBUG \
 	-D_GNU_SOURCE \
 	-D_POSIX_C_SOURCE=200112L \
-	-D_XOPEN_SOURCE=600 \
-	-DRMG_RESOURCE_PATH="\"$(prefix)/share/rmg\""
+	-D_XOPEN_SOURCE=600
 
 INCLUDES = \
 	-Isrc/base \
@@ -161,36 +160,10 @@ $(RMG_WX_OBJS): build/%.o: src/wx/%.cpp
 
 
 install:
-	install -Dm 644 share/icons/rmg-app.png \
-		$(DESTDIR)$(prefix)/share/rmg/icons/rmg-app.png
-	install -Dm 644 share/icons/flat/24/hand.png \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/24/hand.png
-	install -Dm 644 share/icons/flat/24/move.png \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/24/move.png
-	install -Dm 644 share/icons/flat/24/photo.png \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/24/photo.png
-	install -Dm 644 share/icons/flat/24/resize.png \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/24/resize.png
-	install -Dm 644 share/icons/flat/24/rotate.png \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/24/rotate.png
-	install -Dm 644 share/icons/flat/24/sun.png \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/24/sun.png
-	install -Dm 644 share/icons/flat/24/teapot.png \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/24/teapot.png
-	install -Dm 644 share/icons/flat/svg/hand.svg \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/svg/hand.svg
-	install -Dm 644 share/icons/flat/svg/move.svg \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/svg/move.svg
-	install -Dm 644 share/icons/flat/svg/photo.svg \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/svg/photo.svg
-	install -Dm 644 share/icons/flat/svg/resize.svg \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/svg/resize.svg
-	install -Dm 644 share/icons/flat/svg/rotate.svg \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/svg/rotate.svg
-	install -Dm 644 share/icons/flat/svg/sun.svg \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/svg/sun.svg
-	install -Dm 644 share/icons/flat/svg/teapot.svg \
-		$(DESTDIR)$(prefix)/share/rmg/icons/flat/svg/teapot.svg
+	install -Dm 644 share/dot.png \
+		$(DESTDIR)$(prefix)/share/rmg/dot.png
+	install -Dm 644 share/icon64.png \
+		$(DESTDIR)$(prefix)/share/rmg/icon64.png
 	install -Dm 644 share/models/dragon.obj \
 		$(DESTDIR)$(prefix)/share/rmg/models/dragon.obj
 	install -Dm 644 share/models/happy_buddha.obj \
@@ -221,10 +194,10 @@ install:
 		$(DESTDIR)$(prefix)/share/rmg/shaders/text2d.fs.glsl
 	install -Dm 644 share/shaders/text2d.vs.glsl \
 		$(DESTDIR)$(prefix)/share/rmg/shaders/text2d.vs.glsl
-	install -Dm 644 share/test/fire.tif \
-		$(DESTDIR)$(prefix)/share/rmg/test/fire.tif
-	install -Dm 644 share/test/wine.png \
-		$(DESTDIR)$(prefix)/share/rmg/test/wine.png
+	install -Dm 644 share/sprites/fire.tif \
+		$(DESTDIR)$(prefix)/share/rmg/sprites/fire.tif
+	install -Dm 644 share/sprites/wine.png \
+		$(DESTDIR)$(prefix)/share/rmg/sprites/wine.png
 	@ :
 	install -Dm 755 build/librmgbase.so.$(VERSION) \
 		$(DESTDIR)$(prefix)/lib/librmgbase.so.$(VERSION)
