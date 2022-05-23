@@ -6,6 +6,16 @@ configure_file(
 include_directories(${RMGRAPHICS_INCLUDE_DIRS})
 link_libraries(${RMGRAPHICS_LIBRARIES})
 
+add_executable(testrun test.cpp)
+
+target_compile_definitions(testrun PUBLIC
+    ${RMGRAPHICS_DEFINITIONS}
+)
+
+
+# 
+# Unit tests
+# 
 file(GLOB_RECURSE RMGTEST_UNIT_SOURCES unit/*.cpp)
 
 add_executable(rmg_test
@@ -28,4 +38,12 @@ target_link_libraries(rmg_test PUBLIC
     gtest_main
 )
 
-add_subdirectory(system)
+
+# 
+# System tests
+# 
+add_subdirectory(system/window)
+
+if(${wxWidgets_FOUND})
+add_subdirectory(system/wxcanvas)
+endif()

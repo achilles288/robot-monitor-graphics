@@ -2,3 +2,4 @@ build
 docs/api
 src/config/rmg/config.h
 test/testconf.h
+test/test.cpp
