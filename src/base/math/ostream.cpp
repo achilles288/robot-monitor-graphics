@@ -30,11 +30,6 @@ namespace rmg {
 
 /**
  * @brief Prints a screen coordinate
- * 
- * @param os Output stream
- * @param rect The rectangular dimension
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Rect& rect) {
     return os << '(' << rect.x << ", " << rect.y << ')';
@@ -42,11 +37,6 @@ RMG_API std::ostream& operator << (std::ostream& os, const Rect& rect) {
 
 /**
  * @brief Prints a 2D vector
- * 
- * @param os Output stream
- * @param v The vector to print
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Vec2& v) {
     os << '(';
@@ -69,11 +59,6 @@ RMG_API std::ostream& operator << (std::ostream& os, const Vec2& v) {
 
 /**
  * @brief Prints a 3D vector
- * 
- * @param os Output stream
- * @param v The vector to print
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Vec3& v) {
     os << '(';
@@ -95,11 +80,6 @@ RMG_API std::ostream& operator << (std::ostream& os, const Vec3& v) {
 
 /**
  * @brief Prints a 4D vector
- * 
- * @param os Output stream
- * @param v The vector to print
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Vec4& v) {
     os << '(';
@@ -124,11 +104,6 @@ RMG_API std::ostream& operator << (std::ostream& os, const Vec4& v) {
 
 /**
  * @brief Prints a tuple of Euler angles
- * 
- * @param os Output stream
- * @param euler The Euler angles
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Euler& euler) {
     const float *data = &euler.roll;
@@ -161,11 +136,6 @@ namespace rmg {
 
 /**
  * @brief Prints a matrix with UTF-8 encoded characters
- * 
- * @param os Output stream
- * @param M The matrix to print
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Mat3& M) {
     printMatrix(os, &M.data[0][0], 3, 3);
@@ -174,11 +144,6 @@ RMG_API std::ostream& operator << (std::ostream& os, const Mat3& M) {
 
 /**
  * @brief Prints a matrix with UTF-8 encoded characters
- * 
- * @param os Output stream
- * @param M The matrix to print
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Mat4& M) {
     printMatrix(os, &M.data[0][0], 4, 4);

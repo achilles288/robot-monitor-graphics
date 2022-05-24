@@ -43,19 +43,11 @@ struct RMG_API Mat3Row {
     
     /**
      * @brief Gets reference to matrix cell
-     * 
-     * @param i Column index
-     * 
-     * @return Reference to matrix cell
      */
     float& operator [] (uint8_t i);
     
     /**
      * @brief Gets reference to matrix cell
-     * 
-     * @param i Column index
-     * 
-     * @return Reference to matrix cell
      */
     float const& operator [] (uint8_t i) const;
 };
@@ -73,8 +65,6 @@ struct Vec3;
 struct RMG_API Mat3 {
     /**
      * @brief Access by 2 dimensional array or array of row structures
-     * 
-     * Row structure is used for assertion during subscript operation.
      */
     union {
         float data[3][3]; ///< Matrix cells
@@ -107,19 +97,11 @@ struct RMG_API Mat3 {
     
     /**
      * @brief Matrix multiplication
-     * 
-     * @param B Matrix B
-     * 
-     * @return Answer matrix
      */
     Mat3 operator * (const Mat3 &B) const;
     
     /**
      * @brief Matrix multiplication
-     * 
-     * @param P A vector
-     * 
-     * @return Answer vector
      */
     Vec3 operator * (const Vec3 &P) const;
     
@@ -135,30 +117,17 @@ struct RMG_API Mat3 {
     
     /**
      * @brief Gets reference to matrix row
-     * 
-     * @param i Row index
-     * 
-     * @return Reference to matrix row
      */
     Mat3Row& operator [] (uint8_t i);
     
     /**
      * @brief Gets reference to matrix row
-     * 
-     * @param i Row index
-     * 
-     * @return Reference to matrix row
      */
     Mat3Row const& operator [] (uint8_t i) const;
 };
 
 /**
  * @brief Prints a matrix with UTF-8 encoded characters
- * 
- * @param os Output stream
- * @param M The matrix to print
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Mat3& M);
 

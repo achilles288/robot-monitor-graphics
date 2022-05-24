@@ -118,7 +118,7 @@ void Line3DShader::load() {
 /**
  * @brief Renders the given list of lines in 3D space
  * 
- * @param TP the composition of view and projection matrix
+ * @param VP The composition of view and projection matrix
  * @param list List of 3D objects
  */
 void Line3DShader::render(const Mat4 &VP, const ObjectList &list) {

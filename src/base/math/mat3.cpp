@@ -62,10 +62,6 @@ Mat3::operator Mat4() const {
 
 /**
  * @brief Matrix multiplication
- * 
- * @param B Matrix B
- * 
- * @return Answer matrix
  */
 Mat3 Mat3::operator * (const Mat3 &B) const {    
     Mat3 C(0);
@@ -80,10 +76,6 @@ Mat3 Mat3::operator * (const Mat3 &B) const {
 
 /**
  * @brief Matrix multiplication
- * 
- * @param P A vector
- * 
- * @return Answer vector
  */
 Vec3 Mat3::operator * (const Vec3 &P) const {
     Vec3 Y;

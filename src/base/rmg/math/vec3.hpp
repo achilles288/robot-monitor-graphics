@@ -171,49 +171,27 @@ struct RMG_API Vec3 {
     
     /**
      * @brief Gets reference to vector data as array subscript
-     * 
-     * @param i Index
-     * 
-     * @return Reference to vector member
      */
     float& operator [] (uint8_t i);
     
     /**
      * @brief Gets reference to vector data as array subscript
-     * 
-     * @param i Index
-     * 
-     * @return Reference to vector member
      */
     float const& operator [] (uint8_t i) const;
     
     /**
      * @brief Equality operator
-     * 
-     * @param b Vector B
-     * 
-     * @return True if the members of the two vectors are equal
      */
     bool operator == (const Vec3 &b) const;
 };
 
 /**
  * @brief Multiply the vector by a number
- * 
- * @param f Multiplicant
- * @param v The Vector
- * 
- * @return Multiplied vector
  */
 RMG_API Vec3 operator * (float f, const Vec3 &v);
 
 /**
  * @brief Prints a vector
- * 
- * @param os Output stream
- * @param v The vector to print
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Vec3& v);
 

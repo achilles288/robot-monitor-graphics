@@ -31,10 +31,6 @@ inline Mat3::Mat3(Mat3Row row0, Mat3Row row1, Mat3Row row2):
 
 /**
  * @brief Gets reference to matrix row
- * 
- * @param i Row index
- * 
- * @return Reference to matrix row
  */
 inline Mat3Row& Mat3::operator [] (uint8_t i) {
     RMG_ASSERT(i < 3);
@@ -43,10 +39,6 @@ inline Mat3Row& Mat3::operator [] (uint8_t i) {
 
 /**
  * @brief Gets reference to matrix row
- * 
- * @param i Row index
- * 
- * @return Reference to matrix row
  */
 inline Mat3Row const& Mat3::operator [] (uint8_t i) const {
     RMG_ASSERT(i < 3);
@@ -55,10 +47,6 @@ inline Mat3Row const& Mat3::operator [] (uint8_t i) const {
 
 /**
  * @brief Gets reference to matrix cell
- * 
- * @param i Column index
- * 
- * @return Reference to matrix cell
  */
 inline float& Mat3Row::operator [] (uint8_t i) {
     RMG_ASSERT(i < 3);
@@ -67,10 +55,6 @@ inline float& Mat3Row::operator [] (uint8_t i) {
 
 /**
  * @brief Gets reference to matrix cell
- * 
- * @param i Column index
- * 
- * @return Reference to matrix cell
  */
 inline float const& Mat3Row::operator [] (uint8_t i) const {
     RMG_ASSERT(i < 3);

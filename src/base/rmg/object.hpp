@@ -243,28 +243,28 @@ class RMG_API ObjectList {
      * 
      * @param list Source
      */
-    ObjectList(const ObjectList& obj);
+    ObjectList(const ObjectList& list);
     
     /**
      * @brief Move constructor
      * 
      * @param list Source
      */
-    ObjectList(ObjectList&& obj) noexcept;
+    ObjectList(ObjectList&& list) noexcept;
     
     /**
      * @brief Copy assignment
      * 
      * @param list Source
      */
-    ObjectList& operator = (const ObjectList& obj);
+    ObjectList& operator = (const ObjectList& list);
     
     /**
      * @brief Move assignment
      * 
      * @param list Source
      */
-    ObjectList& operator = (ObjectList&& obj);
+    ObjectList& operator = (ObjectList&& list);
     
     /**
      * @brief Appends an element to the list beginning
@@ -281,7 +281,7 @@ class RMG_API ObjectList {
     Object* front() const;
     
     /**
-     * @breif Removes an element from the beginning of the list
+     * @brief Removes an element from the beginning of the list
      */
     void pop_front();
     
@@ -332,47 +332,31 @@ class RMG_API ObjectList {
         
         /**
          * @brief Pointer dereferencing
-         * 
-         * @return The reference
          */
         Object& operator * ();
         
         /**
          * @brief Pointer dereferencing
-         * 
-         * @return The pointer
          */
         Object* operator -> ();
         
         /**
          * @brief The prefix increment operator
-         * 
-         * @return Iterator to the next element
          */
         iterator& operator ++ ();
         
         /**
          * @brief The postfix increment operator
-         * 
-         * @return Iterator to the next element
          */
         iterator operator ++ (int);
         
         /**
          * @brief Compares the values
-         * 
-         * @param it Iterator 2
-         * 
-         * @return True if the pointers of the two are equal
          */
         bool operator == (const iterator& it);
         
         /**
          * @brief Compares the values
-         * 
-         * @param it Iterator 2
-         * 
-         * @return True if the pointers of the two are not equal
          */
         bool operator != (const iterator& it);
     };

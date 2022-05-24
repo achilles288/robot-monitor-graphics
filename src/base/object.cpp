@@ -392,22 +392,16 @@ ObjectList::iterator::iterator(Node* n, Object* d) {
 
 /**
  * @brief Pointer dereferencing
- * 
- * @return The reference
  */
 Object& ObjectList::iterator::operator * () { return *data; }
 
 /**
  * @brief Pointer dereferencing
- * 
- * @return The pointer
  */
 Object* ObjectList::iterator::operator -> () { return data; }
 
 /**
  * @brief The prefix increment operator
- * 
- * @return Iterator to the next element
  */
 ObjectList::iterator& ObjectList::iterator::operator ++ () {
     if(next != nullptr) {
@@ -422,8 +416,6 @@ ObjectList::iterator& ObjectList::iterator::operator ++ () {
 
 /**
  * @brief The postfix increment operator
- * 
- * @return Iterator to the next element
  */
 ObjectList::iterator ObjectList::iterator::operator ++ (int) {
     iterator tmp = iterator(next, data);
@@ -439,10 +431,6 @@ ObjectList::iterator ObjectList::iterator::operator ++ (int) {
 
 /**
  * @brief Compares the values
- * 
- * @param it Iterator 2
- * 
- * @return True if the pointers of the two are equal
  */
 bool ObjectList::iterator::operator == (const iterator& it) {
     return next == it.next && data == it.data;
@@ -450,10 +438,6 @@ bool ObjectList::iterator::operator == (const iterator& it) {
 
 /**
  * @brief Compares the values
- * 
- * @param it Iterator 2
- * 
- * @return True if the pointers of the two are not equal
  */
 bool ObjectList::iterator::operator != (const iterator& it) {
     return next != it.next || data != it.data;

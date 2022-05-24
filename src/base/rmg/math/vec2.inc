@@ -47,11 +47,14 @@ inline Vec2::Vec2(float x, float y) {
  * @brief Conversion from Vec2 to Vec3
  */
 inline Vec2::operator Vec3() const {
-    Vec3 v;
-    v.x = x;
-    v.y = y;
-    v.z = 0;
-    return v;
+    return Vec3(x, y, 0);
+}
+
+/**
+ * @brief Conversion from Vec2 to Vec4
+ */
+inline Vec2::operator Vec4() const {
+    return Vec4(x, y, 0, 0);
 }
 
 /**
@@ -98,18 +101,6 @@ inline float Vec2::dot(const Vec2 &a, const Vec2 &b) {
  */
 inline float Vec2::cross(const Vec2 &a, const Vec2 &b) {
     return a.x*b.y - b.x*a.y;
-}
-
-/**
- * @brief Conversion from Vec2 to Vec4
- */
-inline Vec2::operator Vec4() const {
-    Vec4 v;
-    v.x = x;
-    v.y = y;
-    v.z = 0;
-    v.w = 0;
-    return v;
 }
 
 /**
@@ -204,11 +195,6 @@ inline float Vec2::operator * (const Vec2 &b) const {
 
 /**
  * @brief Multiply the vector by a number
- * 
- * @param f Multiplicant
- * @param v The Vector
- * 
- * @return Multiplied vector
  */
 inline Vec2 operator * (float f, const Vec2 &v) {
     Vec2 u;
@@ -219,10 +205,6 @@ inline Vec2 operator * (float f, const Vec2 &v) {
 
 /**
  * @brief Gets reference to vector data as array subscript
- * 
- * @param i Index
- * 
- * @return Reference to vector member
  */
 inline float& Vec2::operator [] (uint8_t i) {
      RMG_ASSERT(i < 2);
@@ -231,10 +213,6 @@ inline float& Vec2::operator [] (uint8_t i) {
 
 /**
  * @brief Gets reference to vector data as array subscript
- * 
- * @param i Index
- * 
- * @return Reference to vector member
  */
 inline float const& Vec2::operator [] (uint8_t i) const {
      RMG_ASSERT(i < 2);
@@ -243,13 +221,16 @@ inline float const& Vec2::operator [] (uint8_t i) const {
 
 /**
  * @brief Equality operator
- * 
- * @param b Vector B
- * 
- * @return True if the members of the two vectors are equal
  */
 inline bool Vec2::operator == (const Vec2 &b) const {
     return (x == b.x) && (y == b.y);
+}
+
+/**
+ * @brief Unquality operator
+ */
+inline bool Vec2::operator != (const Vec2 &b) const {
+    return (x != b.x) || (y != b.y);
 }
 
 

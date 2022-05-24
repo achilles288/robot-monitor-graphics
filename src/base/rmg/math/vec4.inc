@@ -21,16 +21,6 @@
 namespace rmg {
 
 /**
- * @brief Default constructor
- */
-inline Vec4::Vec4() {
-    x = 0;
-    y = 0;
-    z = 0;
-    w = 0;
-}
-
-/**
  * @brief Constructor with xyzw values
  * 
  * @param x X-coordinate
@@ -76,21 +66,14 @@ inline Vec4::Vec4(const Vec3 &v, float d) {
  * @brief Conversion from Vec4 to Vec2
  */
 inline Vec4::operator Vec2() const {
-    Vec2 v;
-    v.x = x;
-    v.y = y;
-    return v;
+    return Vec2(x, y);
 }
 
 /**
  * @brief Conversion from Vec4 to Vec3
  */
 inline Vec4::operator Vec3() const {
-    Vec3 v;
-    v.x = x;
-    v.y = y;
-    v.z = z;
-    return v;
+    return Vec3(x, y, z);
 }
 
 /**
@@ -216,10 +199,6 @@ inline Vec4& Vec4::operator /= (float f) {
 
 /**
  * @brief Gets reference to vector data as array subscript
- * 
- * @param i Index
- * 
- * @return Reference to vector member
  */
 inline float& Vec4::operator [] (uint8_t i) {
      RMG_ASSERT(i < 4);
@@ -228,10 +207,6 @@ inline float& Vec4::operator [] (uint8_t i) {
 
 /**
  * @brief Gets reference to vector data as array subscript
- * 
- * @param i Index
- * 
- * @return Reference to vector member
  */
 inline float const& Vec4::operator [] (uint8_t i) const {
      RMG_ASSERT(i < 4);
@@ -240,13 +215,16 @@ inline float const& Vec4::operator [] (uint8_t i) const {
 
 /**
  * @brief Equality operator
- * 
- * @param b Vector B
- * 
- * @return True if the members of the two vectors are equal
  */
 inline bool Vec4::operator == (const Vec4 &b) const {
     return (x == b.x) && (y == b.y) && (z == b.z) && (w == b.w);
+}
+
+/**
+ * @brief Unequality operator
+ */
+inline bool Vec4::operator != (const Vec4 &b) const {
+    return (x != b.x) || (y != b.y) || (z != b.z) || (w != b.w);
 }
 
 }

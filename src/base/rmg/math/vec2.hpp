@@ -161,19 +161,11 @@ struct RMG_API Vec2 {
     
     /**
      * @brief Gets reference to vector data as array subscript
-     * 
-     * @param i Index
-     * 
-     * @return Reference to vector member
      */
     float& operator [] (uint8_t i);
     
     /**
      * @brief Gets reference to vector data as array subscript
-     * 
-     * @param i Index
-     * 
-     * @return Reference to vector member
      */
     float const& operator [] (uint8_t i) const;
     
@@ -181,25 +173,20 @@ struct RMG_API Vec2 {
      * @brief Equality operator
      */
     bool operator == (const Vec2 &b) const;
+    
+    /**
+     * @brief Unequality operator
+     */
+    bool operator != (const Vec2 &b) const;
 };
 
 /**
  * @brief Multiply the vector by a number
- * 
- * @param f Multiplicant
- * @param v The Vector
- * 
- * @return Multiplied vector
  */
 RMG_API Vec2 operator * (float f, const Vec2 &v);
 
 /**
  * @brief Prints a vector
- * 
- * @param os Output stream
- * @param v The vector to print
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Vec2& v);
 
@@ -229,11 +216,6 @@ struct RMG_API Rect {
 
 /**
  * @brief Prints a screen coordinate
- * 
- * @param os Output stream
- * @param rect The rectangular dimension
- * 
- * @return Reference of passed output stream
  */
 RMG_API std::ostream& operator << (std::ostream& os, const Rect& rect);
 
