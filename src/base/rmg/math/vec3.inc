@@ -23,6 +23,15 @@
 namespace rmg {
 
 /**
+ * @brief Default constructor
+ */
+inline Vec3::Vec3() {
+    x = 0;
+    y = 0;
+    z = 0;
+}
+
+/**
  * @brief Constructor with xyz values
  * 
  * @param x X-coordinate

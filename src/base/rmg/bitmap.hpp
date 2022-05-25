@@ -41,30 +41,17 @@ namespace rmg {
  * 32 bits for RGBA color channels.
  */
 struct Pixel {
-    /**
-     * @brief To access either as RGBA or grayscale pixel
-     */
-    union {
-        /**
-         * @brief RGBA values
-         */
-        struct {
-            uint8_t red; ///< Red component
-            uint8_t green; ///< Green component
-            uint8_t blue; ///< Blue component
-            uint8_t alpha; ///< Alpha component
-        };
-        uint32_t value; ///< Grayscale value or combination of RGBA channels
-    };
-    uint8_t channel; ///< Number of color channels
+    uint8_t red = 0; ///< Red component
+    uint8_t green = 0; ///< Green component
+    uint8_t blue = 0; ///< Blue component
+    uint8_t gray = 0; ///< Grayscale value
+    uint8_t alpha = 0; ///< Alpha component
+    uint8_t channel = 0; ///< Number of color channels
     
     /**
      * @brief Default constructor
      */
-    inline Pixel() {
-        value = 0;
-        channel = 0;
-    }
+    Pixel() = default;
     
     /**
      * @brief Grayscale pixel constructor
@@ -72,8 +59,20 @@ struct Pixel {
      * @param val Grayscale value
      */
     inline Pixel(uint8_t val) {
-        value = val;
+        gray = val;
         channel = 1;
+    }
+    
+    /**
+     * @brief Grayscale alpha pixel constructor
+     * 
+     * @param g Grayscale value
+     * @param a Alpha value
+     */
+    inline Pixel(uint8_t g, uint8_t a) {
+        gray = g;
+        alpha = a;
+        channel = 2;
     }
     
     /**
@@ -116,15 +115,20 @@ struct Pixel {
  */
 class RMG_API Bitmap {
   private:
-    uint16_t width;
-    uint16_t height;
-    uint8_t channel;
-    uint8_t* data;
+    uint16_t width = 0;
+    uint16_t height = 0;
+    uint8_t channel = 0;
+    uint8_t* data = NULL;
     
     static Bitmap loadPNG(const std::string& file);
     static Bitmap loadTIFF(const std::string& file);
     void savePNG(const std::string& file) const;
     void saveTIFF(const std::string& file) const;
+    
+    void pasteGray(const Bitmap &bmp, uint16_t x, uint16_t y);
+    void pasteGA(const Bitmap &bmp, uint16_t x, uint16_t y);
+    void pasteRGB(const Bitmap &bmp, uint16_t x, uint16_t y);
+    void pasteRGBA(const Bitmap &bmp, uint16_t x, uint16_t y);
     
     void swap(Bitmap &bmp) noexcept;
     
@@ -132,7 +136,16 @@ class RMG_API Bitmap {
     /**
      * @brief Default constructor
      */
-    Bitmap();
+    Bitmap() = default;
+    
+    /**
+     * @brief Creates a blank bitmap
+     * 
+     * @param w The width of the image
+     * @param h The height of the image
+     * @param ch Number of channels of each pixel
+     */
+    Bitmap(uint16_t w, uint16_t h, uint8_t ch);
     
     /**
      * @brief Destructor
@@ -233,6 +246,53 @@ class RMG_API Bitmap {
      * @param p Pixel value
      */
     void setPixel(uint16_t x, uint16_t y, const Pixel& p);
+    
+    /**
+     * @brief Converts the bitmap to a grayscale image
+     * 
+     * @return A grayscale bitmap image which has only a single channel
+     */
+    Bitmap toGrayscale() const;
+    
+    /**
+     * @brief Converts the bitmap to a grayscale image with alpha channel
+     * 
+     * @return A 2-channel bitmap image
+     */
+    Bitmap toGA() const;
+    
+    /**
+     * @brief Converts the bitmap to an RGB image
+     * 
+     * @return A 3-channel bitmap image
+     */
+    Bitmap toRGB() const;
+    
+    /**
+     * @brief Converts the bitmap to an RGBA image
+     * 
+     * @return A 4-channel bitmap image
+     */
+    Bitmap toRGBA() const;
+    
+    /**
+     * @brief Pastes an image on the bitmap at some location
+     * 
+     * @param bmp The bitmap to be copied
+     * @param x X-coordinate in the image frame
+     * @param y Y-coordinate in the image frame
+     */
+    void paste(const Bitmap& bmp, uint16_t x, uint16_t y);
+    
+    /**
+     * @brief Compares the two bitmaps
+     */
+    bool operator == (const Bitmap &bmp) const;
+    
+    /**
+     * @brief Compares the two bitmaps
+     */
+    bool operator != (const Bitmap &bmp) const;
 };
 
 }

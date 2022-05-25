@@ -183,6 +183,11 @@ struct RMG_API Vec3 {
      * @brief Equality operator
      */
     bool operator == (const Vec3 &b) const;
+    
+    /**
+     * @brief Unequality operator
+     */
+    bool operator != (const Vec3 &b) const;
 };
 
 /**

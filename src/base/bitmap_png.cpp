@@ -132,7 +132,7 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
     png_read_image(png_ptr, row_ptrs);
     
     free(row_ptrs);
-    fclose(fp);;
+    fclose(fp);
     
     return bmp;
 }
@@ -147,14 +147,12 @@ void Bitmap::savePNG(const std::string& file) const {
     png_byte color_type;
     if(channel == 1)
         color_type = PNG_COLOR_TYPE_GRAY;
+    else if(channel == 2)
+        color_type = PNG_COLOR_TYPE_GRAY_ALPHA;
     else if(channel == 3)
         color_type = PNG_COLOR_TYPE_RGB;
-    else if(channel == 4)
+    else
         color_type = PNG_COLOR_TYPE_RGBA;
-    else {
-        color_type = 255;
-        RMG_ASSERT(channel == 1 || channel == 3 || channel == 4);
-    }
     
     // Creates the file
     FILE *fp = fopen(file.c_str(), "wb");

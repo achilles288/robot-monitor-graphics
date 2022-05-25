@@ -26,13 +26,21 @@
 namespace rmg {
 
 /**
- * @brief Default constructor
+ * @brief Creates a blank bitmap
+ * 
+ * @param w The width of the image
+ * @param h The height of the image
+ * @param ch Number of channels of each pixel
  */
-Bitmap::Bitmap() {
-    width = 0;
-    height = 0;
-    channel = 0;
-    data = NULL;
+Bitmap::Bitmap(uint16_t w, uint16_t h, uint8_t ch) {
+    if(ch < 1 || ch > 4)
+        return;
+    width = w;
+    height = h;
+    channel = ch;
+    size_t size = w * h * ch;
+    data = (uint8_t*) malloc(size);
+    memset(data, 255, size);
 }
 
 /**
@@ -204,14 +212,12 @@ Pixel Bitmap::getPixel(uint16_t x, uint16_t y) const {
     uint8_t* ptr = data + (x + y*width)*channel;
     if(channel == 1)
         return Pixel(ptr[0]);
+    else if(channel == 2)
+        return Pixel(ptr[0], ptr[1]);
     else if(channel == 3)
         return Pixel(ptr[0], ptr[1], ptr[2]);
-    else if(channel == 4)
+    else
         return Pixel(ptr[0], ptr[1], ptr[2], ptr[3]);
-    else {
-        RMG_ASSERT(channel == 1 || channel == 3 || channel == 4);
-        return Pixel();
-    }
 }
 
 /**
@@ -227,20 +233,496 @@ void Bitmap::setPixel(uint16_t x, uint16_t y, const Pixel& p) {
     
     uint8_t* ptr = data + (x + y*width)*channel;
     if(channel == 1)
-        ptr[0] = p.value & UINT8_MAX;
+        ptr[0] = p.gray;
+    else if(channel == 2) {
+        ptr[0] = p.gray;
+        ptr[1] = p.alpha;
+    }
     else if(channel == 3) {
         ptr[0] = p.red;
         ptr[1] = p.green;
         ptr[2] = p.blue;
     }
-    else if(channel == 4) {
+    else {
         ptr[0] = p.red;
         ptr[1] = p.green;
         ptr[2] = p.blue;
         ptr[3] = p.alpha;
     }
-    else
-        RMG_ASSERT(channel == 1 || channel == 3 || channel == 4);
+}
+
+/**
+ * @brief Converts the bitmap to a grayscale image
+ * 
+ * @return A grayscale bitmap image which has only a single channel
+ */
+Bitmap Bitmap::toGrayscale() const {
+    if(channel == 1)
+        return *this;
+    
+    Bitmap bmp = Bitmap(width, height, 1);
+    uint8_t* ptr1 = data;
+    uint8_t* ptr2 = bmp.data;
+    size_t pixelCount = width * height;
+    
+    if(channel == 2) {
+        for(size_t i=0; i<pixelCount; i++) {
+            float a = ptr1[1] / 255.0f;
+            *ptr2 = a*ptr1[0] + 255 - ptr1[1];
+            ptr1 += 2;
+            ptr2 += 1;
+        }
+    }
+    else {
+        for(size_t i=0; i<pixelCount; i++) {
+            uint8_t red = ptr1[0];
+            uint8_t green = ptr1[1];
+            uint8_t blue = ptr1[2];
+            uint8_t alpha = (channel == 4) ? ptr1[3] : 255;
+            
+            uint8_t cmax, cmin;
+            if(red > green) {
+                // Green is min
+                cmin = green;
+                if(red > blue)
+                    cmax = red; // Red is max
+                else
+                    cmax = blue; // Blue is max
+            }
+            else if(blue > green) {
+                // Blue is max and red is min
+                cmax = blue;
+                cmin = red;
+            }
+            else {
+                // Green is max
+                cmax = green;
+                if(red < blue)
+                    cmin = red; // Red is min
+                else
+                    cmin = blue; // Blue is min
+            }
+            
+            float a = alpha / 255.0f;
+            float l = (cmax+cmin)/2.0f;
+            *ptr2 = (uint8_t)(a*l + 255 - alpha);
+            ptr1 += channel;
+            ptr2 += 1;
+        }
+    }
+    return bmp;
+}
+
+/**
+ * @brief Converts the bitmap to a grayscale image with alpha channel
+ * 
+ * @return A 2-channel bitmap image
+ */
+Bitmap Bitmap::toGA() const {
+    if(channel == 2)
+        return *this;
+    
+    Bitmap bmp = Bitmap(width, height, 2);
+    uint8_t* ptr1 = data;
+    uint8_t* ptr2 = bmp.data;
+    size_t pixelCount = width * height;
+    
+    if(channel == 1) {
+        for(size_t i=0; i<pixelCount; i++) {
+            ptr2[0] = ptr1[0];
+            ptr2[1] = 255;
+            ptr1 += 1;
+            ptr2 += 2;
+        }
+    }
+    else {
+        for(size_t i=0; i<pixelCount; i++) {
+            uint8_t red = ptr1[0];
+            uint8_t green = ptr1[1];
+            uint8_t blue = ptr1[2];
+            uint8_t alpha = (channel == 4) ? ptr1[3] : 255;
+            
+            uint8_t cmax, cmin;
+            if(red > green) {
+                // Green is min
+                cmin = green;
+                if(red > blue)
+                    cmax = red; // Red is max
+                else
+                    cmax = blue; // Blue is max
+            }
+            else if(blue > green) {
+                // Blue is max and red is min
+                cmax = blue;
+                cmin = red;
+            }
+            else {
+                // Green is max
+                cmax = green;
+                if(red < blue)
+                    cmin = red; // Red is min
+                else
+                    cmin = blue; // Blue is min
+            }
+            
+            ptr2[0] = (cmax+cmin)/2.0f;
+            ptr2[1] = alpha;
+            ptr1 += channel;
+            ptr2 += 2;
+        }
+    }
+    return bmp;
+}
+
+/**
+ * @brief Converts the bitmap to an RGB image
+ * 
+ * @return A 3-channel bitmap image
+ */
+Bitmap Bitmap::toRGB() const {
+    if(channel == 3)
+        return *this;
+    
+    Bitmap bmp = Bitmap(width, height, 3);
+    uint8_t* ptr1 = data;
+    uint8_t* ptr2 = bmp.data;
+    size_t pixelCount = width * height;
+    
+    if(channel == 1) {
+        for(size_t i=0; i<pixelCount; i++) {
+            ptr2[0] = ptr1[0];
+            ptr2[1] = ptr1[0];
+            ptr2[2] = ptr1[0];
+            ptr1 += 1;
+            ptr2 += 3;
+        }
+    }
+    else if(channel == 2) {
+        for(size_t i=0; i<pixelCount; i++) {
+            float a = ptr1[1] / 255.0f;
+            uint8_t val = ptr1[0] + 255 - ptr1[1];
+            ptr2[0] = val;
+            ptr2[1] = val;
+            ptr2[2] = val;
+            ptr1 += 2;
+            ptr2 += 3;
+        }
+    }
+    else if(channel == 4) {
+        for(size_t i=0; i<pixelCount; i++) {
+            float a = ptr1[3] / 255.0f;
+            ptr2[0] = a*ptr1[0] + 255 - ptr1[3];
+            ptr2[1] = a*ptr1[1] + 255 - ptr1[3];
+            ptr2[2] = a*ptr1[2] + 255 - ptr1[3];
+            ptr1 += 4;
+            ptr2 += 3;
+        }
+    }
+    return bmp;
+}
+
+/**
+ * @brief Converts the bitmap to an RGBA image
+ * 
+ * @return A 4-channel bitmap image
+ */
+Bitmap Bitmap::toRGBA() const {
+    if(channel == 4)
+        return *this;
+    
+    Bitmap bmp = Bitmap(width, height, 4);
+    uint8_t* ptr1 = data;
+    uint8_t* ptr2 = bmp.data;
+    size_t pixelCount = width * height;
+    
+    if(channel < 3) {
+        for(size_t i=0; i<pixelCount; i++) {
+            ptr2[0] = ptr1[0];
+            ptr2[1] = ptr1[0];
+            ptr2[2] = ptr1[0];
+            ptr2[3] = (channel == 2) ? ptr1[1] : 255;
+            ptr1 += channel;
+            ptr2 += 4;
+        }
+    }
+    else {
+        for(size_t i=0; i<pixelCount; i++) {
+            ptr2[0] = ptr1[0];
+            ptr2[1] = ptr1[1];
+            ptr2[2] = ptr1[2];
+            ptr2[3] = 255;
+            ptr1 += 3;
+            ptr2 += 4;
+        }
+    }
+    return bmp;
+}
+
+/**
+ * @brief Pastes an image on the bitmap at some location
+ * 
+ * @param bmp The bitmap to be copied
+ * @param x X-coordinate in the image frame
+ * @param y Y-coordinate in the image frame
+ */
+void Bitmap::paste(const Bitmap& bmp, uint16_t x, uint16_t y) {
+    RMG_ASSERT(x > 0 && x < width);
+    RMG_ASSERT(y > 0 && y < height);
+    
+    const uint8_t lut[] = {
+        0x10, 0x20, 0x11, 0x22,
+        0x10, 0x20, 0x11, 0x22,
+        0x33, 0x44, 0x30, 0x40,
+        0x33, 0x44, 0x30, 0x40
+    };
+    uint8_t i = (channel-1)*4 + bmp.channel - 1;
+    uint8_t conv = lut[i] & 0x0f;
+    uint8_t func = lut[i] & 0xf0;
+    
+    if(conv == 0x00) {
+        if(func == 0x10)
+            pasteGray(bmp, x, y);
+        else if(func == 0x20)
+            pasteGA(bmp, x, y);
+        else if(func == 0x30)
+            pasteRGB(bmp, x, y);
+        else // 0x40
+            pasteRGBA(bmp, x, y);
+    }
+    else {
+        Bitmap img;
+        if(conv == 0x01)
+            img = bmp.toGrayscale();
+        else if(conv == 0x02)
+            img = bmp.toGA();
+        else if(conv == 0x03)
+            img = bmp.toRGB();
+        else if(conv == 0x04)
+            img = bmp.toRGBA();
+        
+        if(func == 0x10)
+            pasteGray(img, x, y);
+        else if(func == 0x20)
+            pasteGA(img, x, y);
+        else if(func == 0x30)
+            pasteRGB(img, x, y);
+        else // 0x40
+            pasteRGBA(img, x, y);
+    }
+}
+
+
+void Bitmap::pasteGray(const Bitmap& bmp, uint16_t x, uint16_t y) {
+    if(bmp.channel != 1 || channel >= 3)
+        return;
+    
+    uint16_t w = bmp.width;
+    uint16_t h = bmp.height;
+    if(x + w > width)
+        w = width - x;
+    if(y + h > height)
+        h = height - y;
+    
+    uint8_t* ptr1 = bmp.data;
+    uint8_t* ptr2 = data + (x + y*width)*channel;
+    size_t rowJump = (width - w) * channel;
+    
+    if(channel == 1) {
+        for(uint16_t i=0; i<h; i++) {
+            for(uint16_t j=0; j<w; j++) {
+                *ptr2 = *ptr1;
+                ptr1++;
+                ptr2++;
+            }
+            ptr2 += rowJump;
+        }
+    }
+    else {
+        for(uint16_t i=0; i<h; i++) {
+            for(uint16_t j=0; j<w; j++) {
+                ptr2[0] = *ptr1;
+                ptr2[1] = 255;
+                ptr1 += 1;
+                ptr2 += 2;
+            }
+            ptr2 += rowJump;
+        }
+    }
+}
+
+
+void Bitmap::pasteGA(const Bitmap& bmp, uint16_t x, uint16_t y) {
+    if(bmp.channel != 2 || channel >= 3)
+        return;
+    
+    uint16_t w = bmp.width;
+    uint16_t h = bmp.height;
+    if(x + w > width)
+        w = width - x;
+    if(y + h > height)
+        h = height - y;
+    
+    uint8_t* ptr1 = bmp.data;
+    uint8_t* ptr2 = data + (x + y*width)*channel;
+    size_t rowJump = (width - w) * channel;
+    
+    if(channel == 1) {
+        for(uint16_t i=0; i<h; i++) {
+            for(uint16_t j=0; j<w; j++) {
+                float a = ptr1[1] / 255.0f;
+                ptr2[0] = a*ptr1[0] + (1-a)*ptr2[0];
+                ptr1 += 2;
+                ptr2 += 1;
+            }
+            ptr2 += rowJump;
+        }
+    }
+    else {
+        for(uint16_t i=0; i<h; i++) {
+            for(uint16_t j=0; j<w; j++) {
+                float a1 = ptr1[1] / 255.0f;
+                float a2 = ptr2[1] / 255.0f;
+                float b = a2*(1-a1);
+                ptr2[1] = (a1 + b) * 255;
+                ptr2[0] = a1*ptr1[0] + b*ptr2[0];
+                ptr1 += 2;
+                ptr2 += 2;
+            }
+            ptr2 += rowJump;
+        }
+    }
+}
+
+
+void Bitmap::pasteRGB(const Bitmap& bmp, uint16_t x, uint16_t y) {
+    if(bmp.channel != 3 || channel < 3)
+        return;
+    
+    uint16_t w = bmp.width;
+    uint16_t h = bmp.height;
+    if(x + w > width)
+        w = width - x;
+    if(y + h > height)
+        h = height - y;
+    
+    uint8_t* ptr1 = bmp.data;
+    uint8_t* ptr2 = data + x + y*width;
+    size_t rowJump = width - w;
+    
+    if(channel == 3) {
+        for(uint16_t i=0; i<h; i++) {
+            for(uint16_t j=0; j<w; j++) {
+                ptr2[0] = ptr1[0];
+                ptr2[1] = ptr1[1];
+                ptr2[2] = ptr1[2];
+                ptr1 += 3;
+                ptr2 += 3;
+            }
+            ptr2 += rowJump;
+        }
+    }
+    else {
+        for(uint16_t i=0; i<h; i++) {
+            for(uint16_t j=0; j<w; j++) {
+                ptr2[0] = ptr1[0];
+                ptr2[1] = ptr1[1];
+                ptr2[2] = ptr1[2];
+                ptr2[3] = 255;
+                ptr1 += 3;
+                ptr2 += 4;
+            }
+            ptr2 += rowJump;
+        }
+    }
+}
+
+
+void Bitmap::pasteRGBA(const Bitmap& bmp, uint16_t x, uint16_t y) {
+    if(bmp.channel != 4 || channel < 3)
+        return;
+    
+    uint16_t w = bmp.width;
+    uint16_t h = bmp.height;
+    if(x + w > width)
+        w = width - x;
+    if(y + h > height)
+        h = height - y;
+    
+    uint8_t* ptr1 = bmp.data;
+    uint8_t* ptr2 = data + (x + y*width)*channel;
+    size_t rowJump = (width - w) * channel;
+    
+    if(channel == 3) {
+        for(uint16_t i=0; i<h; i++) {
+            for(uint16_t j=0; j<w; j++) {
+                float a = ptr1[1] / 255.0f;
+                float b = 1 - a;
+                ptr2[0] = a*ptr1[0] + b*ptr2[0];
+                ptr2[1] = a*ptr1[1] + b*ptr2[1];
+                ptr2[2] = a*ptr1[2] + b*ptr2[2];
+                ptr1 += 4;
+                ptr2 += 3;
+            }
+            ptr2 += rowJump;
+        }
+    }
+    else {
+        for(uint16_t i=0; i<h; i++) {
+            for(uint16_t j=0; j<w; j++) {
+                float a1 = ptr1[1] / 255.0f;
+                float a2 = ptr2[1] / 255.0f;
+                float b = a2*(1-a1);
+                ptr2[3] = (a1 + b) * 255;
+                ptr2[0] = a1*ptr1[0] + b*ptr2[0];
+                ptr2[1] = a1*ptr1[1] + b*ptr2[1];
+                ptr2[2] = a1*ptr1[2] + b*ptr2[2];
+                ptr1 += 4;
+                ptr2 += 4;
+            }
+            ptr2 += rowJump;
+        }
+    }
+}
+
+
+/**
+ * @brief Compares the two bitmaps
+ */
+bool Bitmap::operator == (const Bitmap &bmp) const {
+    if(bmp.width != width || bmp.width != width || bmp.channel != channel)
+        return false;
+    
+    uint8_t* ptr1 = data;
+    uint8_t* ptr2 = bmp.data;
+    size_t size = width * height * channel;
+    
+    for(size_t i=0; i<size; i++) {
+        if(*ptr1 != *ptr2)
+            return false;
+        ptr1++;
+        ptr2++;
+    }
+    return true;
+}
+
+/**
+ * @brief Compares the two bitmaps
+ */
+bool Bitmap::operator != (const Bitmap &bmp) const {
+    if(bmp.width != width || bmp.width != width || bmp.channel != channel)
+        return true;
+    
+    uint8_t* ptr1 = data;
+    uint8_t* ptr2 = bmp.data;
+    size_t size = width * height * channel;
+    
+    for(size_t i=0; i<size; i++) {
+        if(*ptr1 != *ptr2)
+            return true;
+        ptr1++;
+        ptr2++;
+    }
+    return false;
 }
 
 }

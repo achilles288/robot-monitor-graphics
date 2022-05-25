@@ -21,6 +21,16 @@
 namespace rmg {
 
 /**
+ * @brief Default constructor
+ */
+inline Vec4::Vec4() {
+    x = 0;
+    y = 0;
+    z = 0;
+    w = 0;
+}
+
+/**
  * @brief Constructor with xyzw values
  * 
  * @param x X-coordinate
