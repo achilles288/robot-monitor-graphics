@@ -1,10 +1,24 @@
 #include "testconf.h"
 
+#include <rmg/bitmap.hpp>
+
 #include <iostream>
 
 
+using namespace rmg;
+
+#define FNAME "convert_gray"
+
+
 int main() {
-    std::cout << "Test run" << std::endl;
-    std::cout << "RMGTEST_RESOURCE_PATH " << RMGTEST_RESOURCE_PATH << std::endl;
-    std::cout << "RMGTEST_OUTPUT_PATH " << RMGTEST_RESOURCE_PATH << std::endl;
+    Bitmap bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/" FNAME ".png");
+    bmp.saveFile(RMGTEST_OUTPUT_PATH "/" FNAME ".png");
+    Bitmap gray = bmp.toGrayscale();
+    gray.saveFile(RMGTEST_OUTPUT_PATH "/" FNAME "_gray.png");
+    Bitmap ga = bmp.toGA();
+    ga.saveFile(RMGTEST_OUTPUT_PATH "/" FNAME "_ga.png");
+    Bitmap rgb = bmp.toRGB();
+    rgb.saveFile(RMGTEST_OUTPUT_PATH "/" FNAME "_rgb.png");
+    Bitmap rgba = bmp.toRGBA();
+    rgba.saveFile(RMGTEST_OUTPUT_PATH "/" FNAME "_rgba.png");
 }

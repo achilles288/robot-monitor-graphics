@@ -18,7 +18,7 @@ TEST(Pixel, constructor) {
     ASSERT_EQ(0, p1.channel);
     
     Pixel p2 = Pixel(53);
-    ASSERT_EQ(53, p2.value);
+    ASSERT_EQ(53, p2.gray);
     ASSERT_EQ(1, p2.channel);
     
     Pixel p3 = Pixel(142, 64, 12);
@@ -97,9 +97,9 @@ TEST(Bitmap, loadPNG_gray) {
     p1 = bmp.getPixel(30, 27);
     p2 = bmp.getPixel(10, 98);
     p3 = bmp.getPixel(86, 75);
-    EXPECT_EQ(98, p1.value);
-    EXPECT_EQ(35, p2.value);
-    EXPECT_EQ(157, p3.value);
+    EXPECT_EQ(98, p1.gray);
+    EXPECT_EQ(35, p2.gray);
+    EXPECT_EQ(157, p3.gray);
 }
 
 TEST(Bitmap, loadPNG_rgb) {
@@ -175,9 +175,9 @@ TEST(Bitmap, loadTIFF_gray) {
     p1 = bmp.getPixel(42, 27);
     p2 = bmp.getPixel(16, 42);
     p3 = bmp.getPixel(64, 64);
-    EXPECT_EQ(187, p1.value);
-    EXPECT_EQ(21, p2.value);
-    EXPECT_EQ(239, p3.value);
+    EXPECT_EQ(187, p1.gray);
+    EXPECT_EQ(21, p2.gray);
+    EXPECT_EQ(239, p3.gray);
 }
 
 TEST(Bitmap, loadTIFF_rgb) {
@@ -346,9 +346,9 @@ TEST(Bitmap, saveTIFF_gray) {
     p1 = bmp.getPixel(30, 33);
     p2 = bmp.getPixel(60, 42);
     p3 = bmp.getPixel(56, 67);
-    EXPECT_EQ(128, p1.value);
-    EXPECT_EQ(161, p2.value);
-    EXPECT_EQ(255, p3.value);
+    EXPECT_EQ(128, p1.gray);
+    EXPECT_EQ(161, p2.gray);
+    EXPECT_EQ(255, p3.gray);
 }
 
 TEST(Bitmap, saveTIFF_rgba) {
@@ -406,4 +406,13 @@ TEST(Bitmap, saveTIFF_rgba) {
     ASSERT_EQ(204, p3.blue);
     ASSERT_EQ(178, p3.alpha);
     ASSERT_EQ(  0, p4.alpha);
+}
+
+
+
+
+/**
+ * @brief Converts into a grayscale image
+ */
+TEST(Bitmap, toGrayscale_rgb) {
 }
