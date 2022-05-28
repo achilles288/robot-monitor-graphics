@@ -50,7 +50,7 @@ TEST(Bitmap, constructor) {
     
     // Copy constructor test
     Bitmap bmp2 = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/cat.png"
+        RMGTEST_RESOURCE_PATH "/open_png_rgb.png"
     );
     Bitmap bmp3;
     bmp3 = bmp2;
@@ -87,7 +87,7 @@ TEST(Bitmap, constructor) {
  */
 TEST(Bitmap, loadPNG_gray) {
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/einstein.png"
+        RMGTEST_RESOURCE_PATH "/open_png_gray.png"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(120, bmp.getWidth());
@@ -102,9 +102,28 @@ TEST(Bitmap, loadPNG_gray) {
     EXPECT_EQ(157, p3.gray);
 }
 
+TEST(Bitmap, loadPNG_ga) {
+    Bitmap bmp = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/open_png_ga.png"
+    );
+    ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
+    EXPECT_EQ(32, bmp.getWidth());
+    EXPECT_EQ(80, bmp.getHeight());
+    EXPECT_EQ(2, bmp.getChannel());
+    Pixel p1, p2, p3;
+    p1 = bmp.getPixel(9, 13);
+    p2 = bmp.getPixel(20, 29);
+    p3 = bmp.getPixel(24, 65);
+    ASSERT_EQ(235, p1.gray);
+    ASSERT_EQ(130, p1.alpha);
+    ASSERT_EQ( 96, p2.gray);
+    ASSERT_EQ(255, p2.alpha);
+    ASSERT_EQ(  0, p3.alpha);
+}
+
 TEST(Bitmap, loadPNG_rgb) {
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/cat.png"
+        RMGTEST_RESOURCE_PATH "/open_png_rgb.png"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(144, bmp.getWidth());
@@ -127,7 +146,7 @@ TEST(Bitmap, loadPNG_rgb) {
 
 TEST(Bitmap, loadPNG_rgba) {
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/wine.png"
+        RMGTEST_RESOURCE_PATH "/open_png_rgba.png"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(32, bmp.getWidth());
@@ -165,7 +184,7 @@ TEST(Bitmap, loadPNG_rgba) {
  */
 TEST(Bitmap, loadTIFF_gray) {
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/graycat.tif"
+        RMGTEST_RESOURCE_PATH "/open_tif_gray.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(100, bmp.getWidth());
@@ -182,7 +201,7 @@ TEST(Bitmap, loadTIFF_gray) {
 
 TEST(Bitmap, loadTIFF_rgb) {
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/vase.tif"
+        RMGTEST_RESOURCE_PATH "/open_tif_rgb.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(120, bmp.getWidth());
@@ -205,7 +224,7 @@ TEST(Bitmap, loadTIFF_rgb) {
 
 TEST(Bitmap, loadTIFF_rgba) {
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/fire.tif"
+        RMGTEST_RESOURCE_PATH "/open_tif_rgba.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     EXPECT_EQ(65, bmp.getWidth());
@@ -242,11 +261,11 @@ TEST(Bitmap, loadTIFF_rgba) {
  * some pixels.
  */
 TEST(Bitmap, savePNG) {
-    remove(RMGTEST_OUTPUT_PATH "/bitmap_savePNG.png");
+    remove(RMGTEST_OUTPUT_PATH "/save_png.png");
     
     // Opens the image file
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/wine.png"
+        RMGTEST_RESOURCE_PATH "/open_png_rgba.png"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     ASSERT_EQ(32, bmp.getWidth());
@@ -268,11 +287,11 @@ TEST(Bitmap, savePNG) {
     }
     
     // Saves the bitmap
-    bmp.saveFile(RMGTEST_OUTPUT_PATH "/bitmap_savePNG.png");
+    bmp.saveFile(RMGTEST_OUTPUT_PATH "/save_png.png");
     
     // Reopens the output image and does logic tests
     Bitmap saved = Bitmap::loadFromFile(
-        RMGTEST_OUTPUT_PATH "/bitmap_savePNG.png"
+        RMGTEST_OUTPUT_PATH "/save_png.png"
     );
     ASSERT_NE((uint8_t*)NULL, saved.getPointer());
     EXPECT_EQ(32, saved.getWidth());
@@ -310,11 +329,11 @@ TEST(Bitmap, savePNG) {
  * some pixels.
  */
 TEST(Bitmap, saveTIFF_gray) {
-    remove(RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_gray.tif");
+    remove(RMGTEST_OUTPUT_PATH "/save_tif_gray.tif");
     
     // Opens the image file
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/graycat.tif"
+        RMGTEST_RESOURCE_PATH "/open_tif_gray.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     ASSERT_EQ(100, bmp.getWidth());
@@ -331,11 +350,11 @@ TEST(Bitmap, saveTIFF_gray) {
     }
     
     // Saves the bitmap
-    bmp.saveFile(RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_gray.tif");
+    bmp.saveFile(RMGTEST_OUTPUT_PATH "/save_tif_gray.tif");
     
     // Reopens the output image and does logic tests
     Bitmap saved = Bitmap::loadFromFile(
-        RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_gray.tif"
+        RMGTEST_OUTPUT_PATH "/save_tif_gray.tif"
     );
     ASSERT_NE((uint8_t*)NULL, saved.getPointer());
     EXPECT_EQ(100, saved.getWidth());
@@ -352,11 +371,11 @@ TEST(Bitmap, saveTIFF_gray) {
 }
 
 TEST(Bitmap, saveTIFF_rgba) {
-    remove(RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_rgba.tif");
+    remove(RMGTEST_OUTPUT_PATH "/save_tif_rgba.tif");
     
     // Opens the image file
     Bitmap bmp = Bitmap::loadFromFile(
-        RMGTEST_RESOURCE_PATH "/fire.tif"
+        RMGTEST_RESOURCE_PATH "/open_tif_rgba.tif"
     );
     ASSERT_NE((uint8_t*)NULL, bmp.getPointer());
     ASSERT_EQ(65, bmp.getWidth());
@@ -377,11 +396,11 @@ TEST(Bitmap, saveTIFF_rgba) {
     }
     
     // Saves the bitmap
-    bmp.saveFile(RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_rgba.tif");
+    bmp.saveFile(RMGTEST_OUTPUT_PATH "/save_tif_rgba.tif");
     
     // Reopens the output image and does logic tests
     Bitmap saved = Bitmap::loadFromFile(
-        RMGTEST_OUTPUT_PATH "/bitmap_saveTIFF_rgba.tif"
+        RMGTEST_OUTPUT_PATH "/save_tif_rgba.tif"
     );
     ASSERT_NE((uint8_t*)NULL, saved.getPointer());
     EXPECT_EQ(65, saved.getWidth());
@@ -412,7 +431,575 @@ TEST(Bitmap, saveTIFF_rgba) {
 
 
 /**
- * @brief Converts into a grayscale image
+ * @brief Equality operator test
+ */
+TEST(Bitmap, equals) {
+    Bitmap bmp1 = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/open_png_rgb.png"
+    );
+    Bitmap bmp2 = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/open_png_rgb.png"
+    );
+    if(!(bmp1 == bmp2))
+        FAIL() << "`bmp1 == bmp2` returns false false" << std::endl;
+    if(bmp1 != bmp2)
+        FAIL() << "`bmp1 != bmp2` returns false true" << std::endl;
+    
+    Pixel px = Pixel(194, 65, 24);
+    bmp2.setPixel(105, 29, px);
+    if(bmp1 == bmp2)
+        FAIL() << "`bmp1 == bmp2` returns false true" << std::endl;
+    if(!(bmp1 != bmp2))
+        FAIL() << "`bmp1 != bmp2` returns false false" << std::endl;
+}
+
+
+
+
+/**
+ * @brief Converts to grayscale image
+ * 
+ * Converts images with different channels to the grayscale images and compares
+ * the output with reference images
  */
 TEST(Bitmap, toGrayscale_rgb) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgb.png");
+    out = bmp.toGrayscale();
+    
+    EXPECT_EQ(1, out.getChannel());
+    
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgb_gray.png");
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toGrayscale_rgb.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, toGrayscale_rgba) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgba.png");
+    out = bmp.toGrayscale();
+    
+    EXPECT_EQ(1, out.getChannel());
+    
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgba_gray.png");
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toGrayscale_rgba.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, toGrayscale_rgba_associative) {
+    /*
+     * The first conversion is RGBA to grayscale.
+     * The second conversion is RGBA-RGB-Gray.
+     */
+    Bitmap bmp, out1, out2;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgba.png");
+    out1 = bmp.toGrayscale();
+    out2 = bmp.toRGB();
+    out2 = out2.toGrayscale();
+    
+    if(out1 != out2)
+        FAIL() << "`out1 != out2` bitmaps are not identical";
+}
+
+
+
+
+/**
+ * @brief Converts to gray alpha image
+ * 
+ * Converts images with different channels to the gray alpha images and
+ * compares the output with reference images
+ */
+TEST(Bitmap, toGA_gray) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_gray.png");
+    out = bmp.toGA();
+    
+    EXPECT_EQ(2, out.getChannel());
+    
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_gray_ga.png");
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toGA_gray.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, toGA_rgb) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgb.png");
+    out = bmp.toGA();
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgb_ga.png");
+    
+    EXPECT_EQ(2, out.getChannel());
+    
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toGA_rgb.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, toGA_rgba) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgba.png");
+    out = bmp.toGA();
+    
+    EXPECT_EQ(2, out.getChannel());
+    
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgba_ga.png");
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toGA_rgba.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+
+
+
+/**
+ * @brief Converts to RGB image
+ * 
+ * Converts images with different channels to the RGB images and compares
+ * the output with reference images
+ */
+TEST(Bitmap, toRGB_gray) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_gray.png");
+    out = bmp.toRGB();
+    
+    EXPECT_EQ(3, out.getChannel());
+    
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_gray_rgb.png");
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toRGB_gray.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, toRGB_rgba) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgba.png");
+    out = bmp.toRGB();
+    
+    EXPECT_EQ(3, out.getChannel());
+    
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgba_rgb.png");
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toRGB_rgba.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+
+
+
+/**
+ * @brief Converts to RGBA image
+ * 
+ * Converts images with different channels to the RGBA images and compares
+ * the output with reference images
+ */
+TEST(Bitmap, toRGBA_gray) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_gray.png");
+    out = bmp.toRGBA();
+    
+    EXPECT_EQ(4, out.getChannel());
+    
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_gray_rgba.png");
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toRGBA_gray.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, toRGBA_rgb) {
+    Bitmap bmp, out, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgb.png");
+    out = bmp.toRGBA();
+    
+    EXPECT_EQ(4, out.getChannel());
+    
+    ref = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/convert_rgb_rgba.png");
+    if(out != ref) {
+        out.saveFile(RMGTEST_OUTPUT_PATH "/error_toRGBA_rgb.png");
+        
+        FAIL() << "`out != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+
+
+
+/**
+ * @brief Pastes a grayscale image from another source to the bitmap
+ * 
+ * Pastes different images on different images and compares the output images
+ * with the reference images
+ */
+TEST(Bitmap, pasteGray_gray) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_gray.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_gray.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_gray.png");
+    bmp.paste(layer1, 5, 20);
+    bmp.paste(layer2, 60, 80);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_gray_gray.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteGray_gray.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteGray_ga) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_ga.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_gray.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_gray.png");
+    bmp.paste(layer1, 10, 20);
+    bmp.paste(layer2, 70, 40);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_gray_ga.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteGray_ga.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteGray_rgb) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_rgb.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_gray.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_gray.png");
+    bmp.paste(layer1, 5, 20);
+    bmp.paste(layer2, 60, 80);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_gray_rgb.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteGray_rgb.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteGray_rgba) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_rgba.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_gray.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_gray.png");
+    bmp.paste(layer1, 10, 20);
+    bmp.paste(layer2, 70, 40);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_gray_rgba.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteGray_rgba.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+
+
+
+/**
+ * @brief Pastes a gray alpha image from another source to the bitmap
+ * 
+ * Pastes different images on different images and compares the output images
+ * with the reference images
+ */
+TEST(Bitmap, pasteGA_gray) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_gray.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_ga.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_ga.png");
+    bmp.paste(layer1, 5, 20);
+    bmp.paste(layer2, 60, 80);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_ga_gray.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteGA_gray.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteGA_ga) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_ga.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_ga.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_ga.png");
+    bmp.paste(layer1, 10, 20);
+    bmp.paste(layer2, 70, 40);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_ga_ga.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteGA_ga.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteGA_rgb) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_rgb.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_ga.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_ga.png");
+    bmp.paste(layer1, 5, 20);
+    bmp.paste(layer2, 60, 80);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_ga_rgb.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteGA_rgb.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteGA_rgba) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_rgba.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_ga.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_ga.png");
+    bmp.paste(layer1, 10, 20);
+    bmp.paste(layer2, 70, 40);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_ga_rgba.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteGA_rgba.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+
+
+
+/**
+ * @brief Pastes an RGB image from another source to the bitmap
+ * 
+ * Pastes different images on different images and compares the output images
+ * with the reference images
+ */
+TEST(Bitmap, pasteRGB_gray) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_gray.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_rgb.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_rgb.png");
+    bmp.paste(layer1, 5, 20);
+    bmp.paste(layer2, 60, 80);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_gray_gray.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteRGB_gray.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteRGB_ga) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_ga.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_rgb.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_rgb.png");
+    bmp.paste(layer1, 10, 20);
+    bmp.paste(layer2, 70, 40);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_gray_ga.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteRGB_ga.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteRGB_rgb) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_rgb.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_rgb.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_rgb.png");
+    bmp.paste(layer1, 5, 20);
+    bmp.paste(layer2, 60, 80);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_rgb_rgb.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteRGB_rgb.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteRGB_rgba) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_rgba.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_rgb.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_rgb.png");
+    bmp.paste(layer1, 10, 20);
+    bmp.paste(layer2, 70, 40);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_rgb_rgba.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteRGB_rgba.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+
+
+
+/**
+ * @brief Pastes an RGBA image from another source to the bitmap
+ * 
+ * Pastes different images on different images and compares the output images
+ * with the reference images
+ */
+TEST(Bitmap, pasteRGBA_gray) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_gray.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_rgba.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_rgba.png");
+    bmp.paste(layer1, 5, 20);
+    bmp.paste(layer2, 60, 80);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_ga_gray.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteRGBA_gray.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteRGBA_ga) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_ga.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_rgba.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_rgba.png");
+    bmp.paste(layer1, 10, 20);
+    bmp.paste(layer2, 70, 40);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_ga_ga.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteRGBA_ga.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteRGBA_rgb) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_rgb.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_rgba.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_rgba.png");
+    bmp.paste(layer1, 5, 20);
+    bmp.paste(layer2, 60, 80);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_rgba_rgb.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteRGBA_rgb.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
+}
+
+TEST(Bitmap, pasteRGBA_rgba) {
+    Bitmap bmp, layer1, layer2, ref;
+    bmp = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_bg_rgba.png");
+    layer1 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_a_rgba.png");
+    layer2 = Bitmap::loadFromFile(RMGTEST_RESOURCE_PATH "/paste_b_rgba.png");
+    bmp.paste(layer1, 10, 20);
+    bmp.paste(layer2, 70, 40);
+    
+    ref = Bitmap::loadFromFile(
+        RMGTEST_RESOURCE_PATH "/expect_paste_rgba_rgba.png"
+    );
+    
+    if(bmp != ref) {
+        bmp.saveFile(RMGTEST_OUTPUT_PATH "/error_pasteRGBA_rgba.png");
+        
+        FAIL() << "`bmp != ref` bitmaps are not identical" << std::endl
+               << "See the saved output image in the build directory";
+    }
 }

@@ -89,7 +89,8 @@ TEST_F(ParticleShader, runtime) {
     Context ctx;
     ContextLoader loader;
     Particle3D *obj1 = new Particle3D(&ctx, RMG_RESOURCE_PATH "/dot.png");
-    Particle3D *obj2 = new Particle3D(&ctx, RMGTEST_RESOURCE_PATH "/wine.png");
+    Particle3D *obj2 = new Particle3D(&ctx, RMGTEST_RESOURCE_PATH
+                                            "/open_png_rgba.png");
     loader.push(obj1->getTextureLoad());
     loader.push(obj2->getTextureLoad());
     loader.load();

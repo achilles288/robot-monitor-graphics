@@ -115,7 +115,8 @@ TEST_F(Object2DShader, runtime) {
     Sprite2D *sprite1 = new Sprite2D(&ctx, RMG_RESOURCE_PATH "/icon64.png");
     sprite1->setAlignment(Alignment::BottomLeft);
     sprite1->setTranslation(48, -48);
-    Sprite2D *sprite2 = new Sprite2D(&ctx, RMGTEST_RESOURCE_PATH "/wine.png");
+    Sprite2D *sprite2 = new Sprite2D(&ctx, RMGTEST_RESOURCE_PATH
+                                           "/open_png_rgba.png");
     sprite2->setAlignment(Alignment::BottomRight);
     sprite2->setTranslation(-32, -48);
     loader.push(sprite1->getTextureLoad());
