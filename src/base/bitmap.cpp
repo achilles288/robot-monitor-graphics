@@ -251,6 +251,34 @@ void Bitmap::setPixel(uint16_t x, uint16_t y, const Pixel& p) {
     }
 }
 
+
+static float getLuminance(uint8_t r, uint8_t g, uint8_t b) {
+    uint8_t cmax, cmin;
+    if(r > g) {
+        // Green is min
+        cmin = g;
+        if(r > b)
+            cmax = r; // Red is max
+        else
+            cmax = b; // Blue is max
+        }
+    else if(b > g) {
+        // Blue is max and red is min
+        cmax = b;
+        cmin = r;
+    }
+    else {
+        // Green is max
+        cmax = g;
+        if(r < b)
+            cmin = r; // Red is min
+        else
+            cmin = b; // Blue is min
+    }
+    return (cmax+cmin)/2.0f;
+}
+
+
 /**
  * @brief Converts the bitmap to a grayscale image
  * 
@@ -268,45 +296,26 @@ Bitmap Bitmap::toGrayscale() const {
     if(channel == 2) {
         for(size_t i=0; i<pixelCount; i++) {
             float a = ptr1[1] / 255.0f;
-            *ptr2 = a*ptr1[0] + 255 - ptr1[1];
+            *ptr2 = a*ptr1[0] + 255.5f - ptr1[1];
             ptr1 += 2;
+            ptr2 += 1;
+        }
+    }
+    else if(channel == 3) {
+        for(size_t i=0; i<pixelCount; i++) {
+            *ptr2 = getLuminance(ptr1[0], ptr1[1], ptr1[2]);
+            ptr1 += 3;
             ptr2 += 1;
         }
     }
     else {
         for(size_t i=0; i<pixelCount; i++) {
-            uint8_t red = ptr1[0];
-            uint8_t green = ptr1[1];
-            uint8_t blue = ptr1[2];
-            uint8_t alpha = (channel == 4) ? ptr1[3] : 255;
-            
-            uint8_t cmax, cmin;
-            if(red > green) {
-                // Green is min
-                cmin = green;
-                if(red > blue)
-                    cmax = red; // Red is max
-                else
-                    cmax = blue; // Blue is max
-            }
-            else if(blue > green) {
-                // Blue is max and red is min
-                cmax = blue;
-                cmin = red;
-            }
-            else {
-                // Green is max
-                cmax = green;
-                if(red < blue)
-                    cmin = red; // Red is min
-                else
-                    cmin = blue; // Blue is min
-            }
-            
-            float a = alpha / 255.0f;
-            float l = (cmax+cmin)/2.0f;
-            *ptr2 = (uint8_t)(a*l + 255 - alpha);
-            ptr1 += channel;
+            float a = ptr1[3] / 255.0f;
+            float r = a*ptr1[0] + 255.5f - ptr1[3];
+            float g = a*ptr1[1] + 255.5f - ptr1[3];
+            float b = a*ptr1[2] + 255.5f - ptr1[3];
+            *ptr2 = getLuminance(r, g, b);
+            ptr1 += 4;
             ptr2 += 1;
         }
     }
@@ -335,38 +344,18 @@ Bitmap Bitmap::toGA() const {
             ptr2 += 2;
         }
     }
+    else if(channel == 3) {
+        for(size_t i=0; i<pixelCount; i++) {
+            ptr2[0] = getLuminance(ptr1[0], ptr1[1], ptr1[2]);
+            ptr2[1] = 255;
+            ptr1 += 3;
+            ptr2 += 2;
+        }
+    }
     else {
         for(size_t i=0; i<pixelCount; i++) {
-            uint8_t red = ptr1[0];
-            uint8_t green = ptr1[1];
-            uint8_t blue = ptr1[2];
-            uint8_t alpha = (channel == 4) ? ptr1[3] : 255;
-            
-            uint8_t cmax, cmin;
-            if(red > green) {
-                // Green is min
-                cmin = green;
-                if(red > blue)
-                    cmax = red; // Red is max
-                else
-                    cmax = blue; // Blue is max
-            }
-            else if(blue > green) {
-                // Blue is max and red is min
-                cmax = blue;
-                cmin = red;
-            }
-            else {
-                // Green is max
-                cmax = green;
-                if(red < blue)
-                    cmin = red; // Red is min
-                else
-                    cmin = blue; // Blue is min
-            }
-            
-            ptr2[0] = (cmax+cmin)/2.0f;
-            ptr2[1] = alpha;
+            ptr2[0] = getLuminance(ptr1[0], ptr1[1], ptr1[2]);
+            ptr2[1] = ptr1[3];
             ptr1 += channel;
             ptr2 += 2;
         }
@@ -400,7 +389,7 @@ Bitmap Bitmap::toRGB() const {
     else if(channel == 2) {
         for(size_t i=0; i<pixelCount; i++) {
             float a = ptr1[1] / 255.0f;
-            uint8_t val = ptr1[0] + 255 - ptr1[1];
+            uint8_t val = a*ptr1[0] + 255.5f - ptr1[1];
             ptr2[0] = val;
             ptr2[1] = val;
             ptr2[2] = val;
@@ -408,12 +397,12 @@ Bitmap Bitmap::toRGB() const {
             ptr2 += 3;
         }
     }
-    else if(channel == 4) {
+    else {
         for(size_t i=0; i<pixelCount; i++) {
             float a = ptr1[3] / 255.0f;
-            ptr2[0] = a*ptr1[0] + 255 - ptr1[3];
-            ptr2[1] = a*ptr1[1] + 255 - ptr1[3];
-            ptr2[2] = a*ptr1[2] + 255 - ptr1[3];
+            ptr2[0] = a*ptr1[0] + 255.5f - ptr1[3];
+            ptr2[1] = a*ptr1[1] + 255.5f - ptr1[3];
+            ptr2[2] = a*ptr1[2] + 255.5f - ptr1[3];
             ptr1 += 4;
             ptr2 += 3;
         }
@@ -435,13 +424,23 @@ Bitmap Bitmap::toRGBA() const {
     uint8_t* ptr2 = bmp.data;
     size_t pixelCount = width * height;
     
-    if(channel < 3) {
+    if(channel == 1) {
+        for(size_t i=0; i<pixelCount; i++) {
+            ptr2[0] = *ptr1;
+            ptr2[1] = *ptr1;
+            ptr2[2] = *ptr1;
+            ptr2[3] = 255;
+            ptr1 += 1;
+            ptr2 += 4;
+        }
+    }
+    else if(channel == 2) {
         for(size_t i=0; i<pixelCount; i++) {
             ptr2[0] = ptr1[0];
             ptr2[1] = ptr1[0];
             ptr2[2] = ptr1[0];
-            ptr2[3] = (channel == 2) ? ptr1[1] : 255;
-            ptr1 += channel;
+            ptr2[3] = ptr1[1];
+            ptr1 += 2;
             ptr2 += 4;
         }
     }
@@ -570,7 +569,7 @@ void Bitmap::pasteGA(const Bitmap& bmp, uint16_t x, uint16_t y) {
         for(uint16_t i=0; i<h; i++) {
             for(uint16_t j=0; j<w; j++) {
                 float a = ptr1[1] / 255.0f;
-                ptr2[0] = a*ptr1[0] + (1-a)*ptr2[0];
+                ptr2[0] = a*ptr1[0] + (1-a)*ptr2[0] + 0.5f;
                 ptr1 += 2;
                 ptr2 += 1;
             }
@@ -583,8 +582,9 @@ void Bitmap::pasteGA(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 float a1 = ptr1[1] / 255.0f;
                 float a2 = ptr2[1] / 255.0f;
                 float b = a2*(1-a1);
-                ptr2[1] = (a1 + b) * 255;
-                ptr2[0] = a1*ptr1[0] + b*ptr2[0];
+                float a = a1 + b;
+                ptr2[0] = (a1*ptr1[0] + b*ptr2[0]) / a + 0.5f;
+                ptr2[1] = a * 255 + 0.5f;
                 ptr1 += 2;
                 ptr2 += 2;
             }
@@ -606,8 +606,8 @@ void Bitmap::pasteRGB(const Bitmap& bmp, uint16_t x, uint16_t y) {
         h = height - y;
     
     uint8_t* ptr1 = bmp.data;
-    uint8_t* ptr2 = data + x + y*width;
-    size_t rowJump = width - w;
+    uint8_t* ptr2 = data + (x + y*width)*channel;
+    size_t rowJump = (width - w) * channel;
     
     if(channel == 3) {
         for(uint16_t i=0; i<h; i++) {
@@ -655,11 +655,11 @@ void Bitmap::pasteRGBA(const Bitmap& bmp, uint16_t x, uint16_t y) {
     if(channel == 3) {
         for(uint16_t i=0; i<h; i++) {
             for(uint16_t j=0; j<w; j++) {
-                float a = ptr1[1] / 255.0f;
+                float a = ptr1[3] / 255.0f;
                 float b = 1 - a;
-                ptr2[0] = a*ptr1[0] + b*ptr2[0];
-                ptr2[1] = a*ptr1[1] + b*ptr2[1];
-                ptr2[2] = a*ptr1[2] + b*ptr2[2];
+                ptr2[0] = a*ptr1[0] + b*ptr2[0] + 0.5f;
+                ptr2[1] = a*ptr1[1] + b*ptr2[1] + 0.5f;
+                ptr2[2] = a*ptr1[2] + b*ptr2[2] + 0.5f;
                 ptr1 += 4;
                 ptr2 += 3;
             }
@@ -669,13 +669,14 @@ void Bitmap::pasteRGBA(const Bitmap& bmp, uint16_t x, uint16_t y) {
     else {
         for(uint16_t i=0; i<h; i++) {
             for(uint16_t j=0; j<w; j++) {
-                float a1 = ptr1[1] / 255.0f;
-                float a2 = ptr2[1] / 255.0f;
+                float a1 = ptr1[3] / 255.0f;
+                float a2 = ptr2[3] / 255.0f;
                 float b = a2*(1-a1);
-                ptr2[3] = (a1 + b) * 255;
-                ptr2[0] = a1*ptr1[0] + b*ptr2[0];
-                ptr2[1] = a1*ptr1[1] + b*ptr2[1];
-                ptr2[2] = a1*ptr1[2] + b*ptr2[2];
+                float a = a1 + b;
+                ptr2[0] = (a1*ptr1[0] + b*ptr2[0]) / a + 0.5f;
+                ptr2[1] = (a1*ptr1[1] + b*ptr2[1]) / a + 0.5f;
+                ptr2[2] = (a1*ptr1[2] + b*ptr2[2]) / a + 0.5f;
+                ptr2[3] = a * 255 + 0.5f;
                 ptr1 += 4;
                 ptr2 += 4;
             }
