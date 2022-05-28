@@ -67,7 +67,7 @@ inline Vec3::operator Vec2() const {
  * @brief Conversion from Vec3 to Vec4
  */
 inline Vec3::operator Vec4() const {
-    return Vec4(x, y, y, 0);
+    return Vec4(x, y, z, 0);
 }
 
 /**
