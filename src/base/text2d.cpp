@@ -29,13 +29,12 @@ namespace rmg {
  * @param s Font size
  * @param txt String to display
  */
-Text2D::Text2D(Context* ctx, Font* ft, float s, const std::string &txt)
+Text2D::Text2D(Context* ctx, Font* ft, const char *txt)
        :Object2D(ctx)
 {
-    //RMG_ASSERT(ft->getContext() == ctx);
+    RMG_ASSERT(ft->getContext() == ctx);
     font = ft;
-    text = txt;
-    setFontSize(s);
+    text = std::string(txt);
     type2D = Object2DType::Text;
 }
 
@@ -44,7 +43,7 @@ Text2D::Text2D(Context* ctx, Font* ft, float s, const std::string &txt)
  * 
  * @param txt String to display
  */
-void Text2D::setText(const std::string &txt) { text = txt; }
+void Text2D::setText(const char* txt) { text = std::string(txt); }
 
 /**
  * @brief Gets the text to display
@@ -69,19 +68,5 @@ void Text2D::setFont(Font* f) {
  * @return Current font of the object
  */
 Font* Text2D::getFont() const { return font; }
-
-/**
- * @brief Sets the font size of the text object
- * 
- * @param s Font size
- */
-void Text2D::setFontSize(float s) { setSize(s, s); }
-
-/**
- * @brief Gets the font size of the text object
- * 
- * @return Font size
- */
-float Text2D::getFontSize() const { return getSize().y; }
 
 }

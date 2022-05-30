@@ -25,17 +25,25 @@
 #endif
 
 
-#include <cstdint>
-#include <memory>
-#include <string>
-
 #include "internal/context_load.hpp"
-#include "internal/texture_load.hpp"
+#include "internal/sprite_load.hpp"
+#include "math/vec2.hpp"
 
 
 namespace rmg {
 
 class Context;
+
+
+/**
+ * @brief Dimensions for a glyph
+ */
+struct GlyphMetrics {
+    uint8_t width; ///< Width of glyph
+    uint8_t height; ///< Height of glyph
+    Rect bearing; ///< Offset from baseline to left/top of glyph
+    uint8_t advance; ///< Offset to advance to next glyph
+};
 
 
 /**
@@ -45,12 +53,12 @@ class RMG_API Font {
   private:
     uint32_t id;
     Context* context;
-    internal::Texture texture;
+    internal::SpriteTexture texture;
     internal::Pending textureLoad;
+    uint8_t size;
+    GlyphMetrics characters[256];
     
     static uint32_t lastID;
-    
-    friend class Context;
     
   public:
     /**
@@ -58,8 +66,9 @@ class RMG_API Font {
      * 
      * @param ctx Conatiner context
      * @param f Path to font file (.ttf)
+     * @param p Font size
      */
-    Font(Context* ctx, const std::string &f);
+    Font(Context* ctx, const char* f, uint8_t p=16);
     
     /**
      * @brief Destructor
@@ -113,6 +122,36 @@ class RMG_API Font {
      * @return Container context
      */
     Context* getContext() const;
+    
+    /**
+     * @brief Gets the font size
+     * 
+     * @return The font size in pixels
+     */
+    uint8_t getSize() const;
+    
+    /**
+     * @brief Gets the glyph of a character
+     * 
+     * @param c The character
+     * 
+     * @return The glyph containing the metrics
+     */
+    GlyphMetrics getGlyphMetrics(char c) const;
+    
+    /**
+     * @brief Gets the pointer to the texture
+     * 
+     * @return Pointer to the texture
+     */
+    const internal::SpriteTexture *getTexture() const;
+    
+    /**
+     * @brief Gets the texture loader
+     * 
+     * @return Texture loader
+     */
+    const internal::Pending& getTextureLoad() const;
 };
 
 /**

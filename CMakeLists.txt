@@ -41,6 +41,7 @@ find_package(PNG REQUIRED)
 find_package(TIFF REQUIRED)
 find_package(PkgConfig REQUIRED)
 pkg_check_modules(GLFW REQUIRED glfw3)
+pkg_check_modules(FREETYPE REQUIRED freetype2)
 
 else()
 set(GLFW_INCLUDE_DIRS ${PROJECT_SOURCE_DIR}/external/include)

@@ -40,7 +40,26 @@ Bitmap::Bitmap(uint16_t w, uint16_t h, uint8_t ch) {
     channel = ch;
     size_t size = w * h * ch;
     data = (uint8_t*) malloc(size);
-    memset(data, 255, size);
+    memset(data, 0, size);
+}
+
+/**
+ * @brief Creates a bitmap from dimensions and a data pointer
+ * 
+ * @param w The width of the image
+ * @param h The height of the image
+ * @param ch Number of channels of each pixel
+ * @param ptr The data pointer
+ */
+Bitmap::Bitmap(uint16_t w, uint16_t h, uint8_t ch, uint8_t* ptr) {
+    if(ch < 1 || ch > 4)
+        return;
+    width = w;
+    height = h;
+    channel = ch;
+    size_t size = w * h * ch;
+    data = (uint8_t*) malloc(size);
+    memcpy(data, ptr, size);
 }
 
 /**
@@ -464,9 +483,9 @@ Bitmap Bitmap::toRGBA() const {
  * @param x X-coordinate in the image frame
  * @param y Y-coordinate in the image frame
  */
-void Bitmap::paste(const Bitmap& bmp, uint16_t x, uint16_t y) {
-    RMG_ASSERT(x > 0 && x < width);
-    RMG_ASSERT(y > 0 && y < height);
+void Bitmap::paste(const Bitmap& bmp, int16_t x, int16_t y) {
+    if(x + bmp.width < 1 || x >= width || y + bmp.height < 1 || y >= height)
+        return;
     
     const uint8_t lut[] = {
         0x10, 0x20, 0x11, 0x22,
@@ -511,20 +530,22 @@ void Bitmap::paste(const Bitmap& bmp, uint16_t x, uint16_t y) {
 }
 
 
-void Bitmap::pasteGray(const Bitmap& bmp, uint16_t x, uint16_t y) {
-    if(bmp.channel != 1 || channel >= 3)
-        return;
-    
+void Bitmap::pasteGray(const Bitmap& bmp, int16_t x, int16_t y) {
     uint16_t w = bmp.width;
     uint16_t h = bmp.height;
     if(x + w > width)
         w = width - x;
     if(y + h > height)
         h = height - y;
+    uint16_t x1 = (x < 0) ? -x : 0;
+    uint16_t y1 = (y < 0) ? -y : 0;
+    w -= x1;
+    h -= y1;
     
-    uint8_t* ptr1 = bmp.data;
+    uint8_t* ptr1 = bmp.data + (x1 + y1*bmp.width)*bmp.channel;
     uint8_t* ptr2 = data + (x + y*width)*channel;
-    size_t rowJump = (width - w) * channel;
+    size_t rowJump1 = (bmp.width - w) * bmp.channel;
+    size_t rowJump2 = (width - w) * channel;
     
     if(channel == 1) {
         for(uint16_t i=0; i<h; i++) {
@@ -533,7 +554,8 @@ void Bitmap::pasteGray(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 ptr1++;
                 ptr2++;
             }
-            ptr2 += rowJump;
+            ptr1 += rowJump1;
+            ptr2 += rowJump2;
         }
     }
     else {
@@ -544,26 +566,29 @@ void Bitmap::pasteGray(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 ptr1 += 1;
                 ptr2 += 2;
             }
-            ptr2 += rowJump;
+            ptr1 += rowJump1;
+            ptr2 += rowJump2;
         }
     }
 }
 
 
-void Bitmap::pasteGA(const Bitmap& bmp, uint16_t x, uint16_t y) {
-    if(bmp.channel != 2 || channel >= 3)
-        return;
-    
+void Bitmap::pasteGA(const Bitmap& bmp, int16_t x, int16_t y) {
     uint16_t w = bmp.width;
     uint16_t h = bmp.height;
     if(x + w > width)
         w = width - x;
     if(y + h > height)
         h = height - y;
+    uint16_t x1 = (x < 0) ? -x : 0;
+    uint16_t y1 = (y < 0) ? -y : 0;
+    w -= x1;
+    h -= y1;
     
-    uint8_t* ptr1 = bmp.data;
+    uint8_t* ptr1 = bmp.data + (x1 + y1*bmp.width)*bmp.channel;
     uint8_t* ptr2 = data + (x + y*width)*channel;
-    size_t rowJump = (width - w) * channel;
+    size_t rowJump1 = (bmp.width - w) * bmp.channel;
+    size_t rowJump2 = (width - w) * channel;
     
     if(channel == 1) {
         for(uint16_t i=0; i<h; i++) {
@@ -573,7 +598,8 @@ void Bitmap::pasteGA(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 ptr1 += 2;
                 ptr2 += 1;
             }
-            ptr2 += rowJump;
+            ptr1 += rowJump1;
+            ptr2 += rowJump2;
         }
     }
     else {
@@ -588,26 +614,29 @@ void Bitmap::pasteGA(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 ptr1 += 2;
                 ptr2 += 2;
             }
-            ptr2 += rowJump;
+            ptr1 += rowJump1;
+            ptr2 += rowJump2;
         }
     }
 }
 
 
-void Bitmap::pasteRGB(const Bitmap& bmp, uint16_t x, uint16_t y) {
-    if(bmp.channel != 3 || channel < 3)
-        return;
-    
+void Bitmap::pasteRGB(const Bitmap& bmp, int16_t x, int16_t y) {
     uint16_t w = bmp.width;
     uint16_t h = bmp.height;
     if(x + w > width)
         w = width - x;
     if(y + h > height)
         h = height - y;
+    uint16_t x1 = (x < 0) ? -x : 0;
+    uint16_t y1 = (y < 0) ? -y : 0;
+    w -= x1;
+    h -= y1;
     
-    uint8_t* ptr1 = bmp.data;
+    uint8_t* ptr1 = bmp.data + (x1 + y1*bmp.width)*bmp.channel;
     uint8_t* ptr2 = data + (x + y*width)*channel;
-    size_t rowJump = (width - w) * channel;
+    size_t rowJump1 = (bmp.width - w) * bmp.channel;
+    size_t rowJump2 = (width - w) * channel;
     
     if(channel == 3) {
         for(uint16_t i=0; i<h; i++) {
@@ -618,7 +647,8 @@ void Bitmap::pasteRGB(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 ptr1 += 3;
                 ptr2 += 3;
             }
-            ptr2 += rowJump;
+            ptr1 += rowJump1;
+            ptr2 += rowJump2;
         }
     }
     else {
@@ -631,26 +661,29 @@ void Bitmap::pasteRGB(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 ptr1 += 3;
                 ptr2 += 4;
             }
-            ptr2 += rowJump;
+            ptr1 += rowJump1;
+            ptr2 += rowJump2;
         }
     }
 }
 
 
-void Bitmap::pasteRGBA(const Bitmap& bmp, uint16_t x, uint16_t y) {
-    if(bmp.channel != 4 || channel < 3)
-        return;
-    
+void Bitmap::pasteRGBA(const Bitmap& bmp, int16_t x, int16_t y) {
     uint16_t w = bmp.width;
     uint16_t h = bmp.height;
     if(x + w > width)
         w = width - x;
     if(y + h > height)
         h = height - y;
+    uint16_t x1 = (x < 0) ? -x : 0;
+    uint16_t y1 = (y < 0) ? -y : 0;
+    w -= x1;
+    h -= y1;
     
-    uint8_t* ptr1 = bmp.data;
+    uint8_t* ptr1 = bmp.data + (x1 + y1*bmp.width)*bmp.channel;
     uint8_t* ptr2 = data + (x + y*width)*channel;
-    size_t rowJump = (width - w) * channel;
+    size_t rowJump1 = (bmp.width - w) * bmp.channel;
+    size_t rowJump2 = (width - w) * channel;
     
     if(channel == 3) {
         for(uint16_t i=0; i<h; i++) {
@@ -663,7 +696,8 @@ void Bitmap::pasteRGBA(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 ptr1 += 4;
                 ptr2 += 3;
             }
-            ptr2 += rowJump;
+            ptr1 += rowJump1;
+            ptr2 += rowJump2;
         }
     }
     else {
@@ -680,11 +714,50 @@ void Bitmap::pasteRGBA(const Bitmap& bmp, uint16_t x, uint16_t y) {
                 ptr1 += 4;
                 ptr2 += 4;
             }
-            ptr2 += rowJump;
+            ptr1 += rowJump1;
+            ptr2 += rowJump2;
         }
     }
 }
 
+/**
+ * @brief Crops the bitmap image into a new frame
+ * 
+ * @param x X-coordinate to crop the image
+ * @param y Y-coordinate to crop the image
+ * @param w Width of the new image
+ * @param h Height of the new image
+ */
+void Bitmap::crop(int16_t x, int16_t y, uint16_t w, uint16_t h) {
+    uint8_t* data2 = (uint8_t*) malloc(w * h * channel);
+    uint16_t wc = w;
+    uint16_t hc = h;
+    
+    if(x + w > width)
+        wc = width - x;
+    if(y + h > height)
+        hc = height - y;
+    uint16_t x1 = (x < 0) ? 0 : x;
+    uint16_t y1 = (y < 0) ? 0 : y;
+    uint16_t x2 = (x < 0) ? -x : 0;
+    uint16_t y2 = (y < 0) ? -y : 0;
+    wc -= x2;
+    hc -= y2;
+    
+    uint8_t* ptr1 = data + (x1 + y1*width)*channel;
+    uint8_t* ptr2 = data2 + (x2 + y2*w)*channel;
+    
+    for(uint16_t i=0; i<hc; i++) {
+        memcpy(ptr2, ptr1, wc*channel);
+        ptr1 = ptr1 + (width * channel);
+        ptr2 = ptr2 + (w * channel);
+    }
+    
+    width = w;
+    height = h;
+    free(data);
+    data = data2;
+}
 
 /**
  * @brief Compares the two bitmaps

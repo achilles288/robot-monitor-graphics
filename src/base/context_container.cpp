@@ -117,7 +117,7 @@ void Context::addFont(Font* font) {
     RMG_ASSERT(font->getContext() == this);
     auto elem = std::pair<uint32_t,Font*>(font->getID(),font);
     fonts.insert(elem);
-    loader.push(font->textureLoad);
+    loader.push(font->getTextureLoad());
 }
 
 /**

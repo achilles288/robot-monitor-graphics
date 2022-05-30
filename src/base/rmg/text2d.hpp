@@ -61,14 +61,14 @@ class RMG_API Text2D: public Object2D {
      * @param s Font size
      * @param txt String to display
      */
-    Text2D(Context* ctx, Font* ft, float s=16, const std::string &txt="Text");
+    Text2D(Context* ctx, Font* ft, const char* txt="Text");
     
     /**
      * @brief Sets the text to display
      * 
      * @param txt String to display
      */
-    void setText(const std::string &txt);
+    void setText(const char* txt);
     
     /**
      * @brief Gets the text to display
@@ -90,20 +90,6 @@ class RMG_API Text2D: public Object2D {
      * @return Current font of the object
      */
     Font* getFont() const;
-    
-    /**
-     * @brief Sets the font size of the text object
-     * 
-     * @param s Font size
-     */
-    void setFontSize(float s);
-    
-    /**
-     * @brief Gets the font size of the text object
-     * 
-     * @return Font size
-     */
-    float getFontSize() const;
     
     /**
      * @brief Sets the horizontal text alignment

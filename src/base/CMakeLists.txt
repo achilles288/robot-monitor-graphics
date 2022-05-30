@@ -96,15 +96,18 @@ add_library(rmgbase SHARED
 
 
 target_include_directories(rmgbase PUBLIC
+    ${FREETYPE_INCLUDE_DIRS}
     ${OPENGL_INCLUDE_DIR}
     ${PNG_INCLUDE_DIR}
     ${TIFF_INCLUDE_DIR}
 )
 
 target_link_libraries(rmgbase PUBLIC
+    ${FREETYPE_LIBRARIES}
     ${OPENGL_LIBRARIES}
     ${PNG_LIBRARY}
     ${TIFF_LIBRARY}
+    
 )
 
 set_target_properties(rmgbase PROPERTIES

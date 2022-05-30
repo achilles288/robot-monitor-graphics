@@ -125,10 +125,10 @@ class RMG_API Bitmap {
     void savePNG(const std::string& file) const;
     void saveTIFF(const std::string& file) const;
     
-    void pasteGray(const Bitmap &bmp, uint16_t x, uint16_t y);
-    void pasteGA(const Bitmap &bmp, uint16_t x, uint16_t y);
-    void pasteRGB(const Bitmap &bmp, uint16_t x, uint16_t y);
-    void pasteRGBA(const Bitmap &bmp, uint16_t x, uint16_t y);
+    void pasteGray(const Bitmap &bmp, int16_t x, int16_t y);
+    void pasteGA(const Bitmap &bmp, int16_t x, int16_t y);
+    void pasteRGB(const Bitmap &bmp, int16_t x, int16_t y);
+    void pasteRGBA(const Bitmap &bmp, int16_t x, int16_t y);
     
     void swap(Bitmap &bmp) noexcept;
     
@@ -146,6 +146,16 @@ class RMG_API Bitmap {
      * @param ch Number of channels of each pixel
      */
     Bitmap(uint16_t w, uint16_t h, uint8_t ch);
+    
+    /**
+     * @brief Creates a bitmap from dimensions and a data pointer
+     * 
+     * @param w The width of the image
+     * @param h The height of the image
+     * @param ch Number of channels of each pixel
+     * @param ptr The data pointer
+     */
+    Bitmap(uint16_t w, uint16_t h, uint8_t ch, uint8_t* ptr);
     
     /**
      * @brief Destructor
@@ -282,7 +292,17 @@ class RMG_API Bitmap {
      * @param x X-coordinate in the image frame
      * @param y Y-coordinate in the image frame
      */
-    void paste(const Bitmap& bmp, uint16_t x, uint16_t y);
+    void paste(const Bitmap& bmp, int16_t x, int16_t y);
+    
+    /**
+     * @brief Crops the bitmap image into a new frame
+     * 
+     * @param x X-coordinate to crop the image
+     * @param y Y-coordinate to crop the image
+     * @param w Width of the new image
+     * @param h Height of the new image
+     */
+    void crop(int16_t x, int16_t y, uint16_t w, uint16_t h);
     
     /**
      * @brief Compares the two bitmaps
