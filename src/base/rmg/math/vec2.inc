@@ -236,6 +236,30 @@ inline bool Vec2::operator != (const Vec2 &b) const {
 
 
 
+// Class: Vec2i
+
+/**
+ * @brief Default constructor
+ */
+inline Vec2i::Vec2i() {
+    x = 0;
+    y = 0;
+}
+
+/**
+ * @brief Constructor with xy values
+ * 
+ * @param x X-coordinate
+ * @param y Y-coordinate
+ */
+inline Vec2i::Vec2i(int16_t x, int16_t y) {
+    this->x = x;
+    this->y = y;
+}
+
+
+
+
 // Class: Rect
 
 /**

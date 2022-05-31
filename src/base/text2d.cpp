@@ -18,15 +18,40 @@
 
 #include "rmg/assert.hpp"
 
+#include <cstring>
+
 
 namespace rmg {
+
+/**
+ * @brief Default constructor
+ * 
+ * @param ctx Container context
+ */
+Text2D::Text2D() {
+    text[0] = '\0';
+}
 
 /**
  * @brief Constructor with loaded font
  * 
  * @param ctx Container context
  * @param ft Loaded font
- * @param s Font size
+ */
+Text2D::Text2D(Context* ctx, Font* ft)
+       :Object2D(ctx)
+{
+    RMG_ASSERT(ft->getContext() == ctx);
+    font = ft;
+    strcpy(text, "Text");
+    type2D = Object2DType::Text;
+}
+
+/**
+ * @brief Constructor with loaded font
+ * 
+ * @param ctx Container context
+ * @param ft Loaded font
  * @param txt String to display
  */
 Text2D::Text2D(Context* ctx, Font* ft, const char *txt)
@@ -34,7 +59,7 @@ Text2D::Text2D(Context* ctx, Font* ft, const char *txt)
 {
     RMG_ASSERT(ft->getContext() == ctx);
     font = ft;
-    text = std::string(txt);
+    strncpy(text, txt, 63);
     type2D = Object2DType::Text;
 }
 
@@ -43,23 +68,23 @@ Text2D::Text2D(Context* ctx, Font* ft, const char *txt)
  * 
  * @param txt String to display
  */
-void Text2D::setText(const char* txt) { text = std::string(txt); }
+void Text2D::setText(const char* txt) { strncpy(text, txt, 63); }
 
 /**
  * @brief Gets the text to display
  * 
  * @return String to display
  */
-std::string Text2D::getText() const { return text; }
+const char* Text2D::getText() const { return text; }
 
 /**
  * @brief Sets the font of the text object
  * 
  * @param f Loaded font
  */
-void Text2D::setFont(Font* f) {
-    //RMG_ASSERT(ft->getContext() == getContext());
-    font = f;
+void Text2D::setFont(Font* ft) {
+    RMG_ASSERT(ft->getContext() == getContext());
+    font = ft;
 }
 
 /**
@@ -68,5 +93,19 @@ void Text2D::setFont(Font* f) {
  * @return Current font of the object
  */
 Font* Text2D::getFont() const { return font; }
+
+/**
+ * @brief Sets the horizontal text alignment
+ * 
+ * @param a Left, center or right text alignment
+ */
+void Text2D::setTextAlignment(HorizontalAlign a) { textAlign = a; }
+
+/**
+ * @brief Gets the horizontal text alignment
+ * 
+ * @return Left, center or right text alignment
+ */
+HorizontalAlign Text2D::getTextAlignment() const { return textAlign; }
 
 }

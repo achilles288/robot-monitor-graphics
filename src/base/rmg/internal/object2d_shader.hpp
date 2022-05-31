@@ -75,14 +75,25 @@ class RMG_API SpriteShader: public Shader {
  */
 class RMG_API Text2DShader: public Shader {
   private:
-    uint32_t idModel;
+    uint32_t idMVP;
     uint32_t idColor;
+    uint32_t idTexture;
+    uint32_t idChar;
+    uint32_t idSize;
+    
+    uint32_t quadVertexArrayID = 0;
+    uint32_t quadVertexBuffer = 0;
     
   public:
     /**
      * @brief Default constructor
      */
     Text2DShader() = default;
+    
+    /**
+     * @brief Destructor
+     */
+    virtual ~Text2DShader();
     
     /**
      * @brief Compile, link and assign program parameters

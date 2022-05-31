@@ -19,6 +19,9 @@
 
 #include <map>
 
+#include <cstdio>
+#include <iostream>
+
 
 namespace rmg {
 namespace internal {
@@ -91,6 +94,16 @@ void SpriteShader::render(Sprite2D* sprite, const Mat3 &VP) {
 
 
 /**
+ * @brief Destructor
+ */
+Text2DShader::~Text2DShader() {
+    if(quadVertexBuffer != 0)
+      glDeleteBuffers(1, &quadVertexBuffer);
+    if(quadVertexArrayID != 0)
+      glDeleteVertexArrays(1, &quadVertexArrayID);
+}
+
+/**
  * @brief Compiles and links shader program and assigns parameter IDs
  */
 void Text2DShader::load() {
@@ -98,8 +111,27 @@ void Text2DShader::load() {
         RMG_RESOURCE_PATH "/shaders/text2d.vs.glsl",
         RMG_RESOURCE_PATH "/shaders/text2d.fs.glsl"
     );
-    idModel = glGetUniformLocation(id, "model");
+    idMVP = glGetUniformLocation(id, "MVP");
     idColor = glGetUniformLocation(id, "color");
+    idTexture = glGetUniformLocation(id, "font");
+    idChar = glGetUniformLocation(id, "char");
+    idSize = glGetUniformLocation(id, "size");
+    
+    const float vertices[] = {
+        1.0f, 1.0f,
+        0.0f, 1.0f,
+        0.0f, 0.0f,
+        0.0f, 0.0f,
+        1.0f, 0.0f,
+        1.0f, 1.0f
+    };
+    glGenVertexArrays(1, &quadVertexArrayID);
+    glBindVertexArray(quadVertexArrayID);
+    glGenBuffers(1, &quadVertexBuffer);
+    glBindBuffer(GL_ARRAY_BUFFER, quadVertexBuffer);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2*sizeof(float), (void*)0);
+    glEnableVertexAttribArray(0);
 }
 
 /**
@@ -111,8 +143,65 @@ void Text2DShader::load() {
 void Text2DShader::render(Text2D* txt, const Mat3 &VP) {
     if(id == 0)
         return;
-    if(prevShader != id)
+    Font* ft = txt->getFont();
+    if(ft == nullptr || ft->getTexture() == nullptr)
+        return;
+    if(prevShader != id) {
         glUseProgram(id);
+        glBindVertexArray(quadVertexArrayID);
+        glUniform1i(idTexture, TEXTURE_SPRITE);
+    }
+    
+    Color color = txt->getColor();
+    Mat3 MVP = VP * txt->getModelMatrix();
+    glUniform4fv(idColor, 1, &color[0]);
+    ft->getTexture()->bind();
+    
+    const char* ptr;
+    char c;
+    int16_t x = 0;
+    if(txt->getTextAlignment() != HorizontalAlign::Left) {
+        ptr = txt->getText();
+        c = *ptr;
+        uint16_t width = 0;
+        while(c != '\0') {
+            GlyphMetrics glyph = ft->getGlyphMetrics(c);
+            width += glyph.advance;
+            c = *(++ptr);
+        }
+        if(txt->getTextAlignment() == HorizontalAlign::Right)
+            x = -width;
+        else // Center
+            x = -width/2;
+    }
+    
+    ptr = txt->getText();
+    c = *ptr;
+    while(c != '\0') {
+        GlyphMetrics glyph = ft->getGlyphMetrics(c);
+        if(glyph.width == 0 || glyph.height == 0) {
+            x += glyph.advance;
+            c = *(++ptr);
+            continue;
+        }
+        
+        Mat3 L;
+        L[0][0] = glyph.width;
+        L[1][1] = glyph.height;
+        L[0][2] = x/64.0f + glyph.bearing.x;
+        L[1][2] = -glyph.bearing.y;
+        
+        Mat3 M = MVP * L;
+        glUniformMatrix3fv(idMVP, 1, GL_TRUE, &M[0][0]);
+        uint8_t i = (uint8_t) c;
+        glUniform2f(idChar, 0.0625f*(i % 16), 0.0625f*(i / 16));
+        float w = glyph.width / (16.0f * ft->getSize());
+        float h = glyph.height / (16.0f * ft->getSize());
+        glUniform2f(idSize, w, h);
+        glDrawArrays(GL_TRIANGLES, 0, 6);
+        x += glyph.advance;
+        c = *(++ptr);
+    }
 }
 
 

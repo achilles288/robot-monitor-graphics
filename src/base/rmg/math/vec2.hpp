@@ -194,6 +194,30 @@ RMG_API std::ostream& operator << (std::ostream& os, const Vec2& v);
 
 
 /**
+ * @brief 2D vector to represent a 2D-point or a rectangular dimension
+ */
+struct RMG_API Vec2i {
+    int16_t x; ///< X-coordinate
+    int16_t y; ///< Y-coordinate
+    
+    /**
+     * @brief Default constructor
+     */
+    Vec2i();
+    
+    /**
+     * @brief Constructor with xy values
+     * 
+     * @param x X-coordinate
+     * @param y Y-coordinate
+     */
+    Vec2i(int16_t x, int16_t y);
+};
+
+
+
+
+/**
  * @brief A rectangular dimension or 2D point of screen coordinates
  */
 struct RMG_API Rect {

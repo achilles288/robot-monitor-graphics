@@ -67,6 +67,7 @@ typedef void (GLAPIENTRY* PFNGLPROVOKINGVERTEXPROC) (GLenum mode); ///< GL typed
 typedef void (GLAPIENTRY* PFNGLSHADERSOURCEPROC) (GLuint shader, GLsizei count, const GLchar *const*string, const GLint *length); ///< GL typedef
 typedef void (GLAPIENTRY* PFNGLUNIFORM1FPROC) (GLint location, GLfloat v0); ///< GL typedef
 typedef void (GLAPIENTRY* PFNGLUNIFORM1IPROC) (GLint location, GLint v0); ///< GL typedef
+typedef void (GLAPIENTRY* PFNGLUNIFORM2FPROC) (GLint location, GLfloat v0, GLfloat v1); ///< GL typedef
 typedef void (GLAPIENTRY* PFNGLUNIFORM3FVPROC) (GLint location, GLsizei count, const GLfloat *value); ///< GL typedef
 typedef void (GLAPIENTRY* PFNGLUNIFORM4FVPROC) (GLint location, GLsizei count, const GLfloat *value); ///< GL typedef
 typedef void (GLAPIENTRY* PFNGLUNIFORMMATRIX3FVPROC) (GLint location, GLsizei count, GLboolean transpose, const GLfloat *value); ///< GL typedef
@@ -109,6 +110,7 @@ RMG_API extern PFNGLLINKPROGRAMPROC glLinkProgram; ///< GL function
 RMG_API extern PFNGLSHADERSOURCEPROC glShaderSource; ///< GL function
 RMG_API extern PFNGLUNIFORM1FPROC glUniform1f; ///< GL function
 RMG_API extern PFNGLUNIFORM1IPROC glUniform1i; ///< GL function
+RMG_API extern PFNGLUNIFORM2FPROC glUniform2f; ///< GL function
 RMG_API extern PFNGLUNIFORM3FVPROC glUniform3fv; ///< GL function
 RMG_API extern PFNGLUNIFORM4FVPROC glUniform4fv; ///< GL function
 RMG_API extern PFNGLUNIFORMMATRIX4FVPROC glUniformMatrix3fv; ///< GL function
@@ -153,6 +155,7 @@ class RMG_API GLContext {
     PFNGLSHADERSOURCEPROC func_glShaderSource = NULL;
     PFNGLUNIFORM1FPROC func_glUniform1f = NULL;
     PFNGLUNIFORM1IPROC func_glUniform1i = NULL;
+    PFNGLUNIFORM2FPROC func_glUniform2f = NULL;
     PFNGLUNIFORM3FVPROC func_glUniform3fv = NULL;
     PFNGLUNIFORM4FVPROC func_glUniform4fv = NULL;
     PFNGLUNIFORMMATRIX3FVPROC func_glUniformMatrix3fv = NULL;

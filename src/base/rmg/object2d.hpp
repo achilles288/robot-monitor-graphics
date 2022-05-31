@@ -59,8 +59,8 @@ enum class Object2DType {
  */
 class RMG_API Object2D: public Object {
   private:
-    int8_t zOrder;
-    Alignment alignment;
+    int8_t zOrder = 0;
+    Alignment alignment = Alignment::MiddleCenter;
     
   protected:
     Object2DType type2D = Object2DType::Default; ///< Sprite or Text

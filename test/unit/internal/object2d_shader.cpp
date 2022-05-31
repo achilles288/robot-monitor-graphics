@@ -91,8 +91,8 @@ TEST_F(Object2DShader, link) {
     glDeleteProgram(id);
     
     id = Shader::compileShaderProgram(
-        RMG_RESOURCE_PATH "/shaders/sprite.vs.glsl",
-        RMG_RESOURCE_PATH "/shaders/sprite.fs.glsl"
+        RMG_RESOURCE_PATH "/shaders/text2d.vs.glsl",
+        RMG_RESOURCE_PATH "/shaders/text2d.fs.glsl"
     );
     ASSERT_NE(0, id);
     glDeleteProgram(id);
@@ -119,12 +119,16 @@ TEST_F(Object2DShader, runtime) {
                                            "/open_png_rgba.png");
     sprite2->setAlignment(Alignment::BottomRight);
     sprite2->setTranslation(-32, -48);
+    Font *ft = new Font(&ctx, RMG_DEFAULT_FONT, 16);
+    Text2D *text = new Text2D(&ctx, ft, "Testing");
     loader.push(sprite1->getTextureLoad());
     loader.push(sprite2->getTextureLoad());
+    loader.push(ft->getTextureLoad());
     loader.load();
     ObjectList list;
     list.push_front(sprite1);
     list.push_front(sprite2);
+    list.push_front(text);
     
     shader.render(list);
     glfwSwapBuffers(window);

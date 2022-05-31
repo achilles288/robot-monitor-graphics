@@ -42,8 +42,9 @@ namespace rmg {
  */
 class RMG_API Text2D: public Object2D {
   private:
-    Font* font;
-    std::string text;
+    Font* font = nullptr;
+    char text[64];
+    HorizontalAlign textAlign = HorizontalAlign::Center;
     
   public:
     /**
@@ -58,10 +59,17 @@ class RMG_API Text2D: public Object2D {
      * 
      * @param ctx Container context
      * @param ft Loaded font
-     * @param s Font size
+     */
+    Text2D(Context* ctx, Font* ft);
+    
+    /**
+     * @brief Constructor with loaded font
+     * 
+     * @param ctx Container context
+     * @param ft Loaded font
      * @param txt String to display
      */
-    Text2D(Context* ctx, Font* ft, const char* txt="Text");
+    Text2D(Context* ctx, Font* ft, const char* txt);
     
     /**
      * @brief Sets the text to display
@@ -75,14 +83,14 @@ class RMG_API Text2D: public Object2D {
      * 
      * @return String to display
      */
-    std::string getText() const;
+    const char* getText() const;
     
     /**
      * @brief Sets the font of the text object
      * 
-     * @param f Loaded font
+     * @param ft Loaded font
      */
-    void setFont(Font* f);
+    void setFont(Font* ft);
     
     /**
      * @brief Gets the font of the text object
@@ -104,6 +112,28 @@ class RMG_API Text2D: public Object2D {
      * @return Left, center or right text alignment
      */
     HorizontalAlign getTextAlignment() const;
+    
+    /**
+     * @brief Sets the size of the 2D object
+     * 
+     * @param w Width
+     * @param h Height
+     */
+    void setSize(float w, float h) = delete;
+    
+    /**
+     * @brief Sets the size of the 2D object
+     * 
+     * @param s Size
+     */
+    void setSize(const Vec2 &s) = delete;
+    
+    /**
+     * @brief Gets the size of the 2D object
+     * 
+     * @return Width and height as a rectangular dimension
+     */
+    Vec2 getSize() const = delete;
 };
 
 }

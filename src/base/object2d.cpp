@@ -27,8 +27,6 @@ Object2D::Object2D() {
     modelMatrix = Mat3();
     rotation = 0.0f;
     size = Vec2(1, 1);
-    zOrder = 0;
-    alignment = Alignment::MiddleCenter;
 }
 
 /**
@@ -40,8 +38,6 @@ Object2D::Object2D(Context* ctx): Object(ctx) {
     modelMatrix = Mat3();
     rotation = 0.0f;
     size = Vec2(1, 1);
-    zOrder = 0;
-    alignment = Alignment::MiddleCenter;
     type = ObjectType::Object2D;
 }
 

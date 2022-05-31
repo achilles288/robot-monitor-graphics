@@ -71,6 +71,7 @@ RMG_API PFNGLLINKPROGRAMPROC glLinkProgram = NULL;
 RMG_API PFNGLSHADERSOURCEPROC glShaderSource = NULL;
 RMG_API PFNGLUNIFORM1FPROC glUniform1f = NULL;
 RMG_API PFNGLUNIFORM1IPROC glUniform1i = NULL;
+RMG_API PFNGLUNIFORM2FPROC glUniform2f = NULL;
 RMG_API PFNGLUNIFORM3FVPROC glUniform3fv = NULL;
 RMG_API PFNGLUNIFORM4FVPROC glUniform4fv = NULL;
 RMG_API PFNGLUNIFORMMATRIX3FVPROC glUniformMatrix3fv = NULL;
@@ -122,6 +123,7 @@ int GLContext::init() {
     GETANDTEST(PFNGLSHADERSOURCEPROC, glShaderSource)
     GETANDTEST(PFNGLUNIFORM1FPROC, glUniform1f)
     GETANDTEST(PFNGLUNIFORM1IPROC, glUniform1i)
+    GETANDTEST(PFNGLUNIFORM2FPROC, glUniform2f)
     GETANDTEST(PFNGLUNIFORM3FVPROC, glUniform3fv)
     GETANDTEST(PFNGLUNIFORM4FVPROC, glUniform4fv)
     GETANDTEST(PFNGLUNIFORMMATRIX4FVPROC, glUniformMatrix3fv)
@@ -170,6 +172,7 @@ void GLContext::setCurrent() {
     glShaderSource = func_glShaderSource;
     glUniform1f = func_glUniform1f;
     glUniform1i = func_glUniform1i;
+    glUniform2f = func_glUniform2f;
     glUniform3fv = func_glUniform3fv;
     glUniform4fv = func_glUniform4fv;
     glUniformMatrix3fv = func_glUniformMatrix3fv;

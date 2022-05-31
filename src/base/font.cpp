@@ -32,7 +32,7 @@ uint32_t Font::lastID = 0;
  * @param f Path to font file (.ttf)
  * @param p Font size
  */
-Font::Font(Context* ctx, const char* f, uint8_t p) {
+Font::Font(Context* ctx, const char* f, uint16_t p) {
     id = ++lastID;
     context = ctx;
     if(f == nullptr)
@@ -44,7 +44,7 @@ Font::Font(Context* ctx, const char* f, uint8_t p) {
         #ifdef _WIN32
         printf("error: Failed to load FreeType library\n");
         #else
-        printf("\033[0;1;31merror: \033[0m Failed to load FreeType library\n");
+        printf("\033[0;1;31merror:\033[0m Failed to load FreeType library\n");
         #endif
         return;
     }
@@ -53,7 +53,7 @@ Font::Font(Context* ctx, const char* f, uint8_t p) {
         #ifdef _WIN32
         printf("error: Failed to load the font `%s`\n", f);
         #else
-        printf("\033[0;1;31merror: \033[0m: Failed to load the font "
+        printf("\033[0;1;31merror:\033[0m Failed to load the font "
                "\033[0;1m`%s`\033[0m\n", f);
         #endif
         return;
@@ -80,9 +80,15 @@ Font::Font(Context* ctx, const char* f, uint8_t p) {
         characters[i].width = w;
         characters[i].height = h;
         characters[i].bearing.x = face->glyph->bitmap_left;
-        characters[i].bearing.x = face->glyph->bitmap_top;
+        characters[i].bearing.y = face->glyph->bitmap_top;
         characters[i].advance = face->glyph->advance.x;
     }
+    
+    FT_Done_Face(face);
+    FT_Done_FreeType(ft);
+    
+    auto load = new internal::SpriteLoad(&texture, bmp);
+    texLoad = internal::Pending(load);
 }
 
 /**
@@ -109,7 +115,7 @@ Context* Font::getContext() const { return context; }
  * 
  * @return The font size in pixels
  */
-uint8_t Font::getSize() const { return size; }
+uint16_t Font::getSize() const { return size; }
 
 /**
  * @brief Gets the glyph of a character
@@ -134,6 +140,6 @@ const internal::SpriteTexture *Font::getTexture() const { return &texture; }
  * 
  * @return Texture loader
  */
-const internal::Pending& Font::getTextureLoad() const { return textureLoad; }
+const internal::Pending& Font::getTextureLoad() const { return texLoad; }
 
 }

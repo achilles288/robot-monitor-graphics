@@ -12,6 +12,7 @@
 #include <rmg/particle.hpp>
 #include <rmg/sphere.hpp>
 #include <rmg/sprite.hpp>
+#include <rmg/text2d.hpp>
 
 #include "../../testconf.h"
 
@@ -28,6 +29,7 @@ class TestWindow: public Window {
   private:
     Object3D *floor, *cube, *cylinder, *sphere, *model1, *model2;
     Sprite2D *sprite1, *sprite2, *sprite3;
+    Text2D *text1;
     Particle3D *fire1, *fire2, *fire3;
     Particle3D *dot1, *dot2, *dot3;
     Line3D *lines[8];
@@ -92,9 +94,13 @@ class TestWindow: public Window {
         sprite2->setTranslation(-48, -48);
         sprite3 = new Sprite2D(*sprite2);
         sprite3->setTranslation(-64, -32);
+        Font* ft = new Font(this, RMG_DEFAULT_FONT, 32);
+        text1 = new Text2D(this, ft, "Robot Monitor Graphics");
+        addFont(ft);
         addObject(sprite1);
         addObject(sprite2);
         addObject(sprite3);
+        addObject(text1);
         
         // Particles
         fire1 = new Particle3D(this, RMG_RESOURCE_PATH "/sprites/fire.tif");

@@ -39,10 +39,10 @@ class Context;
  * @brief Dimensions for a glyph
  */
 struct GlyphMetrics {
-    uint8_t width; ///< Width of glyph
-    uint8_t height; ///< Height of glyph
-    Rect bearing; ///< Offset from baseline to left/top of glyph
-    uint8_t advance; ///< Offset to advance to next glyph
+    uint16_t width; ///< Width of glyph
+    uint16_t height; ///< Height of glyph
+    Vec2i bearing; ///< Offset from baseline to left/top of glyph
+    uint16_t advance; ///< Offset to advance to next glyph
 };
 
 
@@ -54,8 +54,8 @@ class RMG_API Font {
     uint32_t id;
     Context* context;
     internal::SpriteTexture texture;
-    internal::Pending textureLoad;
-    uint8_t size;
+    internal::Pending texLoad;
+    uint16_t size;
     GlyphMetrics characters[256];
     
     static uint32_t lastID;
@@ -68,7 +68,7 @@ class RMG_API Font {
      * @param f Path to font file (.ttf)
      * @param p Font size
      */
-    Font(Context* ctx, const char* f, uint8_t p=16);
+    Font(Context* ctx, const char* f, uint16_t p=16);
     
     /**
      * @brief Destructor
@@ -128,7 +128,7 @@ class RMG_API Font {
      * 
      * @return The font size in pixels
      */
-    uint8_t getSize() const;
+    uint16_t getSize() const;
     
     /**
      * @brief Gets the glyph of a character
