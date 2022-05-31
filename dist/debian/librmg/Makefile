@@ -19,6 +19,7 @@ INCLUDES = \
 	-Isrc/window \
 	-Isrc/wx \
 	`pkg-config glfw3 --cflags` \
+	`pkg-config freetype2 --cflags` \
 	`pkg-config libpng --cflags` \
 	`pkg-config libtiff-4 --cflags` \
 	`wx-config --cflags base core gl --toolkit=gtk3`
@@ -26,6 +27,7 @@ INCLUDES = \
 LIBS = \
 	-lGL \
 	`pkg-config glfw3 --libs` \
+	`pkg-config freetype2 --libs` \
 	`pkg-config libpng --libs` \
 	`pkg-config libtiff-4 --libs` \
 	`wx-config --libs base core gl --toolkit=gtk3`
@@ -162,6 +164,8 @@ $(RMG_WX_OBJS): build/%.o: src/wx/%.cpp
 install:
 	install -Dm 644 share/dot.png \
 		$(DESTDIR)$(prefix)/share/rmg/dot.png
+	install -Dm 644 share/font.ttf \
+		$(DESTDIR)$(prefix)/share/rmg/font.ttf
 	install -Dm 644 share/icon64.png \
 		$(DESTDIR)$(prefix)/share/rmg/icon64.png
 	install -Dm 644 share/models/dragon.obj \
