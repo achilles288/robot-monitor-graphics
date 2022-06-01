@@ -93,7 +93,7 @@ TEST_F(ShadowMapShader, runtime) {
     loader.push(obj2->getVBOLoad());
     loader.push(obj3->getVBOLoad());
     loader.load();
-    ObjectList list;
+    LinkedList<Object> list;
     list.push_front(obj1);
     list.push_front(obj2);
     list.push_front(obj3);

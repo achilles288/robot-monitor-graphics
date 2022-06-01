@@ -29,7 +29,7 @@ namespace internal {
  *            responses after loading.
  * @param f Path to texture file, folder or zip
  */
-SpriteLoad::SpriteLoad(SpriteTexture* tex, const std::string &f) {
+SpriteLoad::SpriteLoad(SpriteTexture* tex, const char* f) {
     texture = tex;
     bitmap = Bitmap::loadFromFile(f);
     width = bitmap.getWidth();

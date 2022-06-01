@@ -36,6 +36,7 @@
 #include "color.hpp"
 #include "keyboard.hpp"
 #include "mouse.hpp"
+#include "util/linked_list.hpp"
 #include "internal/general_shader.hpp"
 #include "internal/line3d_shader.hpp"
 #include "internal/particle_shader.hpp"
@@ -83,13 +84,13 @@ class RMG_API Context {
     Vec3 dlWorldSpace;
     Vec3 dlCameraSpace;
     Color dlColor;
-    ObjectList object3d_list;
-    ObjectList object2d_list;
-    ObjectList particle3d_list;
-    ObjectList line3d_list;
-    ObjectList text2d_list;
-    std::map<uint32_t, Material*> materials;
-    std::map<uint32_t, Font*> fonts;
+    LinkedList<Object> object3d_list;
+    LinkedList<Object> object2d_list;
+    LinkedList<Object> particle3d_list;
+    LinkedList<Object> line3d_list;
+    LinkedList<Object> text2d_list;
+    LinkedList<Material> materials;
+    LinkedList<Font> fonts;
     
     internal::GeneralShader generalShader;
     internal::ShadowMapShader shadowMapShader;
@@ -139,6 +140,16 @@ class RMG_API Context {
      * 2D/3D objects on the context.
      */
     virtual void update();
+    
+    /**
+     * @brief The callback function after GL context initialization
+     */
+    virtual void onLoaded();
+    
+    /**
+     * @brief The function called when the context size changes
+     */
+    virtual void onResize();
     
     /**
      * @brief The function called when the mouse clicks on the context
@@ -561,9 +572,9 @@ class RMG_API Context {
     /**
      * @brief Appends a font to the font list for text drawing
      * 
-     * @param font Font
+     * @param ft Font
      */
-    void addFont(Font* font);
+    void addFont(Font* ft);
     
     /**
      * @brief Removes a 2D/3D object from the list cleaning the GPU resources
@@ -582,9 +593,9 @@ class RMG_API Context {
     /**
      * @brief Removes a font from the list cleaning the GPU resources
      * 
-     * @param font Font
+     * @param ft Font
      */
-    void removeFont(Font* font);
+    void removeFont(Font* ft);
     
     /**
      * @brief Gets the number of objects in the object list

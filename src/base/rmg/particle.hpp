@@ -84,7 +84,7 @@ class RMG_API Particle3D: public Object {
      * @param img Image file (supports the same format Texture class does)
      * @param s Particle size
      */
-    Particle3D(Context* ctx, const std::string &img, const Vec2 &s=Vec2(1,1));
+    Particle3D(Context* ctx, const char* img, const Vec2 &s=Vec2(1,1));
     
     /**
      * @brief Constructs a particle object loading a particle image

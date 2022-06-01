@@ -34,22 +34,21 @@ namespace rmg {
  * 
  * @return Decoded image data
  */
-Bitmap Bitmap::loadPNG(const std::string& file) {
+Bitmap Bitmap::loadPNG(const char* file) {
     Bitmap bmp;
-    FILE *fp = fopen(file.c_str(), "rb");
+    FILE *fp = fopen(file, "rb");
     char header[8];
     
     #ifdef _WIN32
     // Opens the file
     if(!fp) {
-        printf("error: File '%s' could not be opened\n", file.c_str());
+        printf("error: File '%s' could not be opened\n", file);
         return Bitmap();
     }
     // Reads the PNG file signiture
     fread(header, 1, 8, fp);
     if(png_sig_cmp((png_const_bytep)header, 0, 8)) {
-        printf("error: File '%s' is not recognized as a PNG file\n",
-               file.c_str());
+        printf("error: File '%s' is not recognized as a PNG file\n", file);
         fclose(fp);
         return Bitmap();
     }
@@ -58,7 +57,7 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
     if(!fp) {
         printf("\033[0;1;31merror: \033[0m"
                "File \033[1m'%s'\033[0m "
-               "could not be opened\n", file.c_str());
+               "could not be opened\n", file);
         return Bitmap();
     }
     // Reads the PNG file signiture
@@ -66,7 +65,7 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
     if(png_sig_cmp((png_const_bytep)header, 0, 8)) {
         printf("\033[0;1;31merror: \033[0m"
                "File \033[1m'%s'\033[0m "
-               "is not recognized as a PNG file\n", file.c_str());
+               "is not recognized as a PNG file\n", file);
         fclose(fp);
         return Bitmap();
     }
@@ -103,11 +102,11 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
         }
         else {
             #ifdef _WIN32
-            printf("error: Failed reading palette '%s'\n", file.c_str());
+            printf("error: Failed reading palette '%s'\n", file);
             #else
             printf("\033[0;1;31merror: \033[0m"
                    "Failed reading palette \033[1m'%s'\033[0m\n",
-                   file.c_str());
+                   file);
             #endif
             fclose(fp);
             return Bitmap();
@@ -142,7 +141,7 @@ Bitmap Bitmap::loadPNG(const std::string& file) {
  * 
  * @param file Path for image file
  */
-void Bitmap::savePNG(const std::string& file) const {
+void Bitmap::savePNG(const char* file) const {
     RMG_ASSERT(data != NULL);
     png_byte color_type;
     if(channel == 1)
@@ -155,14 +154,14 @@ void Bitmap::savePNG(const std::string& file) const {
         color_type = PNG_COLOR_TYPE_RGBA;
     
     // Creates the file
-    FILE *fp = fopen(file.c_str(), "wb");
+    FILE *fp = fopen(file, "wb");
     if(!fp) {
         #ifdef _WIN32
         printf("error: Image could not be saved at '%s'\n", file.c_str());
         #else
         printf("\033[0;1;31merror: \033[0m"
                "Image could not be saved at \033[1m'%s'\033[0m\n",
-               file.c_str());
+               file);
         #endif
         return;
     }

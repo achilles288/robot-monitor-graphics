@@ -189,7 +189,7 @@ void Text2DShader::render(Text2D* txt, const Mat3 &VP) {
         L[0][0] = glyph.width;
         L[1][1] = glyph.height;
         L[0][2] = x/64.0f + glyph.bearing.x;
-        L[1][2] = -glyph.bearing.y;
+        L[1][2] = ft->getSize()*0.25f - glyph.bearing.y;
         
         Mat3 M = MVP * L;
         glUniformMatrix3fv(idMVP, 1, GL_TRUE, &M[0][0]);
@@ -242,7 +242,7 @@ void Object2DShader::setContextSize(uint16_t w, uint16_t h) {
  * 
  * @param list List of 2D objects
  */
-void Object2DShader::render(const ObjectList &list) {
+void Object2DShader::render(const LinkedList<Object> &list) {
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

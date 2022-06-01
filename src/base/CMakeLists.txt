@@ -32,6 +32,8 @@ add_library(rmgbase SHARED
     math/ostream.cpp
     math/vec3.cpp
     math/vec4.cpp
+    util/linked_list.cpp
+    util/string.cpp
     internal/context_load.cpp
     internal/general_shader.cpp
     internal/glcontext.cpp
@@ -79,6 +81,9 @@ add_library(rmgbase SHARED
     rmg/math/vec3.inc
     rmg/math/vec4.hpp
     rmg/math/vec4.inc
+    rmg/util/linked_list.hpp
+    rmg/util/linked_list.tpp
+    rmg/util/string.hpp
     rmg/internal/context_load.hpp
     rmg/internal/general_shader.hpp
     rmg/internal/glcontext.hpp

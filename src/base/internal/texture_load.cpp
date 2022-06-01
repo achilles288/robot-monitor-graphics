@@ -29,7 +29,7 @@ namespace internal {
  *            responses after loading.
  * @param f Path to texture file, folder or zip
  */
-TextureLoad::TextureLoad(Texture* tex, const std::string &f) {
+TextureLoad::TextureLoad(Texture* tex, const char* f) {
     texture = tex;
     basecolor = Bitmap::loadFromFile(f);
     heightmap = Bitmap();

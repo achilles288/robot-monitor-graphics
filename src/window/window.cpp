@@ -127,8 +127,8 @@ float Window::getTime() const {
  * 
  * @param name Text displayed on top of the window
  */
-void Window::setWindowName(const std::string &name) {
-    glfwSetWindowTitle(glfw_window, name.c_str());
+void Window::setWindowName(const char* name) {
+    glfwSetWindowTitle(glfw_window, name);
 }
 
 /**
@@ -136,7 +136,7 @@ void Window::setWindowName(const std::string &name) {
  * 
  * @param file Path to the icon file
  */
-void Window::setWindowIcon(const std::string &file) {
+void Window::setWindowIcon(const char* file) {
     Bitmap bmp = Bitmap::loadFromFile(file);
     RMG_EXPECT(bmp.getChannel() == 4);
     #ifndef NDEBUG
@@ -206,8 +206,10 @@ void Window::mainLoop() {
                 int w, h;
                 glfwGetFramebufferSize(window->glfw_window, &w, &h);
                 Rect r = window->getContextSize();
-                if(w != r.x || h != r.y)
+                if(w != r.x || h != r.y) {
                     window->setContextSize(w, h);
+                    window->onResize();
+                }
                 
                 try {
                     window->render();

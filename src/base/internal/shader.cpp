@@ -5,7 +5,7 @@
  * Compiles vertex and fragment shaders. Link the program. Run it using
  * loaded vertex buffer objects and make drawings.
  * 
- * @copyright Copyright (c) 2020 Khant Kyaw Khaung
+ * @copyright Copyright (c) 2022 Khant Kyaw Khaung
  * 
  * @license{This project is released under the MIT License.}
  */
@@ -41,8 +41,7 @@ Shader::~Shader() {
  * 
  * @return ID of the compiled shader used to retrive it
  */
-uint32_t Shader::compileShader(uint32_t type,
-                               const std::string &path)
+uint32_t Shader::compileShader(uint32_t type, const char* path)
 {
     if(type != GL_VERTEX_SHADER && type != GL_FRAGMENT_SHADER) {
         RMG_EXPECT(type == GL_VERTEX_SHADER || type == GL_FRAGMENT_SHADER);
@@ -52,14 +51,14 @@ uint32_t Shader::compileShader(uint32_t type,
     uint32_t shaderID = glCreateShader(type);
     
     // Opens the file
-    FILE *fp = fopen(path.c_str(), "r");
+    FILE *fp = fopen(path, "r");
     if(fp == nullptr) {
         #ifdef _WIN32
-        printf("error: Shader file '%s' could not be opened\n", path.c_str());
+        printf("error: Shader file '%s' could not be opened\n", path);
         #else
         printf("\033[0;1;31merror:\033[0m "
                "Shader file '%s' could not be opened\n",
-               path.c_str());
+               path);
         #endif
         return 0;
     }
@@ -104,8 +103,7 @@ uint32_t Shader::compileShader(uint32_t type,
  * 
  * @return Shader program ID
  */
-uint32_t Shader::compileShaderProgram(const std::string &vert,
-                                      const std::string &frag)
+uint32_t Shader::compileShaderProgram(const char* vert, const char* frag)
 {
     uint32_t vertexShaderID = compileShader(GL_VERTEX_SHADER, vert);
     uint32_t fragmentShaderID = compileShader(GL_FRAGMENT_SHADER, frag);

@@ -136,24 +136,25 @@ void Bitmap::swap(Bitmap &bmp) noexcept {
  * 
  * @return Decoded image data
  */
-Bitmap Bitmap::loadFromFile(const std::string& file) {
-    auto i = file.find_last_of(".");
-    std::string ext = "";
-    if(i != std::string::npos)
-        ext = file.substr(i+1);
+Bitmap Bitmap::loadFromFile(const char* file) {
+    const char* ext = "";
+    for(size_t i=strlen(file)-1; --i; ) {
+        if(file[i] == '.')
+            ext = &file[i+1];
+    }
     
-    if(ext == "png")
+    if(strcmp(ext, "png") == 0)
         return loadPNG(file);
-    else if(ext == "tif" || ext == "tiff")
+    else if(strcmp(ext, "tif") == 0 || strcmp(ext, "tiff") == 0)
         return loadTIFF(file);
     else {
         #ifdef WIN32
         printf("error: Attempted to load unsupported image file '%s'\n",
-               file.c_str());
+               file);
         #else
         printf("\033[0;1;31merror: \033[0m"
                "Attempted to load unsupported image file "
-               "\033[1m'%s'\033[0m\n", file.c_str());
+               "\033[1m'%s'\033[0m\n", file);
         #endif
         return Bitmap();
     }
@@ -166,24 +167,25 @@ Bitmap Bitmap::loadFromFile(const std::string& file) {
  * 
  * @param file Path for image file
  */
-void Bitmap::saveFile(const std::string& file) const {
-    auto i = file.find_last_of(".");
-    std::string ext = "";
-    if(i != std::string::npos)
-        ext = file.substr(i+1);
+void Bitmap::saveFile(const char* file) const {
+    const char* ext = "";
+    for(size_t i=strlen(file)-1; --i; ) {
+        if(file[i] == '.')
+            ext = &file[i+1];
+    }
     
-    if(ext == "png")
+    if(strcmp(ext, "png") == 0)
         savePNG(file);
-    else if(ext == "tif" || ext == "tiff")
+    else if(strcmp(ext, "tif") == 0 || strcmp(ext, "tiff") == 0)
         saveTIFF(file);
     else {
         #ifdef WIN32
         printf("error: Attempted to save bitmap in unsupported file format "
-               "'%s'\n", file.c_str());
+               "'%s'\n", file);
         #else
         printf("\033[0;1;31merror: \033[0m"
                "Attempted to save bitmap in unsupported file format "
-               "\033[1m'%s'\033[0m\n", file.c_str());
+               "\033[1m'%s'\033[0m\n", file);
         #endif
     }
 }

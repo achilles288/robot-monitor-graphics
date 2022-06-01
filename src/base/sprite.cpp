@@ -29,7 +29,7 @@ namespace rmg {
  * @param ctx Container context
  * @param img Image file (supports the same format Texture class does)
  */
-Sprite2D::Sprite2D(Context* ctx, const std::string &img)
+Sprite2D::Sprite2D(Context* ctx, const char* img)
          :Sprite2D(ctx, img, Vec2())
 {
     internal::SpriteLoad *load = (internal::SpriteLoad*) texLoad.getData();
@@ -56,7 +56,7 @@ Sprite2D::Sprite2D(Context* ctx, const Bitmap &bmp)
  * @param img Image file (supports the same format Texture class does)
  * @param size Image size
  */
-Sprite2D::Sprite2D(Context* ctx, const std::string &img, const Vec2 &size)
+Sprite2D::Sprite2D(Context* ctx, const char* img, const Vec2 &size)
          :Object2D(ctx)
 {
     texture = new internal::SpriteTexture();

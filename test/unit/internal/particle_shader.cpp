@@ -94,7 +94,7 @@ TEST_F(ParticleShader, runtime) {
     loader.push(obj1->getTextureLoad());
     loader.push(obj2->getTextureLoad());
     loader.load();
-    ObjectList list;
+    LinkedList<Object> list;
     list.push_front(obj1);
     list.push_front(obj2);
     

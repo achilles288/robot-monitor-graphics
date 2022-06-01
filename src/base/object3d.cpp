@@ -20,6 +20,7 @@
 #include "rmg/object3d.hpp"
 
 #include <cstdio>
+#include <cstring>
 
 #include "rmg/internal/texture_load.hpp"
 
@@ -65,24 +66,25 @@ Object3D::Object3D(Context* ctx): Object(ctx) {
  * @param smooth Generate smooth surface normals if the 3D model does not
  *               contain preprocessed vertex normals
  */
-Object3D::Object3D(Context* ctx, const std::string &file, bool smooth)
+Object3D::Object3D(Context* ctx, const char* file, bool smooth)
          :Object3D(ctx)
 {
-    auto i = file.find_last_of(".");
-    std::string ext = "";
-    if(i != std::string::npos)
-        ext = file.substr(i+1);
+    const char* ext = "";
+    for(size_t i=strlen(file)-1; --i; ) {
+        if(file[i] == '.')
+            ext = &file[i+1];
+    }
     
-    if(ext == "obj")
+    if(strcmp(ext, "obj") == 0)
         loadOBJ(file, smooth);
     else {
         #ifdef WIN32
         printf("error: Attempted to load unsupported 3D model file '%s'\n",
-               file.c_str());
+               file);
         #else
         printf("\033[0;1;31merror: \033[0m"
                "Attempted to load unsupported 3D model file "
-               "\033[1m'%s'\033[0m\n", file.c_str());
+               "\033[1m'%s'\033[0m\n", file);
         #endif
     }
 }
@@ -371,7 +373,7 @@ Material *Object3D::getMaterial() const { return material; }
  * 
  * @param f Path to material textures (file, folder or zip)
  */
-void Object3D::loadTexture(const std::string &f) {
+void Object3D::loadTexture(const char* f) {
     dereferenceTexture();
     texture = new internal::Texture();
     texShareCount = new uint32_t;

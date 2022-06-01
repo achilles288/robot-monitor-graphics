@@ -195,6 +195,7 @@ void wxCanvas::onWxPaint(wxPaintEvent& event) {
 void wxCanvas::onWxResize(wxSizeEvent& event) {
     wxSize size = event.GetSize();
     setContextSize(size.GetWidth(), size.GetHeight());
+    onResize();
 }
 
 void wxCanvas::onWxTimer(wxTimerEvent& event) { Refresh(); }

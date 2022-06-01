@@ -5,7 +5,7 @@
  * Compiles vertex and fragment shaders. Link the program. Run it using
  * loaded vertex buffer objects and make drawings.
  * 
- * @copyright Copyright (c) 2020 Khant Kyaw Khaung
+ * @copyright Copyright (c) 2022 Khant Kyaw Khaung
  * 
  * @license{This project is released under the MIT License.}
  */
@@ -29,7 +29,6 @@
 
 
 #include <cstdint>
-#include <string>
 
 #include "glcontext.hpp"
 
@@ -72,8 +71,7 @@ class RMG_API Shader {
      * 
      * @return ID of the compiled shader used to retrive it
      */
-    static uint32_t compileShader(uint32_t type,
-                                  const std::string &path);
+    static uint32_t compileShader(uint32_t type, const char* path);
     
     /**
      * @brief Compiles and links a shader program
@@ -83,8 +81,7 @@ class RMG_API Shader {
      * 
      * @return Shader program ID
      */
-    static uint32_t compileShaderProgram(const std::string &vert,
-                                         const std::string &frag);
+    static uint32_t compileShaderProgram(const char* vert, const char* frag);
 };
 
 }}

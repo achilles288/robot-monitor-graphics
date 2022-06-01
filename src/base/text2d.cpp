@@ -24,15 +24,6 @@
 namespace rmg {
 
 /**
- * @brief Default constructor
- * 
- * @param ctx Container context
- */
-Text2D::Text2D() {
-    text[0] = '\0';
-}
-
-/**
  * @brief Constructor with loaded font
  * 
  * @param ctx Container context
@@ -43,7 +34,7 @@ Text2D::Text2D(Context* ctx, Font* ft)
 {
     RMG_ASSERT(ft->getContext() == ctx);
     font = ft;
-    strcpy(text, "Text");
+    text.copy("Text");
     type2D = Object2DType::Text;
 }
 
@@ -59,7 +50,7 @@ Text2D::Text2D(Context* ctx, Font* ft, const char *txt)
 {
     RMG_ASSERT(ft->getContext() == ctx);
     font = ft;
-    strncpy(text, txt, 63);
+    text.copy(txt);
     type2D = Object2DType::Text;
 }
 
@@ -68,14 +59,14 @@ Text2D::Text2D(Context* ctx, Font* ft, const char *txt)
  * 
  * @param txt String to display
  */
-void Text2D::setText(const char* txt) { strncpy(text, txt, 63); }
+void Text2D::setText(const char* txt) { text.copy(txt); }
 
 /**
  * @brief Gets the text to display
  * 
  * @return String to display
  */
-const char* Text2D::getText() const { return text; }
+const char* Text2D::getText() const { return text.c_str(); }
 
 /**
  * @brief Sets the font of the text object

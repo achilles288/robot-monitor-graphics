@@ -35,6 +35,7 @@
 #include "../object.hpp"
 #include "../math/mat4.hpp"
 #include "../math/vec3.hpp"
+#include "../util/linked_list.hpp"
 
 
 namespace rmg {
@@ -89,7 +90,7 @@ class RMG_API GeneralShader: public Shader {
      */
     void render(const Mat4 &V, const Mat4 &P, const Mat4 &S,
                 const Vec3 &dlCam, const Color &dlColor, uint32_t shadow,
-                const ObjectList &list);
+                const LinkedList<Object> &list);
 };
 
 }}

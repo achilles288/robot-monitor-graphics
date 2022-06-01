@@ -64,7 +64,7 @@ class RMG_API SpriteLoad: public ContextLoad {
      *            responses after loading.
      * @param f Path to texture file
      */
-    SpriteLoad(SpriteTexture* tex, const std::string &f);
+    SpriteLoad(SpriteTexture* tex, const char* f);
     
     /**
      * @brief Constructs a pending object

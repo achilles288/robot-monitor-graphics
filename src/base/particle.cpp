@@ -41,7 +41,7 @@ Particle3D::Particle3D() {
  * @param img Image file (supports the same format Texture class does)
  * @param size Particle size
  */
-Particle3D::Particle3D(Context* ctx, const std::string &img, const Vec2 &s)
+Particle3D::Particle3D(Context* ctx, const char* img, const Vec2 &s)
            :Object(ctx)
 {
     texture = new internal::SpriteTexture();

@@ -28,8 +28,8 @@
 #endif
 
 
+#include <cstddef>
 #include <cstdint>
-#include <string>
 
 
 namespace rmg {
@@ -120,10 +120,10 @@ class RMG_API Bitmap {
     uint8_t channel = 0;
     uint8_t* data = NULL;
     
-    static Bitmap loadPNG(const std::string& file);
-    static Bitmap loadTIFF(const std::string& file);
-    void savePNG(const std::string& file) const;
-    void saveTIFF(const std::string& file) const;
+    static Bitmap loadPNG(const char* file);
+    static Bitmap loadTIFF(const char* file);
+    void savePNG(const char* file) const;
+    void saveTIFF(const char* file) const;
     
     void pasteGray(const Bitmap &bmp, int16_t x, int16_t y);
     void pasteGA(const Bitmap &bmp, int16_t x, int16_t y);
@@ -199,7 +199,7 @@ class RMG_API Bitmap {
      * 
      * @return Decoded image data
      */
-    static Bitmap loadFromFile(const std::string& file);
+    static Bitmap loadFromFile(const char* file);
     
     /**
      * @brief Encodes the bitmap and saves it in a file
@@ -208,7 +208,7 @@ class RMG_API Bitmap {
      * 
      * @param file Path for image file
      */
-    void saveFile(const std::string& file) const;
+    void saveFile(const char* file) const;
     
     /**
      * @brief Gets the width of the image

@@ -68,7 +68,7 @@ class RMG_API TextureLoad: public ContextLoad {
      *            responses after loading.
      * @param f Path to texture file, folder or zip
      */
-    TextureLoad(Texture* tex, const std::string &f);
+    TextureLoad(Texture* tex, const char* f);
     
     /**
      * @brief Constructs a pending object

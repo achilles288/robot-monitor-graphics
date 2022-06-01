@@ -39,17 +39,17 @@ namespace rmg {
  * 
  * @return Decoded image data
  */
-Bitmap Bitmap::loadTIFF(const std::string& file) {
+Bitmap Bitmap::loadTIFF(const char* file) {
     Bitmap bmp;
-    TIFF *tif = TIFFOpen(file.c_str(), "r");
+    TIFF *tif = TIFFOpen(file, "r");
     
     if(!tif) {
         #ifdef _WIN32
-        printf("error: File '%s' could not be opened\n", file.c_str());
+        printf("error: File '%s' could not be opened\n", file);
         #else
         printf("\033[0;1;31merror: \033[0m"
                "File \033[1m'%s'\033[0m "
-               "could not be opened\n", file.c_str());
+               "could not be opened\n", file);
         #endif
         return bmp;
     }
@@ -75,16 +75,15 @@ Bitmap Bitmap::loadTIFF(const std::string& file) {
  * 
  * @param file Path for image file
  */
-void Bitmap::saveTIFF(const std::string& file) const {
+void Bitmap::saveTIFF(const char* file) const {
     // Creates the file
-    TIFF *tif = TIFFOpen(file.c_str(), "w");
+    TIFF *tif = TIFFOpen(file, "w");
     if(!tif) {
         #ifdef _WIN32
-        printf("error: Image could not be saved at '%s'\n", file.c_str());
+        printf("error: Image could not be saved at '%s'\n", file);
         #else
         printf("\033[0;1;31merror: \033[0m"
-               "Image could not be saved at \033[1m'%s'\033[0m\n",
-               file.c_str());
+               "Image could not be saved at \033[1m'%s'\033[0m\n", file);
         #endif
         return;
     }

@@ -387,8 +387,8 @@ Euler Context::getDirectionalLightAngles() const {
 Rect Context::worldToScreen(float x, float y, float z) const {
     Vec4 S = camera.getVPMatrix() * Vec4(x, y, z, 1);
     Rect pt;
-    pt.x = (int16_t)((S.x/S.w + 1) * width/2);
-    pt.y = (int16_t)((S.y/S.w + 1) * height/2);
+    pt.x = (uint16_t)((S.x/S.w + 1) * width/2.0f);
+    pt.y = (uint16_t)((1 - S.y/S.w) * height/2.0f);
     return pt;
 }
 
@@ -404,8 +404,8 @@ Rect Context::worldToScreen(float x, float y, float z) const {
 Rect Context::worldToScreen(const Vec3 &p) const {
     Vec4 S = camera.getVPMatrix() * Vec4(p, 1);
     Rect pt;
-    pt.x = (int16_t)((S.x/S.w + 1) * width/2);
-    pt.y = (int16_t)((S.y/S.w + 1) * height/2);
+    pt.x = (uint16_t)((S.x/S.w + 1) * width/2);
+    pt.y = (uint16_t)((1 - S.y/S.w) * height/2);
     return pt;
 }
 

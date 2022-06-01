@@ -80,7 +80,7 @@ class RMG_API Object3D: public Object {
     uint32_t* texShareCount = nullptr;
     internal::Pending texLoad;
     
-    void loadOBJ(const std::string &file, bool smooth=true);
+    void loadOBJ(const char* file, bool smooth=true);
     
     void dereferenceVBO();
     
@@ -122,7 +122,7 @@ class RMG_API Object3D: public Object {
      * @param smooth Generate smooth surface normals if the 3D model does not
      *               contain an option about vertex normals
      */
-    Object3D(Context* ctx, const std::string &file, bool smooth=true);
+    Object3D(Context* ctx, const char* file, bool smooth=true);
     
     /**
      * @brief Destructor
@@ -307,7 +307,7 @@ class RMG_API Object3D: public Object {
      * 
      * @param f Path to material textures (file, folder or zip)
      */
-    void loadTexture(const std::string &f);
+    void loadTexture(const char* f);
     
     /**
      * @brief Loads texture from bitmap

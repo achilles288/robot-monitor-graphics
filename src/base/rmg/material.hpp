@@ -26,7 +26,6 @@
 
 
 #include <cstdint>
-#include <string>
 
 #include "bitmap.hpp"
 #include "internal/texture_load.hpp"
@@ -44,7 +43,7 @@ class RMG_API Material: public internal::Texture {
   private:
     uint32_t id;
     Context* context;
-    internal::Pending textureLoad;
+    internal::Pending texLoad;
     
     static uint32_t lastID;
     
@@ -71,7 +70,7 @@ class RMG_API Material: public internal::Texture {
      * @param ctx Conatiner context
      * @param f Path to material textures (file, folder or zip)
      */
-    Material(Context* ctx, const std::string &f);
+    Material(Context* ctx, const char* f);
     
     /**
      * @brief Constructs from bitmap object
@@ -152,6 +151,13 @@ class RMG_API Material: public internal::Texture {
      * @return Container context
      */
     Context* getContext() const;
+    
+    /**
+     * @brief Gets the texture loader
+     * 
+     * @return Texture loader
+     */
+    const internal::Pending& getTextureLoad() const;
 };
 
 }

@@ -91,7 +91,7 @@ TEST_F(Line3DShader, runtime) {
     line1->setPoints(Vec3(-1,-2,2), Vec3(-3,0,3));
     line2->setPoints(Vec3(0,0,5), Vec3(0,-2,3));
     line3->setPoints(Vec3(2,-3,7), Vec3(-7,0,2));
-    ObjectList list;
+    LinkedList<Object> list;
     list.push_front(line1);
     list.push_front(line2);
     list.push_front(line3);

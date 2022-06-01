@@ -28,8 +28,6 @@
 #endif
 
 
-#include <string>
-
 #include <rmg/context.hpp>
 #include "internal/window_callback.hpp"
 
@@ -76,14 +74,14 @@ class RMG_WINDOW_API Window: public Context {
      * 
      * @param name Text displayed on top of the window
      */
-    void setWindowName(const std::string &name);
+    void setWindowName(const char* name);
     
     /**
      * @brief Sets the icon file for the window
      * 
      * @param file Path to the icon file
      */
-    void setWindowIcon(const std::string &file);
+    void setWindowIcon(const char* file);
     
     /**
      * @brief Sets the dimension of the window

@@ -77,7 +77,7 @@ class RMG_API Sprite2D: public Object2D {
      * @param ctx Container context
      * @param img Image file (supports the same format Texture class does)
      */
-    Sprite2D(Context* ctx, const std::string &img);
+    Sprite2D(Context* ctx, const char* img);
     
     /**
      * @brief Constructs a sprite object from bitmap
@@ -94,7 +94,7 @@ class RMG_API Sprite2D: public Object2D {
      * @param img Image file (supports the same format Texture class does)
      * @param size Image size
      */
-    Sprite2D(Context* ctx, const std::string &img, const Vec2 &size);
+    Sprite2D(Context* ctx, const char* img, const Vec2 &size);
     
     /**
      * @brief Constructs a sprite object from bitmap

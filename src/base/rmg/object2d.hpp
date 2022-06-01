@@ -123,6 +123,16 @@ class RMG_API Object2D: public Object {
     const Mat3& getModelMatrix() const;
     
     /**
+     * @brief Sets the screen coordinate which the object appears
+     * 
+     * Assigns values to the model matrix's translation part. This function 
+     * also changes the alignment of the object to the top left.
+     * 
+     * @param rect The screen coordinate
+     */
+    void setScreenCoordinate(const Rect &rect);
+    
+    /**
      * @brief Sets the location which the object appears
      * 
      * Assigns values to the model matrix's translation part.

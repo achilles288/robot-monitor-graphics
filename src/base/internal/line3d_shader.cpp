@@ -121,7 +121,7 @@ void Line3DShader::load() {
  * @param VP The composition of view and projection matrix
  * @param list List of 3D objects
  */
-void Line3DShader::render(const Mat4 &VP, const ObjectList &list) {
+void Line3DShader::render(const Mat4 &VP, const LinkedList<Object> &list) {
     if(id == 0)
         return;
     glEnable(GL_DEPTH_TEST);

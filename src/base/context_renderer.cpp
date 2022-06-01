@@ -75,6 +75,7 @@ void Context::render() {
         particleShader.load();
         line3dShader.load();
         initDone = true;
+        onLoaded();
     }
     
     if(loader.getLoadCount() > 0)
@@ -189,6 +190,16 @@ int Context::getErrorCode() const { return errorCode; }
  * 2D/3D objects on the context.
  */
 void Context::update() {}
+
+/**
+ * @brief The callback function after GL context initialization
+ */
+void Context::onLoaded() {}
+
+/**
+ * @brief The function called when the context size changes
+ */
+void Context::onResize() {}
 
 /**
  * @brief The function called when the mouse clicks on the context

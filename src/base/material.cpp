@@ -39,7 +39,7 @@ Material::Material(Context* ctx): internal::Texture() {
  * @param ctx Conatiner context
  * @param f Path to image file (.png)
  */
-Material::Material(Context* ctx, const std::string &f): Material(ctx)
+Material::Material(Context* ctx, const char* f): Material(ctx)
 {
     
     
@@ -63,5 +63,12 @@ uint32_t Material::getID() const { return id; }
  * @return Container context
  */
 Context* Material::getContext() const { return context; }
+
+/**
+ * @brief Gets the texture loader
+ * 
+ * @return Texture loader
+ */
+const internal::Pending& Material::getTextureLoad() const { return texLoad; }
 
 }

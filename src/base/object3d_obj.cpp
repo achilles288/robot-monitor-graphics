@@ -34,7 +34,7 @@ static void printLoadError(const char *file) {
 #define SAFE_PUSH(VEC, I) \
     if(std::max(I[0], std::max(I[1], I[2])) - 1 >= temp_ ## VEC.size()) { \
         printf("Vertex index out of bounds exception\n"); \
-        printLoadError(file.c_str()); \
+        printLoadError(file); \
         return; \
     } \
     VEC.push_back(temp_ ## VEC [I[0] - 1]); \
@@ -42,15 +42,15 @@ static void printLoadError(const char *file) {
     VEC.push_back(temp_ ## VEC [I[2] - 1]); \
 
 
-void Object3D::loadOBJ(const std::string &file, bool smooth) {
-    FILE *fp = fopen(file.c_str(), "r");
+void Object3D::loadOBJ(const char* file, bool smooth) {
+    FILE *fp = fopen(file, "r");
     if(fp == NULL) {
         #ifdef _WIN32
-        printf("error: File '%s' could not be opened\n", file.c_str());
+        printf("error: File '%s' could not be opened\n", file);
         #else
         printf("\033[0;1;31merror: \033[0m"
                "File \033[1m'%s'\033[0m "
-               "could not be opened\n", file.c_str());
+               "could not be opened\n", file);
         #endif
         return;
     }
@@ -126,7 +126,7 @@ void Object3D::loadOBJ(const std::string &file, bool smooth) {
                     &normalIndices[2]
                 );
                 if(matches != 9) {
-                    printLoadError(file.c_str());
+                    printLoadError(file);
                     return;
                 }
                 SAFE_PUSH(vertices, vertexIndices);
@@ -149,7 +149,7 @@ void Object3D::loadOBJ(const std::string &file, bool smooth) {
                     &normalIndices[2]
                 );
                 if(matches != 6) {
-                    printLoadError(file.c_str());
+                    printLoadError(file);
                     return;
                 }
                 SAFE_PUSH(vertices, vertexIndices);
@@ -171,7 +171,7 @@ void Object3D::loadOBJ(const std::string &file, bool smooth) {
                     &texCoordIndices[2]
                 );
                 if(matches != 6) {
-                    printLoadError(file.c_str());
+                    printLoadError(file);
                     return;
                 }
                 SAFE_PUSH(vertices, vertexIndices);
@@ -188,14 +188,14 @@ void Object3D::loadOBJ(const std::string &file, bool smooth) {
                     &vertexIndices[2]
                 );
                 if(matches != 3) {
-                    printLoadError(file.c_str());
+                    printLoadError(file);
                     return;
                 }
                 SAFE_PUSH(vertices, vertexIndices);
             }
             
             else {
-                printLoadError(file.c_str());
+                printLoadError(file);
                 return;
             }
         }

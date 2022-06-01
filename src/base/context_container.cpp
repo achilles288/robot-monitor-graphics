@@ -65,11 +65,7 @@ bool Context::isDestroyed() const { return destroyed; }
  * @param obj 2D/3D object
  */
 void Context::addObject(Object* obj) {
-    RMG_EXPECT(obj->getContext() == this);
-    #ifndef NDEBUG
-    if(obj->getContext() != this)
-        return;
-    #endif
+    RMG_ASSERT(obj->getContext() == this);
     
     ObjectType type = obj->getObjectType();
     
@@ -103,21 +99,19 @@ void Context::addObject(Object* obj) {
  */
 void Context::addMaterial(Material* mat) {
     RMG_ASSERT(mat->getContext() == this);
-    auto elem = std::pair<uint32_t,Material*>(mat->getID(),mat);
-    materials.insert(elem);
-    loader.push(mat->textureLoad);
+    materials.push_front(mat);
+    loader.push(mat->getTextureLoad());
 }
 
 /**
  * @brief Appends a font to the font list for matt drawing
  * 
- * @param font Font
+ * @param ft Font
  */
-void Context::addFont(Font* font) {
-    RMG_ASSERT(font->getContext() == this);
-    auto elem = std::pair<uint32_t,Font*>(font->getID(),font);
-    fonts.insert(elem);
-    loader.push(font->getTextureLoad());
+void Context::addFont(Font* ft) {
+    RMG_ASSERT(ft->getContext() == this);
+    fonts.push_front(ft);
+    loader.push(ft->getTextureLoad());
 }
 
 /**
@@ -148,11 +142,7 @@ void Context::removeObject(Object* obj) {
  * 
  * @param mat Material
  */
-void Context::removeMaterial(Material* mat) {
-    auto it = materials.find(mat->getID());
-    if(it != materials.end())
-        materials.erase(it);
-}
+void Context::removeMaterial(Material* mat) { materials.remove(mat); }
 
 /**
  * @brief Removes the font from the list cleaning the GPU resources
@@ -160,13 +150,9 @@ void Context::removeMaterial(Material* mat) {
  * The remove function also deletes the dynamically allocated memory for
  * the instance.
  * 
- * @param font Font
+ * @param ft Font
  */
-void Context::removeFont(Font* font) { 
-    auto it = fonts.find(font->getID());
-    if(it != fonts.end())
-        fonts.erase(it);
-}
+void Context::removeFont(Font* ft) { fonts.remove(ft); }
 
 /**
  * @brief Gets the number of objects in the object list
@@ -202,12 +188,8 @@ void Context::cleanup() {
     object3d_list.cleanup();
     particle3d_list.cleanup();
     line3d_list.cleanup();
-    for(auto it=materials.begin(); it!=materials.end(); it++)
-        delete it->second;
-    for(auto it=fonts.begin(); it!=fonts.end(); it++)
-        delete it->second;
-    materials.clear();
-    fonts.clear();
+    materials.cleanup();
+    fonts.cleanup();
 }
 
 /**

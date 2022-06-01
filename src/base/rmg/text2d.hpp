@@ -30,6 +30,7 @@
 
 #include "font.hpp"
 #include "object2d.hpp"
+#include "util/string.hpp"
 
 
 namespace rmg {
@@ -43,7 +44,7 @@ namespace rmg {
 class RMG_API Text2D: public Object2D {
   private:
     Font* font = nullptr;
-    char text[64];
+    String text;
     HorizontalAlign textAlign = HorizontalAlign::Center;
     
   public:
@@ -52,7 +53,7 @@ class RMG_API Text2D: public Object2D {
      * 
      * @param ctx Container context
      */
-    Text2D();
+    Text2D() = default;
     
     /**
      * @brief Constructor with loaded font

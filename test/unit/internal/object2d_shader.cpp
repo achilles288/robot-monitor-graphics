@@ -125,7 +125,7 @@ TEST_F(Object2DShader, runtime) {
     loader.push(sprite2->getTextureLoad());
     loader.push(ft->getTextureLoad());
     loader.load();
-    ObjectList list;
+    LinkedList<Object> list;
     list.push_front(sprite1);
     list.push_front(sprite2);
     list.push_front(text);
