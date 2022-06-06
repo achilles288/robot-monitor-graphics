@@ -62,7 +62,7 @@ void GeneralShader::load() {
  */
 void GeneralShader::render(const Mat4 &V, const Mat4 &P, const Mat4 &S,
                            const Vec3 &dlCam, const Color &dlColor,
-                           uint32_t shadow, const LinkedList<Object> &list)
+                           uint32_t shadow, const ObjectList &list)
 {
     if(id == 0)
         return;

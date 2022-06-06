@@ -114,7 +114,7 @@ void Text2DShader::load() {
     idMVP = glGetUniformLocation(id, "MVP");
     idColor = glGetUniformLocation(id, "color");
     idTexture = glGetUniformLocation(id, "font");
-    idChar = glGetUniformLocation(id, "char");
+    idChar = glGetUniformLocation(id, "charCoord");
     idSize = glGetUniformLocation(id, "size");
     
     const float vertices[] = {
@@ -242,7 +242,7 @@ void Object2DShader::setContextSize(uint16_t w, uint16_t h) {
  * 
  * @param list List of 2D objects
  */
-void Object2DShader::render(const LinkedList<Object> &list) {
+void Object2DShader::render(const ObjectList &list) {
     glDisable(GL_DEPTH_TEST);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);

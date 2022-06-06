@@ -39,7 +39,7 @@ static bool glfwInitDone = false;
 
 namespace rmg {
 
-std::vector<Window*> Window::windowList;
+ContextList Window::windowList;
 
 /**
  * @brief Default constructor
@@ -80,7 +80,7 @@ Window::Window() {
     glfwSetKeyCallback(glfw_window, window_key_callback);
     
     glfwSetWindowUserPointer(glfw_window, (void*)this);
-    windowList.push_back(this);
+    windowList.push_front(this);
     
     setWindowIcon(RMG_RESOURCE_PATH "/icon64.png");
 }
@@ -100,11 +100,7 @@ void Window::destroy() {
     glfwMakeContextCurrent(NULL);
     glfwDestroyWindow(glfw_window);
     glfw_window = NULL;
-    windowList.erase(std::find(
-        windowList.begin(),
-        windowList.end(),
-        this
-    ));
+    windowList.remove(this);
 }
 
 /**
@@ -197,7 +193,7 @@ void Window::mainLoop() {
     while(windowList.size() > 0) {
         double t1 = glfwGetTime();
         for(auto it=windowList.begin(); it!=windowList.end(); it++) {
-            Window* window = *it;
+            Window* window = (Window*) &(*it);
             if(glfwWindowShouldClose(window->glfw_window)) {
                 window->destroy();
                 break;
@@ -217,11 +213,12 @@ void Window::mainLoop() {
                 catch(std::runtime_error& e) {
                     if(window->getErrorCode() == 0)
                         window->setErrorCode(1);
-                    printf("%s\n", e.what());
+                    printf(e.what());
                     window->destroy();
                     break;
                 }
                 catch(UserExitException& e2) {
+                    printf(e2.what());
                     break;
                 }
             }

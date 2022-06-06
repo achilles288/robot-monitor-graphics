@@ -73,7 +73,7 @@ void ParticleShader::load() {
  * @param list List of particles
  */
 void ParticleShader::render(const Mat4 &V, const Mat4 &P,
-                            const LinkedList<Object> &list)
+                            const ObjectList &list)
 {
     if(id == 0)
         return;

@@ -32,6 +32,7 @@
 #include <cstdint>
 
 #include "color.hpp"
+#include "util/linked_list.hpp"
 
 
 namespace rmg {
@@ -202,6 +203,48 @@ class RMG_API Object {
      * @return True if the object is hidden
      */
     bool isHidden() const;
+};
+
+
+/**
+ * @brief A list of objects stored in a forward-linked list
+ */
+class RMG_API ObjectList: public LinkedList<Object> {
+    class RMG_API iterator {
+      private:
+        LinkedList<Object>::Node* next = nullptr;
+        Object* data = nullptr;
+      
+      public:
+        iterator(LinkedList<Object>::Node* n, Object* d);
+        
+        Object& operator * ();
+        
+        Object* operator -> ();
+        
+        iterator& operator ++ ();
+        
+        iterator operator ++ (int);
+        
+        bool operator == (const iterator& it);
+        
+        bool operator != (const iterator& it);
+    };
+
+  public:
+    /**
+     * @brief Gets the start of the list
+     * 
+     * @return An iterator as in C++ STL containers
+     */
+    iterator begin() const;
+
+    /**
+     * @brief Gets the end of the list
+     * 
+     * @return An iterator as in C++ STL containers
+     */
+    iterator end() const;
 };
 
 }

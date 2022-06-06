@@ -32,7 +32,6 @@ add_library(rmgbase SHARED
     math/ostream.cpp
     math/vec3.cpp
     math/vec4.cpp
-    util/linked_list.cpp
     util/string.cpp
     internal/context_load.cpp
     internal/general_shader.cpp

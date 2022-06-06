@@ -28,7 +28,6 @@
 #include "shader.hpp"
 #include "../object.hpp"
 #include "../math/mat4.hpp"
-#include "../util/linked_list.hpp"
 
 namespace rmg {
 namespace internal {
@@ -67,7 +66,7 @@ class RMG_API Line3DShader: public Shader {
      * @param VP The composition of view and projection matrix
      * @param list List of 3D objects
      */
-    void render(const Mat4 &VP, const LinkedList<Object> &list);
+    void render(const Mat4 &VP, const ObjectList &list);
 };
 
 }}

@@ -30,6 +30,10 @@ namespace rmg {
 
 RMG_API MouseEvent mouseEvent;
 
+
+const char* Context::UserExitException::what() const noexcept { return ""; }
+
+
 /**
  * @brief Draws graphics from lists of objects pushed
  * 
@@ -44,10 +48,10 @@ void Context::render() {
             setErrorCode(503);
             #ifdef _WIN32
             throw std::runtime_error("error: Failed to initialize GL "
-                                     "extensions");
+                                     "extensions\n");
             #else
             throw std::runtime_error("\033[0;1;31merror: \033[0m"
-                                     "Failed to initialize GL extensions");
+                                     "Failed to initialize GL extensions\n");
             #endif
         }
         int major, minor;
@@ -59,14 +63,14 @@ void Context::render() {
             printf("OpenGL Version: %s\n", glGetString(GL_VERSION));
             throw std::runtime_error("error: Requires OpenGL 3.2. "
                                      "Please check if you have the latest "
-                                     "GPU driver.");
+                                     "GPU driver.\n");
             #else
             printf("\033[0;1mOpenGL Version: %s\033[0m\n",
                    glGetString(GL_VERSION));
             throw std::runtime_error("\033[0;1;31merror: \033[0m"
                                      "Requires \033[1mOpenGL 3.2\033[0m. "
                                      "Please check if you have the latest "
-                                     "GPU driver.");
+                                     "GPU driver.\n");
             #endif
         }
         generalShader.load();

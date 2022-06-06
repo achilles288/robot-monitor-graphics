@@ -23,6 +23,8 @@
 
 namespace rmg {
 
+// Class: Font
+
 uint32_t Font::lastID = 0;
 
 /**
@@ -141,5 +143,68 @@ const internal::SpriteTexture *Font::getTexture() const { return &texture; }
  * @return Texture loader
  */
 const internal::Pending& Font::getTextureLoad() const { return texLoad; }
+
+
+
+
+// Class: FontList
+
+FontList::iterator::iterator(LinkedList<Font>::Node* n, Font* d) {
+    next = n;
+    data = d;
+}
+
+Font& FontList::iterator::operator * () { return *data; }
+
+Font* FontList::iterator::operator -> () { return data; }
+
+FontList::iterator& FontList::iterator::operator ++ () {
+    if(next != nullptr) {
+        data = next->data;
+        next = next->next;
+    }
+    else {
+        data = nullptr;
+    }
+    return *this;
+}
+
+FontList::iterator FontList::iterator::operator ++ (int) {
+    iterator tmp = iterator(next, data);
+    if(next != nullptr) {
+        data = next->data;
+        next = next->next;
+    }
+    else {
+        data = nullptr;
+    }
+    return tmp;
+}
+
+bool FontList::iterator::operator == (const iterator& it) {
+    return next == it.next && data == it.data;
+}
+
+bool FontList::iterator::operator != (const iterator& it) {
+    return next != it.next || data != it.data;
+}
+
+/**
+ * @brief Gets the start of the list
+ * 
+ * @return An iterator as in C++ STL containers
+ */
+FontList::iterator FontList::begin() const {
+    return iterator(next, data);
+}
+
+/**
+ * @brief Gets the end of the list
+ * 
+ * @return An iterator as in C++ STL containers
+ */
+FontList::iterator FontList::end() const {
+    return iterator(nullptr, nullptr);
+}
 
 }

@@ -93,7 +93,7 @@ TEST_F(GeneralShader, runtime) {
     loader.push(obj2->getVBOLoad());
     loader.push(obj3->getVBOLoad());
     loader.load();
-    LinkedList<Object> list;
+    ObjectList list;
     list.push_front(obj1);
     list.push_front(obj2);
     list.push_front(obj3);

@@ -185,10 +185,12 @@ void wxCanvas::onWxPaint(wxPaintEvent& event) {
         catch(std::runtime_error& e) {
             if(getErrorCode() == 0)
                 setErrorCode(1);
-            printf("%s\n", e.what());
+            printf(e.what());
             destroy();
         }
-        catch(UserExitException& e2) {}
+        catch(UserExitException& e2) {
+            printf(e2.what());
+        }
     }
 }
 

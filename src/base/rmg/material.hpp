@@ -29,6 +29,7 @@
 
 #include "bitmap.hpp"
 #include "internal/texture_load.hpp"
+#include "util/linked_list.hpp"
 
 
 namespace rmg {
@@ -158,6 +159,48 @@ class RMG_API Material: public internal::Texture {
      * @return Texture loader
      */
     const internal::Pending& getTextureLoad() const;
+};
+
+
+/**
+ * @brief A list of materials stored in a forward-linked list
+ */
+class RMG_API MaterialList: public LinkedList<Material> {
+    class RMG_API iterator {
+      private:
+        LinkedList<Material>::Node* next = nullptr;
+        Material* data = nullptr;
+      
+      public:
+        iterator(LinkedList<Material>::Node* n, Material* d);
+        
+        Material& operator * ();
+        
+        Material* operator -> ();
+        
+        iterator& operator ++ ();
+        
+        iterator operator ++ (int);
+        
+        bool operator == (const iterator& it);
+        
+        bool operator != (const iterator& it);
+    };
+
+  public:
+    /**
+     * @brief Gets the start of the list
+     * 
+     * @return An iterator as in C++ STL containers
+     */
+    iterator begin() const;
+
+    /**
+     * @brief Gets the end of the list
+     * 
+     * @return An iterator as in C++ STL containers
+     */
+    iterator end() const;
 };
 
 }

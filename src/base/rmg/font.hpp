@@ -28,6 +28,7 @@
 #include "internal/context_load.hpp"
 #include "internal/sprite_load.hpp"
 #include "math/vec2.hpp"
+#include "util/linked_list.hpp"
 
 
 namespace rmg {
@@ -158,6 +159,48 @@ class RMG_API Font {
  * @brief Indication of the use of default font
  */
 #define RMG_DEFAULT_FONT nullptr
+
+
+/**
+ * @brief A list of fonts stored in a forward-linked list
+ */
+class RMG_API FontList: public LinkedList<Font> {
+    class RMG_API iterator {
+      private:
+        LinkedList<Font>::Node* next = nullptr;
+        Font* data = nullptr;
+      
+      public:
+        iterator(LinkedList<Font>::Node* n, Font* d);
+        
+        Font& operator * ();
+        
+        Font* operator -> ();
+        
+        iterator& operator ++ ();
+        
+        iterator operator ++ (int);
+        
+        bool operator == (const iterator& it);
+        
+        bool operator != (const iterator& it);
+    };
+
+  public:
+    /**
+     * @brief Gets the start of the list
+     * 
+     * @return An iterator as in C++ STL containers
+     */
+    iterator begin() const;
+
+    /**
+     * @brief Gets the end of the list
+     * 
+     * @return An iterator as in C++ STL containers
+     */
+    iterator end() const;
+};
 
 }
 

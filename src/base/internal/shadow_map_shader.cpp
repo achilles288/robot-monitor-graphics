@@ -223,7 +223,7 @@ void ShadowMapShader::load() {
  * 
  * @return Shadow map
  */
-uint32_t ShadowMapShader::createShadowMap(const LinkedList<Object> &list) {
+uint32_t ShadowMapShader::createShadowMap(const ObjectList &list) {
     if(id == 0)
         return 0;
     glBindFramebuffer(GL_FRAMEBUFFER, depthMapFBO);

@@ -43,7 +43,7 @@ namespace rmg {
 class RMG_WINDOW_API Window: public Context {
   private:
     GLFWwindow *glfw_window;
-    static std::vector<Window*> windowList;
+    static ContextList windowList;
     
   protected:
     /**

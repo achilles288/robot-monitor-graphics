@@ -29,7 +29,6 @@
 #include "../camera.hpp"
 #include "../object.hpp"
 #include "../math/vec.hpp"
-#include "../util/linked_list.hpp"
 
 namespace rmg {
 
@@ -175,7 +174,7 @@ class RMG_API ShadowMapShader: public Shader {
      * 
      * @return Shadow map
      */
-    uint32_t createShadowMap(const LinkedList<Object> &list);
+    uint32_t createShadowMap(const ObjectList &list);
 };
 
 }}

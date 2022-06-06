@@ -73,7 +73,7 @@ class TestWindow2: public Window {
         float t = getTime();
         drawTriangle(1.778f, t*-180);
         if(t > 0.1f) {
-            throw std::runtime_error("Handled an exception");
+            throw std::runtime_error("Handled an exception\n");
         }
     }
 };

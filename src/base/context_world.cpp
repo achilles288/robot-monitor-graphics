@@ -16,46 +16,8 @@
 
 #include "rmg/context.hpp"
 
-#include "rmg/color.hpp"
-#include "rmg/math/line_equation.hpp"
-
 
 namespace rmg {
-
-uint32_t Context::lastContextID = 0;
-std::vector<Context*> Context::contextList;
-
-/**
- * @brief Default constructor
- */
-Context::Context() {
-    id = ++lastContextID;
-    contextList.push_back(this);
-    width = 0;
-    height = 0;
-    bgColor = Color(0, 0, 0, 1);
-    dlWorldSpace = Vec3(1.0f, 0.0f, 0.0f);
-    dlCameraSpace = Vec3(0.0f, 0.0f, -1.0f);
-    dlColor = Color(1, 1, 1, 1);
-    destroyed = false;
-    initDone = false;
-    fps = 0;
-    errorCode = 0;
-}
-
-/**
- * @brief Destructor
- */
-Context::~Context() {
-    destroy();
-}
-
-/**
- * @brief Gets the ID of the context
- * 
- * @return Context ID
- */
-uint32_t Context::getID() const { return id; }
 
 /**
  * @brief Sets OpenGL viewport size
@@ -434,19 +396,6 @@ LineEq Context::screenToWorld(uint16_t x, uint16_t y) const {
  */
 LineEq Context::screenToWorld(const Rect &p) const {
     return LineEq();
-}
-
-/**
- * @brief Searches context model by ID
- * 
- * @return OpenGL context
- */
-Context* Context::getContextByID(uint32_t id) {
-    for(auto it=contextList.begin(); it!=contextList.end(); it++) {
-        if((*it)->id == id)
-            return *it;
-    }
-    return NULL;
 }
 
 }

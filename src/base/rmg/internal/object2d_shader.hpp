@@ -28,7 +28,6 @@
 #include "shader.hpp"
 #include "../sprite.hpp"
 #include "../text2d.hpp"
-#include "../util/linked_list.hpp"
 
 
 namespace rmg {
@@ -145,7 +144,7 @@ class RMG_API Object2DShader {
      * 
      * @param list List of 2D objects
      */
-    void render(const LinkedList<Object> &list);
+    void render(const ObjectList &list);
 };
 
 }}

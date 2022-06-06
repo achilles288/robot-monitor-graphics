@@ -34,29 +34,62 @@
 
 #include "camera.hpp"
 #include "color.hpp"
+#include "font.hpp"
 #include "keyboard.hpp"
+#include "material.hpp"
 #include "mouse.hpp"
-#include "util/linked_list.hpp"
+#include "object.hpp"
 #include "internal/general_shader.hpp"
 #include "internal/line3d_shader.hpp"
 #include "internal/particle_shader.hpp"
 #include "internal/shadow_map_shader.hpp"
 #include "internal/object2d_shader.hpp"
 #include "internal/context_load.hpp"
+#include "math/line_equation.hpp"
 
 
 namespace rmg {
 
-struct LineEq;
+/**
+ * @brief A list of contexts stored in a forward-linked list
+ */
+class RMG_API ContextList: public LinkedList<Context> {
+    class RMG_API iterator {
+      private:
+        LinkedList<Context>::Node* next = nullptr;
+        Context* data = nullptr;
+      
+      public:
+        iterator(LinkedList<Context>::Node* n, Context* d);
+        
+        Context& operator * ();
+        
+        Context* operator -> ();
+        
+        iterator& operator ++ ();
+        
+        iterator operator ++ (int);
+        
+        bool operator == (const iterator& it);
+        
+        bool operator != (const iterator& it);
+    };
 
-class Object;
-class Object3D;
-class Particle3D;
-class Line3D;
-class Sprite2D;
-class Text2D;
-class Material;
-class Font;
+  public:
+    /**
+     * @brief Gets the start of the list
+     * 
+     * @return An iterator as in C++ STL containers
+     */
+    iterator begin() const;
+
+    /**
+     * @brief Gets the end of the list
+     * 
+     * @return An iterator as in C++ STL containers
+     */
+    iterator end() const;
+};
 
 
 /**
@@ -84,13 +117,13 @@ class RMG_API Context {
     Vec3 dlWorldSpace;
     Vec3 dlCameraSpace;
     Color dlColor;
-    LinkedList<Object> object3d_list;
-    LinkedList<Object> object2d_list;
-    LinkedList<Object> particle3d_list;
-    LinkedList<Object> line3d_list;
-    LinkedList<Object> text2d_list;
-    LinkedList<Material> materials;
-    LinkedList<Font> fonts;
+    ObjectList object3d_list;
+    ObjectList object2d_list;
+    ObjectList particle3d_list;
+    ObjectList line3d_list;
+    ObjectList text2d_list;
+    MaterialList materials;
+    FontList fonts;
     
     internal::GeneralShader generalShader;
     internal::ShadowMapShader shadowMapShader;
@@ -106,7 +139,7 @@ class RMG_API Context {
     int errorCode;
     
     static uint32_t lastContextID;
-    static std::vector<Context*> contextList;
+    static ContextList contextList;
     
   protected:
     /**
@@ -119,7 +152,10 @@ class RMG_API Context {
     /**
      * @brief Exception thrown at user exit
      */
-    struct UserExitException: public std::exception {};
+    class UserExitException: public std::exception {
+      public:
+        const char* what() const noexcept override;
+    };
     
   public:
     /**

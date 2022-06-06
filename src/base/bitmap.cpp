@@ -16,6 +16,7 @@
 
 #include "rmg/bitmap.hpp"
 
+#include <cstdio>
 #include <cstdlib>
 #include <cstring>
 #include <utility>

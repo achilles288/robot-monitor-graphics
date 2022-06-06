@@ -19,16 +19,63 @@
 #include <algorithm>
 
 #include "rmg/assert.hpp"
-#include "rmg/font.hpp"
 #include "rmg/line3d.hpp"
-#include "rmg/material.hpp"
-#include "rmg/object.hpp"
 #include "rmg/object2d.hpp"
 #include "rmg/object3d.hpp"
 #include "rmg/particle.hpp"
 
 
 namespace rmg {
+
+// Class: Context
+
+uint32_t Context::lastContextID = 0;
+ContextList Context::contextList;
+
+/**
+ * @brief Default constructor
+ */
+Context::Context() {
+    id = ++lastContextID;
+    contextList.push_front(this);
+    width = 0;
+    height = 0;
+    bgColor = Color(0, 0, 0, 1);
+    dlWorldSpace = Vec3(1.0f, 0.0f, 0.0f);
+    dlCameraSpace = Vec3(0.0f, 0.0f, -1.0f);
+    dlColor = Color(1, 1, 1, 1);
+    destroyed = false;
+    initDone = false;
+    fps = 0;
+    errorCode = 0;
+}
+
+/**
+ * @brief Destructor
+ */
+Context::~Context() {
+    destroy();
+}
+
+/**
+ * @brief Gets the ID of the context
+ * 
+ * @return Context ID
+ */
+uint32_t Context::getID() const { return id; }
+
+/**
+ * @brief Searches context model by ID
+ * 
+ * @return OpenGL context
+ */
+Context* Context::getContextByID(uint32_t id) {
+    for(auto it=contextList.begin(); it!=contextList.end(); it++) {
+        if(it->id == id)
+            return &(*it);
+    }
+    return nullptr;
+}
 
 /**
  * @brief Cleans up GPU resources
@@ -44,11 +91,7 @@ void Context::destroy() {
     particleShader = internal::ParticleShader();
     line3dShader = internal::Line3DShader();
     
-    contextList.erase(std::find(
-        contextList.begin(),
-        contextList.end(),
-        this
-    ));
+    contextList.remove(this);
     destroyed = true;
 }
 
@@ -196,8 +239,72 @@ void Context::cleanup() {
  * @brief Destroys every RMG context cleaning all GPU resources allocated
  */
 void Context::destroyAll() {
-    while(contextList.size() != 0)
-        contextList[0]->destroy();
+    for(auto it=contextList.begin(); it!=contextList.end(); it++) {
+        it->destroy();
+    }
+}
+
+
+
+
+// Class: ContextContainer
+
+ContextList::iterator::iterator(LinkedList<Context>::Node* n, Context* d) {
+    next = n;
+    data = d;
+}
+
+Context& ContextList::iterator::operator * () { return *data; }
+
+Context* ContextList::iterator::operator -> () { return data; }
+
+ContextList::iterator& ContextList::iterator::operator ++ () {
+    if(next != nullptr) {
+        data = next->data;
+        next = next->next;
+    }
+    else {
+        data = nullptr;
+    }
+    return *this;
+}
+
+ContextList::iterator ContextList::iterator::operator ++ (int) {
+    iterator tmp = iterator(next, data);
+    if(next != nullptr) {
+        data = next->data;
+        next = next->next;
+    }
+    else {
+        data = nullptr;
+    }
+    return tmp;
+}
+
+bool ContextList::iterator::operator == (const iterator& it) {
+    return next == it.next && data == it.data;
+}
+
+bool ContextList::iterator::operator != (const iterator& it) {
+    return next != it.next || data != it.data;
+}
+
+/**
+ * @brief Gets the start of the list
+ * 
+ * @return An iterator as in C++ STL containers
+ */
+ContextList::iterator ContextList::begin() const {
+    return iterator(next, data);
+}
+
+/**
+ * @brief Gets the end of the list
+ * 
+ * @return An iterator as in C++ STL containers
+ */
+ContextList::iterator ContextList::end() const {
+    return iterator(nullptr, nullptr);
 }
 
 }

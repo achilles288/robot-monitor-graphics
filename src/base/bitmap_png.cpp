@@ -157,7 +157,7 @@ void Bitmap::savePNG(const char* file) const {
     FILE *fp = fopen(file, "wb");
     if(!fp) {
         #ifdef _WIN32
-        printf("error: Image could not be saved at '%s'\n", file.c_str());
+        printf("error: Image could not be saved at '%s'\n", file);
         #else
         printf("\033[0;1;31merror: \033[0m"
                "Image could not be saved at \033[1m'%s'\033[0m\n",

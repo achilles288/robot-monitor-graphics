@@ -25,6 +25,8 @@
 
 namespace rmg {
 
+// Class: Object
+
 uint64_t Object::lastID = 0;
 
 /**
@@ -187,5 +189,68 @@ void Object::setHidden(bool hide) { hidden = hide; }
  * @return True if the object is hidden
  */
 bool Object::isHidden() const { return hidden; }
+
+
+
+
+// Class: ObjectList
+
+ObjectList::iterator::iterator(LinkedList<Object>::Node* n, Object* d) {
+    next = n;
+    data = d;
+}
+
+Object& ObjectList::iterator::operator * () { return *data; }
+
+Object* ObjectList::iterator::operator -> () { return data; }
+
+ObjectList::iterator& ObjectList::iterator::operator ++ () {
+    if(next != nullptr) {
+        data = next->data;
+        next = next->next;
+    }
+    else {
+        data = nullptr;
+    }
+    return *this;
+}
+
+ObjectList::iterator ObjectList::iterator::operator ++ (int) {
+    iterator tmp = iterator(next, data);
+    if(next != nullptr) {
+        data = next->data;
+        next = next->next;
+    }
+    else {
+        data = nullptr;
+    }
+    return tmp;
+}
+
+bool ObjectList::iterator::operator == (const iterator& it) {
+    return next == it.next && data == it.data;
+}
+
+bool ObjectList::iterator::operator != (const iterator& it) {
+    return next != it.next || data != it.data;
+}
+
+/**
+ * @brief Gets the start of the list
+ * 
+ * @return An iterator as in C++ STL containers
+ */
+ObjectList::iterator ObjectList::begin() const {
+    return iterator(next, data);
+}
+
+/**
+ * @brief Gets the end of the list
+ * 
+ * @return An iterator as in C++ STL containers
+ */
+ObjectList::iterator ObjectList::end() const {
+    return iterator(nullptr, nullptr);
+}
 
 }
